@@ -104,8 +104,21 @@ export default function RealMap({
   userPos,
   fitPoints,
   legModes,
+  full = false,
+  padding,
+  fitNonce = 0,
+  onMapReady,
   onFail,
-}: MapProps & { onFail: () => void }) {
+}: MapProps & {
+  /** Fullscreen: free gestures, our own controls, focus follows the carousel. */
+  full?: boolean
+  /** Space covered by overlays (the bottom panel), kept clear when framing. */
+  padding?: { top: number; bottom: number; left: number; right: number }
+  /** Bump to re-frame everything (the "show all" button). */
+  fitNonce?: number
+  onMapReady?: (map: MLMap) => void
+  onFail: () => void
+}) {
   const box = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MLMap | null>(null)
   const markers = useRef<Marker[]>([])
@@ -123,7 +136,8 @@ export default function RealMap({
         center: toLngLat(start),
         zoom: 15,
         attributionControl: false,
-        cooperativeGestures: true,
+        // Embedded in a scrolling page: one finger scrolls the page, two move the map.
+        cooperativeGestures: !full,
         locale: MAP_TEXT[lang],
         dragRotate: false,
         pitchWithRotate: false,
@@ -133,8 +147,8 @@ export default function RealMap({
       return
     }
     map.touchZoomRotate.disableRotation()
-    map.addControl(new AttributionControl({ compact: true }), 'bottom-right')
-    map.addControl(new NavigationControl({ showCompass: false }), 'top-right')
+    map.addControl(new AttributionControl({ compact: true }), full ? 'top-right' : 'bottom-right')
+    if (!full) map.addControl(new NavigationControl({ showCompass: false }), 'top-right')
     map.on('load', () => {
       applyPalette(map)
       // Compact attribution opens itself after the first render; fold it to the small ⓘ button.
@@ -169,6 +183,7 @@ export default function RealMap({
         paint: { 'line-color': '#B8432C', 'line-width': 3.5, 'line-dasharray': [0.1, 1.8] },
       })
       setReady(true)
+      onMapReady?.(map)
     })
     map.on('error', (e) => {
       // Style or tiles unreachable before anything was drawn → fall back.
@@ -260,16 +275,30 @@ export default function RealMap({
   // Re-frame only when the set of points changes, so the traveller's own pan/zoom sticks.
   const pts = fitPoints?.length ? fitPoints : [start, ...places, ...route]
   const fitKey = pts.map((p) => `${p.lat.toFixed(5)},${p.lng.toFixed(5)}`).join('|')
+  const pad = padding ?? { top: 40, bottom: 40, left: 40, right: 40 }
+  const padKey = `${pad.top},${pad.bottom},${pad.left},${pad.right}`
   useEffect(() => {
     const map = mapRef.current
     if (!map || !ready || !pts.length) return
     const bounds = new LngLatBounds()
     pts.forEach((p) => bounds.extend(toLngLat(p)))
-    map.fitBounds(bounds, { padding: 40, maxZoom: 16.5, duration: 400 })
-  }, [ready, fitKey])
+    map.fitBounds(bounds, { padding: pad, maxZoom: 16.5, duration: 400 })
+  }, [ready, fitKey, padKey, fitNonce])
+
+  // Fullscreen: glide to the place picked in the carousel or on the map.
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !ready || !full || !focusedId) return
+    const p = [...route, ...places].find((x) => x.id === focusedId)
+    if (!p) return
+    map.easeTo({ center: toLngLat(p), zoom: Math.max(map.getZoom(), 16), padding: pad, duration: 500 })
+  }, [ready, full, focusedId])
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border-2 border-sand bg-cream" style={{ height }}>
+    <div
+      className={full ? 'relative h-full w-full bg-cream' : 'relative overflow-hidden rounded-3xl border-2 border-sand bg-cream'}
+      style={full ? undefined : { height }}
+    >
       <div ref={box} className="h-full w-full" />
     </div>
   )

@@ -18,7 +18,7 @@ export default function LocationRow() {
   return (
     <div className="flex items-center gap-2 text-[11px]">
       <MapPin className={`h-3.5 w-3.5 shrink-0 ${here ? 'text-teal' : 'text-brick'}`} />
-      <span className="font-bold">{t.startFrom}:</span>
+      <span className="shrink-0 whitespace-nowrap font-bold">{t.startFrom}:</span>
       <span className="min-w-0 truncate">{here ? t.startHere : problem ?? t.startLake}</span>
       {!geoWanted && (
         <button

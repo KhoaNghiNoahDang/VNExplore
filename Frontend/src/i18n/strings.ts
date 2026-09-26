@@ -168,6 +168,45 @@ const en = {
   autoStamp: 'We’ll stamp it automatically when you arrive.',
   turnOnLocation: 'Turn on location to stamp automatically',
 
+
+  mapFull: 'Full-screen map',
+  mapClose: 'Close map',
+  zoomIn: 'Zoom in',
+  zoomOut: 'Zoom out',
+  fitAll: 'Show everything',
+  myLocation: 'My location',
+  panelShow: 'Show list',
+  panelHide: 'Hide list',
+  mapTitlePlaces: (n: number) => `${n} places around Hoan Kiem`,
+  mapTitleRoute: (n: number) => `Your route · ${n} stops`,
+
+
+  send: 'Send',
+  stopVoice: 'Stop recording',
+  listeningHint: 'Listening… tap ■ to stop',
+  micError: {
+    blocked: 'Microphone is blocked — allow it in the browser’s site settings, or type instead.',
+    'no-speech': 'Didn’t catch that — tap the mic and try again.',
+    failed: 'Voice input isn’t working right now — please type instead.',
+  },
+  pickModeHint: 'Pick one way to go to continue',
+
+
+  statPlaces: 'Places',
+  statTime: 'Time',
+  freeShort: 'Free',
+  ofHours: (h: string) => `of your ${h}`,
+  overShort: (h: string) => `over your ${h}`,
+  peakShort: 'Rush hour',
+  walkingStreetShort: 'Walking street',
+
+
+  yourPlan: 'Your plan',
+  pickOneHint: 'Tap + on a place to add it to your plan.',
+
+
+  fareLabel: 'Fares & parking',
+
   principles: ['Fits your moment', 'Stories with context', 'Know the cost up front'],
   badge: 'MOBILE-FIRST · NO APP · NO ACCOUNT',
   loading: 'Loading places…',
@@ -342,6 +381,45 @@ const vi: Strings = {
   distanceLeft: (d: string) => `Bạn còn cách ${d}`,
   autoStamp: 'Tới nơi là tự đóng dấu.',
   turnOnLocation: 'Bật định vị để tự đóng dấu',
+
+
+  mapFull: 'Xem bản đồ toàn màn hình',
+  mapClose: 'Đóng bản đồ',
+  zoomIn: 'Phóng to',
+  zoomOut: 'Thu nhỏ',
+  fitAll: 'Xem toàn bộ',
+  myLocation: 'Vị trí của tôi',
+  panelShow: 'Hiện danh sách',
+  panelHide: 'Thu gọn',
+  mapTitlePlaces: (n: number) => `${n} địa điểm quanh Hoàn Kiếm`,
+  mapTitleRoute: (n: number) => `Lộ trình · ${n} điểm`,
+
+
+  send: 'Gửi',
+  stopVoice: 'Dừng ghi âm',
+  listeningHint: 'Đang nghe… bấm ■ để dừng',
+  micError: {
+    blocked: 'Micro đang bị chặn — hãy cho phép trong cài đặt trang của trình duyệt, hoặc gõ chữ.',
+    'no-speech': 'Chưa nghe rõ — bấm mic và nói lại nhé.',
+    failed: 'Nhập bằng giọng nói đang lỗi — bạn gõ chữ giúp nhé.',
+  },
+  pickModeHint: 'Chọn một cách đi để tiếp tục',
+
+
+  statPlaces: 'Địa điểm',
+  statTime: 'Thời gian',
+  freeShort: 'Miễn phí',
+  ofHours: (h: string) => `trong ${h} của bạn`,
+  overShort: (h: string) => `quá ${h} của bạn`,
+  peakShort: 'Giờ cao điểm',
+  walkingStreetShort: 'Phố đi bộ',
+
+
+  yourPlan: 'Kế hoạch của bạn',
+  pickOneHint: 'Bấm + ở một địa điểm để thêm vào kế hoạch.',
+
+
+  fareLabel: 'Cước & gửi xe',
 
   principles: ['Vừa với thời gian của bạn', 'Câu chuyện có ngữ cảnh', 'Biết trước chi phí'],
   badge: 'CHO ĐIỆN THOẠI · KHÔNG CẦN APP · KHÔNG CẦN TÀI KHOẢN',

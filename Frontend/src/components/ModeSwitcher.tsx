@@ -25,7 +25,7 @@ export default function ModeSwitcher() {
   const choose = (m: Mode) => {
     setOpen(false)
     if (m === mode) return
-    if (m === 'explore') navigate(`/role?next=${encodeURIComponent(pathname)}`)
+    if (m === 'explore') navigate(`/role?next=${encodeURIComponent(pathname)}&back=${encodeURIComponent(pathname)}`)
     else setMode(m)
   }
 

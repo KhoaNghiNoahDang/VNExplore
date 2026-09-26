@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { START } from '../data/places'
 import { getRole } from '../data/roles'
 import { fetchPlaces } from '../lib/api'
@@ -7,6 +7,7 @@ import { distanceM } from '../lib/travel'
 import { useGeolocation, type Geo } from '../lib/useGeolocation'
 import { STRINGS } from '../i18n/strings'
 import type { Intent, Journey, Lang, LatLng, Mode, Place, Role, Transport } from '../types'
+import { QuestCtx as Ctx } from './ctx'
 
 interface Saved {
   lang: Lang
@@ -26,7 +27,7 @@ interface Saved {
   geoWanted: boolean
 }
 
-interface QuestState extends Saved {
+export interface QuestState extends Saved {
   places: Place[]
   loading: boolean
   /** Where the plan starts: the traveller's location if known, else Hoan Kiem Lake. */
@@ -77,7 +78,6 @@ function load(): Saved {
   }
 }
 
-const Ctx = createContext<QuestState | null>(null)
 
 export function QuestProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<Saved>(load)

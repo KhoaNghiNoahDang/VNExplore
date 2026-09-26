@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 import { Camera, Gift, Headphones, Play, Target, X } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
-import MapView from '../components/MapView'
+import { MapStopCard } from '../components/MapCards'
+import MapView, { type MapPanel } from '../components/MapView'
 import PrimaryButton from '../components/PrimaryButton'
 import { CostLines, LegLine, TravelBanner } from '../components/TravelBits'
 import TopBar from '../components/TopBar'
@@ -25,7 +26,7 @@ export default function QuestPage() {
   )
 
   if (!intent || !mode) return <Navigate to="/" replace />
-  if (mode === 'explore' && !role) return <Navigate to="/role?next=/quest" replace />
+  if (mode === 'explore' && !role) return <Navigate to="/role?next=/quest&back=/" replace />
 
   const explore = mode === 'explore' && role
   const RoleIcon = role ? ROLE_ICON[role.id] : null
@@ -42,6 +43,26 @@ export default function QuestPage() {
       startJourney(stopIds, start)
       navigate('/go/0')
     }
+  }
+
+  const startButton = (
+    <PrimaryButton disabled={!sum.stops.length} onClick={go} className="py-4 font-extrabold shadow-xl">
+      {sameJourney ? t.continueQuest : t.startQuest} <Play className="h-4 w-4 fill-current" />
+    </PrimaryButton>
+  )
+  const mapPanel: MapPanel = {
+    title: t.mapTitleRoute(sum.stops.length),
+    summary: (
+      <>
+        <div className="text-xs font-bold">{pills.join(' · ')}</div>
+        <CostLines costMin={sum.costMin} costMax={sum.costMax} travelCostK={sum.travelCostK} />
+      </>
+    ),
+    items: sum.stops.map((s, i) => ({
+      id: s.id,
+      render: () => <MapStopCard place={s} index={i} leg={sum.legs[i]} people={intent.people} />,
+    })),
+    action: startButton,
   }
 
   return (
@@ -91,6 +112,7 @@ export default function QuestPage() {
               height={220}
               userPos={geo.status === 'on' ? geo.position : null}
               legModes={sum.legs.map((l) => l.transport)}
+              panel={mapPanel}
             />
 
             <ol className="space-y-1">
@@ -169,9 +191,7 @@ export default function QuestPage() {
       </div>
 
       <div className="px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3">
-        <PrimaryButton disabled={!sum.stops.length} onClick={go} className="py-5 font-extrabold shadow-xl">
-          {sameJourney ? t.continueQuest : t.startQuest} <Play className="h-4 w-4 fill-current" />
-        </PrimaryButton>
+        {startButton}
       </div>
     </div>
   )

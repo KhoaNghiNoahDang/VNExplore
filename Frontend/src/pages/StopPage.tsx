@@ -19,7 +19,8 @@ import {
 } from 'lucide-react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
-import MapView from '../components/MapView'
+import { MapStopCard } from '../components/MapCards'
+import MapView, { type MapPanel } from '../components/MapView'
 import PlaceThumb from '../components/PlaceThumb'
 import PrimaryButton from '../components/PrimaryButton'
 import Stamp from '../components/Stamp'
@@ -46,7 +47,7 @@ export default function StopPage() {
   if (!journey || !intent || !mode) return <Navigate to="/" replace />
   if (!stops.length) return null // places still loading
   if (!Number.isInteger(i) || i < 0 || i >= stops.length) return <Navigate to="/go/0" replace />
-  if (mode === 'explore' && !role) return <Navigate to={`/role?next=/go/${i}`} replace />
+  if (mode === 'explore' && !role) return <Navigate to={`/role?next=/go/${i}&back=/`} replace />
 
   // `key` resets local state (skipped mission, open story…) when moving to another stop.
   return <Stop key={stops[i].id} stops={stops} index={i} />
@@ -105,6 +106,43 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
     navigate(isLast ? '/finish' : `/go/${index + 1}`)
   }
 
+  const mapPanel: MapPanel = {
+    title: `${t.stopOf(index + 1, stops.length)} · ${place.name[lang]}`,
+    summary: (
+      <div className="space-y-1">
+        <LegLine leg={leg} people={people} />
+        {crowM !== null && (
+          <div className="flex items-center gap-1.5 text-[11px] font-bold text-teal">
+            <LocateFixed className="h-3.5 w-3.5" /> {t.distanceLeft(distance(crowM))}
+          </div>
+        )}
+      </div>
+    ),
+    items: stops.map((s, k) => ({
+      id: s.id,
+      render: () => (
+        <MapStopCard place={s} index={k} people={people} done={!!journey!.arrived[s.id]} current={k === index} />
+      ),
+    })),
+    action: arrived ? (
+      <PrimaryButton onClick={next}>{isLast ? t.finishJourney : t.nextStop}</PrimaryButton>
+    ) : (
+      <div className="flex gap-2">
+        <a
+          href={googleMapsUrl(here ?? prev, [place], leg.transport)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex shrink-0 items-center justify-center gap-1.5 rounded-2xl border-2 border-ink bg-white px-4 text-xs font-bold hover:bg-ink/5"
+        >
+          <Navigation className="h-4 w-4" /> {t.directions}
+        </a>
+        <PrimaryButton onClick={onArrive}>
+          <MapPin className="h-4 w-4" /> {t.imHere}
+        </PrimaryButton>
+      </div>
+    ),
+  }
+
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <TopBar backTo="/quest" showMode />
@@ -140,6 +178,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
           height={170}
           userPos={here}
           fitPoints={legPoints}
+          panel={mapPanel}
           legModes={legModes}
         />
 

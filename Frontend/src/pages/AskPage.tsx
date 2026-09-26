@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { ArrowRight, Lightbulb, Mic } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ArrowRight, CircleAlert, Lightbulb, Mic, Square } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import IntentChips from '../components/IntentChips'
 import LocationRow from '../components/LocationRow'
@@ -15,11 +15,18 @@ import { useQuest } from '../store/QuestContext'
 export default function AskPage() {
   const { t, lang, draft, setDraft, setIntent, places, start, mode, transport: picked, setTransport, travel } = useQuest()
   const navigate = useNavigate()
-  const speech = useSpeech(lang, setDraft)
+  const speech = useSpeech(lang, draft, setDraft)
+  const [needMode, setNeedMode] = useState(false)
+  const modeBox = useRef<HTMLDivElement>(null)
+  const input = useRef<HTMLTextAreaElement>(null)
 
   const text = draft.trim()
   const preview = useMemo(() => (text ? parseIntent(text) : null), [text])
-  const ready = !!preview && !!mode
+  const ready = !!preview
+
+  useEffect(() => {
+    if (mode) setNeedMode(false)
+  }, [mode])
 
   // Naming a transport in the text replaces one picked by hand earlier.
   const textTransport = preview && !preview.transportIsDefault ? preview.transport : null
@@ -31,7 +38,17 @@ export default function AskPage() {
   const shownTransport = picked ?? preview?.transport ?? 'walk'
 
   const submit = () => {
-    if (!preview || !mode) return
+    if (speech.listening) speech.stop()
+    if (!preview) {
+      input.current?.focus()
+      return
+    }
+    if (!mode) {
+      // Don't silently block: point at the mode picker.
+      setNeedMode(true)
+      modeBox.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      return
+    }
     const ranked = rankPlaces(places, preview, start)
     setIntent(preview, preselect(ranked, preview, start, [], { transport: shownTransport, departAt: travel.departAt }))
     // Explore adds one step: choose a role (it then re-picks places that fit the role).
@@ -58,47 +75,63 @@ export default function AskPage() {
           }}
         >
           <textarea
+            ref={input}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
+              // Enter sends, Shift+Enter makes a new line (skip while an IME is composing Vietnamese).
+              if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
                 e.preventDefault()
                 submit()
               }
             }}
             placeholder={speech.listening ? t.listening : t.askPlaceholder}
             rows={4}
-            className="h-28 w-full resize-none rounded-2xl border-2 border-sand bg-white p-4 pb-16 text-sm leading-relaxed
-              placeholder:text-ink/35 focus:border-teal focus:outline-none"
+            enterKeyHint="send"
+            className={`h-28 w-full resize-none rounded-2xl border-2 bg-white p-4 pb-12 text-sm leading-relaxed
+              placeholder:text-ink/35 focus:outline-none ${speech.listening ? 'border-brick' : 'border-sand focus:border-teal'}`}
             aria-label={t.askTitle}
           />
-          <div className="absolute bottom-3 right-3 flex gap-2">
-            <button
-              type="button"
-              onClick={speech.toggle}
-              disabled={!speech.supported}
-              title={speech.supported ? t.voice : t.voiceUnsupported}
-              aria-label={speech.supported ? t.voice : t.voiceUnsupported}
-              className={`flex h-11 w-11 items-center justify-center rounded-full bg-teal text-white shadow-lg disabled:opacity-40 ${
-                speech.listening ? 'listening' : ''
-              }`}
-            >
-              <Mic className="h-5 w-5" />
-            </button>
+          <div className="absolute bottom-3 right-3 flex gap-1.5">
+            {speech.supported && (
+              <button
+                type="button"
+                onClick={speech.toggle}
+                title={speech.listening ? t.stopVoice : t.voice}
+                aria-label={speech.listening ? t.stopVoice : t.voice}
+                aria-pressed={speech.listening}
+                className={`flex h-9 w-9 items-center justify-center rounded-full text-white shadow-md transition active:scale-95 ${
+                  speech.listening ? 'listening bg-brick' : 'bg-teal hover:bg-teal/90'
+                }`}
+              >
+                {speech.listening ? <Square className="h-3.5 w-3.5 fill-current" /> : <Mic className="h-4 w-4" />}
+              </button>
+            )}
             <button
               type="submit"
               disabled={!ready}
-              aria-label={cta}
-              className="flex h-11 w-11 items-center justify-center rounded-full bg-sun text-ink shadow-lg disabled:opacity-40"
+              aria-label={t.send}
+              title={t.send}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-sun text-ink shadow-md transition hover:bg-sun-dark active:scale-95 disabled:opacity-40"
             >
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
             </button>
           </div>
         </form>
 
-        <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-bark">
-          <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sun-dark" /> {t.transportTip}
-        </p>
+        {speech.listening ? (
+          <p className="mt-2 flex items-center gap-1.5 text-[11px] font-bold text-brick" role="status">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-brick" /> {t.listeningHint}
+          </p>
+        ) : speech.error ? (
+          <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-brick" role="alert">
+            <CircleAlert className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {t.micError[speech.error]}
+          </p>
+        ) : (
+          <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-bark">
+            <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sun-dark" /> {t.transportTip}
+          </p>
+        )}
 
         <div className="-mx-6 mt-2 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none]">
           <span className="shrink-0 self-center text-[10px] font-bold uppercase tracking-widest opacity-50">{t.tryOne}</span>
@@ -118,7 +151,15 @@ export default function AskPage() {
           <TripChips transport={shownTransport} isDefault={!picked && (!preview || preview.transportIsDefault)} />
         </div>
 
-        <div className="mt-6">
+        <div
+          ref={modeBox}
+          className={`-mx-2 mt-4 rounded-3xl p-2 transition ${needMode ? 'bg-brick/5 ring-2 ring-brick/40' : ''}`}
+        >
+          {needMode && (
+            <p className="mb-2 flex items-center gap-1.5 px-1 text-[12px] font-bold text-brick" role="alert">
+              <CircleAlert className="h-4 w-4" /> {t.pickModeHint}
+            </p>
+          )}
           <ModePicker />
         </div>
       </div>

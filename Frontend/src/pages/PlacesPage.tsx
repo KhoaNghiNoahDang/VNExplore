@@ -1,15 +1,19 @@
 import { useMemo, useState } from 'react'
+import { ArrowRight, Plus } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
 import IntentChips from '../components/IntentChips'
-import MapView from '../components/MapView'
+import { MapPlaceCard } from '../components/MapCards'
+import MapView, { type MapPanel } from '../components/MapView'
 import PlaceCard from '../components/PlaceCard'
 import PrimaryButton from '../components/PrimaryButton'
 import { CostLines, TravelBanner } from '../components/TravelBits'
 import TopBar from '../components/TopBar'
+import TripSummary from '../components/TripSummary'
 import TripChips from '../components/TripChips'
 import { duration, minutes, moneyRange } from '../lib/format'
 import { rankPlaces, summarize } from '../lib/quest'
+import { estimateLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 
 export default function PlacesPage() {
@@ -27,15 +31,55 @@ export default function PlacesPage() {
   const sum = useMemo(() => summarize(start, chosen, intent?.people ?? 1, travel), [start, chosen, intent, travel])
 
   if (!intent || !mode) return <Navigate to="/" replace />
-  if (mode === 'explore' && !role) return <Navigate to="/role?next=/places" replace />
+  if (mode === 'explore' && !role) return <Navigate to="/role?next=/places&back=/" replace />
 
   const focused = ranked.find((p) => p.id === focusedId) ?? null
-  const overTime = chosen.length > 0 && sum.totalMin > intent.hours * 60 + 10
+  const at = new Date(travel.departAt ?? Date.now())
+
+  const summaryBlock = (
+    <>
+      <div className="text-xs font-bold">
+        {chosen.length ? t.summaryLine(chosen.length, duration(sum.totalMin, lang)) : t.pickOne}
+      </div>
+      {chosen.length > 0 && (
+        <div className="mt-0.5">
+          <CostLines costMin={sum.costMin} costMax={sum.costMax} travelCostK={sum.travelCostK} />
+        </div>
+      )}
+    </>
+  )
+  const buildButton = (
+    <PrimaryButton disabled={!chosen.length} onClick={() => navigate('/quest')}>
+      {t.buildQuest}
+      {chosen.length > 0 && <ArrowRight className="h-4 w-4" strokeWidth={2.5} />}
+    </PrimaryButton>
+  )
+  const mapPanel: MapPanel = {
+    title: t.mapTitlePlaces(ranked.length),
+    summary: chosen.length ? (
+      <TripSummary count={chosen.length} sum={sum} hours={intent.hours} people={intent.people} />
+    ) : (
+      summaryBlock
+    ),
+    items: ranked.map((p) => ({
+      id: p.id,
+      render: () => (
+        <MapPlaceCard
+          place={p}
+          leg={estimateLeg(start, p, travel.transport, at, intent.people)}
+          people={intent.people}
+          added={selected.includes(p.id)}
+          onToggle={() => toggle(p.id)}
+        />
+      ),
+    })),
+    action: buildButton,
+  }
   const RoleIcon = role ? ROLE_ICON[role.id] : null
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <TopBar backTo={mode === 'explore' ? '/role?next=/places' : '/'} showMode />
+      <TopBar backTo={mode === 'explore' ? '/role?next=/places&back=/' : '/'} showMode />
       <div className="px-6 pb-2">
         <h1 className="text-xl font-bold">{t.placesTitle}</h1>
         <p className="text-xs opacity-60">{t.placesCount(ranked.length)}</p>
@@ -49,7 +93,7 @@ export default function PlacesPage() {
               <div className="truncate opacity-60">{role.goal[lang].replace('{n}', String(Math.max(chosen.length, 1)))}</div>
             </div>
             <button
-              onClick={() => navigate('/role?next=/places')}
+              onClick={() => navigate('/role?next=/places&back=/places')}
               className="text-[11px] font-bold text-teal underline underline-offset-2"
             >
               {t.changeRole}
@@ -98,6 +142,7 @@ export default function PlacesPage() {
               height={320}
               userPos={geo.status === 'on' ? geo.position : null}
               startLabel={t.youAreHere}
+              panel={mapPanel}
             />
             <p className="text-center text-[11px] opacity-60">{t.mapTapHint}</p>
             {focused && (
@@ -123,31 +168,21 @@ export default function PlacesPage() {
         )}
       </div>
 
-      <div className="border-t-2 border-sand bg-butter px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4">
-        {chosen.length > 0 && (
-          <div className="mb-3">
-            <TravelBanner legs={sum.legs} />
-          </div>
+      <div className="relative z-10 rounded-t-[28px] border-t border-sand/70 bg-paper px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-10px_30px_-18px_rgba(58,42,26,0.45)]">
+        {chosen.length > 0 ? (
+          <>
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-bark/60">{t.yourPlan}</span>
+              <TravelBanner legs={sum.legs} compact />
+            </div>
+            <TripSummary count={chosen.length} sum={sum} hours={intent.hours} people={intent.people} />
+          </>
+        ) : (
+          <p className="flex items-center gap-2 rounded-2xl border border-dashed border-sand px-3 py-3 text-[12px] text-bark/80">
+            <Plus className="h-4 w-4 shrink-0" /> {t.pickOneHint}
+          </p>
         )}
-        <div className="mb-3">
-          <div className="text-xs font-bold">
-            {chosen.length ? t.summaryLine(chosen.length, duration(sum.totalMin, lang)) : t.pickOne}
-          </div>
-          {chosen.length > 0 && (
-            <>
-              <div className="text-[10px] opacity-60">
-                {t.visitTime} {duration(sum.visitMin, lang)} · {t.travelTime} {duration(sum.travelMin, lang)}
-              </div>
-              <div className="mt-1">
-                <CostLines costMin={sum.costMin} costMax={sum.costMax} travelCostK={sum.travelCostK} />
-              </div>
-            </>
-          )}
-          {overTime && <div className="mt-1 text-[10px] text-bark">{t.overTime(t.hours(intent.hours))}</div>}
-        </div>
-        <PrimaryButton disabled={!chosen.length} onClick={() => navigate('/quest')}>
-          {t.buildQuest}
-        </PrimaryButton>
+        <div className="mt-3">{buildButton}</div>
       </div>
     </div>
   )

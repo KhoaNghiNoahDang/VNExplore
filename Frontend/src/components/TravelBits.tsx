@@ -27,12 +27,29 @@ export function LegLine({ leg, people }: { leg: Leg; people: number }) {
 }
 
 /** Rush hour / walking street warnings for a set of legs. */
-export function TravelBanner({ legs }: { legs: Leg[] }) {
+export function TravelBanner({ legs, compact = false }: { legs: Leg[]; compact?: boolean }) {
   const { t } = useQuest()
   const moving = legs.filter((l) => l.requested !== 'walk')
   const peak = moving.some((l) => l.peak && l.transport !== 'walk')
   const walkingStreet = moving.some((l) => l.note === 'walkingStreet' || l.note === 'parkOutside')
   if (!peak && !walkingStreet) return null
+  if (compact) {
+    // Small pills; the full sentence is in the tooltip.
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {peak && (
+          <span title={t.peakBanner} className="inline-flex items-center gap-1 rounded-full bg-brick/10 px-2 py-0.5 text-[10px] font-bold text-brick">
+            <TrafficCone className="h-3 w-3" /> {t.peakShort}
+          </span>
+        )}
+        {walkingStreet && (
+          <span title={t.walkingStreetBanner} className="inline-flex items-center gap-1 rounded-full bg-teal/10 px-2 py-0.5 text-[10px] font-bold text-teal">
+            <Info className="h-3 w-3" /> {t.walkingStreetShort}
+          </span>
+        )}
+      </div>
+    )
+  }
   return (
     <div className="space-y-1.5">
       {peak && (

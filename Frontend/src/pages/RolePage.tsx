@@ -14,6 +14,8 @@ export default function RolePage() {
   const [params] = useSearchParams()
   const next = params.get('next') ?? '/places'
   const fresh = params.get('fresh') === '1'
+  // Where ← goes. Explicit, so Places ⇄ Role can't bounce back and forth forever.
+  const back = params.get('back') ?? (fresh ? '/' : next)
   const [picked, setPicked] = useState<string | null>(roleId)
 
   if (!intent) return <Navigate to="/" replace />
@@ -35,7 +37,7 @@ export default function RolePage() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <TopBar backTo={fresh ? '/' : next} />
+      <TopBar backTo={back} />
       <div className="px-6 pb-3">
         <h1 className="text-xl font-bold">{t.roleTitle}</h1>
         <p className="mt-1 text-xs opacity-60">{t.roleSub}</p>
