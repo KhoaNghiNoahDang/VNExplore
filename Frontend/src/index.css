@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #3a2a1a;
+  --color-bark: #6e5539;
+  --color-cream: #fff6dc;
+  --color-paper: #fffbf0;
+  --color-sand: #ebd9a8;
+  --color-butter: #fbe7a8;
+  --color-sun: #f6c744;
+  --color-sun-dark: #d9ad2f;
+  --color-teal: #2f8a84;
+  --color-brick: #b8432c;
+  --color-leaf: #3e8e5a;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 2px;
+}
+
+.thin-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-sand);
+  border-radius: 10px;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgb(47 138 132 / 0.5); }
+  100% { box-shadow: 0 0 0 14px rgb(47 138 132 / 0); }
+}
+.listening {
+  animation: pulse-ring 1.2s ease-out infinite;
+}
+
+/* ---- Real map pins (MapLibre markers) ---- */
+.vx-pin {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--color-paper);
+  border: 2.5px solid var(--color-bark);
+  box-shadow: 0 1px 3px rgb(58 42 26 / 0.3);
+}
+.vx-pin-on {
+  background: var(--color-teal);
+  border-color: #fff;
+}
+.vx-stop {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--color-teal);
+  border: 2.5px solid #fff;
+  color: #fff;
+  font: 700 11px/19px var(--font-sans);
+  text-align: center;
+  box-shadow: 0 2px 5px rgb(58 42 26 / 0.35);
+}
+.vx-pin-focus {
+  border-color: var(--color-ink);
+  transform: scale(1.25);
+  z-index: 2;
+}
+.vx-start {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--color-sun);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgb(58 42 26 / 0.4);
+}
+.vx-start-label {
+  position: absolute;
+  left: 18px;
+  top: -3px;
+  white-space: nowrap;
+  font: 700 10px var(--font-sans);
+  color: var(--color-ink);
+  background: rgb(255 251 240 / 0.9);
+  padding: 1px 6px;
+  border-radius: 9999px;
+}
+.vx-user {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #3b82f6;
+  border: 3px solid #fff;
+  animation: vx-pulse 1.6s ease-out infinite;
+}
+@keyframes vx-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(59 130 246 / 0.45); }
+  100% { box-shadow: 0 0 0 14px rgb(59 130 246 / 0); }
+}
+.maplibregl-ctrl-attrib {
+  font-size: 9px;
+}
