@@ -8,6 +8,7 @@ import MapView, { type MapPanel } from '../components/MapView'
 import PlaceCard from '../components/PlaceCard'
 import PrimaryButton from '../components/PrimaryButton'
 import { CostLines, TravelBanner } from '../components/TravelBits'
+import { TransportHintCard } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripSummary from '../components/TripSummary'
 import TripChips from '../components/TripChips'
@@ -17,15 +18,15 @@ import { estimateLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 
 export default function PlacesPage() {
-  const { t, lang, intent, places, loading, start, selected, toggle, mode, role, travel, geo } = useQuest()
+  const { t, lang, intent, places, areaPlaces, area, contextFor, loading, start, selected, toggle, mode, role, travel, geo } = useQuest()
   const navigate = useNavigate()
   const [view, setView] = useState<'list' | 'map'>('list')
   const [focusedId, setFocusedId] = useState<string | null>(null)
 
   const favIds = mode === 'explore' && role ? role.favPlaces : undefined
   const ranked = useMemo(
-    () => (intent ? rankPlaces(places, intent, start, favIds) : []),
-    [places, intent, start, favIds],
+    () => (intent ? rankPlaces(areaPlaces, intent, start, favIds, contextFor(area)) : []),
+    [areaPlaces, intent, start, favIds, contextFor, area],
   )
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
   const sum = useMemo(() => summarize(start, chosen, intent?.people ?? 1, travel), [start, chosen, intent, travel])
@@ -46,6 +47,11 @@ export default function PlacesPage() {
           <CostLines costMin={sum.costMin} costMax={sum.costMax} travelCostK={sum.travelCostK} />
         </div>
       )}
+      {chosen.length > 0 && (
+        <div className="mt-2">
+          <TransportHintCard start={start} stops={chosen} people={intent!.people} />
+        </div>
+      )}
     </>
   )
   const buildButton = (
@@ -55,7 +61,7 @@ export default function PlacesPage() {
     </PrimaryButton>
   )
   const mapPanel: MapPanel = {
-    title: t.mapTitlePlaces(ranked.length),
+    title: t.mapTitlePlaces(ranked.length, t.areaShort[area]),
     summary: chosen.length ? (
       <TripSummary count={chosen.length} sum={sum} hours={intent.hours} people={intent.people} />
     ) : (
@@ -82,7 +88,12 @@ export default function PlacesPage() {
       <TopBar backTo={mode === 'explore' ? '/role?next=/places&back=/' : '/'} showMode />
       <div className="px-6 pb-2">
         <h1 className="text-xl font-bold">{t.placesTitle}</h1>
-        <p className="text-xs opacity-60">{t.placesCount(ranked.length)}</p>
+        <p className="text-xs opacity-60">{t.placesCount(ranked.length, t.areaShort[area])}</p>
+        {intent.summary?.[lang] && (
+          <p className="mt-2 rounded-xl bg-butter/60 px-3 py-2 text-[12px] leading-snug text-bark">
+            <b>{t.understood}:</b> {intent.summary[lang]}
+          </p>
+        )}
         {mode === 'explore' && role && RoleIcon && (
           <div className="mt-3 flex items-center gap-2 rounded-xl border border-sand bg-white px-3 py-2">
             <div className={`flex h-7 w-7 items-center justify-center rounded-lg ${TONE_BG[role.tone]}`}>

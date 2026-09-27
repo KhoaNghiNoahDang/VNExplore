@@ -1,0 +1,515 @@
+porte-d-annam|restau|vietnamese|Porte D' Annam|Porte D' Annam|Mo-Su 10:00-22:00|274
+pho-10-ly-quoc-su|restau|vietnamese|Pho 10|Pho 10 ly quoc su|Mo-Su 06:00-22:00|408
+hong-hoais-restaurant|restau|vietnamese|Nhà Hàng Hồng Hoài|Hong Hoai’s Restaurant|Mo-Su 10:00-22:00|755
+rueducamp-cafe|restau|vietnamese|RueDuCamp Quán cà phê|RueDuCamp Cafe|Mo-Su 07:00-23:00|779
+quan-an-ngon|restau|vietnamese|Quán Ăn Ngon - Phan Bội Châu|Quan An Ngon|Mo-Su 06:45-22:00|959
+local-street-food|restau|vietnamese|Bún Riêu Cua Thu|Local street food|6:00-14:00|414
+vegan-pho-banh-mi|street|vietnamese|Vegan Ph|Vegan Phở & Bánh Mì|Mo-Su 07:00-14:00|932
+hanoi-coffee-station|cafe|cake, coffee_shop, san|Cà Phê Hanoi Station|Hanoi Coffee Station|Mo-Su 07:30-05:30|529
+king-bbq-buffet-20-hai-ba-trung|restau|korean, buffet, grill,|Nhà Hàng King BBQ|King BBQ Buffet 20 Hai Ba|Mo-Su 10:00-22:00|544
+giang-cafe-hanoi|cafe||Cà Phê Giảng - Cà Phê Trứng|Giang Cafe Hanoi||595
+doong-tea-coffee-express|cafe||Doong Tea & Coffee Express|Doong Tea & Coffee Expres||803
+blackbird-coffee|cafe|breakfast, coffee_shop|Cà Phê Blackbird|Blackbird Coffee|Mo-Su 07:00-21:30|826
+hoi-an-corner-cafe|cafe|coffee_shop|Cà Phê Hội An|Hoi An Corner Cafe|Mo-Su 07:00-22:30|824
+au-o|restau|vietnamese|Nhà Hàng Ầu Ơ Bếp Việt|Au O||932
+me-an-vegetarian|restau|vietnamese|Nhà Hàng Chay Me&An Vegetarian|Me&An Vegetarian||956
+tu-lun-pho-ga-bun-thang|restau||Tư Lùn - Phở Gà & Bún Thang|Tu Lun - Pho Ga Bun Thang|Mo-Su 06:00-13:30,|415
+chay-vegan|restau|vietnamese|Chay vỉa hè|Chay vegan||1042
+loading-t-cafe|cafe||Cà Phê Loading T|Loading T Cafe|Mo-Su 08:00-23:00|434
+habakuk-fine-coffee-bistro|cafe|coffee_shop|Quán Cà phê Habakuk|Habakuk Fine Coffee & Bis|Mo-Su 08:00-22:30|1097
+bun-ca-street-fish-noodle|restau|vietnamese|Bun Ca sam Cay Si|Bun Ca - Street Fish Nood||521
+banh-mi-hoi-an|street|sandwich|Banh Mi Hoi An|Banh Mi Hoi An|Mo-Su 06:30-22:30|596
+banh-bao-binh-mo|restau|vietnamese|Bánh bao Bình Mỗ|Banh Bao Binh Mo||606
+beer-of-10000-dong|street||Bia 10000d.|Beer of 10000 dong|Mo-Su 18:31-00:00|672
+pho-vui|restau||Pho Vui|Pho Vui|Mo-Su 07:00-10:00|725
+met-vietnamese-restaurant-vegetarian-food-met-8|restau|vietnamese|MẸT Vietnamese restaurant & Vegetarian F|MET Vietnamese restaurant||755
+fruit-juice-tea-cafe-snack-noodles|cafe|american, korean, brea|xưởng ăn vặt|Fruit juice, tea, cafe, s|Mo-Su 09:00-23:30|841
+chopsticks|cafe|local, vietnamese|Mira Coffee|Chopsticks|Mo-Su 12:00-00:00|888
+banh-mi-chay-vegan|restau|vietnamese|Bánh mì chay Vegan||Mo-Sa 09:30-21:00;|324
+quan-little-ha-noi|restau|vietnamese|Quán Little Hà Nội||Mo-Su 08:00-00:00|385
+cafe-tour|cafe|vietnamese, curry, noo|Cà Phê Tour|Café Tour||401
+com-pho|restau|vietnamese|Cơm Phở||Mo-Su 06:00-22:00|405
+mien-luon-chan-cam|restau|vietnamese|Miến Lươn Chân Cầm||Mo-Su 07:00-22:00|419
+banh-mi-nhe|restau|vietnamese|BANH Mi NHE||Mo-Sa 10:00-19:00|471
+tung-s-kitchen|restau|vietnamese|Tung's Kitchen||Mo-Su 10:00-22:00|453
+trang-tien-ice-cream|cafe||Kem Tràng Tiền|Tràng Tiền Ice Cream||488
+nhac-cafe|restau|vietnamese|Nhac cafe||Mo-Su 07:00-23:00|514
+cafe-81|cafe||Cà Phê 81|Cafe 81|Mo-Su 07:00-21:00|1120
+banh-mi-doner-kebab|street|german, barbecue, keba|Cửa Hàng Bánh Mì Döner Kebab|Banh Mi Döner Kebab|Mo-Su 18:00-06:00|1198
+may-de-cuisine|restau|vietnamese|May de Cuisine||Mo-Su 08:00-22:00|604
+bun-cha-dac-kim|restau|vietnamese|Bún Chẳ Đắc Kim|||582
+co-anh|restau||trà đào 42|cô anh||602
+madam-tu-hong|restau|vietnamese|Madam Tư Hồng||Mo-Su 11:00-14:00,|680
+chao-long-pho-co|restau|vietnamese|Cháo Lòng Phố Cổ||Mo-Su 11:00-14:00|814
+bun-cha-41|restau|vietnamese|Bún chả 41||Mo-Su 10:30-21:00|930
+com-viet-nam|restau||Nhà Hàng Cơm Việt Nam|Com Viet Nam||310
+ha-thanh-mansion|restau|vietnamese|Hà Thành Mansion||Mo-Su 10:00-14:00,|931
+noodle-roll|restau|vietnamese|Noodle & Roll||Mo-Su 10:00-21:00|334
+aha-icecream-and-coffee|cafe||Cà Phê Aha|AHA icecream and coffee||349
+sticky-rice-with-chicken|street||Xôi Gà|Sticky Rice with chicken||361
+pho-ga-ta-40k-and-great-crab-springrolls-20k|restau||Pho ga ta|Pho ga ta 40k and great c||400
+ce-phe-phuong-linh|cafe||Cà Phê Phương Linh|Ce Phe Phuong Linh||439
+coffee-zone|cafe||Cà Phê Zone|Coffee Zone||459
+nha-hang-chay-mihn|restau|vietnamese|Nhà Hàng Chay Mihn||Mo-Su 09:00-22:00|410
+coffee-bakery|cafe||Gau Coffee & Bakery|Coffee & Bakery||433
+visaigon|restau||Quán Ốc Vi Sài Gòn|ViSaiGon||478
+xoi-tien|restau|vietnamese|Xôi Tiến||Mo-Su 06:30-23:00|448
+chay-tam-khoi|restau|vietnamese|Chay Tâm Khởi||Mo-Fr 06:00-14:00|1078
+nhatly-restaurant|restau||Lẩu Dê Nhất Ly|Nhatly restaurant||1123
+barista-frank-coffee-bar|cafe||Cà Phê Bar Barista Frank|Barista Frank Coffee Bar||496
+quan-pho-suong|restau||Phở Sướng|Quan pho suong||538
+manh-banh-mi-place|cafe||Cà Phê & Bánh Mì Mạnh|Manh - banh mi place||508
+cua-hang-bun-cha-hang-quat|restau|vietnamese|Cửa Hàng Bún Chả Hàng Quạt||Mo-Su 10:30-14:00|541
+nha-hang-my-pho|restau|vietnamese|Nhà Hàng Mỹ Phồ||Mo-Su 09:00-23:00|543
+nha-hang-hanoi-food-culture|restau|vietnamese|Nhà Hàng Hanoi Food Culture|||613
+-1685|restau||Quan Bun Dau Trung Huong|ร้านขนมจีนเต้าหู้กะปิ||618
+ag-cafe|cafe||Cà Phê AG|AG cafe||620
+laika-cafe|cafe||Laïka Café|Laika Cafe||615
+ha-noi-deli|cafe||Cà Phê Hà Nội Deli|ha noi deli||644
+tim-coffee-good-smoothies|cafe|coffee_shop, tea|Tim coffee|Tim coffee (good smoothie||676
+ca-phe-hanoi-egg|cafe|vietnamese|Cà Phê Hanoi Egg||24/7|713
+caphe-kieu-good-milk-coffee|cafe||Cà Phê Kiều|Càphê Kièu - good milk co||693
+chay-tam-khoi-3221|restau|vietnamese|Chay Tâm Khối||Mo-Su 07:00-14:00,|700
+nha-hang-phuong-nam|restau|vietnamese|Nhà hàng Phương Nam||Mo-Su 11:30-14:00,|1382
+coffee-van|cafe||Cà Phê Vân|Coffee Vân||805
+helio-coffee|cafe||Vietnam Speciality Coffee|Helio coffee||800
+1-hang-but-very-good-coffee|cafe||Cà Phê 1 Hàng Bụt|1 Hang but - very good co||811
+cha-ca-thang-long|restau|fish|Chả Cá Thăng Long|Cha Ca Thang Long||796
+cha-ca-ca-cuong|restau||Chả Cá Cà Cuống|Cha Ca Ca Cuong||826
+cha-ca-la-vong|restau|fish|Chả Cá Lã Vọng|Cha Ca La Vong||841
+banh-trang-phu-cuong-co-so-2|restau|vietnamese|Bánh tráng Phú Cường cơ sở 2||Mo-Su 10:00-22:00|1449
+net-hue|restau|vietnamese|Nét Huế|||1471
+huong-viet|restau|asian, coffee_shop, te|Hương Việt|Huong Viet||891
+pho|restau||Phở bò 21|Pho||1508
+ca-phe-anan|cafe||Cà Phê AnAn||Mo-Su 08:00-22:00|275
+om-cafe-and-vegetarian-restaurant|restau||Zenith Yoga Studio II & Café|Om Café and Vegetarian Re||900
+ky-dong|restau||Bánh Cuôn Ký Dông|Ky Dong||899
+em-cafe|restau|breakfast, coffee_shop|Em Café||Mo-Su 07:30-22:00|324
+nha-hang-cha-ca-thuy-hong|restau|vietnamese|Nhà Hàng Chả Cá Thủy Hồng|||997
+pho-tu-lun|restau|vietnamese|Phở Tư lùn||Mo-Su 04:30-22:30|1004
+the-banh-mi-station|restau|vietnamese,  sandwich|The Banh Mi Station||07:30-22:00|407
+banh-cuon-hang-cot|restau||Bánh Cuốn Hàng Cót|Banh Cuon Hang Cot||1039
+mien-man-cafe|cafe|coffee_shop|Miên Man Cafe||Mo-Su 08:00-23:30|405
+ca-phe-hai-bon|cafe||Cà Phê Hai Bốn|||420
+bun-moc|restau||Bún Mọc|Bun Moc||1068
+ca-phe-anan-5890|cafe||Cà Phê AnAn||Mo-Su 08:00-22:00|471
+cafe-sach|cafe||Cà Phê Sạch|Cafe Sach||1081
+cha-ca-84|restau|vietnamese|Chả cá 84||Mo-Su 09:00-22:00|1095
+met-vietnamese-restaurant|restau|vietnamese|Met Vietnamese Restaurant|||492
+banh-mi-nhu-hoa|street|burger|Bánh Mì Như Hoa||Mo-Su 06:00-22:00|534
+little-hanoi|restau|vietnamese|Little Hanoi|||549
+ca-phe-huong-mai|cafe||Cà Phê Hương Mai|||534
+beer-thank-coi|restau||Lẩu Thành Còi|Beer thank Coi||1153
+bun-cha-hang-cot|restau||Bun Nem Bun Cha|bun cha hang cot||1177
+uu-dam-chay|restau|vietnamese|Ưu Đàm Chay||Mo-Su 10:30-21:30|1183
+vi-anh-coffee|cafe|coffee_shop|Vi Anh Coffee||Mo-Su 06:30-23:00|593
+bun-cha-ta|restau|regional, hanoian|Bún Chả Ta||08:00-22:00|667
+green-inn|restau|asian, vietnamese|Green Inn||Mo-Su 09:00-22:00|640
+com-tam-sai-gon-thuy-linh-chau|restau||Cơm Tấm Sài Gòn Thuỷ Linh Châu|||689
+ca-phe-la-studio|cafe||Cà Phê La Studio||Mo-Su 10:00-20:30|735
+nha-hang-tam-vi|restau|vietnamese|Nhà hàng Tầm Vị||Mo-Su 11:00-14:30,|1331
+ca-phe-anan-7622|cafe|coffee_shop|Cà Phê AnAn||Mo-Su 08:00-23:00|768
+banh-mi-oi|street|coffee_shop, sandwich|Bánh Mì ơi||Mo-Su 07:30-22:00|762
+pho-gia-truyen|street|soup, vietnamese, regi|Phở Gia Truyền||Mo-Su 18:00-22:00|822
+vegan-banh-mi|restau||Vegan Banh Mi||Mo-Sa 08:00-19:00|830
+kafa-cafe|cafe|coffee_shop|Kafa Café||Mo-Su 07:00-23:00|841
+the-east|restau|vietnamese, internatio|The East||Mo-Su 10:00-22:00|854
+the-corner-food|restau|vietnamese|The Corner Food|||256
+banh-mi-25|street|sandwich|Bánh Mì 25||Mo-Sa 07:00-19:00,|900
+cafe-36|cafe||Cà Phê 36|Cafe 36||1553
+morning-street-food|restau||Bún Riêu Gánh|morning street food||1575
+cafe-bookstore|cafe|coffee_shop|Cà Phê Cá Chép|Cafe & bookstore||1559
+the-berryfield-coffee-co|cafe|coffee_shop|The Berryfield Coffee Co.||Mo-Su 08:30-20:00|944
+dream-beans-coffee|cafe|coffee_shop|Dream Beans Coffee||Mo-Su 07:30-17:00|946
+xliii-coffee|cafe|coffee_shop|XLIII Coffee||Mo-Su 06:30-22:30|316
+ca-phe-dinh-13|cafe|coffee_shop|Cà Phê Dinh 13||Mo-Su 07:00-22:00|366
+am-thuc-sanh-an|restau|breakfast, deli|Ẩm Thực Sành Ăn||Mo-Su 06:00-11:30|984
+guan-nem-restaurant|restau||Nhà Hàng Guan Nem|Guan Nem restaurant||1594
+cau-go|restau|vietnamese|Cau Go|||372
+pho-hung|restau||Pho Hùng||Mo-Su 06:00-22:00|366
+ca-phe-sinh|cafe||Cà Phê Sinh||Mo-Su 06:30-23:00|1000
+com-van-phong|restau|vietnamese|Cơm Văn Phòng|||396
+banh-cuon-ba-hanh|restau|vietnamese|Bánh Cuốn Bà Hạnh|||370
+the-red-train-hanoi|cafe|sandwich, diner, break|The Red Train Hanoi||Mo-Su 11:00-22:00|1013
+ca-phe-nang|cafe|coffee_shop|Cà Phê Nắng||Mo-Su 06:00-17:00|449
+panam-cuisine|restau|sandwich, regional, fr|Panam' Cuisine||Mo-Su 10:00-22:30|1039
+ca-phe-blackbird|cafe||Cà Phê Blackbird||Mo-Su 07:00-21:00|426
+pho-bung-hang-trong|restau|pho, vietnamese|Phở bưng Hàng Trống||15:00 - 20:00|426
+nha-hang-hung-phat|restau|vietnamese|Nhà Hàng Hưng Phát|||1052
+halo-coffee-juices|cafe||Halo Coffee & Juices||Mo-Su 08:30-21:30|472
+an-cafe|cafe|coffee_shop, local, sa|An Café||Mo-Su 07:00-21:00|1050
+vu-kieu-tu-sen-trang-an-cumulus|restau|vietnamese|Vũ Kiều Tú / Sen Trang An / Cumulus|||481
+ca-phe-lutulata-desserts-and-drinks|cafe||Cà Phê Lutulata Desserts and Drinks||Mo-Su 08:00-23:00|1103
+pho-ga-26|restau|vietnamese|Pho Ga 26|||476
+son-duong-quan|restau|vietnamese|Son Duong Quan|||504
+the-little-plan-cafe-ke-hoach-nho-cafe|cafe|coffee|The Little Plan café - Kế Hoạch Nhỏ café||10:00-22:00|486
+mien-tron-muc|restau|vietnamese|Miến trộn mực|||515
+ca-phe-bar-circle|cafe||Cà Phê & Bar Circle||08:00-24:00|542
+cua-hang-bun-cha-huong-lien|restau|deli, vietnamese, gril|Cửa Hàng Bún Chả Hương Liên|||1193
+ca-phe-han|cafe||Cà Phê HAN||Mo-Su 06:30-23:30|610
+banh-mi-bami|street||Bánh Mì Bami||Mo-Su 07:00-22:00|604
+o-bun-cha|restau|vietnamese|O Bun Cha|||614
+pho-cuong|restau|vietnamese|Phở Cường|||637
+jinju-quan-nuoc-gao-ngon-han-quoc|cafe|coffee_shop, jinju|JINJU, Quán nước gạo ngon Hàn Quốc||24/7|647
+banh-xeo-nem-cuon-quay|restau|vietnamese|Bánh xèo - Nem cuốn - Quẩy|||653
+tuka-cafe|cafe||Tuka Cafe||Mo-Su 07:00-23:00|1272
+ca-phe-cosa-nostra|cafe|coffee_shop|Cà Phê Cosa Nostra||08:00-12:00|687
+mien-luon-dong-thinh|restau||Miến Lươn Đông Thịnh||Mo-Su 06:30-21:30|659
+oc-bong-quan|restau|vietnamese|Ốc Bông Quán|||693
+giang-nam-restaurant|restau|vietnamese|Giang Nam Restaurant|||685
+mr-bay-mien-tay|restau|vietnamese, regional|Mr. Bảy Miền Tây||Mo-Fr 11:00-23:00;|671
+sixty-six|restau|vietnamese|Sixty Six|||694
+xoi-cat-lam|restau|vietnamese|Xoi Cat Lam|||694
+cafe-bar|cafe||CAFE & BAR||Mo-Sa 08:00-15:00|740
+nha-hang|restau|vietnamese|Nhà Háng|||726
+bun-ngan-bich-beo|restau||Bún Ngan Bích Béo||Mo-Su 18:00-12:00|752
+ca-phe|cafe||Cà Phê||Mo-Su 09:00-22:00|762
+brobusta-coffee|cafe|coffee_shop|Brobusta Coffee||Mo-Su 07:00-23:00|1367
+dong-phu|restau|vietnamese|Dong Phu|||763
+soul-specialty-coffee|cafe||Soul specialty coffee||Mo-Su 07:30-22:00|759
+nga-banh-chuoi-banh-khoai|street|friture, vietnamese|Nga Bánh Chuối Bánh Khoai||Mo-Su 14:00-23:00|779
+bo-beo|restau|vietnamese|Bo Beo|||803
+phi-hong|street|vietnamese|Phi hong|||804
+tranquil-books-coffee|cafe||Tranquil Books & Coffee||Mo-Su 08:00-22:30|821
+34-railway|restau|vietnamese|34 Railway|||829
+coffee-nhu-y|restau|vietnamese|Coffee Như Ý|||827
+bun-cha-nem-cua-be|restau|vietnamese|Bún Chả - Nem Cua Bê|||852
+pho-thin|restau|vietnamese|Pho Thìn|||837
+vi-lai|restau|vietnamese|Vi Lai|||863
+tiem-com-thang-nam|restau|vietnamese|Tiệm cơm Tháng Năm|||1509
+pho-gon|restau|vietnamese|Pho Gon|||909
+quan-com-chay-bo-de|restau|vietnamese|Quán Cơm Chay Bồ Đề|||898
+com-chay-nang-tam|restau||Cơm Chay Nàng Tấm||Mo-Su 10:00-14:00,|897
+tam-an-lac|restau|vietnamese|Tâm An Lạc|||913
+citi-coffee|cafe|coffee_shop|Citi Coffee|||1543
+banh-trang-be-my|restau|vietnamese|Bánh Tráng Bé My|||919
+pho-ganh|restau||Phở Gánh||Mo-Su 03:30-06:00|950
+quan-ca-phe-wabi-sabi|cafe||Quán cà phê Wabi-Sabi||Mo-Su 07:00-21:00|937
+banh-cuon-gia-truyen-thanh-van|street||Bánh Cuốn Gia Truyền Thanh Vân||Mo-Su 08:00-15:00|973
+mr-big-beef-bo-nuong-tang|restau|steak_house|Mr. Big Beef - Bò Nướng Tảng||Mo-Su 10:00-23:00|1592
+pho-that|restau|vietnamese|Phở Thật|||1036
+ca-phe-gather-wellness-complex|cafe|coffee_shop|Cà Phê Gather Wellness Complex|||999
+old-hanoi-restaurant|restau|vietnamese|Old Hanoi Restaurant|||1007
+acid8-speciality-coffee|cafe||ACID8 Speciality Coffee||Su-Sa 07:00-21:00|1018
+nom-mai-nga|restau|vietnamese|Nộm Mai Nga|||1047
+banh-xeo-bizon-cho-dem-dong-xuan|restau||Bánh Xèo Bizon - Chợ Đêm Đồng Xuân|||1146
+quan-banh-con-thanh-van|restau|vietnamese|Quan banh con Thanh van|||1167
+nha-hang-an-lac-chay|restau|vietnamese|Nhà Hàng An Lạc Chay|||1200
+cha-coffee-banh-mi-juice-beer-vegetarian-food|street|vietnamese|Chã - Coffee, Banh Mi, Juice, Beer, Vege|||1213
+luon-dong-xu-nghe|restau|vietnamese|Lươn đồng xứ Nghệ|||1252
+white-coffee|cafe|vietnamese|White Coffee|||1243
+nghien-cafe-museum|cafe||Nghien Cafe Museum|||617
+nha-hang-qua-tram|restau|vietnamese|Nhà hàng Quả Trám|||1260
+nha-hang-dong-doi|restau|vietnamese|Nhà hàng Đồng Đội|||1291
+pho-nuong-xu-lang|restau|vietnamese|Phố nướng xứ Lạng|||1284
+bun-ca|restau||Bun ca||Mo-Su 09:30-14:00|1266
+mien-banh-da-cua-ly-quoc-su|restau||Miến & Bánh Đa Cua Lý Quốc Sư||Mo-Su 07:30-22:00|1292
+cha-ca-lang-toan-xuan|restau|vietnamese|Chả cá lăng Toàn Xuân|||1313
+com-cuong|restau|vietnamese|Cơm Cường|||1308
+reng-reng-cafe|cafe||Reng Reng Café||Mo-Fr 07:00-15:00;|1324
+nha-hang-chao-trai|restau||Nhà Hàng Cháo Trai||Mo-Su 15:00-21:00|1311
+bun-dau-gia-cay|restau|vietnamese|Bún đậu, giả cày|||1317
+bun-cha-40k|restau|vietnamese|Bun Cha 40k|||1308
+cua-hang-hoang-tam-xoi|restau|vietnamese|Cửa Hàng Hoàng Tâm Xôi|||1353
+nem-phung-nem-chua|restau|vietnamese|Nem Phùng - Nem Chua|||1333
+loving-vegetarian-restaurant|restau|vietnamese|Loving Vegetarian Restaurant|||1321
+pho-thin-9465|restau||Pho Thin||Mo-Su 06:00-20:30|1350
+com-rang-pho-bun-chao|restau|vietnamese|Cơm Rang - Phở - Bún Cháo|||1356
+bun-cha-nem-ran|restau|vietnamese|Bún Chả - Nem Rán|||1359
+tra-chanh-pho-co|cafe||Trà Chanh Phô cô|||802
+cua-hang-bun-cha-huong-lien-6897|restau||Cửa Hàng Bún Chả Hương Liên|||811
+hieu-com-viet-nam|restau|vietnamese|Hiệu Cơm Việt Nam|||1413
+bun-ca-huong-thuy|restau|diner, fish|Bún cá Hương Thủy||Mo-Su 17:30-13:30|1431
+banh-cuon-86|restau|vietnamese|Bánh Cuốn 86|||1424
+quan-com-minh-hien|restau|vietnamese|Quán cơm Minh Hiền|||1422
+ca-phe-giang|cafe||Cà Phê Giang||7:00-12:00, 14:30-|1456
+nha-hang-heritage|restau|regional|Nhà Hàng Heritage||07:00-23:00|1449
+kem-tuoi-p-lo|cafe||Kem tươi P'lo|||214
+stamp-coffee|cafe||Stamp Coffee|||226
+coffee-binh-minh|cafe||Coffee Bình Minh|||838
+the-imperial-book-cafe|cafe||The Imperial Book Cafe||Mo-Su 09:00-17:00|1464
+banh-cuon-nong-117-ba-trieu|restau|vietnamese|Bánh cuốn nóng 117 Bà Triệu|||1463
+gia-thanh-hu-tieu-banh-canh-com-tam|restau|vietnamese|Gia Thành - Hủ Tiếu, Bánh Canh, Cơm Tấm|||1476
+cua-hang-bun-cha-34|restau||Cửa Hàng Bún Chả 34||Mo-Su 08:30-17:00|1495
+ca-phe-runam|cafe||Cà Phê Runam|||248
+ca-phe-affett|cafe||Cà Phê Affett|||243
+banh-cuon-gia-truyen-thanh-van-0419|restau|vietnamese|Bánh cuốn gia truyền Thanh Vân|||1509
+kem-thuy-ta|cafe||Kem Thủy Tạ|||276
+ca-phe-j-adore|cafe||Cà Phê J'Adore|||320
+ca-phe-e-paso|cafe||Cà Phê E-Paso|||283
+ca-phe-tra-chanh|cafe||Cà Phê Trà Chanh|||280
+ca-phe-hanoi-house|cafe||Cà Phê Hanoi House|||292
+cua-hang-banh-mi-pho|street||Cửa Hàng Bánh Mì Phố|||326
+bun-dau-met-tuan-troc|restau|vietnamese|Bún Đậu Mẹt Tuấn Trọc|||1564
+ca-phe-liah-s|cafe||Cà Phê Liah's|||300
+ca-phe-helio|cafe||Cà Phê Helio|||343
+giao-mua-coffee|cafe||Giao Mua Coffee|||342
+manzi-art-space-and-cafe|cafe|coffee_shop|Manzi Art Space and Cafe||Mo-Su 08:00-19:00|1580
+ca-phe-canopee|cafe||Cà Phê Canopee|||331
+ca-phe-kalina|cafe||Cà Phê Kalina|||324
+ca-phe-la-place|cafe|coffee_shop|Cà Phê La Place|||324
+quan-bun-dau-viet|restau||Quán Bún Đậu Việt|||330
+ca-phe-apple-tart|cafe||Cà Phê Apple Tart|||352
+cua-hang-banh-goi|restau||Cửa Hàng Bánh Gối|||342
+ca-phe-loft-stop|cafe||Cà Phê Loft Stop|||355
+the-note-coffee|cafe|cake, coffee_shop|The Note Coffee|||357
+bun-cha-nem-cua-be-5785|street||Bún Chả - Nem Cua Bê|||388
+ca-phe-lofita|cafe||Cà Phê Lofita|||345
+nem-nuong-nha-trang-que-hoa|restau||Nem Nướng Nha Trang Quế Hoa|||379
+bun-dau|restau||Bun Dau|||348
+ca-phe-l-etage|cafe||Cà Phê L'étage|||361
+ca-phe-leetee|cafe||Cà Phê Leetee|||385
+lam-cafe|cafe||Lam Café|||400
+smile-coffee|cafe||Smile coffee|||401
+cafe-mai-huong|cafe|coffee_shop|Café Mai Hương|||402
+ca-phe-conifer|cafe||Cà Phê Conifer|||406
+nha-dau-coffee|cafe||Nha Đấu Coffee|||420
+pho-ha-noi|restau|noodle|Phở hà nội|||379
+moo-coffee|cafe||Moo Coffee|||419
+cafe-pho-co|cafe|coffee_shop, crepe, vi|Cafè Phố Cổ|||412
+ca-phe-dream-beans|cafe||Cà Phê Dream Beans|||388
+ca-phe-mayfaire|cafe||Cà Phê Mayfaire|||409
+banh-mi-33|street||Bánh mì 33|||416
+ca-phe-mvtts|cafe||Cà Phê MVTTS|||402
+ca-phe-lam|cafe||Cà Phê Lam|||448
+banh-xeo-zon|restau||Bánh Xèo Zòn|||454
+hanh-rieu-cua-oc|restau||Hạnh Riêu Cua Ốc|||423
+pablo-coffee|cafe||Pablo Coffee|||445
+ca-phe-alo|cafe||Cà Phê Alo|||467
+cua-hang-bia-minh|restau||Cửa Hàng Bia Minh|||471
+ca-phe-nha-hang-downtown|restau||Cà Phê & Nhà Hàng Downtown|||480
+ca-phe-co-hoa-com|cafe||Cà Phê Cô Hoa Cơm|||500
+the-coffee|cafe||The Coffee|||492
+chat-coffee-drinks|cafe||Chất Coffee & Drinks|||461
+ca-phe-1988|cafe||Cà Phê 1988|||461
+ca-phe-an|cafe|sandwich, coffee_shop,|Cà Phê An|||476
+nha-hang-garden-house|restau|vietnamese, burger|Nhà Hàng Garden House|||526
+coffee-golf-gach|cafe|coffee_shop|Coffee Golf Gach|||1114
+aha-cafe-7105|cafe||aha Cafe|||490
+tiem-banh-mi|restau||tiem banh mi|||530
+com-chay-tu-hao|restau||Cơm Chay Tú Hảo|||526
+pho-ga-nguyet|restau||Pho Ga Nguyet|||513
+ca-phe-brother-s|cafe||Cà Phê Brother's|||1126
+cafe-muoi|cafe|coffee_shop|Cafe Muối|||536
+ca-phe-34|cafe||Cà Phê 34|||535
+ca-phe-kafa|cafe||Cà Phê Kafa|||556
+banh-mi-chay-sq|restau|sandwich, vietnamese|Bánh Mì Chay SQ|||1135
+pho-tu-lun-5822|restau||Phở Tư Lùn|||548
+vie-coffee-and-tea|cafe||Vie Coffee and Tea|||550
+quan-oc-nong-ha-trang|restau||Quán Ốc Nóng Hà Trang|||565
+bun-bo-hue-o-xuan|restau||Bún Bò Huế O Xuân|||550
+the-hanoi-cafe|restau||The Hanoi Cafe|||582
+coconut-cafe|cafe|juice|Coconut Café|||584
+ca-phe-nola|cafe||Cà Phê Nola|||611
+tamarind-cafe|restau||Tamarind Cafe|||614
+ca-phe-39-ta-hien|cafe||Cà Phê 39 Tạ Hiển|||612
+nha-hang-bun-cha-nem-cua-be|restau||Nhà Hàng Bún Chả - Nem Cua Bê|||585
+ca-phe-align|cafe||Cà Phê Align|||626
+bbb-cafe|cafe||BBB Cafe|||628
+ebi-coffee|cafe|coffee_shop|Ebi Coffee|||624
+van-viet-cafe|cafe||Van Viet Cafe|||616
+ca-phe-dose|cafe||Cà Phê Dose|||636
+bun-mien-ngan|restau||Bun Mien Ngan|||643
+trada-cafe|cafe||Trada Cafe|||642
+bun-cha-17-chuong-duong-do|street||Bún chả 17 Chương Dương Độ|||643
+ca-phe-26|cafe||Cà Phê 26|||625
+cua-hang-banh-mi-pho-7481|street||Cửa Hàng Bánh Mì Phố|||614
+ca-phe-aha|cafe||Cà Phê Aha|||620
+s-cafe|restau||S cafe|||640
+cafe-nghia|cafe||Cafe Nghĩa|||626
+che-ngon-quan-nuoc-ep-trai-cay-cafe|cafe||Chè Ngon Quán Nước Ép Trái Cây - Cafe|||1258
+ca-phe-kufu|cafe||Cà Phê Kufu|||626
+ca-phe-cong-nghe|restau||Cà Phê Công Nghệ|||640
+ca-phe-sach|cafe||Cà Phê Sách|||643
+the-king-cafe|restau||The King Cafe|||686
+ca-phe-trung|cafe||Cà Phê Trung|||647
+bia-23|restau||Bia 23|||685
+quan-bun-bo-nam-bo|restau||Quán Bún Bò Nam Bộ|||671
+bun-bo-nam-bo|restau||Bun Bo Nam Bo|||676
+orick-coffee|cafe||Orick Coffee|||690
+bach-phuong-bun-bo-nam-bo|restau|noodle|Bách Phương - Bún Bò Nam Bộ|||694
+nyna-cafe-24-7|cafe||Nyna Cafe 24/7|||707
+nha-hang-am-thuc-ba-mien|restau||Nhà Hàng Ẩm Thực Ba Miền|||734
+bun-mien-ngan-pho-bo|restau||Bún Miến Ngan Phở Bò|||1331
+ca-phe-hue-organic|cafe||Cà Phê Huế Organic|||746
+kem-xoi-thu-nga|restau||Kem Xôi Thu Nga|||738
+quan-bun-long-a-cay|restau||Quán Bún Lòng A Cay|||714
+pho-bo|restau||Phở bò|||1337
+ca-phe-vui|cafe||Cà Phê Vui|||762
+bun-oc-co-ha-noi|restau|noodle|Bún Ốc Cổ Hà Nội|||1351
+manh-ca-phe|cafe|coffee_shop|Mành Cà phê|||1361
+cua-hang-banh-mi-aha|street||Cửa Hàng Bánh Mì Aha|||757
+pho-ga|restau||Pho Ga|||768
+ca-phe-countryside|cafe||Cà Phê Countryside|||759
+ca-phe-kim-lai|cafe||Cà Phê Kim Lài|||770
+smile-coffee-0911|cafe|vietnamese, coffee_sho|Smile Coffee|||755
+ca-phe-linh|cafe||Cà Phê Linh|||782
+coffee-a|cafe||Coffee A|||779
+ca-phe-mystic|cafe|coffee_shop|Cà Phê Mystic|||787
+ca-phe-lalang|cafe||Cà Phê Lalang|||774
+hanoi-croissant-coffee|cafe||Hanoi Croissant & Coffee|||775
+cua-hang-banh-mi-hoi-an|street||Cửa Hàng Bánh Mì Hội An|||790
+nha-hang-ca-phe-joc|restau||Nhà Hàng & Cà Phê Joc|||791
+ca-phe-8|cafe||Cà Phê 8|||766
+k5-coffee|cafe||K5 Coffee|||800
+ca-phe-glamour|cafe||Cà Phê Glamour|||802
+banhmi-station|street||Banhmi Station|||814
+banh-mi-17|street||Bánh Mì 17|||813
+ca-phe-aha-2291|cafe||Cà Phê Aha|||827
+vegetarian-banh-my-15k|street|asian, sandwich, local|Vegetarian Banh My 15k|||820
+che-sau-lien|cafe|dessert|Chè Sầu Liên|||802
+bun-dau-thanh-hang|street||Bún đậu Thanh Hằng|||833
+lau-cua-dong-hoa-lac|restau||Lẩu cua đồng Hòa Lạc|||1434
+pho-thanh|restau|pho, vietnamese|Phở Thành|||800
+ca-phe-aha-8929|cafe||Cà Phê Aha|||824
+ca-phe-aroi|cafe||Cà Phê Aroi|||836
+coffee-40|cafe||Coffee 40|||826
+cafe-bap-42|cafe||Cafe Bắp 42|||825
+ann-coffee-tea|cafe||Ann Coffee & Tea|||823
+cat-coffee-2274|cafe||Cat Coffee|||823
+coffee-54-58|cafe||Coffee 54 - 58|||823
+coffee-san-ga|cafe||Coffee - Sân Ga|||823
+coffee-64|cafe||Coffee 64|||823
+sixty-six-coffee|cafe||Sixty Six Coffee|||824
+hao-hao-coffee|cafe||Hảo Hảo Coffee|||817
+cafe-do|cafe||Cafe Dô|||831
+cua-hang-bia-hoi-ha-noi|restau||Cửa Hàng Bia Hơi Hà Nội|||837
+nha-hang-highway-4|restau|chicken, vietnamese, c|Nhà Hàng Highway 4|||844
+ca-phe-no-1|cafe||Cà Phê No.1|||855
+giaos-coffee|cafe||Giao’s Coffee|||837
+coffee-station-16|cafe||Coffee Station 16|||837
+coffee-cold-beer|cafe||Coffee - Cold Beer|||833
+gold-coffee|cafe||Gold Coffee|||830
+coffee-van-78|cafe||Coffee Vân 78|||828
+coffee-bends-84|cafe||Coffee Bends 84|||832
+railway-tuan-cafe|cafe||Railway Tuan Cafe|||836
+choo-choo-coffee|cafe||Choo Choo Coffee|||827
+coffee-chill-96|cafe||Coffee Chill 96|||825
+banh-my-lanh-ong|street||Banh My Lanh Ong|||860
+quan-co-nhan|restau|noodle|Quán Cô Nhàn|||865
+coffee-man|cafe|coffee_shop|Coffee Mặn|||1466
+1977-station-cafe|cafe||1977 Station Cafe|||843
+huyen-coffee|cafe||Huyền Coffee|||842
+an-an-coffee|cafe||An An Coffee|||847
+ca-phe-ga-dong-duong|cafe|regional|Cà Phê Ga Đông Dương|||845
+egg-coffee-more|cafe||Egg coffee & more|||857
+kem-trung-ba-khanh|cafe|regional|Kem Trung Bà Khanh|||849
+highlands-coffee-5107|cafe||Highlands coffee|||867
+pho-suong-co-muoi|restau|noodle|Phở Sướng Cô Mười|||1484
+dream-beans-coffee-9725|cafe|coffee_shop|Dream Beans Coffee|||878
+may-hanoi-cafe|cafe||May Hanoi Cafe|||853
+railways-tuan-cafe|cafe||Railways Tuan Café|||855
+ca-phe-aha-7085|cafe||Cà Phê Aha|||858
+tiem-banh-mi-5573|street||Tiem Banh Mi|||880
+banh-my-pate|street||Bánh Mỳ Patê|||887
+banh-mi-mama|cafe||Banh Mi Mama|||899
+banh-mi|street||Bánh mì|||881
+ca-phe-goethe|cafe|german|Cà Phê Goethe|||1508
+kafa-cafe-5685|cafe||Kafa Cafe|||901
+ca-phe-kadi|cafe||Cà Phê Kadi|||896
+cafe-ha|cafe||Cafe Hà|||1524
+ca-phe-cu-bao|cafe||Cà Phê Cu Bảo|||895
+cafe-tu-anh|cafe||Café Tú Anh|||883
+bun-bo-hue-o-xuan-0701|restau|noodle|Bún bò Huế O Xuân|||1522
+ca-bop-eggcoffee-art-corner|cafe||Cà Bóp - Eggcoffee & Art Corner|||917
+ca-phe-cham|cafe||Cà Phê Cham|||928
+ca-phe-cay-da|cafe||Cà Phê Cây Đa|||913
+che-nha-suvy|restau|dessert, vietnamese|Chè Nhà Suvy|||913
+banh-ran-mat-duong|street||Bánh rán mật đường|||956
+ca-phe-all-day|cafe|coffee_shop|Cà Phê All Day|||1583
+ca-phe-cabine|cafe||Cà Phê Cabine|||957
+xoi-yen-5585|street||Xôi Yên|||981
+pho-lam|restau|noodle, vietnamese|Phở Lâm|||981
+ca-phe-bamidon|cafe||Cà Phê Bamidon|||993
+bun-cha-nem-cua-be-5685|restau||Bún Chå Nem Cua Bê|||1008
+pho-chuyen-bo|restau||Pho Chuyen Bo|||1018
+banh-mi-tram|street|sandwich|Bánh mì Trâm|||1016
+cua-hang-banh-mi-hoi-an-1457|street||Cửa Hàng Bánh Mì Hội An|||1027
+banh-cuon-nong|restau||Bánh Cuốn Nong|||1042
+ja-cafe|cafe||JA café|||1039
+ca-phe-67-phung-hung|cafe||Cà Phê 67 Phùng Hưng|||1074
+pho-bo-duc-khoi|restau|noodle, vietnamese, ph|Phở bò Đức Khôi|||1071
+skyline-coffee|cafe||Skyline Coffee|||1045
+tam-quan-tra|cafe||Tâm Quán Trà|||1087
+ca-phe-c-est-si-bon|cafe||Cà Phê C'est Si Bon|||1068
+banh-my-73|restau|regional|Bánh Mỳ 73|||1062
+ca-phe-hien|cafe||Cà Phê Hiến|||1080
+quan-mien-banh-da-cua-ly-quoc-su|restau||Quán Miên - Bánh Da Cua Ly Quõc Su|||1092
+aha-cafe-5005|cafe||Aha Café|||1072
+thuy-bun-oc|restau|regional|Thủy Bún Ốc|||1073
+bun-rieu-co-hoan|restau|vietnamese, noodle|Bún riêu Cô Hoàn|||1114
+tranquil-coffee|cafe|coffee_shop|Tranquil Coffee|||1104
+ca-phe-bebe-cakes|cafe||Cà Phê Bebe Cakes|||1119
+nam-pho-ga|restau|pho, vietnamese|Nam Phở Gà|||1133
+umami-coffee|cafe||Umami Coffee|||1124
+ca-phe-mai|cafe||Cà Phê Mai|||1154
+ca-phe-shop|cafe|coffee_shop|Cà Phê Shop|||1155
+neo-cafe|cafe|coffee_shop|Neo Cafe|||1160
+ca-phe-hai-bon-9721|cafe|coffee_shop|Cà phê Hai Bốn|||1159
+goc-pho-cafe|cafe|coffee_shop|Góc Phố Cafe|||1158
+ca-phe-loc|cafe||Cà Phê Lộc|||1164
+quan-banh-cuon-thanh-van|restau||Quan Banh Cuon Thanh Van|||1174
+cua-hang-mai-nga-bun-ca-ha-thanh|restau||Cửa Hàng Mai Nga Bún Cá Hà Thành|||1181
+quan-pho-thin|restau|pho, vietnamese|Quán Phở Thìn|||1208
+ca-phe-kich|cafe||Cà Phê Kịch|||1204
+quan-com-pho|restau||Quan Com Pho|||1207
+cua-hang-bo-nam-nuong|street||Cửa Hàng Bò Nầm Nướng|||1234
+pho-man-gam-cau|restau||Phở mặn (gầm cầu)|||1232
+ba-hoa-lau-nuong|restau||Bà Hoa Lẩu nướng|||1252
+bridge-coffee|cafe||Bridge Coffee|||1273
+bo-kho-hieu-22|street|jerky|Bò khô Hiệu 22|||1277
+bo-kho-my-huong|street|jerky|Bò khô Mỹ Hương|||1273
+mien-luon|restau|regional|Miến Lươn|||1254
+bo-kho-phuong-dung|street|jerky|Bò khô Phương Dung|||1292
+ca-phe-thai|cafe|coffee_shop|Cà Phê Thái|||1289
+bo-nam-nuong-puka|restau||Bò nầm nướng Puka|||1309
+the-root-boardgame-cafe|cafe||The Root Boardgame Cafe|||1307
+zulu-coffee|cafe||Zulu Coffee|||1352
+ca-phe-moc|cafe||Cà Phê Mộc|||1352
+coffee-42|cafe||Coffee 42|||1334
+fuku-coffee-matcha|cafe||Fuku Coffee & Matcha|||1332
+nha-hang-chay-rasa|restau|vietnamese, internatio|Nhà Hàng Chay Rasa|||1337
+banh-mi-pho|street|sandwich|Bánh Mi Phó|||1336
+chao-37|restau||Cháo 37|||1344
+o-coffee|cafe|coffee_shop|O'Coffee|||1344
+cafe-54|cafe||Cafe 54|||1341
+amoring-cafe|cafe||Amoring café|||1333
+banh-duc|restau||Banh Duc|||1362
+banh-mi-pho-hue|street|sandwich|Bánh Mì Phố Huế|||1400
+pho-lanh|restau||Pho Lanh|||1394
+toka-coffee|cafe|coffee_shop|TOKA COFFEE|||1429
+ca-phe-connect|cafe||Cà Phê Connect|||1425
+bun-oc-phong|restau|noodle|Bún Ốc Phong|||1438
+the-n3-coffee|cafe||The N°3 coffee|||1442
+lau-cua-dong-hai-lac|restau||Lẩu Cua Đồng Hai Lạc|||1470
+banh-cuon-gia-truyen|restau||Bánh Cuốn Gia Truyền|||1480
+cua-hang-cha-ca-kinh-ky|restau||Cửa Hàng Chả Cá Kình Ký|||1488
+pho-van-anh|restau|noodle|Phở Vân Anh|||1482
+cafe-banh-my|cafe|coffee_shop|Cafe Bánh Mỳ|||1495
+coffee-26|cafe|coffee_shop|Coffee 26|||1501
+mien-luon-tan-tan|restau|noodle|Miến lươn Tân Tân|||1499
+kopee-coffee|cafe|coffee_shop|KOPee coffee|||1498
+cafe-loc|cafe|coffee_shop|Cafe Lộc|||1493
+coffee-mac-toc|cafe|coffee_shop|Coffee Mạc Tộc|||1506
+banh-my-ngon|street|sandwich|Bánh Mỳ Ngon|||1512
+kem-caramen-duong-hoa|restau|dessert|Kem Caramen Dương Hoa|||1528
+ca-phe-aha-6185|cafe||Cà Phê Aha|||1517
+banh-my-bit-tet-vietnamese-beef-steak|restau||Banh My Bit Tet (Vietnamese beef steak)|||1534
+cafe-15|cafe|coffee_shop|Cafe 15|||1522
+cafe-huong|cafe|coffee_shop|Café Hương|||1520
+ca-phe-dilmah|cafe||Cà Phê Dilmah|||1530
+h-coffee|cafe|coffee_shop|H+ Coffee|||1543
+tonkin-coffee|cafe|coffee_shop|Tonkin Coffee|||1533
+bun-bo-hue-huyen-anh-2|restau|noodle|Bún Bò Huế Huyền Anh 2|||1529
+hung-xom-cafe|cafe|coffee_shop|Hùng Xồm Cafe|||1530
+pho-bo-tam-giang|restau|noodle|Phở bò Tam Giang|||1538
+banh-my-pate-co-thu|street|sandwich|Bánh Mỳ Pate Cô Thu|||1539
+bun-cha-nem-cua-be-0708|restau|noodle|Bún Chả Nem Cua Bể|||1541
+banh-cuon-ba-xuan|restau||Banh cuon Ba Xuan|||1579
+trang-cafe|cafe||Trang Cafe|||1563
+ca-phe-helio-7022|cafe||Cà Phê Helio|||1571
+diy-coffee|cafe|coffee_shop|DIY Coffee|||1580
+ca-phe-aha-3729|cafe||Cà Phê Aha|||1599
+nha-hang-cha-ca-van-mieu|restau|asian|Nhà Hàng Chả Cá Văn Miếu|||1595
+ca-phe-hanoi|cafe||Cà Phê Hanoi|||1585
+pho-anh|restau|noodle|Phở Anh|||1599

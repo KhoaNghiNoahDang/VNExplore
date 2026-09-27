@@ -1,0 +1,34 @@
+﻿role_id,place_id,status,task_vi,task_en,item_vi,item_en
+merchant,ma-may-87,approved,Học cách một gia đình buôn bán xưa bày hàng ở gian trước.,Learn how an old merchant family set up shop at the front of the house.,Tấm biển hiệu,A shop signboard
+merchant,dong-xuan,approved,Tìm nơi dân buôn sỉ tụ họp và lấy được lòng tin của họ.,Find where wholesale traders gather and earn their trust.,Một súc lụa,A bolt of silk
+merchant,bach-ma,approved,Xin thần trấn phía Đông phù hộ cho việc buôn bán.,Ask the guardian of the east for a blessing on your trade.,Dải lụa đỏ may mắn,A lucky red ribbon
+merchant,egg-coffee,approved,Khám phá cách một người buôn khéo vượt qua lúc thiếu sữa.,Discover how a clever trader beat the milk shortage.,Công thức bí truyền,A secret recipe
+merchant,ta-hien,approved,Ngồi cùng phố một ly và nghe giá cả trong ngày.,Share a drink with the street and hear the day’s prices.,Một mối khách quen,A regular customer
+merchant,women-museum,approved,Học mẹo của các chị hàng rong vào phố từ tờ mờ sáng.,Learn the tricks of the street vendors who walk in before dawn.,Chiếc đòn gánh,A bamboo shoulder pole
+scholar,ngoc-son,approved,Thắp hương thần Văn Xương và đọc chữ trên Tháp Bút.,Pray to the god of literature and read the words on the Pen Tower.,Cây bút lông,A calligraphy brush
+scholar,the-huc,approved,Bước qua cầu ánh ban mai với tâm trí sáng suốt.,Cross the bridge of morning light with a clear mind.,Tia nắng ban mai,A ray of morning light
+scholar,turtle-tower,approved,Nghe truyền thuyết trả gươm — bài học về sự khiêm nhường.,Learn the legend of the returned sword — a lesson in humility.,Phúc lành của Rùa Vàng,The golden turtle’s blessing
+scholar,bach-ma,approved,Tìm hiểu thành Thăng Long được vạch ra như thế nào.,Find out how the capital’s walls were first traced.,Bản đồ kinh thành,A map of the citadel
+scholar,hoa-lo,approved,"Tưởng nhớ những người vẫn học, vẫn viết sau song sắt.",Remember those who studied and wrote even behind prison walls.,Cuốn sổ bí mật,A hidden notebook
+scholar,women-museum,approved,Hiểu sự hy sinh của ai đã giúp sĩ tử lên được kinh thành.,Learn whose sacrifices let a scholar travel to the capital.,Lá thư của mẹ,A mother’s letter
+photographer,the-huc,approved,Chờ ánh sáng đậu trên dáng cầu đỏ rồi bấm máy.,"Wait for the light to rest on the red curve, then shoot.",Khung hình: cây cầu đỏ,Frame: the red bridge
+photographer,cathedral,approved,Chụp đôi tháp chuông Pháp mới xây cho tờ báo.,Photograph the new French-built towers for the newspaper.,Khung hình: đôi tháp chuông,Frame: the twin towers
+photographer,turtle-tower,approved,"Chụp ngọn tháp trên mặt nước lặng, như huyền thoại ngưng đọng.","Capture the tower in still water, like a legend frozen in time.",Khung hình: hồ trả gươm,Frame: the returned sword
+photographer,dong-xuan,approved,Tìm khoảnh khắc đông vui nhất của chợ và giữ nó lại.,Find the market’s busiest moment and freeze it.,Khung hình: chợ lớn,Frame: the great market
+photographer,ngoc-son,approved,Chụp ngọn Tháp Bút viết lên trời xanh.,Photograph the Pen Tower that writes on the sky.,Khung hình: Tháp Bút,Frame: the Pen Tower
+photographer,hoa-lo,approved,Ghi lại cổng nhà tù mà báo chí không dám nhắc tới.,Document the prison gate the newspapers won’t talk about.,Khung hình: cánh cổng sắt,Frame: the iron gate
+chef,bun-cha,approved,"Học bí quyết bát nước chấm — chua, ngọt, mặn, thơm khói.","Learn the secret of the dipping broth — sweet, sour, salty, smoky.",Làn khói than hoa,Charcoal smoke
+chef,egg-coffee,approved,Xem lòng đỏ và đường biến thành kem như thế nào.,Watch how yolk and sugar become cream.,Kem trứng vàng,Golden egg cream
+chef,dong-xuan,approved,Tìm rau thơm tươi nhất ở ngõ sau chợ.,Find the freshest herbs in the market’s back alley.,Bó rau thơm,A bundle of fresh herbs
+chef,ta-hien,approved,Nếm thử món nhắm buổi tối của phố.,Taste what the street snacks on in the evening.,Món nhắm vỉa hè,A street snack
+chef,ma-may-87,approved,Tìm gian bếp của nhà cổ và xem một gia đình xưa nấu nướng.,Find the kitchen of the old house and see how a family cooked.,Chiếc niêu đất,A family clay pot
+chef,water-puppets,approved,Xem cảnh đồng lúa — nơi mọi bữa cơm bắt đầu.,Watch the rice-field scenes — where every meal begins.,Nắm gạo mới,A handful of new rice
+merchant,o-quan-chuong,approved,Đi qua cửa ô phía Đông nơi hàng hoá từ bến sông vào phố – và đọc lệnh cấm sách nhiễu người qua lại.,Pass the east gate where goods came up from the river — and read the rule that protected traders.,Tấm thẻ qua cửa ô,A gate pass
+merchant,hanoi-post-office,approved,Tìm nơi tin tức và đơn hàng từ khắp xứ được truyền về bằng điện tín.,Find where news and orders from the whole country arrived by wire.,Bức điện tín của mối hàng,A telegram from a buyer
+scholar,quan-su-pagoda,approved,Tìm hiểu kinh thành đón tiếp sứ thần ra sao – bài học về bang giao.,Learn how the capital welcomed foreign envoys — a lesson in diplomacy.,Ấn tín của sứ thần,An envoy's seal
+scholar,imperial-citadel,approved,"Bước qua Đoan Môn, cánh cổng mọi vị quan phải đi qua để vào chầu vua.","Walk through Doan Mon, the gate every official passed to reach the king.",Dải đai triều phục,A court robe sash
+scholar,48-hang-ngang,approved,Tìm chiếc bàn nhỏ nơi những lời đầu tiên của một đất nước mới được viết ra.,Find the small table where a new country's first words were written.,Trang giấy đánh máy,A typed page
+photographer,opera-house,approved,Chụp Nhà hát Lớn mới khánh thành cho số báo buổi chiều.,Photograph the brand-new Opera House for the evening edition.,Khung hình: mặt tiền Nhà hát,Frame: the Opera facade
+photographer,hoa-phong-tower,approved,Ghi lại mảnh cuối cùng của một ngôi chùa lớn trước khi nó bị lãng quên.,Capture the last piece of a great pagoda before it is forgotten.,Khung hình: ngọn tháp đơn độc,Frame: the lone tower
+photographer,o-quan-chuong,approved,Chụp cửa ô cổ với dòng người qua lại.,Shoot the old city gate with life passing through it.,Khung hình: cửa ô phía Đông,Frame: the east gate
+chef,ly-thai-to-park,approved,Quan sát người tập buổi sáng và tìm hiểu Hà Nội ăn gì trước 7 giờ.,Watch the morning crowd and learn what Hanoi eats before 7 am.,Bí mật bữa sáng,A breakfast secret

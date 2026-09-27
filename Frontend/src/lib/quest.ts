@@ -1,5 +1,7 @@
 import { TRANSPORT } from '../data/transport'
 import type { Intent, LatLng, Leg, Place, Transport } from '../types'
+import { isOpenAt } from './hours'
+import type { Weather } from './weather'
 import { distanceM, estimateLeg } from './travel'
 
 export { distanceM }
@@ -45,8 +47,17 @@ export interface QuestSummary {
 }
 
 /** Walks the route in time order so each leg sees its own traffic (rush hour, walking street). */
-export function summarize(start: LatLng, places: Place[], people: number, travel: Travel = DEFAULT_TRAVEL): QuestSummary {
-  const stops = orderStops(start, places)
+export function summarize(
+  start: LatLng,
+  places: Place[],
+  people: number,
+  travel: Travel = DEFAULT_TRAVEL,
+  /** Keep this stop order (a community quest's author order) instead of nearest-first. */
+  order?: string[] | null,
+): QuestSummary {
+  const stops = order?.length
+    ? [...places].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
+    : orderStops(start, places)
   const legs: Leg[] = []
   let t = travel.departAt ?? Date.now()
   let cur: LatLng = start
@@ -71,20 +82,103 @@ export function summarize(start: LatLng, places: Place[], people: number, travel
   }
 }
 
-function score(place: Place, intent: Intent, start: LatLng, favIds: string[]): number {
+/** Dishes / drinks travellers name directly ("phở", "egg coffee"): matched against a place's name and intro. */
+const DISHES = [
+  'phở', 'pho', 'bún chả', 'bun cha', 'bún riêu', 'bún cá', 'bún đậu', 'bún mọc', 'bún ngan', 'bún thang', 'bánh cuốn',
+  'bánh mì', 'banh mi', 'xôi', 'sticky rice', 'miến', 'chả cá', 'cha ca', 'cà phê trứng', 'egg coffee', 'cà phê', 'coffee',
+  'kem', 'ice cream', 'ốc', 'snail', 'chay', 'vegan', 'vegetarian', 'nem', 'bánh xèo', 'trà chanh', 'cháo', 'nộm',
+  'bánh gối', 'bánh bao', 'sữa', 'milk', 'trâu', 'buffalo', 'bơi', 'pool', 'swim', 'phim', 'cinema', 'movie',
+  'bóng đá', 'football', 'pickleball', 'cắm trại', 'camp', 'thác', 'waterfall', 'hồ', 'lake', 'đỉnh', 'peak',
+]
+
+/** Whole words only: "ốc" (snails) must not match inside "Quốc". */
+const wordRe = (w: string) => {
+  const escaped = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`(?<![\\p{L}\\p{M}])${escaped}(?![\\p{L}\\p{M}])`, 'giu')
+}
+const DISH_RE = [...DISHES].sort((a, b) => b.length - a.length).map((d) => [d, wordRe(d)] as const)
+
+/** How many dishes/activities named in the request this place offers (+3 if the place itself is named). */
+/** Dishes/activities named in the request that this place offers ("*" = the place itself is named). */
+function dishMatches(place: Place, text: string): string[] {
+  const t = text.toLowerCase().normalize('NFC')
+  const name = place.name.vi.toLowerCase()
+  if (name.length >= 6 && t.includes(name)) return ['*', '*', '*']
+  const hay = `${place.name.vi} ${place.name.en} ${place.blurb.vi} ${place.blurb.en}`.toLowerCase()
+  // Longest first, so "cà phê trứng" isn't also counted as plain "cà phê".
+  const out: string[] = []
+  let rest = t
+  for (const [dish, re] of DISH_RE) {
+    re.lastIndex = 0
+    if (!re.test(rest)) continue
+    rest = rest.replace(re, ' ')
+    re.lastIndex = 0
+    if (re.test(hay)) out.push(dish)
+  }
+  return out
+}
+const dishHits = (place: Place, text: string) => dishMatches(place, text).length
+
+/** What's going on today: weather at departure and the departure time. */
+export interface PlanContext {
+  weather?: Weather | null
+  at?: Date
+}
+
+const BREAKFAST = /phở|bánh cuốn|xôi|bánh mì|bún riêu|miến|cháo|pho|breakfast/i
+
+function contextBonus(place: Place, intent: Intent, ctx: PlanContext, named: boolean): number {
+  const at = ctx.at ?? new Date()
+  const hour = at.getHours()
+  const w = ctx.weather
+  const indoor = place.tags.includes('indoor')
+  let bonus = 0
+  if (w?.rainy && !intent.themes.includes('rainy')) {
+    // Rain: museums, cafés, shows first; open-air spots last (unless asked for by name).
+    if (indoor) bonus += 700
+    else if (!named && (place.kind !== 'food' || place.tags.includes('photo'))) bonus -= 500
+  }
+  if (w?.hot && hour >= 11 && hour < 15 && indoor) bonus += 400
+  if (place.kind === 'food' && hour < 10 && BREAKFAST.test(`${place.name.vi} ${place.blurb.vi}`)) bonus += 300
+  if (isOpenAt(place.openingHours, at) === false) bonus -= 5000
+  return bonus
+}
+
+function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ctx: PlanContext = {}): number {
   const themeHits = place.themes.filter((t) => intent.themes.includes(t)).length
   const pricey = intent.budget === 'low' && place.priceMax > 60 ? 1 : 0
   const fav = favIds.indexOf(place.id)
   const roleBoost = fav === -1 ? 0 : 1500 - fav * 100
-  return themeHits * 1000 + roleBoost - pricey * 800 - distanceM(start, place)
+  // Ba Vì spots are ~20× further apart than in the Old Quarter: weigh distance accordingly.
+  const perM = place.area === 'ba-vi' ? 0.05 : 1
+  // Full places (with a story) first when they fit the request just as well.
+  const depth = place.depth === 'full' ? 150 : 0
+  const hits = dishHits(place, `${intent.text} ${intent.extra ?? ''}`)
+  const named = hits * 1500
+  // Cinemas and other indoor fun are for rainy days, unless asked for by name.
+  const indoorFun = place.kind === 'fun' && place.tags.includes('indoor') && !intent.themes.includes('rainy') ? 1200 : 0
+  return themeHits * 1000 + named + roleBoost + depth - indoorFun - pricey * 800 - distanceM(start, place) * perM +
+    contextBonus(place, intent, ctx, hits > 0)
 }
 
 /**
  * All places, best matches for the request first.
  * `favIds` (the role's favourite places, in Explore mode) are pushed up.
  */
-export function rankPlaces(places: Place[], intent: Intent, start: LatLng, favIds: string[] = []): Place[] {
-  return [...places].sort((a, b) => score(b, intent, start, favIds) - score(a, intent, start, favIds))
+export function rankPlaces(places: Place[], intent: Intent, start: LatLng, favIds: string[] = [], ctx: PlanContext = {}): Place[] {
+  const scored = places.map((p) => [p, score(p, intent, start, favIds, ctx)] as const)
+  return scored.sort((a, b) => b[1] - a[1]).map(([p]) => p)
+}
+
+/** False if any stop would be closed when the traveller gets there (unknown hours count as open). */
+function allOpen(sum: QuestSummary, departAt: number): boolean {
+  let t = departAt
+  for (let i = 0; i < sum.stops.length; i++) {
+    t += sum.legs[i].minutes * 60_000
+    if (isOpenAt(sum.stops[i].openingHours, new Date(t)) === false) return false
+    t += sum.stops[i].visitMin * 60_000
+  }
+  return true
 }
 
 /** Greedily pick top-ranked places that still fit in the requested time. */
@@ -96,10 +190,24 @@ export function preselect(
   travel: Travel = { transport: intent.transport, departAt: null },
 ): string[] {
   const budgetMin = intent.hours * 60
+  // Don't let a culture walk turn into a café crawl: at most 2 food / 2 fun stops,
+  // unless that is all the traveller asked for.
+  const only = (t: string) => intent.themes.length === 1 && intent.themes[0] === t
+  const cap = { sight: 5, food: only('food') ? 4 : 2, fun: only('fun') ? 3 : 2 }
   const picked: Place[] = []
+  const covered = new Set<string>()
+  const text = `${intent.text} ${intent.extra ?? ''}`
   for (const p of ranked) {
-    if (!p.themes.some((t) => intent.themes.includes(t)) && !favIds.includes(p.id)) continue
-    if (summarize(start, [...picked, p], intent.people, travel).totalMin <= budgetMin) picked.push(p)
+    const dishes = dishMatches(p, text)
+    if (!dishes.length && !p.themes.some((t) => intent.themes.includes(t)) && !favIds.includes(p.id)) continue
+    // One place per dish: a second egg-coffee café makes way for the vegetarian lunch.
+    if (dishes.length && dishes.every((d) => d !== '*' && covered.has(d))) continue
+    if (picked.filter((x) => x.kind === p.kind).length >= cap[p.kind]) continue
+    const trial = summarize(start, [...picked, p], intent.people, travel)
+    if (trial.totalMin <= budgetMin && allOpen(trial, travel.departAt ?? Date.now())) {
+      picked.push(p)
+      dishes.forEach((d) => covered.add(d))
+    }
     if (picked.length >= 5) break
   }
   return picked.map((p) => p.id)
@@ -128,6 +236,11 @@ export function shuffledOrder(n: number, seed: string): number[] {
   return order
 }
 
+/** What to read out at a stop: its story, or for quick places the intro + "why". */
+export function storyOf(place: Place, lang: 'en' | 'vi'): string {
+  return place.story[lang] || [place.blurb[lang], place.why[lang]].filter(Boolean).join(' ')
+}
+
 /** Rough narration length: ~150 spoken words per minute. */
 export function storyMinutes(text: string): number {
   return Math.max(1, Math.round(text.split(/\s+/).length / 150))
@@ -146,4 +259,45 @@ export function googleMapsUrl(start: LatLng, stops: Place[], transport: Transpor
   const waypoints = stops.slice(0, -1).map(fmt).join('|')
   if (waypoints) params.set('waypoints', waypoints)
   return `https://www.google.com/maps/dir/?${params.toString()}`
+}
+
+export interface TransportHint {
+  to: Transport
+  reason: 'longWalk' | 'farApart' | 'allClose'
+  /** Longest leg, metres (for the message). */
+  longestM: number
+  savedMin: number
+  extraCostK: number
+}
+
+/**
+ * Suggest another way to get around when the chosen one fits the route badly:
+ * long walks → GrabBike (1–2 people) or a car (3+); a bike or car for stops a few hundred metres
+ * apart → walk (no parking, no fare). Returns null when the choice is fine.
+ */
+export function suggestTransport(
+  start: LatLng,
+  stops: Place[],
+  people: number,
+  travel: Travel,
+  order?: string[] | null,
+): TransportHint | null {
+  if (!stops.length) return null
+  const cur = summarize(start, stops, people, travel, order)
+  const longestM = Math.max(...cur.legs.map((l) => l.distanceM))
+  const walkedM = cur.legs.filter((l) => l.transport === 'walk').reduce((n, l) => n + l.distanceM, 0)
+  const alt = (to: Transport) => summarize(start, stops, people, { ...travel, transport: to }, order)
+
+  if (travel.transport === 'walk' && (longestM > 2000 || walkedM > 5000)) {
+    const to: Transport = people >= 3 ? 'car' : 'grabbike'
+    const s = alt(to)
+    const savedMin = cur.travelMin - s.travelMin
+    if (savedMin < 10) return null
+    return { to, reason: longestM > 5000 ? 'farApart' : 'longWalk', longestM, savedMin, extraCostK: s.travelCostK - cur.travelCostK }
+  }
+  if (travel.transport !== 'walk' && longestM < 900 && cur.distanceM < 2500) {
+    const s = alt('walk')
+    return { to: 'walk', reason: 'allClose', longestM, savedMin: cur.travelMin - s.travelMin, extraCostK: s.travelCostK - cur.travelCostK }
+  }
+  return null
 }

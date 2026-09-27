@@ -1,32 +1,73 @@
-import { useMemo, useState } from 'react'
-import { Award, BookOpen, Gift, Lock, Pause, RotateCcw, Share2, Sparkles } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { Award, BookOpen, ChevronRight, Gift, Loader2, Lock, Pause, RotateCcw, Share2, Sparkles } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
 import PrimaryButton from '../components/PrimaryButton'
 import Stamp from '../components/Stamp'
 import { CostLines } from '../components/TravelBits'
+import SaveQuestButton from '../components/SaveQuest'
 import TopBar from '../components/TopBar'
 import { missionFor } from '../data/roles'
 import { duration } from '../lib/format'
+import { recordJourney } from '../lib/passport'
 import { summarize } from '../lib/quest'
+import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
 
 export default function FinishPage() {
-  const { t, lang, journey, places, intent, mode, role, start, reset, travel } = useQuest()
+  const { t, lang, journey, places, intent, mode, role, start, reset, travel, fromQuest } = useQuest()
+  const auth = useAuth()
   const navigate = useNavigate()
   const [copied, setCopied] = useState(false)
+  const [stored, setStored] = useState<'saving' | 'done' | null>(null)
 
   const stops = useMemo(
     () => (journey ? journey.stopIds.map((id) => places.find((p) => p.id === id)).filter((p): p is Place => !!p) : []),
     [journey, places],
   )
 
+  // Put this journey in the passport (once — the start time makes it idempotent).
+  const userId = auth.session?.user.id ?? null
+  useEffect(() => {
+    if (!journey || !intent || !mode || !places.length || auth.loading) return
+    const visitedIds = journey.stopIds.filter((id) => journey.arrived[id])
+    if (!visitedIds.length) return
+    const visitedPlaces = visitedIds.map((id) => places.find((p) => p.id === id)).filter((p): p is Place => !!p)
+    const s = summarize(journey.start ?? start, visitedPlaces, intent.people, { ...travel, departAt: journey.startedAt }, journey.stopIds)
+    const playedRole = Object.values(journey.arrived).includes('explore')
+    setStored('saving')
+    recordJourney(
+      {
+        clientId: String(journey.startedAt),
+        startedAt: journey.startedAt,
+        finishedAt: Date.now(),
+        mode,
+        roleId: playedRole ? role?.id ?? null : null,
+        questId: fromQuest?.id ?? null,
+        questTitle: fromQuest?.title ?? null,
+        stopIds: journey.stopIds,
+        arrived: journey.arrived,
+        items: journey.items,
+        people: intent.people,
+        transport: travel.transport,
+        totalMin: s.totalMin,
+        distanceM: s.distanceM,
+        costMinK: s.costMin,
+        costMaxK: s.costMax,
+        start: journey.start ?? null,
+      },
+      userId,
+    ).finally(() => setStored('done'))
+    // Save when the page opens (and again if you sign in meanwhile — harmless, same id).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [journey?.startedAt, places.length, userId, auth.loading])
+
   if (!journey || !intent || !mode) return <Navigate to="/" replace />
   if (!stops.length) return null
 
   const visited = stops.filter((s) => journey.arrived[s.id])
-  const sum = summarize(journey.start ?? start, visited, intent.people, { ...travel, departAt: journey.startedAt })
+  const sum = summarize(journey.start ?? start, visited, intent.people, { ...travel, departAt: journey.startedAt }, journey.stopIds)
 
   // Items are needed for every stop that wasn't reached in Listen/Easy mode.
   const goalIds = journey.stopIds.filter((id) => journey.arrived[id] !== 'listen' && journey.arrived[id] !== 'easy')
@@ -71,6 +112,22 @@ export default function FinishPage() {
             <CostLines costMin={sum.costMin} costMax={sum.costMax} travelCostK={sum.travelCostK} />
           </div>
         </div>
+
+        {stored && visited.length > 0 && (
+          <button
+            onClick={() => navigate(userId || !auth.enabled ? '/passport' : '/login?next=/passport')}
+            className="flex w-full items-center gap-3 rounded-2xl bg-brick px-4 py-3 text-left text-white shadow-md transition active:scale-[.99]"
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
+              {stored === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <BookOpen className="h-4 w-4 text-sun" />}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-bold">{stored === 'saving' ? t.savingPassport : t.addedToPassport(visited.length)}</span>
+              <span className="block text-[11px] opacity-80">{!userId && auth.enabled ? t.passportGuestNote : t.passportOpen}</span>
+            </span>
+            <ChevronRight className="h-4 w-4 shrink-0 opacity-80" />
+          </button>
+        )}
 
         {playedRole && role && RoleIcon && (
           <section className={`rounded-[24px] border-2 p-5 ${unlocked && mode === 'explore' ? 'border-sun-dark bg-butter/60' : 'border-sand bg-white'}`}>
@@ -151,6 +208,7 @@ export default function FinishPage() {
           >
             <Share2 className="h-4 w-4" /> {copied ? t.copied : t.share}
           </button>
+          <SaveQuestButton summary={sum} className="mt-2 w-full" />
         </section>
       </div>
 

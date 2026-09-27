@@ -1,2 +1,6 @@
 # Local Claude Code settings (dev-server launch config etc.)
 .claude/
+
+# Data: raw downloads (re-create with the scripts in Data/scripts)
+Data/out/wiki/
+Data/out/osm_raw*.json

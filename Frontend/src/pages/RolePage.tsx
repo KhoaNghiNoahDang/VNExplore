@@ -9,7 +9,7 @@ import { preselect, rankPlaces } from '../lib/quest'
 import { useQuest } from '../store/QuestContext'
 
 export default function RolePage() {
-  const { t, lang, roleId, setRole, intent, places, start, setIntent, journey } = useQuest()
+  const { t, lang, roleId, setRole, intent, areaPlaces, area, contextFor, start, setIntent, journey } = useQuest()
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const next = params.get('next') ?? '/places'
@@ -29,7 +29,7 @@ export default function RolePage() {
     setRole(chosen.id)
     if (fresh) {
       // First time through: re-pick places so the role's favourite spots come first.
-      const ranked = rankPlaces(places, intent, start, chosen.favPlaces)
+      const ranked = rankPlaces(areaPlaces, intent, start, chosen.favPlaces, contextFor(area))
       setIntent(intent, preselect(ranked, intent, start, chosen.favPlaces))
     }
     navigate(next)

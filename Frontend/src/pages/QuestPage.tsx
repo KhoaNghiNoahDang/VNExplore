@@ -6,23 +6,26 @@ import { MapStopCard } from '../components/MapCards'
 import MapView, { type MapPanel } from '../components/MapView'
 import PrimaryButton from '../components/PrimaryButton'
 import { CostLines, LegLine, TravelBanner } from '../components/TravelBits'
+import { TransportHintCard, WeatherPill } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripChips from '../components/TripChips'
+import SaveQuestButton from '../components/SaveQuest'
 import { missionFor } from '../data/roles'
 import { distance, duration, minutes, moneyRange } from '../lib/format'
-import { storyMinutes, suggestPhotoSpot, summarize } from '../lib/quest'
+import { storyMinutes, storyOf, suggestPhotoSpot, summarize } from '../lib/quest'
 import { useQuest } from '../store/QuestContext'
 
 export default function QuestPage() {
-  const { t, lang, intent, places, start, selected, toggle, dismissed, dismiss, mode, role, journey, startJourney, travel, geo } =
+  const { t, lang, intent, places, areaPlaces, start, selected, toggle, dismissed, dismiss, mode, role, journey, startJourney, travel, geo, routeOrder, weather } =
     useQuest()
   const navigate = useNavigate()
 
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
-  const sum = useMemo(() => summarize(start, chosen, intent?.people ?? 1, travel), [start, chosen, intent, travel])
+  const sum = useMemo(() => summarize(start, chosen, intent?.people ?? 1, travel, routeOrder),
+    [start, chosen, intent, travel, routeOrder])
   const suggestion = useMemo(
-    () => suggestPhotoSpot(places.filter((p) => !dismissed.includes(p.id)), sum.stops),
-    [places, dismissed, sum.stops],
+    () => suggestPhotoSpot(areaPlaces.filter((p) => !dismissed.includes(p.id)), sum.stops),
+    [areaPlaces, dismissed, sum.stops],
   )
 
   if (!intent || !mode) return <Navigate to="/" replace />
@@ -103,6 +106,8 @@ export default function QuestPage() {
           <p className="py-10 text-center text-sm opacity-60">{t.emptyQuest}</p>
         ) : (
           <>
+            <WeatherPill weather={weather} />
+            <TransportHintCard start={start} stops={sum.stops} people={intent.people} order={routeOrder} />
             <TravelBanner legs={sum.legs} />
             <MapView
               start={start}
@@ -137,7 +142,7 @@ export default function QuestPage() {
                         )}
                         {mode === 'listen' && (
                           <div className="flex items-center gap-1 text-[10px] font-bold text-teal">
-                            <Headphones className="h-3 w-3" /> ~{minutes(storyMinutes(s.story[lang]), lang)}
+                            <Headphones className="h-3 w-3" /> ~{minutes(storyMinutes(storyOf(s, lang)), lang)}
                           </div>
                         )}
                         {mode === 'easy' && (
@@ -158,6 +163,8 @@ export default function QuestPage() {
                 )
               })}
             </ol>
+
+            <SaveQuestButton summary={sum} className="w-full" />
 
             {suggestion && (
               <div className="rounded-2xl border-2 border-leaf/20 bg-leaf/5 p-4">

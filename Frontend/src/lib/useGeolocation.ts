@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { LatLng } from '../types'
-import { distanceM } from './travel'
+import { areaAt } from './area'
 
 export type GeoStatus = 'off' | 'asking' | 'on' | 'far' | 'denied' | 'unavailable'
 
@@ -11,8 +11,6 @@ export interface Geo {
   accuracyM: number | null
 }
 
-/** Beyond this from the lake we assume the traveller isn't in central Hanoi yet. */
-const MAX_FROM_CENTER_M = 15000
 
 /**
  * Browser geolocation (free, needs HTTPS and the user's permission).
@@ -42,7 +40,8 @@ export function useGeolocation(enabled: boolean, center: LatLng) {
       (pos) => {
         const p = { lat: pos.coords.latitude, lng: pos.coords.longitude }
         setGeo({
-          status: distanceM(p, center) > MAX_FROM_CENTER_M ? 'far' : 'on',
+          // 'far' = outside every area we cover (Hoan Kiem, Ba Vi); plans then start from the area's default.
+          status: areaAt(p) ? 'on' : 'far',
           position: p,
           accuracyM: pos.coords.accuracy,
         })

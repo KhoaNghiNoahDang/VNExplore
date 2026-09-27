@@ -1,0 +1,517 @@
+[
+ {
+  "id": "merchant",
+  "name": {
+   "vi": "Thương nhân phố Hàng",
+   "en": "Hang Street Merchant"
+  },
+  "intro": {
+   "vi": "Bạn vừa từ quê lên kinh với chiếc xe hàng và giấc mơ lớn. Phố cổ có 36 phố phường, mỗi phố một nghề — hãy tìm chỗ đứng của mình.",
+   "en": "You’ve just arrived from the countryside with a cart and big dreams. The Old Quarter has 36 streets, each selling one thing — find your place among them."
+  },
+  "goal": {
+   "vi": "Gom đủ {n} món hàng để mở sạp",
+   "en": "Gather {n} goods to open your stall"
+  },
+  "itemNoun": {
+   "vi": "món hàng",
+   "en": "goods"
+  },
+  "favPlaces": [
+   "ma-may-87",
+   "dong-xuan",
+   "bach-ma",
+   "egg-coffee",
+   "ta-hien",
+   "women-museum",
+   "o-quan-chuong",
+   "hanoi-post-office"
+  ],
+  "missions": {
+   "ma-may-87": {
+    "task": {
+     "vi": "Học cách một gia đình buôn bán xưa bày hàng ở gian trước.",
+     "en": "Learn how an old merchant family set up shop at the front of the house."
+    },
+    "item": {
+     "vi": "Tấm biển hiệu",
+     "en": "A shop signboard"
+    }
+   },
+   "dong-xuan": {
+    "task": {
+     "vi": "Tìm nơi dân buôn sỉ tụ họp và lấy được lòng tin của họ.",
+     "en": "Find where wholesale traders gather and earn their trust."
+    },
+    "item": {
+     "vi": "Một súc lụa",
+     "en": "A bolt of silk"
+    }
+   },
+   "bach-ma": {
+    "task": {
+     "vi": "Xin thần trấn phía Đông phù hộ cho việc buôn bán.",
+     "en": "Ask the guardian of the east for a blessing on your trade."
+    },
+    "item": {
+     "vi": "Dải lụa đỏ may mắn",
+     "en": "A lucky red ribbon"
+    }
+   },
+   "egg-coffee": {
+    "task": {
+     "vi": "Khám phá cách một người buôn khéo vượt qua lúc thiếu sữa.",
+     "en": "Discover how a clever trader beat the milk shortage."
+    },
+    "item": {
+     "vi": "Công thức bí truyền",
+     "en": "A secret recipe"
+    }
+   },
+   "ta-hien": {
+    "task": {
+     "vi": "Ngồi cùng phố một ly và nghe giá cả trong ngày.",
+     "en": "Share a drink with the street and hear the day’s prices."
+    },
+    "item": {
+     "vi": "Một mối khách quen",
+     "en": "A regular customer"
+    }
+   },
+   "women-museum": {
+    "task": {
+     "vi": "Học mẹo của các chị hàng rong vào phố từ tờ mờ sáng.",
+     "en": "Learn the tricks of the street vendors who walk in before dawn."
+    },
+    "item": {
+     "vi": "Chiếc đòn gánh",
+     "en": "A bamboo shoulder pole"
+    }
+   },
+   "o-quan-chuong": {
+    "task": {
+     "vi": "Đi qua cửa ô phía Đông nơi hàng hoá từ bến sông vào phố – và đọc lệnh cấm sách nhiễu người qua lại.",
+     "en": "Pass the east gate where goods came up from the river — and read the rule that protected traders."
+    },
+    "item": {
+     "vi": "Tấm thẻ qua cửa ô",
+     "en": "A gate pass"
+    }
+   },
+   "hanoi-post-office": {
+    "task": {
+     "vi": "Tìm nơi tin tức và đơn hàng từ khắp xứ được truyền về bằng điện tín.",
+     "en": "Find where news and orders from the whole country arrived by wire."
+    },
+    "item": {
+     "vi": "Bức điện tín của mối hàng",
+     "en": "A telegram from a buyer"
+    }
+   }
+  },
+  "fallback": {
+   "task": {
+    "vi": "Tìm một chi tiết thật ở đây để có thêm hàng cho sạp.",
+    "en": "Find a real detail here to earn something for your stall."
+   },
+   "item": {
+    "vi": "Một bí quyết buôn bán",
+    "en": "A trade secret"
+   }
+  },
+  "ending": {
+   "vi": "Hàng đã bày đủ, dải lụa đỏ treo trước cửa, sạp hàng nhỏ của bạn mở trên một phố Hàng. Hàng xóm ghé qua chúc may mắn — bạn không còn là người mới đến, bạn đã là một phần của phố cổ.",
+   "en": "With your goods laid out and a red ribbon over the door, your little stall opens on a Hang street. The neighbours come by to wish you luck — you are no longer a newcomer, you are part of the Old Quarter."
+  },
+  "tone": "butter"
+ },
+ {
+  "id": "scholar",
+  "name": {
+   "vi": "Sĩ tử lên kinh",
+   "en": "Scholar Bound for the Capital"
+  },
+  "intro": {
+   "vi": "Bạn đã đi bộ nhiều tuần để lên Thăng Long ứng thí. Trước khi cổng trường thi mở, bạn phải thu thập phúc lành và trí tuệ của kinh thành.",
+   "en": "You’ve walked for weeks to sit the royal exam in Thang Long. Before the exam gate opens, you must gather the blessings and wisdom of the capital."
+  },
+  "goal": {
+   "vi": "Gom {n} bảo vật để vào trường thi",
+   "en": "Collect {n} treasures to enter the exam hall"
+  },
+  "itemNoun": {
+   "vi": "bảo vật",
+   "en": "treasures"
+  },
+  "favPlaces": [
+   "ngoc-son",
+   "the-huc",
+   "turtle-tower",
+   "bach-ma",
+   "hoa-lo",
+   "women-museum",
+   "quan-su-pagoda",
+   "imperial-citadel",
+   "48-hang-ngang"
+  ],
+  "missions": {
+   "ngoc-son": {
+    "task": {
+     "vi": "Thắp hương thần Văn Xương và đọc chữ trên Tháp Bút.",
+     "en": "Pray to the god of literature and read the words on the Pen Tower."
+    },
+    "item": {
+     "vi": "Cây bút lông",
+     "en": "A calligraphy brush"
+    }
+   },
+   "the-huc": {
+    "task": {
+     "vi": "Bước qua cầu ánh ban mai với tâm trí sáng suốt.",
+     "en": "Cross the bridge of morning light with a clear mind."
+    },
+    "item": {
+     "vi": "Tia nắng ban mai",
+     "en": "A ray of morning light"
+    }
+   },
+   "turtle-tower": {
+    "task": {
+     "vi": "Nghe truyền thuyết trả gươm — bài học về sự khiêm nhường.",
+     "en": "Learn the legend of the returned sword — a lesson in humility."
+    },
+    "item": {
+     "vi": "Phúc lành của Rùa Vàng",
+     "en": "The golden turtle’s blessing"
+    }
+   },
+   "bach-ma": {
+    "task": {
+     "vi": "Tìm hiểu thành Thăng Long được vạch ra như thế nào.",
+     "en": "Find out how the capital’s walls were first traced."
+    },
+    "item": {
+     "vi": "Bản đồ kinh thành",
+     "en": "A map of the citadel"
+    }
+   },
+   "hoa-lo": {
+    "task": {
+     "vi": "Tưởng nhớ những người vẫn học, vẫn viết sau song sắt.",
+     "en": "Remember those who studied and wrote even behind prison walls."
+    },
+    "item": {
+     "vi": "Cuốn sổ bí mật",
+     "en": "A hidden notebook"
+    }
+   },
+   "women-museum": {
+    "task": {
+     "vi": "Hiểu sự hy sinh của ai đã giúp sĩ tử lên được kinh thành.",
+     "en": "Learn whose sacrifices let a scholar travel to the capital."
+    },
+    "item": {
+     "vi": "Lá thư của mẹ",
+     "en": "A mother’s letter"
+    }
+   },
+   "quan-su-pagoda": {
+    "task": {
+     "vi": "Tìm hiểu kinh thành đón tiếp sứ thần ra sao – bài học về bang giao.",
+     "en": "Learn how the capital welcomed foreign envoys — a lesson in diplomacy."
+    },
+    "item": {
+     "vi": "Ấn tín của sứ thần",
+     "en": "An envoy's seal"
+    }
+   },
+   "imperial-citadel": {
+    "task": {
+     "vi": "Bước qua Đoan Môn, cánh cổng mọi vị quan phải đi qua để vào chầu vua.",
+     "en": "Walk through Doan Mon, the gate every official passed to reach the king."
+    },
+    "item": {
+     "vi": "Dải đai triều phục",
+     "en": "A court robe sash"
+    }
+   },
+   "48-hang-ngang": {
+    "task": {
+     "vi": "Tìm chiếc bàn nhỏ nơi những lời đầu tiên của một đất nước mới được viết ra.",
+     "en": "Find the small table where a new country's first words were written."
+    },
+    "item": {
+     "vi": "Trang giấy đánh máy",
+     "en": "A typed page"
+    }
+   }
+  },
+  "fallback": {
+   "task": {
+    "vi": "Quan sát thật kỹ — sĩ tử giỏi là người để ý chi tiết.",
+    "en": "Observe carefully — a true scholar notices the details."
+   },
+   "item": {
+    "vi": "Một trang ghi chép",
+    "en": "A page of notes"
+   }
+  },
+  "ending": {
+   "vi": "Trống điểm, cổng trường thi mở. Với cây bút, trang ghi chép và phúc lành của kinh thành, bạn ngồi vào lều thi. Dù kết quả thế nào, bạn đã học được điều kinh thành muốn dạy.",
+   "en": "The drum sounds and the exam gate opens. With your brush, your notes and the blessings of the capital, you take your seat. Whatever the result, you have learned what the city had to teach."
+  },
+  "tone": "teal"
+ },
+ {
+  "id": "photographer",
+  "name": {
+   "vi": "Nhiếp ảnh gia thập niên 1930",
+   "en": "1930s Photographer"
+  },
+  "intro": {
+   "vi": "Những năm 1930. Bạn vừa mua chiếc máy ảnh đầu tiên cùng vài tấm kính phim. Một tờ báo Hà Thành sẽ in triển lãm của bạn — nếu bạn mang về đúng những khung hình.",
+   "en": "It’s 1930-something. You’ve bought your first camera with a handful of glass plates. A Hanoi newspaper will print your exhibition — if you bring the right shots."
+  },
+  "goal": {
+   "vi": "Chụp đủ {n} khung hình cho triển lãm",
+   "en": "Capture {n} frames for your exhibition"
+  },
+  "itemNoun": {
+   "vi": "khung hình",
+   "en": "frames"
+  },
+  "favPlaces": [
+   "the-huc",
+   "cathedral",
+   "turtle-tower",
+   "dong-xuan",
+   "ngoc-son",
+   "hoa-lo",
+   "opera-house",
+   "hoa-phong-tower",
+   "o-quan-chuong"
+  ],
+  "missions": {
+   "the-huc": {
+    "task": {
+     "vi": "Chờ ánh sáng đậu trên dáng cầu đỏ rồi bấm máy.",
+     "en": "Wait for the light to rest on the red curve, then shoot."
+    },
+    "item": {
+     "vi": "Khung hình: cây cầu đỏ",
+     "en": "Frame: the red bridge"
+    }
+   },
+   "cathedral": {
+    "task": {
+     "vi": "Chụp đôi tháp chuông Pháp mới xây cho tờ báo.",
+     "en": "Photograph the new French-built towers for the newspaper."
+    },
+    "item": {
+     "vi": "Khung hình: đôi tháp chuông",
+     "en": "Frame: the twin towers"
+    }
+   },
+   "turtle-tower": {
+    "task": {
+     "vi": "Chụp ngọn tháp trên mặt nước lặng, như huyền thoại ngưng đọng.",
+     "en": "Capture the tower in still water, like a legend frozen in time."
+    },
+    "item": {
+     "vi": "Khung hình: hồ trả gươm",
+     "en": "Frame: the returned sword"
+    }
+   },
+   "dong-xuan": {
+    "task": {
+     "vi": "Tìm khoảnh khắc đông vui nhất của chợ và giữ nó lại.",
+     "en": "Find the market’s busiest moment and freeze it."
+    },
+    "item": {
+     "vi": "Khung hình: chợ lớn",
+     "en": "Frame: the great market"
+    }
+   },
+   "ngoc-son": {
+    "task": {
+     "vi": "Chụp ngọn Tháp Bút viết lên trời xanh.",
+     "en": "Photograph the Pen Tower that writes on the sky."
+    },
+    "item": {
+     "vi": "Khung hình: Tháp Bút",
+     "en": "Frame: the Pen Tower"
+    }
+   },
+   "hoa-lo": {
+    "task": {
+     "vi": "Ghi lại cổng nhà tù mà báo chí không dám nhắc tới.",
+     "en": "Document the prison gate the newspapers won’t talk about."
+    },
+    "item": {
+     "vi": "Khung hình: cánh cổng sắt",
+     "en": "Frame: the iron gate"
+    }
+   },
+   "opera-house": {
+    "task": {
+     "vi": "Chụp Nhà hát Lớn mới khánh thành cho số báo buổi chiều.",
+     "en": "Photograph the brand-new Opera House for the evening edition."
+    },
+    "item": {
+     "vi": "Khung hình: mặt tiền Nhà hát",
+     "en": "Frame: the Opera facade"
+    }
+   },
+   "hoa-phong-tower": {
+    "task": {
+     "vi": "Ghi lại mảnh cuối cùng của một ngôi chùa lớn trước khi nó bị lãng quên.",
+     "en": "Capture the last piece of a great pagoda before it is forgotten."
+    },
+    "item": {
+     "vi": "Khung hình: ngọn tháp đơn độc",
+     "en": "Frame: the lone tower"
+    }
+   },
+   "o-quan-chuong": {
+    "task": {
+     "vi": "Chụp cửa ô cổ với dòng người qua lại.",
+     "en": "Shoot the old city gate with life passing through it."
+    },
+    "item": {
+     "vi": "Khung hình: cửa ô phía Đông",
+     "en": "Frame: the east gate"
+    }
+   }
+  },
+  "fallback": {
+   "task": {
+    "vi": "Tìm một chi tiết kể được câu chuyện của nơi này.",
+    "en": "Find the one detail that tells this place’s story."
+   },
+   "item": {
+    "vi": "Khung hình đường phố",
+    "en": "A street frame"
+   }
+  },
+  "ending": {
+   "vi": "Những tấm kính phim được tráng rửa và treo lên tường toà báo. Người đọc dừng lại trước từng tấm — họ nhận ra chính con phố của mình. Chín mươi năm sau, bạn vừa chụp lại đúng những khung hình ấy.",
+   "en": "Your glass plates are developed and pinned on the newspaper’s wall. Readers stop in front of them — they recognise their own streets. Ninety years later, you have just taken the same photos again."
+  },
+  "tone": "brick"
+ },
+ {
+  "id": "chef",
+  "name": {
+   "vi": "Đầu bếp tập sự",
+   "en": "Apprentice Cook"
+  },
+  "intro": {
+   "vi": "Sư phụ giao cho bạn chiếc giỏ trống và bảo vào phố cổ. Muốn nấu mâm cỗ đầu tiên, bạn phải học hương vị Hà Nội từ chính những người làm ra nó.",
+   "en": "Your master sent you into the Old Quarter with an empty basket. To cook your first feast, you must learn the city’s flavours from those who made them."
+  },
+  "goal": {
+   "vi": "Gom {n} nguyên liệu cho mâm cỗ đầu tiên",
+   "en": "Gather {n} ingredients for your first feast"
+  },
+  "itemNoun": {
+   "vi": "nguyên liệu",
+   "en": "ingredients"
+  },
+  "favPlaces": [
+   "bun-cha",
+   "egg-coffee",
+   "dong-xuan",
+   "ta-hien",
+   "ma-may-87",
+   "water-puppets",
+   "ly-thai-to-park"
+  ],
+  "missions": {
+   "bun-cha": {
+    "task": {
+     "vi": "Học bí quyết bát nước chấm — chua, ngọt, mặn, thơm khói.",
+     "en": "Learn the secret of the dipping broth — sweet, sour, salty, smoky."
+    },
+    "item": {
+     "vi": "Làn khói than hoa",
+     "en": "Charcoal smoke"
+    }
+   },
+   "egg-coffee": {
+    "task": {
+     "vi": "Xem lòng đỏ và đường biến thành kem như thế nào.",
+     "en": "Watch how yolk and sugar become cream."
+    },
+    "item": {
+     "vi": "Kem trứng vàng",
+     "en": "Golden egg cream"
+    }
+   },
+   "dong-xuan": {
+    "task": {
+     "vi": "Tìm rau thơm tươi nhất ở ngõ sau chợ.",
+     "en": "Find the freshest herbs in the market’s back alley."
+    },
+    "item": {
+     "vi": "Bó rau thơm",
+     "en": "A bundle of fresh herbs"
+    }
+   },
+   "ta-hien": {
+    "task": {
+     "vi": "Nếm thử món nhắm buổi tối của phố.",
+     "en": "Taste what the street snacks on in the evening."
+    },
+    "item": {
+     "vi": "Món nhắm vỉa hè",
+     "en": "A street snack"
+    }
+   },
+   "ma-may-87": {
+    "task": {
+     "vi": "Tìm gian bếp của nhà cổ và xem một gia đình xưa nấu nướng.",
+     "en": "Find the kitchen of the old house and see how a family cooked."
+    },
+    "item": {
+     "vi": "Chiếc niêu đất",
+     "en": "A family clay pot"
+    }
+   },
+   "water-puppets": {
+    "task": {
+     "vi": "Xem cảnh đồng lúa — nơi mọi bữa cơm bắt đầu.",
+     "en": "Watch the rice-field scenes — where every meal begins."
+    },
+    "item": {
+     "vi": "Nắm gạo mới",
+     "en": "A handful of new rice"
+    }
+   },
+   "ly-thai-to-park": {
+    "task": {
+     "vi": "Quan sát người tập buổi sáng và tìm hiểu Hà Nội ăn gì trước 7 giờ.",
+     "en": "Watch the morning crowd and learn what Hanoi eats before 7 am."
+    },
+    "item": {
+     "vi": "Bí mật bữa sáng",
+     "en": "A breakfast secret"
+    }
+   }
+  },
+  "fallback": {
+   "task": {
+    "vi": "Nơi nào cũng có một hương vị. Tìm chi tiết ẩn giấu nó.",
+    "en": "Every place has a flavour. Find the detail that hides it."
+   },
+   "item": {
+    "vi": "Một chút vị Hà Nội",
+    "en": "A pinch of Hanoi"
+   }
+  },
+  "ending": {
+   "vi": "Trở về bếp, bạn bày ra tất cả những gì đã gom được. Sư phụ nếm thìa đầu tiên, lặng đi một lúc rồi gật đầu: “Giờ con nấu như người đã đi qua từng con phố ấy.”",
+   "en": "Back in the kitchen, you lay out everything you gathered. Your master tastes the first spoonful, pauses, and nods. “Now you cook like someone who has walked these streets.”"
+  },
+  "tone": "leaf"
+ }
+]

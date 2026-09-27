@@ -11,6 +11,11 @@ export function distanceM(a: LatLng, b: LatLng): number {
   return 2 * R * Math.asin(Math.sqrt(h)) * 1.3
 }
 
+/** Hoan Kiem Lake. Legs with an end further than 12 km away (Ba Vì, the road out) use open-road speeds. */
+const CITY = { lat: 21.0296, lng: 105.8526 }
+const OPEN_ROAD_KMH: Partial<Record<Transport, number>> = { motorbike: 35, grabbike: 35, car: 40 }
+const outOfTown = (p: LatLng) => distanceM(p, CITY) / 1.3 > 12_000
+
 export function isRushHour(at: Date): boolean {
   const day = at.getDay()
   if (day === 0 || day === 6) return false
@@ -84,9 +89,11 @@ export function estimateLeg(from: LatLng, to: LatLng, requested: Transport, at: 
     }
   }
 
-  const roadM = m * spec.detour
+  // Country roads: faster, straighter, no Old Quarter jams.
+  const open = (outOfTown(from) || outOfTown(to)) && OPEN_ROAD_KMH[requested]
+  const roadM = m * (open ? 1 : spec.detour)
   const km = roadM / 1000
-  const speed = peak ? spec.speedKmh.peak : spec.speedKmh.normal
+  const speed = open || (peak ? spec.speedKmh.peak : spec.speedKmh.normal)
   const minutes = Math.round((km / speed) * 60 + spec.overheadMin + extraWalkMin)
 
   let costK = 0

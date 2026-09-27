@@ -1,19 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowRight, CircleAlert, Lightbulb, Mic, Square } from 'lucide-react'
+import { ArrowRight, CircleAlert, Lightbulb, Loader2, Mic, Square } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import IntentChips from '../components/IntentChips'
 import LocationRow from '../components/LocationRow'
 import ModePicker from '../components/ModePicker'
 import PrimaryButton from '../components/PrimaryButton'
+import TabBar from '../components/TabBar'
+import { WeatherPill } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripChips from '../components/TripChips'
-import { parseIntent } from '../lib/intent'
+import { understandRequest } from '../lib/backend'
+import { mergeUnderstood, parseIntent, withAreaDefaults } from '../lib/intent'
 import { preselect, rankPlaces } from '../lib/quest'
 import { useSpeech } from '../lib/useSpeech'
 import { useQuest } from '../store/QuestContext'
 
 export default function AskPage() {
-  const { t, lang, draft, setDraft, setIntent, places, start, mode, transport: picked, setTransport, travel } = useQuest()
+  const { t, lang, draft, setDraft, setIntent, planFor, contextFor, mode, transport: picked, setTransport, travel } = useQuest()
   const navigate = useNavigate()
   const speech = useSpeech(lang, draft, setDraft)
   const [needMode, setNeedMode] = useState(false)
@@ -21,7 +24,10 @@ export default function AskPage() {
   const input = useRef<HTMLTextAreaElement>(null)
 
   const text = draft.trim()
-  const preview = useMemo(() => (text ? parseIntent(text) : null), [text])
+  const parsed = useMemo(() => (text ? parseIntent(text) : null), [text])
+  // A new request: the area named in the text, else where the traveller is (not the last saved plan).
+  const askArea = planFor(parsed?.area ?? null).area
+  const preview = useMemo(() => (parsed ? withAreaDefaults(parsed, askArea) : null), [parsed, askArea])
   const ready = !!preview
 
   useEffect(() => {
@@ -37,7 +43,10 @@ export default function AskPage() {
   }, [textTransport, setTransport])
   const shownTransport = picked ?? preview?.transport ?? 'walk'
 
-  const submit = () => {
+  const [thinking, setThinking] = useState(false)
+
+  const submit = async () => {
+    if (thinking) return
     if (speech.listening) speech.stop()
     if (!preview) {
       input.current?.focus()
@@ -49,8 +58,16 @@ export default function AskPage() {
       modeBox.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
     }
-    const ranked = rankPlaces(places, preview, start)
-    setIntent(preview, preselect(ranked, preview, start, [], { transport: shownTransport, departAt: travel.departAt }))
+    // Let the language model read the request (≤ 4 s); on any problem keep the rule-based reading.
+    setThinking(true)
+    const merged = mergeUnderstood(preview, await understandRequest(preview.text))
+    setThinking(false)
+    // Plan inside one area: the one named in the text, else where the traveller is.
+    const { area, places: pool, start } = planFor(merged.area)
+    const intent = withAreaDefaults(merged, area)
+    const transport = picked ?? intent.transport
+    const ranked = rankPlaces(pool, intent, start, [], contextFor(area))
+    setIntent(intent, preselect(ranked, intent, start, [], { transport, departAt: travel.departAt }))
     // Explore adds one step: choose a role (it then re-picks places that fit the role).
     navigate(mode === 'explore' ? '/role?next=/places&fresh=1' : '/places')
   }
@@ -62,9 +79,12 @@ export default function AskPage() {
       <TopBar />
       <div className="thin-scroll relative z-10 min-h-0 flex-1 overflow-y-auto px-6 pb-4">
         <div className="mb-4 mt-2">
-          <div className="mb-1 text-[10px] font-bold tracking-widest text-brick">{t.area}</div>
+          <div className="mb-1 text-[10px] font-bold tracking-widest text-brick">{t.areaName[askArea]}</div>
           <h1 className="text-[26px] font-bold leading-tight">{t.askTitle}</h1>
           <p className="mt-2 text-[13px] opacity-70">{t.askSub}</p>
+          <div className="mt-3">
+            <WeatherPill weather={contextFor(askArea).weather ?? null} />
+          </div>
         </div>
 
         <form
@@ -147,7 +167,7 @@ export default function AskPage() {
         </div>
 
         <div className="mt-5 space-y-2.5 rounded-2xl border border-sand bg-white/60 p-3">
-          <LocationRow />
+          <LocationRow area={askArea} />
           <TripChips transport={shownTransport} isDefault={!picked && (!preview || preview.transportIsDefault)} />
         </div>
 
@@ -164,15 +184,17 @@ export default function AskPage() {
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-sand/60 bg-paper px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3">
+      <div className="relative z-10 border-t border-sand/60 bg-paper px-6 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-3">
         {preview && (
           <div className="mb-3">
             <IntentChips intent={preview} />
           </div>
         )}
-        <PrimaryButton onClick={submit} disabled={!ready}>
-          {cta}
+        <PrimaryButton onClick={submit} disabled={!ready || thinking}>
+          {thinking ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+          {thinking ? t.thinking : cta}
         </PrimaryButton>
+        <TabBar docked />
       </div>
     </div>
   )

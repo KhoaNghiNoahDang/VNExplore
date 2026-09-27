@@ -1,0 +1,47 @@
+[
+  {
+    "roleId": "merchant", "placeId": "o-quan-chuong",
+    "task": { "en": "Pass the east gate where goods came up from the river — and read the rule that protected traders.", "vi": "Đi qua cửa ô phía Đông nơi hàng hoá từ bến sông vào phố – và đọc lệnh cấm sách nhiễu người qua lại." },
+    "item": { "en": "A gate pass", "vi": "Tấm thẻ qua cửa ô" }
+  },
+  {
+    "roleId": "merchant", "placeId": "hanoi-post-office",
+    "task": { "en": "Find where news and orders from the whole country arrived by wire.", "vi": "Tìm nơi tin tức và đơn hàng từ khắp xứ được truyền về bằng điện tín." },
+    "item": { "en": "A telegram from a buyer", "vi": "Bức điện tín của mối hàng" }
+  },
+  {
+    "roleId": "scholar", "placeId": "quan-su-pagoda",
+    "task": { "en": "Learn how the capital welcomed foreign envoys — a lesson in diplomacy.", "vi": "Tìm hiểu kinh thành đón tiếp sứ thần ra sao - bài học về bang giao." },
+    "item": { "en": "An envoy's seal", "vi": "Ấn tín của sứ thần" }
+  },
+  {
+    "roleId": "scholar", "placeId": "imperial-citadel",
+    "task": { "en": "Walk through Doan Mon, the gate every official passed to reach the king.", "vi": "Bước qua Đoan Môn, cánh cổng mọi vị quan phải đi qua để vào chầu vua." },
+    "item": { "en": "A court robe sash", "vi": "Dải đai triều phục" }
+  },
+  {
+    "roleId": "scholar", "placeId": "48-hang-ngang",
+    "task": { "en": "Find the small table where a new country's first words were written.", "vi": "Tìm chiếc bàn nhỏ nơi những lời đầu tiên của một đất nước mới được viết ra." },
+    "item": { "en": "A typed page", "vi": "Trang giấy đánh máy" }
+  },
+  {
+    "roleId": "photographer", "placeId": "opera-house",
+    "task": { "en": "Photograph the brand-new Opera House for the evening edition.", "vi": "Chụp Nhà hát Lớn mới khánh thành cho số báo buổi chiều." },
+    "item": { "en": "Frame: the Opera facade", "vi": "Khung hình: mặt tiền Nhà hát" }
+  },
+  {
+    "roleId": "photographer", "placeId": "hoa-phong-tower",
+    "task": { "en": "Capture the last piece of a great pagoda before it is forgotten.", "vi": "Ghi lại mảnh cuối cùng của một ngôi chùa lớn trước khi nó bị lãng quên." },
+    "item": { "en": "Frame: the lone tower", "vi": "Khung hình: ngọn tháp đơn độc" }
+  },
+  {
+    "roleId": "photographer", "placeId": "o-quan-chuong",
+    "task": { "en": "Shoot the old city gate with life passing through it.", "vi": "Chụp cửa ô cổ với dòng người qua lại." },
+    "item": { "en": "Frame: the east gate", "vi": "Khung hình: cửa ô phía Đông" }
+  },
+  {
+    "roleId": "chef", "placeId": "ly-thai-to-park",
+    "task": { "en": "Watch the morning crowd and learn what Hanoi eats before 7 am.", "vi": "Quan sát người tập buổi sáng và tìm hiểu Hà Nội ăn gì trước 7 giờ." },
+    "item": { "en": "A breakfast secret", "vi": "Bí mật bữa sáng" }
+  }
+]

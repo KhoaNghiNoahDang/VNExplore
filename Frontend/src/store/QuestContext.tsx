@@ -2,11 +2,14 @@ import { useCallback, useContext, useEffect, useMemo, useRef, useState, type Rea
 import { START } from '../data/places'
 import { getRole } from '../data/roles'
 import { fetchPlaces } from '../lib/api'
+import { AREAS, planArea } from '../lib/area'
+import type { PlanContext } from '../lib/quest'
+import { loadSeries, weatherAt, type Weather } from '../lib/weather'
 import type { Travel } from '../lib/quest'
 import { distanceM } from '../lib/travel'
 import { useGeolocation, type Geo } from '../lib/useGeolocation'
 import { STRINGS } from '../i18n/strings'
-import type { Intent, Journey, Lang, LatLng, Mode, Place, Role, Transport } from '../types'
+import type { Area, Intent, Journey, Lang, LatLng, Mode, Place, Role, Transport } from '../types'
 import { QuestCtx as Ctx } from './ctx'
 
 interface Saved {
@@ -25,13 +28,27 @@ interface Saved {
   departAt: number | null
   /** The traveller turned on location. */
   geoWanted: boolean
+  /** Fixed stop order when playing a community quest (null = nearest-first). */
+  routeOrder: string[] | null
+  /** The community quest being played (for the passport), null for your own route. */
+  fromQuest: { id: string; title: string } | null
 }
 
 export interface QuestState extends Saved {
+  /** Every approved place (look-ups by id: journeys, quests, passport). */
   places: Place[]
+  /** Places in the current plan's area — use these for ranking and suggestions. */
+  areaPlaces: Place[]
+  area: Area
   loading: boolean
-  /** Where the plan starts: the traveller's location if known, else Hoan Kiem Lake. */
+  /** Where the plan starts: the traveller if they are in the area, else the area's default start. */
   start: LatLng
+  /** Weather in the plan's area at departure (null while loading / offline). */
+  weather: Weather | null
+  /** Weather + departure time for ranking places in an area. */
+  contextFor: (area: Area) => PlanContext
+  /** Area + start + places for a request that isn't saved yet (the Ask page preview). */
+  planFor: (asked: Area | null | undefined) => ReturnType<typeof planArea>
   travel: Travel
   geo: Geo
   role: Role | null
@@ -40,7 +57,10 @@ export interface QuestState extends Saved {
   setDraft: (s: string) => void
   setMode: (m: Mode) => void
   setRole: (id: string) => void
-  setIntent: (i: Intent, selected: string[]) => void
+  /** routeOrder: keep the stops in this order (community quests). */
+  setIntent: (i: Intent, selected: string[], routeOrder?: string[] | null) => void
+  /** Call after setIntent when the route comes from a community quest. */
+  setFromQuest: (q: { id: string; title: string } | null) => void
   toggle: (id: string) => void
   dismiss: (id: string) => void
   startJourney: (stopIds: string[], start: LatLng) => void
@@ -67,6 +87,8 @@ const EMPTY: Saved = {
   transport: null,
   departAt: null,
   geoWanted: false,
+  routeOrder: null,
+  fromQuest: null,
 }
 
 function load(): Saved {
@@ -108,7 +130,9 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       setDraft: (draft: string) => patch(() => ({ draft })),
       setMode: (mode: Mode) => patch(() => ({ mode })),
       setRole: (roleId: string) => patch(() => ({ roleId, mode: 'explore' as Mode })),
-      setIntent: (intent: Intent, selected: string[]) => patch(() => ({ intent, selected, dismissed: [] })),
+      setIntent: (intent: Intent, selected: string[], routeOrder: string[] | null = null) =>
+        patch(() => ({ intent, selected, dismissed: [], routeOrder, fromQuest: null })),
+      setFromQuest: (fromQuest: { id: string; title: string } | null) => patch(() => ({ fromQuest })),
       setTransport: (transport: Transport | null) => patch(() => ({ transport })),
       setDepartAt: (departAt: number | null) => patch(() => ({ departAt })),
       setGeoWanted: (geoWanted: boolean) => patch(() => ({ geoWanted })),
@@ -139,15 +163,26 @@ export function QuestProvider({ children }: { children: ReactNode }) {
   const geo = useGeolocation(saved.geoWanted, START)
 
   // Follow the traveller, but only re-plan after a real move (GPS jitter would reshuffle the route).
-  const [start, setStart] = useState<LatLng>(START)
-  const lastStart = useRef<LatLng>(START)
+  const [here, setHere] = useState<LatLng | null>(null)
+  const lastHere = useRef<LatLng | null>(null)
   useEffect(() => {
-    const next = geo.status === 'on' && geo.position ? geo.position : START
-    if (distanceM(lastStart.current, next) > 100) {
-      lastStart.current = next
-      setStart(next)
-    }
+    const next = geo.status === 'on' && geo.position ? geo.position : null
+    const prev = lastHere.current
+    if (!next && !prev) return
+    if (next && prev && distanceM(prev, next) <= 100) return
+    lastHere.current = next
+    setHere(next)
   }, [geo])
+
+  // Forecasts for both areas (cached 30 min); the hour is picked from the departure time.
+  type Series = Awaited<ReturnType<typeof loadSeries>>
+  const [series, setSeries] = useState<Partial<Record<Area, Series>>>({})
+  useEffect(() => {
+    AREAS.forEach((a) => loadSeries(a).then((s) => s && setSeries((cur) => ({ ...cur, [a]: s }))))
+  }, [])
+
+  const planFor = useCallback((asked: Area | null | undefined) => planArea(asked, here, places), [here, places])
+  const plan = useMemo(() => planFor(saved.intent?.area), [planFor, saved.intent?.area])
 
   const travel = useMemo<Travel>(() => {
     // A planned time that has already passed means "now".
@@ -160,14 +195,22 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       ...saved,
       ...actions,
       places,
+      weather: weatherAt(series[plan.area] ?? null, new Date(travel.departAt ?? Date.now())),
+      contextFor: (a: Area) => {
+        const at = new Date(travel.departAt ?? Date.now())
+        return { at, weather: weatherAt(series[a] ?? null, at) }
+      },
+      areaPlaces: plan.places,
+      area: plan.area,
+      start: plan.start,
+      planFor,
       loading,
-      start,
       travel,
       geo,
       role: getRole(saved.roleId),
       t: STRINGS[saved.lang],
     }),
-    [saved, actions, places, loading, start, travel, geo],
+    [saved, actions, places, loading, plan, planFor, travel, geo, series],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

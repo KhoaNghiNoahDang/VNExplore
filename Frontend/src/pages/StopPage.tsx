@@ -28,7 +28,7 @@ import { LegLine } from '../components/TravelBits'
 import TopBar from '../components/TopBar'
 import { missionFor } from '../data/roles'
 import { distance, minutes, moneyRange } from '../lib/format'
-import { googleMapsUrl, shuffledOrder } from '../lib/quest'
+import { googleMapsUrl, shuffledOrder, storyOf } from '../lib/quest'
 import { distanceM, estimateLeg } from '../lib/travel'
 import { useNarration } from '../lib/useNarration'
 import { useQuest } from '../store/QuestContext'
@@ -93,7 +93,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const onArrive = () => {
     arrive(place.id)
     // Listen mode: the story plays by itself on arrival (inside the tap, so browsers allow audio).
-    if (mode === 'listen') narration.play(place.story[lang], lang)
+    if (mode === 'listen') narration.play(storyOf(place, lang), lang)
   }
 
   // Auto-stamp when the phone says we're there (reasonably accurate fix, within ~50 m).
@@ -248,9 +248,23 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
               </div>
             </div>
 
-            {missionActive && !hasItem && !skippedMission && mission && (
-              <Challenge place={place} lang={lang} onSolved={() => completeMission(place.id)} onSkip={() => setSkippedMission(true)} />
-            )}
+            {missionActive && !hasItem && !skippedMission && mission &&
+              (place.challenge ? (
+                <Challenge place={place} lang={lang} onSolved={() => completeMission(place.id)} onSkip={() => setSkippedMission(true)} />
+              ) : (
+                // Quick places have no quiz: the traveller confirms they did the mission.
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setSkippedMission(true)}
+                    className="shrink-0 rounded-2xl border-2 border-sand px-4 text-[12px] font-bold opacity-70 hover:opacity-100"
+                  >
+                    {t.skipMission}
+                  </button>
+                  <PrimaryButton className="flex-1" onClick={() => completeMission(place.id)}>
+                    <CircleCheck className="h-4 w-4" /> {t.missionDoneBtn}
+                  </PrimaryButton>
+                </div>
+              ))}
 
             {mode === 'easy' ? (
               <div className="rounded-2xl border-2 border-sand bg-white">
@@ -273,7 +287,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
             ) : storyUnlocked ? (
               <div className="rounded-2xl border-2 border-sand bg-white p-4">
                 <div className="mb-2 flex items-center gap-2 text-sm font-bold">
-                  <BookOpen className="h-4 w-4" /> {t.realStory}
+                  <BookOpen className="h-4 w-4" /> {place.story[lang] ? t.realStory : t.aboutPlace}
                 </div>
                 <StoryText place={place} lang={lang} narration={narration} />
               </div>
@@ -344,8 +358,8 @@ function Challenge({
 }) {
   const { t } = useQuest()
   const [wrong, setWrong] = useState<number[]>([])
-  const order = useMemo(() => shuffledOrder(place.challenge.options.length, place.id), [place])
-  const c = place.challenge
+  const c = place.challenge!
+  const order = useMemo(() => shuffledOrder(c.options.length, place.id), [c, place.id])
 
   return (
     <div className="rounded-2xl border-2 border-ink bg-white p-4">
@@ -395,10 +409,10 @@ function StoryText({
   const { t } = useQuest()
   return (
     <>
-      <p className="text-[13px] leading-relaxed">{place.story[lang]}</p>
+      <p className="text-[13px] leading-relaxed">{storyOf(place, lang)}</p>
       {narration.supported && (
         <button
-          onClick={() => (narration.speaking ? narration.stop() : narration.play(place.story[lang], lang))}
+          onClick={() => (narration.speaking ? narration.stop() : narration.play(storyOf(place, lang), lang))}
           className="mt-3 flex items-center gap-2 rounded-full bg-teal px-4 py-2 text-xs font-bold text-white"
         >
           {narration.speaking ? <Pause className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
@@ -431,7 +445,7 @@ function InfoGrid({ place, people, lang, only }: { place: Place; people: number;
   return (
     <div className="divide-y divide-sand rounded-2xl border-2 border-sand bg-white">
       {rows
-        .filter((r) => !only || only.includes(r.key))
+        .filter((r) => (!only || only.includes(r.key)) && r.body)
         .map(({ key, icon: Icon, title, body }) => (
           <div key={key} className="flex gap-3 p-3">
             <Icon className="mt-0.5 h-4 w-4 shrink-0 text-brick" />

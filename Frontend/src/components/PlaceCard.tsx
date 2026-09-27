@@ -2,7 +2,8 @@ import { Check, CircleCheck, Gift, Headphones, Plus, Target } from 'lucide-react
 import { missionFor } from '../data/roles'
 import { TAG_LABEL, TRANSPORT_INFO } from '../i18n/strings'
 import { distance, money, moneyRange } from '../lib/format'
-import { storyMinutes } from '../lib/quest'
+import { isOpenAt } from '../lib/hours'
+import { storyMinutes, storyOf } from '../lib/quest'
 import { estimateLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
@@ -34,6 +35,9 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
             {isAdded && <CircleCheck className="h-4 w-4 shrink-0 text-teal" />}
           </div>
           {lang === 'en' && <p className="mb-2 text-[10px] opacity-60">{place.nameVi}</p>}
+          {isOpenAt(place.openingHours, new Date(travel.departAt ?? Date.now())) === false && (
+            <p className="mt-1 text-[10px] font-bold text-brick">{t.closedWhenYouArrive}</p>
+          )}
           <p className="mt-1 flex items-center gap-1 text-[10px] font-medium">
             <TransportIcon transport={leg.transport} className="h-3 w-3 shrink-0 text-teal" strokeWidth={2.25} />
             {t.legLine(distance(leg.distanceM), leg.minutes, TRANSPORT_INFO[lang][leg.transport].short)}
@@ -75,7 +79,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
       )}
       {mode === 'listen' && (
         <p className="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-teal">
-          <Headphones className="h-3.5 w-3.5" /> {t.narrated(storyMinutes(place.story[lang]))}
+          <Headphones className="h-3.5 w-3.5" /> {t.narrated(storyMinutes(storyOf(place, lang)))}
         </p>
       )}
 

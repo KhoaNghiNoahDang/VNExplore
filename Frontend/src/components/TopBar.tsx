@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuest } from '../store/QuestContext'
 import type { Lang } from '../types'
+import AccountButton from './AccountButton'
 import ModeSwitcher from './ModeSwitcher'
 
 interface Props {
@@ -31,17 +32,20 @@ export default function TopBar({ backTo, showMode, center }: Props) {
       )}
       {center}
       {showMode && <ModeSwitcher />}
-      <div className="flex gap-2 text-xs font-bold" role="group" aria-label="Language">
-        {(['en', 'vi'] as Lang[]).map((l) => (
-          <button
-            key={l}
-            onClick={() => setLang(l)}
-            aria-pressed={lang === l}
-            className={lang === l ? 'underline underline-offset-4' : 'opacity-30 hover:opacity-60'}
-          >
-            {l.toUpperCase()}
-          </button>
-        ))}
+      <div className="flex items-center gap-2.5">
+        <div className="flex gap-2 text-xs font-bold" role="group" aria-label="Language">
+          {(['en', 'vi'] as Lang[]).map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              aria-pressed={lang === l}
+              className={lang === l ? 'underline underline-offset-4' : 'opacity-30 hover:opacity-60'}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
+        <AccountButton />
       </div>
     </div>
   )

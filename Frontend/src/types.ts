@@ -5,7 +5,10 @@ export type L = Record<Lang, string>
 
 export type Mode = 'explore' | 'listen' | 'easy'
 
-export type Theme = 'culture' | 'food' | 'rainy' | 'history' | 'photo'
+export type Theme = 'culture' | 'food' | 'rainy' | 'history' | 'photo' | 'fun'
+
+/** Hoan Kiem (Old Quarter) or Ba Vi (mountains, ~50 km west). A route stays in one area. */
+export type Area = 'hoan-kiem' | 'ba-vi'
 
 export type PlaceTag =
   | 'iconic'
@@ -54,6 +57,12 @@ export interface Challenge {
 
 export interface Place extends LatLng {
   id: string
+  area: Area
+  kind: 'sight' | 'food' | 'fun'
+  /** full: story + challenge (all modes). quick: short intro only (food / fun stops). */
+  depth: 'full' | 'quick'
+  /** OpenStreetMap opening_hours syntax, when known. */
+  openingHours?: string | null
   name: L
   /** Original Vietnamese name, always shown under the main name. */
   nameVi: string
@@ -66,12 +75,13 @@ export interface Place extends LatLng {
   tags: PlaceTag[]
   blurb: L
   tone: 'brick' | 'butter' | 'teal' | 'leaf'
-  /** The real story, narrated on arrival. */
+  /** The real story, narrated on arrival. Empty for quick places. */
   story: L
   why: L
   photoTip: L
   etiquette: L
-  challenge: Challenge
+  /** null for quick places. */
+  challenge: Challenge | null
 }
 
 export interface Mission {
@@ -103,6 +113,12 @@ export interface Intent {
   hoursIsDefault: boolean
   transport: Transport
   transportIsDefault: boolean
+  /** Asked for by name ("Ba Vì"); null = decide from where the traveller is. */
+  area?: Area | null
+  /** Extra words for matching places (dishes the language model picked out). */
+  extra?: string
+  /** One-line restatement from the language model, shown as "Here's what I understood". */
+  summary?: L | null
 }
 
 export interface Journey {

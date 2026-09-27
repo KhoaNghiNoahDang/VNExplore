@@ -1,0 +1,6 @@
+﻿transport,seats,base_k,base_km,per_km_k,peak_fare,fuel_per_km_k,parking_k,speed_normal_kmh,speed_peak_kmh,overhead_min,min_leg_m,detour,walking_street_ok,maps_mode,checked_on
+walk,,,,,,,,4.2,4.2,0,0,1,true,walking,
+motorbike,2,,,,,0.6,5,18,11,4,450,1.1,false,two-wheeler,
+grabbike,1,14,2,4.5,1.2,,,18,11,5,600,1.1,false,two-wheeler,
+car,4,29,2,10,1.2,,,14,8,6,700,1.25,false,driving,
+car,6,35,2,13,1.2,,,14,8,6,700,1.25,false,driving,

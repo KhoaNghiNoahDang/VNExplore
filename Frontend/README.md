@@ -49,18 +49,25 @@ src/
 - Bản đồ thật dùng **MapLibre GL** + nền **OpenFreeMap** (dữ liệu OpenStreetMap) — miễn phí, không cần API key, không cần đăng ký. Đã đổi màu theo bảng màu của app.
 - `src/components/MapView.tsx` tải bản đồ lười (chỉ khi trên màn hình có bản đồ). Khi đang tải, máy không hỗ trợ WebGL hoặc mất mạng → hiện bản đồ minh hoạ (`MapPreview`).
 - Worker của MapLibre được phục vụ ở `/maplibre/` bởi plugin trong `vite.config.ts` (cả lúc dev và lúc build).
-- Đường đi bám theo phố thật nhờ máy chủ OSRM công khai của FOSSGIS (`routing.openstreetmap.de`, miễn phí, không key) — `src/lib/routing.ts`. Chặng đi bộ vẽ nét chấm, chặng đi xe vẽ nét liền. Không gọi được thì tạm vẽ đường thẳng.
-  ⚠ Đây là dịch vụ dùng chung theo nguyên tắc sử dụng hợp lý: khi có nhiều người dùng, chuyển lời gọi này sang backend (có cache) hoặc tự dựng OSRM/Valhalla.
+- Đường đi bám theo phố thật qua backend `POST /v1/route` (cache RAM + Supabase). Frontend chờ tối đa 4 giây; nếu backend lỗi/chậm thì gọi thẳng OSRM công khai của FOSSGIS (`routing.openstreetmap.de`) làm fallback. Chặng đi bộ vẽ nét chấm, chặng đi xe vẽ nét liền; nếu cả hai nguồn lỗi thì tạm vẽ đường thẳng.
+- Khi mở app, frontend gọi `GET /health` không chặn giao diện để đánh thức backend Render.
 
 ## Kết nối backend (Render)
 
-`src/lib/api.ts` đọc biến `VITE_API_URL`. Nếu trống → dùng dữ liệu mock.
-Backend cần có endpoint `GET /places` trả về mảng `Place` (xem `src/types.ts`) và bật CORS cho domain Vercel.
+`src/lib/backend.ts` đọc biến `VITE_API_URL`. Nếu trống, frontend bỏ qua warm-up và gọi OSRM trực tiếp.
+Backend cung cấp `GET /health`, `POST /v1/route` và `GET /v1/content`. Nội dung ứng dụng hiện vẫn đọc trực tiếp từ Supabase và fallback về dữ liệu bundled.
+
+## Tài khoản (Supabase Auth)
+
+- Đăng ký: tên, @tên người dùng, **email hoặc số điện thoại**, mật khẩu. Đăng nhập: email / SĐT / @tên + mật khẩu, hoặc Google.
+- ⚠ **Số điện thoại chưa xác minh thật** (`PHONE_VERIFY = 'fake'` trong `src/store/AuthContext.tsx`): bước nhập mã chấp nhận 6 số bất kỳ, không gửi SMS. Phải thay bằng SMS OTP thật trước khi mở công khai.
+- Đăng nhập bằng @tên đi qua Edge Function `login-username` (mã trong `Data/supabase/functions/`), để email không lộ ra trình duyệt.
+- Luồng chính không cần tài khoản; chỉ cần khi **Lưu thành quest** / xem **Của tôi**.
 
 ## Deploy lên Vercel
 
 1. Push repo lên GitHub.
 2. Vercel → **Add New Project** → chọn repo.
 3. **Root Directory**: `Frontend` · Framework: **Vite** (tự nhận) · Build: `npm run build` · Output: `dist`.
-4. (Khi có backend) **Environment Variables**: `VITE_API_URL = https://<service>.onrender.com`.
+4. **Environment Variables** (Production + Preview): `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (lấy trong `.env.local`), `VITE_GOOGLE_AUTH=false`, `VITE_API_URL=https://<render-service>.onrender.com`.
 5. Deploy. `vercel.json` đã có rewrite để các đường dẫn `/places`, `/quest` không bị 404 khi refresh.

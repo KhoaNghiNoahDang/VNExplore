@@ -1,17 +1,55 @@
 import { PLACES } from '../data/places'
-import type { Place } from '../types'
+import type { Place, PlaceTag, Theme } from '../types'
+import { supabase } from './supabase'
 
-/** Backend base URL (the Render service). Empty → use local mock data. */
-const API_URL = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ?? ''
+/** A row of public.places (flat, one column per language). */
+type PlaceRow = Record<string, string | number | string[] | null>
 
+const L = (r: PlaceRow, base: string) => ({ vi: String(r[`${base}_vi`] ?? ''), en: String(r[`${base}_en`] ?? '') })
+
+function toPlace(r: PlaceRow): Place {
+  return {
+    id: String(r.id),
+    area: (r.area as Place['area']) ?? 'hoan-kiem',
+    kind: (r.kind as Place['kind']) ?? 'sight',
+    depth: (r.depth as Place['depth']) ?? 'full',
+    openingHours: (r.opening_hours as string | null) ?? null,
+    name: L(r, 'name'),
+    nameVi: String(r.name_vi_short ?? r.name_vi),
+    lat: Number(r.lat),
+    lng: Number(r.lng),
+    priceMin: Number(r.price_min_k),
+    priceMax: Number(r.price_max_k),
+    visitMin: Number(r.visit_min),
+    themes: (r.themes as Theme[]) ?? [],
+    tags: (r.tags as PlaceTag[]) ?? [],
+    blurb: L(r, 'blurb'),
+    tone: (r.tone as Place['tone']) ?? 'teal',
+    story: L(r, 'story'),
+    why: L(r, 'why'),
+    photoTip: L(r, 'photo_tip'),
+    etiquette: L(r, 'etiquette'),
+    challenge: !r.challenge_vi ? null : {
+      prompt: L(r, 'challenge'),
+      options: [L(r, 'option1'), L(r, 'option2'), L(r, 'option3')],
+      answer: Math.max(0, Number(r.answer ?? 1) - 1),
+      hint: L(r, 'hint'),
+    },
+  }
+}
+
+/**
+ * Approved places from Supabase; the bundled copy (exported from the same sheets)
+ * is used when Supabase isn't configured or can't be reached.
+ */
 export async function fetchPlaces(): Promise<Place[]> {
-  if (!API_URL) return PLACES
+  if (!supabase) return PLACES
   try {
-    const res = await fetch(`${API_URL}/places`)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    return (await res.json()) as Place[]
+    const { data, error } = await supabase.from('places').select('*').eq('status', 'approved')
+    if (error) throw error
+    return data?.length ? (data as PlaceRow[]).map(toPlace) : PLACES
   } catch (err) {
-    console.warn('Falling back to mock places:', err)
+    console.warn('Supabase unavailable, using bundled places:', err)
     return PLACES
   }
 }

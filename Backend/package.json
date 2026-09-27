@@ -1,0 +1,32 @@
+{
+  "name": "vnexplore-api",
+  "version": "0.1.0",
+  "description": "VNExplore backend (Render): content, routing cache, planning",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p .",
+    "start": "node dist/server.js",
+    "typecheck": "tsc -p . --noEmit",
+    "smoke": "tsx scripts/smoke.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "@fastify/cors": "^11.3.0",
+    "@fastify/helmet": "^13.1.1",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/under-pressure": "^9.2.0",
+    "@supabase/supabase-js": "^2.117.2",
+    "fastify": "^5.12.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

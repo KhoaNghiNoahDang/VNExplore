@@ -1,4 +1,4 @@
-import { Camera, Landmark, ScrollText, Umbrella, UtensilsCrossed } from 'lucide-react'
+import { Camera, FerrisWheel, Landmark, ScrollText, Umbrella, UtensilsCrossed } from 'lucide-react'
 import type { Place, Theme } from '../types'
 
 const ICON: Record<Theme, typeof Landmark> = {
@@ -7,6 +7,7 @@ const ICON: Record<Theme, typeof Landmark> = {
   rainy: Umbrella,
   history: ScrollText,
   photo: Camera,
+  fun: FerrisWheel,
 }
 
 const TONE: Record<Place['tone'], string> = {
