@@ -77,6 +77,9 @@ export default function TripSummary({
           <dd className="font-bold">{sum.travelCostK > 0 ? `≈${money(sum.travelCostK)}` : t.freeShort}</dd>
         </div>
       </dl>
+      {sum.legs.some((l) => l.costK > 0 && (l.transport === 'grabbike' || l.transport === 'car')) && (
+        <p className="mt-1 text-[10px] leading-snug text-bark/60">{t.rideFareNote}</p>
+      )}
     </div>
   )
 }

@@ -437,6 +437,9 @@ const en = {
     `Some stops are far apart (longest leg ${longest}). Riding saves about ${saved} min${extra ? ` for roughly ${extra} more` : ''}.`,
   hintAllClose: 'All stops are only a few hundred metres apart: walking is just as quick, with no parking or fares.',
   switchTo: (name: string) => `Switch to ${name}`,
+  hintGrab: (price: string, peak: boolean) =>
+    `No bike? GrabBike would be about ${price} for this route${peak ? ' (rush hour, a bit pricier)' : ''}. Fares change with the time of day.`,
+  rideFareNote: 'Ride-hailing fares are estimated for your departure time; the real price changes with the time of day.',
   closedWhenYouArrive: 'Closed when you arrive',
   close: 'Close',
   thinking: 'Reading your request…',
@@ -917,6 +920,9 @@ const vi: Strings = {
     `Một số điểm khá xa nhau (chặng dài nhất ${longest}). Đi xe nhanh hơn khoảng ${saved} phút${extra ? `, tốn thêm khoảng ${extra}` : ''}.`,
   hintAllClose: 'Các điểm chỉ cách nhau vài trăm mét: đi bộ cũng nhanh mà không mất tiền gửi xe hay cước.',
   switchTo: (name: string) => `Đổi sang ${name}`,
+  hintGrab: (price: string, peak: boolean) =>
+    `Không có xe? Gọi GrabBike cho cả lộ trình khoảng ${price}${peak ? ' (giờ cao điểm nên nhỉnh hơn)' : ''}. Giá thay đổi theo khung giờ.`,
+  rideFareNote: 'Cước xe công nghệ ước lượng theo giờ xuất phát; giá thực tế thay đổi theo khung giờ.',
   closedWhenYouArrive: 'Đóng cửa lúc bạn tới',
   close: 'Đóng',
   thinking: 'Đang đọc yêu cầu của bạn…',

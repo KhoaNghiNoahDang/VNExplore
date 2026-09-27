@@ -33,7 +33,7 @@ export function WeatherPill({ weather }: { weather: Weather | null }) {
   )
 }
 
-/** "Stops are far apart — GrabBike saves ~25 min" with a one-tap switch. */
+/** "Stops are far apart — a motorbike saves ~25 min" with a one-tap switch (and a GrabBike fare estimate). */
 export function TransportHintCard({
   start,
   stops,
@@ -72,6 +72,9 @@ export function TransportHintCard({
         </span>
         <div className="min-w-0 flex-1">
           <p className="text-[12px] font-medium leading-snug text-ink">{body}</p>
+          {hint.grab && hint.grab.costK > 0 && (
+            <p className="mt-1 text-[11px] leading-snug text-bark/80">{t.hintGrab(`≈${money(hint.grab.costK)}`, hint.grab.peak)}</p>
+          )}
           <button
             onClick={() => setTransport(hint.to)}
             className="mt-2 inline-flex items-center gap-1 rounded-full bg-teal px-3 py-1.5 text-[12px] font-bold text-white transition active:scale-95"

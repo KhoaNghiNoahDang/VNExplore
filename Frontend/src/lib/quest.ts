@@ -268,11 +268,13 @@ export interface TransportHint {
   longestM: number
   savedMin: number
   extraCostK: number
+  /** When suggesting your own motorbike: what the same route would cost by GrabBike at the planned time. */
+  grab?: { costK: number; peak: boolean }
 }
 
 /**
  * Suggest another way to get around when the chosen one fits the route badly:
- * long walks → GrabBike (1–2 people) or a car (3+); a bike or car for stops a few hundred metres
+ * long walks → a motorbike (1–2 people, with a GrabBike fare estimate) or a car (3+); a bike or car for stops a few hundred metres
  * apart → walk (no parking, no fare). Returns null when the choice is fine.
  */
 export function suggestTransport(
@@ -289,11 +291,17 @@ export function suggestTransport(
   const alt = (to: Transport) => summarize(start, stops, people, { ...travel, transport: to }, order)
 
   if (travel.transport === 'walk' && (longestM > 2000 || walkedM > 5000)) {
-    const to: Transport = people >= 3 ? 'car' : 'grabbike'
+    const to: Transport = people >= 3 ? 'car' : 'motorbike'
     const s = alt(to)
     const savedMin = cur.travelMin - s.travelMin
     if (savedMin < 10) return null
-    return { to, reason: longestM > 5000 ? 'farApart' : 'longWalk', longestM, savedMin, extraCostK: s.travelCostK - cur.travelCostK }
+    const hint: TransportHint = { to, reason: longestM > 5000 ? 'farApart' : 'longWalk', longestM, savedMin, extraCostK: s.travelCostK - cur.travelCostK }
+    if (to === 'motorbike') {
+      // GrabBike fares follow the clock (rush-hour surcharge), so estimate for the planned departure.
+      const g = alt('grabbike')
+      hint.grab = { costK: g.travelCostK, peak: g.legs.some((l) => l.peak && l.costK > 0) }
+    }
+    return hint
   }
   if (travel.transport !== 'walk' && longestM < 900 && cur.distanceM < 2500) {
     const s = alt('walk')
