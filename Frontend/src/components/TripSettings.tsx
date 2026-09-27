@@ -1,10 +1,12 @@
-import { useState, type ReactNode } from 'react'
-import { Check, ChevronRight, Clock3, LocateFixed, LocateOff, Loader2, MapPin, ShieldCheck, Stamp as StampIcon, Navigation } from 'lucide-react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Check, ChevronRight, Clock3, Home, LocateFixed, LocateOff, Loader2, MapPin, Navigation, Search, ShieldCheck, Stamp as StampIcon, X } from 'lucide-react'
 import { TRANSPORTS } from '../data/transport'
 import { TRANSPORT_INFO } from '../i18n/strings'
-import { areaAt } from '../lib/area'
+import { AREA_START, areaAt } from '../lib/area'
+import { geocodeSearch, type GeoResult } from '../lib/backend'
+import { distanceM } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
-import type { Area, Transport } from '../types'
+import type { Area, LatLng, Place, Transport } from '../types'
 import PrimaryButton from './PrimaryButton'
 import Sheet from './Sheet'
 import TransportIcon from './TransportIcon'
@@ -221,6 +223,205 @@ function markGeoAsked() {
   }
 }
 
+// ------------------------------------------------------------------ start point picker
+
+const PickMap = lazy(() => import('./PickMap'))
+
+const foldText = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd')
+
+interface Candidate {
+  key: string
+  name: string
+  label: string
+  at: LatLng
+}
+
+/** "Near Ngoc Son Temple" for a point dropped on the map (closest app place within ~250 m). */
+function nearLabel(p: LatLng, places: Place[], lang: 'vi' | 'en'): string | null {
+  let best: Place | null = null
+  let bestM = 250
+  for (const pl of places) {
+    const m = distanceM(p, pl) / 1.3
+    if (m < bestM) (best = pl), (bestM = m)
+  }
+  return best ? best.name[lang] : null
+}
+
+/**
+ * Choose where the trip starts: search a place or address, or move the map under the pin.
+ * Also: use my location (asks first), or go back to the default start.
+ */
+export function StartSheet({ area, onClose, onUseLocation }: { area: Area; onClose: () => void; onUseLocation: () => void }) {
+  const { t, lang, places, customStart, setCustomStart, geo, geoWanted, setGeoWanted } = useQuest()
+  const first = customStart ?? (geoWanted && geo.status === 'on' && geo.position ? geo.position : AREA_START[area])
+  const [center, setCenter] = useState<LatLng & { zoom?: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
+  const [point, setPoint] = useState<LatLng>({ lat: first.lat, lng: first.lng })
+  const pointRef = useRef(point)
+  pointRef.current = point
+  const [chosenName, setChosenName] = useState<string | null>(customStart?.label ?? null)
+  const [query, setQuery] = useState('')
+  const [remote, setRemote] = useState<GeoResult[]>([])
+  const [searching, setSearching] = useState(false)
+  const [mapFailed, setMapFailed] = useState(false)
+
+  // Our own places first (instant, accent-insensitive), then addresses from OpenStreetMap.
+  const local = useMemo<Candidate[]>(() => {
+    const q = foldText(query.trim())
+    if (q.length < 2) return []
+    return places
+      .filter((p) => foldText(`${p.name.vi} ${p.name.en}`).includes(q))
+      .slice(0, 5)
+      .map((p) => ({ key: p.id, name: p.name[lang], label: t.areaShort[p.area], at: { lat: p.lat, lng: p.lng } }))
+  }, [query, places, lang, t])
+
+  useEffect(() => {
+    const q = query.trim()
+    if (q.length < 3) {
+      setRemote([])
+      setSearching(false)
+      return
+    }
+    setSearching(true)
+    let alive = true
+    const timer = setTimeout(() => {
+      geocodeSearch(q, lang).then((r) => {
+        if (!alive) return
+        setRemote(r)
+        setSearching(false)
+      })
+    }, 450)
+    return () => {
+      alive = false
+      clearTimeout(timer)
+    }
+  }, [query, lang])
+
+  const results: Candidate[] = [
+    ...local,
+    ...remote
+      .filter((r) => !local.some((l) => distanceM(l.at, r) < 80))
+      .map((r, i) => ({ key: `g${i}`, name: r.name, label: r.label, at: { lat: r.lat, lng: r.lng } })),
+  ]
+
+  const choose = (c: Candidate) => {
+    setPoint(c.at)
+    setChosenName(c.name)
+    setCenter({ ...c.at, zoom: 17, nonce: Date.now() })
+    setQuery('')
+  }
+  const near = nearLabel(point, places, lang)
+  const label = chosenName ?? (near ? t.nearPlace(near) : t.pickedOnMap)
+
+  return (
+    <Sheet title={t.startTitle} onClose={onClose}>
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-bark/50" />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={t.startSearchPh}
+          className="w-full rounded-2xl border-2 border-sand bg-white py-2.5 pl-9 pr-9 text-[14px] placeholder:text-ink/35 focus:border-teal focus:outline-none"
+          aria-label={t.startSearchPh}
+        />
+        {query && (
+          <button
+            onClick={() => setQuery('')}
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-bark/50 hover:bg-cream"
+            aria-label={t.close}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+
+      {query.trim().length >= 2 ? (
+        <ul className="mt-2 max-h-72 space-y-1 overflow-y-auto">
+          {results.map((c) => (
+            <li key={c.key}>
+              <button onClick={() => choose(c)} className="flex w-full items-start gap-3 rounded-2xl p-2.5 text-left hover:bg-cream">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brick" />
+                <span className="min-w-0">
+                  <span className="block truncate text-[14px] font-bold">{c.name}</span>
+                  <span className="block truncate text-[12px] text-bark/70">{c.label}</span>
+                </span>
+              </button>
+            </li>
+          ))}
+          {searching && (
+            <li className="flex items-center gap-2 p-2.5 text-[12px] text-bark/60">
+              <Loader2 className="h-4 w-4 animate-spin" /> {t.searching}
+            </li>
+          )}
+          {!searching && !results.length && <li className="p-2.5 text-[13px] text-bark/70">{t.startNoResult}</li>}
+        </ul>
+      ) : (
+        <>
+          <div className="relative mt-3 h-60 overflow-hidden rounded-2xl border-2 border-sand bg-cream">
+            {mapFailed ? (
+              <p className="flex h-full items-center justify-center px-6 text-center text-[13px] text-bark/70">{t.mapUnavailable}</p>
+            ) : (
+              <Suspense
+                fallback={
+                  <div className="flex h-full items-center justify-center">
+                    <Loader2 className="h-5 w-5 animate-spin text-bark/50" />
+                  </div>
+                }
+              >
+                <PickMap
+                  center={center}
+                  onPick={(p) => {
+                    // A real move (not just the fly-to we started) drops the searched name.
+                    if (distanceM(p, pointRef.current) > 15) setChosenName(null)
+                    setPoint(p)
+                  }}
+                  onFail={() => setMapFailed(true)}
+                />
+              </Suspense>
+            )}
+          </div>
+          <p className="mt-2 text-center text-[12px] text-bark/60">{t.dragMapHint}</p>
+          <div className="mt-2 flex items-center gap-2 rounded-2xl bg-white px-3 py-2.5">
+            <MapPin className="h-4 w-4 shrink-0 text-brick" />
+            <span className="min-w-0 truncate text-[14px] font-bold">{label}</span>
+          </div>
+          <PrimaryButton
+            className="mt-3"
+            onClick={() => {
+              setCustomStart({ ...point, label })
+              onClose()
+            }}
+          >
+            <Check className="h-4 w-4" /> {t.startHereBtn}
+          </PrimaryButton>
+        </>
+      )}
+
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <button
+          onClick={() => {
+            setCustomStart(null)
+            onClose()
+            onUseLocation()
+          }}
+          className="flex items-center justify-center gap-1.5 rounded-2xl border-2 border-sand bg-white px-2 py-2.5 text-[12px] font-bold text-teal hover:border-teal/40"
+        >
+          <LocateFixed className="h-4 w-4 shrink-0" /> {t.useMyLocation}
+        </button>
+        <button
+          onClick={() => {
+            setCustomStart(null)
+            setGeoWanted(false)
+            onClose()
+          }}
+          className="flex items-center justify-center gap-1.5 rounded-2xl border-2 border-sand bg-white px-2 py-2.5 text-[12px] font-bold text-bark hover:border-bark/30"
+        >
+          <Home className="h-4 w-4 shrink-0" /> <span className="truncate">{t.startDefault[area]}</span>
+        </button>
+      </div>
+    </Sheet>
+  )
+}
+
 // ------------------------------------------------------------------ card
 
 function Row({ icon, label, value, note, onClick, tone = 'teal' }: {
@@ -265,13 +466,16 @@ export default function TripSettings({
   /** e.g. continue a search that was waiting for the answer */
   onLocationDecided?: (allowed: boolean) => void
 }) {
-  const { t, lang, geo, geoWanted } = useQuest()
-  const [sheet, setSheet] = useState<'transport' | 'depart' | null>(null)
+  const { t, lang, geo, geoWanted, customStart } = useQuest()
+  const [sheet, setSheet] = useState<'transport' | 'depart' | 'start' | null>(null)
   const departLabel = useDepartLabel()
 
-  const here = geoWanted && geo.status === 'on' && areaAt(geo.position) === area
-  const startValue = here ? t.startHere : t.startDefault[area]
-  const startNote = here
+  const picked = customStart && areaAt(customStart) === area ? customStart : null
+  const here = !picked && geoWanted && geo.status === 'on' && areaAt(geo.position) === area
+  const startValue = picked ? picked.label : here ? t.startHere : t.startDefault[area]
+  const startNote = picked
+    ? t.startPickedNote
+    : here
     ? null
     : geoWanted && geo.status === 'asking'
       ? t.locating
@@ -288,11 +492,11 @@ export default function TripSettings({
         <div className="divide-y divide-sand/70">
           <Row
             icon={here ? <LocateFixed className="h-5 w-5" /> : <MapPin className="h-5 w-5" />}
-            tone={here ? 'teal' : 'brick'}
+            tone={here || picked ? 'teal' : 'brick'}
             label={t.startFrom}
             value={startValue}
             note={startNote}
-            onClick={() => onLocationSheet(true)}
+            onClick={() => setSheet('start')}
           />
           <Row
             icon={<TransportIcon transport={transport} className="h-5 w-5" strokeWidth={2} />}
@@ -313,6 +517,7 @@ export default function TripSettings({
 
       {sheet === 'transport' && <TransportSheet current={transport} onClose={() => setSheet(null)} />}
       {sheet === 'depart' && <DepartSheet onClose={() => setSheet(null)} />}
+      {sheet === 'start' && <StartSheet area={area} onClose={() => setSheet(null)} onUseLocation={() => onLocationSheet(true)} />}
       {locationSheet && <LocationSheet area={area} onClose={() => onLocationSheet(false)} onDecided={onLocationDecided} />}
     </>
   )

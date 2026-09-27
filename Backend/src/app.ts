@@ -7,6 +7,7 @@ import { z, ZodError } from 'zod'
 import { config, isProd } from './config.js'
 import { BreakerOpenError, QueueFullError } from './lib/resilience.js'
 import { contentBreaker, getContent } from './services/content.js'
+import { geocode } from './services/geocode.js'
 import { llmHealth } from './services/llm.js'
 import { getLeg, routingHealth } from './services/routing.js'
 import { DailyLimitError, understand } from './services/understand.js'
@@ -139,6 +140,20 @@ export async function buildApp() {
       if (err instanceof DailyLimitError) return reply.code(429).send({ error: 'daily_limit', message: err.message })
       req.log.warn({ err: err instanceof Error ? err.message : err }, 'understand failed')
       return reply.code(503).send({ error: 'unavailable', message: 'Language model unavailable' })
+    }
+  })
+
+  /** Search an address / place name in greater Hanoi (for choosing where to start). */
+  const GeocodeQuery = z.object({ q: z.string().trim().min(2).max(120), lang: z.enum(['vi', 'en']).default('vi') })
+  app.get('/v1/geocode', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+    const { q, lang } = GeocodeQuery.parse(req.query)
+    try {
+      const results = await geocode(q, lang)
+      reply.header('Cache-Control', 'public, max-age=3600')
+      return { results }
+    } catch (err) {
+      req.log.warn({ err: err instanceof Error ? err.message : err }, 'geocode failed')
+      return reply.code(503).send({ error: 'unavailable', results: [] })
     }
   })
 

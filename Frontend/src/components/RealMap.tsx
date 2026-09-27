@@ -18,10 +18,10 @@ import type { MapProps } from './MapView'
 setWorkerUrl(new URL('/maplibre/maplibre-gl-worker.mjs', location.origin).href)
 
 /** Free vector tiles from OpenStreetMap data — no API key, no sign-up. */
-const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
+export const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
 
 /** Re-colour the neutral Positron style with the app palette (cream land, teal water). */
-function applyPalette(map: MLMap) {
+export function applyPalette(map: MLMap) {
   const paint: [RegExp, string, string][] = [
     [/^background$/, 'background-color', '#FFF6DC'],
     [/water/, 'fill-color', '#BFE0DA'],
@@ -58,6 +58,14 @@ function applyPalette(map: MLMap) {
         map.setPaintProperty(layer.id, 'text-halo-color', '#FFF6DC')
       } catch {
         /* ignore */
+      }
+      // Local names with diacritics ("Phố Nhà Thờ") instead of the style's Latin/English ones.
+      if (layer.layout && 'text-field' in layer.layout) {
+        try {
+          map.setLayoutProperty(layer.id, 'text-field', ['coalesce', ['get', 'name:vi'], ['get', 'name'], ['get', 'name:latin']])
+        } catch {
+          /* ignore */
+        }
       }
     }
   }

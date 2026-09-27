@@ -14,6 +14,25 @@ export function wakeBackend(): void {
   }).catch(() => undefined)
 }
 
+export interface GeoResult {
+  name: string
+  label: string
+  lat: number
+  lng: number
+}
+
+/** Address / place search in greater Hanoi (for the start point). [] on any problem. */
+export async function geocodeSearch(q: string, lang: 'vi' | 'en'): Promise<GeoResult[]> {
+  if (!API_URL || q.trim().length < 2) return []
+  try {
+    const res = await fetch(`${API_URL}/v1/geocode?lang=${lang}&q=${encodeURIComponent(q.trim())}`, { signal: AbortSignal.timeout(6000) })
+    if (!res.ok) return []
+    return ((await res.json()) as { results?: GeoResult[] }).results ?? []
+  } catch {
+    return []
+  }
+}
+
 /** What the backend's language model read from a free-form request (see Backend/src/services/understand.ts). */
 export interface Understood {
   area: 'hoan-kiem' | 'ba-vi' | null

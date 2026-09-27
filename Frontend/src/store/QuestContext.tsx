@@ -32,6 +32,8 @@ interface Saved {
   routeOrder: string[] | null
   /** The community quest being played (for the passport), null for your own route. */
   fromQuest: { id: string; title: string } | null
+  /** A start point picked on the map or by search; wins over location. null = not set. */
+  customStart: (LatLng & { label: string }) | null
 }
 
 export interface QuestState extends Saved {
@@ -71,6 +73,7 @@ export interface QuestState extends Saved {
   setTransport: (t: Transport | null) => void
   setDepartAt: (ms: number | null) => void
   setGeoWanted: (on: boolean) => void
+  setCustomStart: (p: (LatLng & { label: string }) | null) => void
 }
 
 const KEY = 'vnexplore:v3'
@@ -89,6 +92,7 @@ const EMPTY: Saved = {
   geoWanted: false,
   routeOrder: null,
   fromQuest: null,
+  customStart: null,
 }
 
 function load(): Saved {
@@ -136,6 +140,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       setTransport: (transport: Transport | null) => patch(() => ({ transport })),
       setDepartAt: (departAt: number | null) => patch(() => ({ departAt })),
       setGeoWanted: (geoWanted: boolean) => patch(() => ({ geoWanted })),
+      setCustomStart: (customStart: (LatLng & { label: string }) | null) => patch(() => ({ customStart })),
       toggle: (id: string) =>
         patch((s) => ({
           selected: s.selected.includes(id) ? s.selected.filter((x) => x !== id) : [...s.selected, id],
@@ -155,7 +160,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
             ? { journey: { ...s.journey, items: [...s.journey.items, placeId] } }
             : {},
         ),
-      reset: () => patch((s) => ({ ...EMPTY, lang: s.lang, geoWanted: s.geoWanted })),
+      reset: () => patch((s) => ({ ...EMPTY, lang: s.lang, geoWanted: s.geoWanted, customStart: s.customStart })),
     }),
     [patch],
   )
@@ -181,7 +186,9 @@ export function QuestProvider({ children }: { children: ReactNode }) {
     AREAS.forEach((a) => loadSeries(a).then((s) => s && setSeries((cur) => ({ ...cur, [a]: s }))))
   }, [])
 
-  const planFor = useCallback((asked: Area | null | undefined) => planArea(asked, here, places), [here, places])
+  // A picked start point counts like being there; otherwise the live location.
+  const origin = saved.customStart ?? here
+  const planFor = useCallback((asked: Area | null | undefined) => planArea(asked, origin, places), [origin, places])
   const plan = useMemo(() => planFor(saved.intent?.area), [planFor, saved.intent?.area])
 
   const travel = useMemo<Travel>(() => {
