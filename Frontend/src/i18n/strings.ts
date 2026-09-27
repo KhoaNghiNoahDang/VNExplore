@@ -480,8 +480,9 @@ const en = {
   wxRainProb: (p: number) => `${p}% chance of rain`,
   wxRain: 'likely rain, so indoor places come first',
   wxHot: 'hot around midday, so shade and air-conditioning come first',
+  smartTransportTip: 'A smarter way to get there',
   hintFar: (longest: string, saved: number, extra: string | null) =>
-    `Some stops are far apart (longest leg ${longest}). Riding saves about ${saved} min${extra ? ` for roughly ${extra} more` : ''}.`,
+    `These stops are quite spread out — the longest leg is ${longest}. I’d switch transport to save about ${saved} min${extra ? ` for roughly ${extra} more` : ''}.`,
   hintAllClose: 'All stops are only a few hundred metres apart: walking is just as quick, with no parking or fares.',
   switchTo: (name: string) => `Switch to ${name}`,
   closedWhenYouArrive: 'Closed when you arrive',
@@ -1007,8 +1008,9 @@ const vi: Strings = {
   wxRainProb: (p: number) => `${p}% khả năng mưa`,
   wxRain: 'có thể mưa, mình ưu tiên chỗ trong nhà',
   wxHot: 'trưa nắng nóng, mình ưu tiên chỗ có bóng mát, điều hoà',
+  smartTransportTip: 'Gợi ý di chuyển thông minh',
   hintFar: (longest: string, saved: number, extra: string | null) =>
-    `Một số điểm khá xa nhau (chặng dài nhất ${longest}). Đi xe nhanh hơn khoảng ${saved} phút${extra ? `, tốn thêm khoảng ${extra}` : ''}.`,
+    `Các điểm này khá xa nhau, chặng dài nhất ${longest}. Mình đề xuất đổi phương tiện để tiết kiệm khoảng ${saved} phút${extra ? `, chi phí tăng khoảng ${extra}` : ''}.`,
   hintAllClose: 'Các điểm chỉ cách nhau vài trăm mét: đi bộ cũng nhanh mà không mất tiền gửi xe hay cước.',
   switchTo: (name: string) => `Đổi sang ${name}`,
   closedWhenYouArrive: 'Đóng cửa lúc bạn tới',

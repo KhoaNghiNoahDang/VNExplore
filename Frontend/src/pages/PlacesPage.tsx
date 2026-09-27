@@ -40,7 +40,13 @@ export default function PlacesPage() {
 
   const focused = ranked.find((p) => p.id === focusedId) ?? null
   const at = new Date(travel.departAt ?? Date.now())
-  const plannerReply = intent.reply?.[lang] || buildPlannerReply(intent, area, lang, contextFor(area).weather ?? null)
+  // A model reply describes the transport chosen when the request was submitted.
+  // Once the traveller accepts a route-aware switch, use the local live reply so the advice never
+  // keeps talking about the old transport.
+  const liveIntent = travel.transport === intent.transport ? intent : { ...intent, transport: travel.transport }
+  const plannerReply =
+    (travel.transport === intent.transport ? intent.reply?.[lang] : '') ||
+    buildPlannerReply(liveIntent, area, lang, contextFor(area).weather ?? null)
 
   const summaryBlock = (
     <>
@@ -144,6 +150,12 @@ export default function PlacesPage() {
               </div>
             )}
           </div>
+
+          {chosen.length > 0 && (
+            <div className="mt-3">
+              <TransportHintCard start={start} stops={chosen} people={intent.people} />
+            </div>
+          )}
         </section>
 
         <div className="sticky top-0 z-20 border-y border-sand/70 bg-paper/95 px-5 py-2 backdrop-blur-sm">
@@ -245,6 +257,9 @@ export default function PlacesPage() {
           <TripSummary count={chosen.length} sum={sum} hours={intent.hours} people={intent.people} />
           <div className="mt-4">
             <TravelBanner legs={sum.legs} />
+          </div>
+          <div className="mt-3">
+            <TransportHintCard start={start} stops={chosen} people={intent.people} />
           </div>
           <div className="mt-4 space-y-2">
             {chosen.map((place, index) => (

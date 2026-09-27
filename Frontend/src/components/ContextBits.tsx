@@ -71,6 +71,7 @@ export function TransportHintCard({
           <TransportIcon transport={hint.to} className="h-5 w-5" strokeWidth={1.9} />
         </span>
         <div className="min-w-0 flex-1">
+          <p className="mb-1 text-[10px] font-extrabold uppercase tracking-wider text-teal">{t.smartTransportTip}</p>
           <p className="text-[12px] font-medium leading-snug text-ink">{body}</p>
           <button
             onClick={() => setTransport(hint.to)}
