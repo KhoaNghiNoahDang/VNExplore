@@ -2,13 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, CircleAlert, Lightbulb, Loader2, Mic, Square } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import IntentChips from '../components/IntentChips'
-import LocationRow from '../components/LocationRow'
 import ModePicker from '../components/ModePicker'
 import PrimaryButton from '../components/PrimaryButton'
 import TabBar from '../components/TabBar'
 import { WeatherPill } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
-import TripChips from '../components/TripChips'
+import TripSettings, { geoAsked } from '../components/TripSettings'
 import { understandRequest } from '../lib/backend'
 import { mergeUnderstood, parseIntent, withAreaDefaults } from '../lib/intent'
 import { preselect, rankPlaces } from '../lib/quest'
@@ -16,7 +15,7 @@ import { useSpeech } from '../lib/useSpeech'
 import { useQuest } from '../store/QuestContext'
 
 export default function AskPage() {
-  const { t, lang, draft, setDraft, setIntent, planFor, contextFor, mode, transport: picked, setTransport, travel } = useQuest()
+  const { t, lang, draft, setDraft, setIntent, planFor, contextFor, geo, geoWanted, mode, transport: picked, setTransport, travel } = useQuest()
   const navigate = useNavigate()
   const speech = useSpeech(lang, draft, setDraft)
   const [needMode, setNeedMode] = useState(false)
@@ -44,6 +43,9 @@ export default function AskPage() {
   const shownTransport = picked ?? preview?.transport ?? 'walk'
 
   const [thinking, setThinking] = useState(false)
+  const [locSheet, setLocSheet] = useState(false)
+  // Waiting for a first location fix before searching (after "Allow" on the location question).
+  const [waitGeo, setWaitGeo] = useState(false)
 
   const submit = async () => {
     if (thinking) return
@@ -56,6 +58,11 @@ export default function AskPage() {
       // Don't silently block: point at the mode picker.
       setNeedMode(true)
       modeBox.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      return
+    }
+    // First search ever: ask whether to use location (once). The search continues after the answer.
+    if (!geoWanted && !geoAsked()) {
+      setLocSheet(true)
       return
     }
     // Let the language model read the request (≤ 4 s); on any problem keep the rule-based reading.
@@ -71,6 +78,20 @@ export default function AskPage() {
     // Explore adds one step: choose a role (it then re-picks places that fit the role).
     navigate(mode === 'explore' ? '/role?next=/places&fresh=1' : '/places')
   }
+
+  const submitRef = useRef(submit)
+  submitRef.current = submit
+  useEffect(() => {
+    if (!waitGeo) return
+    const done = geo.status !== 'asking' && geo.status !== 'off'
+    const go = () => {
+      setWaitGeo(false)
+      submitRef.current()
+    }
+    if (done) return go()
+    const timer = setTimeout(go, 6000)
+    return () => clearTimeout(timer)
+  }, [waitGeo, geo.status])
 
   const cta = !preview ? t.showPlaces : !mode ? t.pickMode : mode === 'explore' ? t.chooseRole : t.showPlaces
 
@@ -145,7 +166,8 @@ export default function AskPage() {
           </p>
         ) : speech.error ? (
           <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-brick" role="alert">
-            <CircleAlert className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {t.micError[speech.error]}
+            <CircleAlert className="mt-0.5 h-3.5 w-3.5 shrink-0" />{' '}
+            {(speech.isIOS && t.micErrorIOS[speech.error]) || t.micError[speech.error]}
           </p>
         ) : (
           <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-bark">
@@ -166,9 +188,15 @@ export default function AskPage() {
           ))}
         </div>
 
-        <div className="mt-5 space-y-2.5 rounded-2xl border border-sand bg-white/60 p-3">
-          <LocationRow area={askArea} />
-          <TripChips transport={shownTransport} isDefault={!picked && (!preview || preview.transportIsDefault)} />
+        <div className="mt-5">
+          <TripSettings
+            area={askArea}
+            transport={shownTransport}
+            isDefault={!picked && (!preview || preview.transportIsDefault)}
+            locationSheet={locSheet}
+            onLocationSheet={setLocSheet}
+            onLocationDecided={(allowed) => (allowed ? setWaitGeo(true) : submitRef.current?.())}
+          />
         </div>
 
         <div
@@ -190,9 +218,9 @@ export default function AskPage() {
             <IntentChips intent={preview} />
           </div>
         )}
-        <PrimaryButton onClick={submit} disabled={!ready || thinking}>
-          {thinking ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-          {thinking ? t.thinking : cta}
+        <PrimaryButton onClick={submit} disabled={!ready || thinking || waitGeo}>
+          {thinking || waitGeo ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+          {waitGeo ? t.locating : thinking ? t.thinking : cta}
         </PrimaryButton>
         <TabBar docked />
       </div>

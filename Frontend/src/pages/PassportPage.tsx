@@ -232,6 +232,7 @@ function TripSheet({ j, byId, date, onClose, onDelete }: { j: PassportJourney; b
     setIntent(
       {
         text: j.questTitle ?? stops.map((p) => p.name[lang]).join(', '),
+        area: stops[0]?.area,
         themes: themes.length ? themes : ['culture'],
         people: j.people,
         budget: 'any',
@@ -244,7 +245,7 @@ function TripSheet({ j, byId, date, onClose, onDelete }: { j: PassportJourney; b
       ids,
     )
     if (j.questId && j.questTitle) setFromQuest({ id: j.questId, title: j.questTitle })
-    setTransport(j.transport)
+    setTransport(null) // j.transport is in the intent above
     setDepartAt(null)
     if (j.mode === 'explore' && role) setRole(role.id)
     else setMode(j.mode === 'explore' ? 'listen' : j.mode)

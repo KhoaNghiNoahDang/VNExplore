@@ -130,7 +130,7 @@ export default function QuestSharePage() {
       ids, // keep the author's order instead of re-sorting by distance
     )
     setFromQuest({ id: quest.id, title: quest.title })
-    setTransport(transport)
+    setTransport(null) // the choice lives in the intent above; don't carry it into the next plan
     setDepartAt(departAt)
     const m = mode ?? 'easy'
     if (m === 'explore') {
