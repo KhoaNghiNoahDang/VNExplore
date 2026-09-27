@@ -67,7 +67,22 @@ export default function AskPage() {
     }
     // Let the language model read the request (≤ 4 s); on any problem keep the rule-based reading.
     setThinking(true)
-    const merged = mergeUnderstood(preview, await understandRequest(preview.text))
+    const requestContext = contextFor(askArea)
+    const forecast = requestContext.weather
+    const merged = mergeUnderstood(
+      preview,
+      await understandRequest(preview.text, {
+        language: lang,
+        area: askArea,
+        transport: shownTransport,
+        people: preview.people,
+        hours: preview.hours,
+        departHour: requestContext.at?.getHours() ?? new Date(travel.departAt ?? Date.now()).getHours(),
+        weather: forecast
+          ? { tempC: forecast.tempC, rainProb: forecast.rainProb, rainy: forecast.rainy, hot: forecast.hot }
+          : null,
+      }),
+    )
     setThinking(false)
     // Plan inside one area: the one named in the text, else where the traveller is.
     const { area, places: pool, start } = planFor(merged.area)

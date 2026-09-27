@@ -134,6 +134,7 @@ export function mergeUnderstood(rule: Intent, u: Understood | null): Intent {
     if (out.hoursIsDefault) out.hours = 5
   }
   out.summary = u.summary_vi || u.summary_en ? { vi: u.summary_vi || u.summary_en, en: u.summary_en || u.summary_vi } : null
+  out.reply = u.reply_vi || u.reply_en ? { vi: u.reply_vi || u.reply_en, en: u.reply_en || u.reply_vi } : null
   return out
 }
 

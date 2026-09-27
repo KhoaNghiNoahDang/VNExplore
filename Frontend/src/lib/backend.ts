@@ -45,19 +45,31 @@ export interface Understood {
   kids: boolean
   summary_vi: string
   summary_en: string
+  reply_vi: string
+  reply_en: string
+}
+
+export interface AdviceContext {
+  language: 'vi' | 'en'
+  area: 'hoan-kiem' | 'ba-vi'
+  transport: 'walk' | 'motorbike' | 'grabbike' | 'car'
+  people: number
+  hours: number
+  departHour: number
+  weather: { tempC: number; rainProb: number; rainy: boolean; hot: boolean } | null
 }
 
 /**
  * Ask the backend to read the request. Resolves to null on any problem (no backend, asleep,
  * slow, no model key, daily limit) — the caller then keeps its rule-based reading.
  */
-export async function understandRequest(text: string, timeoutMs = 4000): Promise<Understood | null> {
+export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 4000): Promise<Understood | null> {
   if (!API_URL) return null
   try {
     const res = await fetch(`${API_URL}/v1/understand`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, context }),
       signal: AbortSignal.timeout(timeoutMs),
     })
     if (!res.ok) return null

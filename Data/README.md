@@ -9,7 +9,7 @@ Mở bằng Google Sheets (File → Import → Upload) hoặc Excel. Mã hoá UT
 
 | File | Nội dung |
 |---|---|
-| `places.csv` | Địa điểm dùng trong app. 126 điểm `approved` (25 đầy đủ + 101 điểm nhanh) và 10 bản nháp Ba Vì |
+| `places.csv` | Địa điểm dùng trong app. 136 điểm `approved`, trong đó có 29 điểm tại Ba Vì |
 | `candidates.csv` | Kho địa điểm lấy từ OpenStreetMap **chưa có nội dung**: quanh Hồ Gươm (~2,5 km) và Ba Vì (+ Sơn Tây lân cận). Cột `group`: `sight` (tham quan), `food` (ăn uống), `fun` (thể thao, giải trí). Cột `decision`: `keep` / `drop` |
 | `to_add_manually.csv` | Điểm nổi tiếng **không có trên OpenStreetMap** — cần điền toạ độ bằng tay |
 | `roles.csv` | 4 vai của chế độ Khám phá |
@@ -24,7 +24,7 @@ Mở bằng Google Sheets (File → Import → Upload) hoặc Excel. Mã hoá UT
 | `depth` | `full`: có câu chuyện + thử thách, dùng cho cả 3 chế độ · `quick`: chỉ cần giới thiệu, giá, thời gian (quán ăn, chỗ chơi) |
 
 - Tên địa điểm giữ nguyên như bản gốc; `name_en` để trống thì app dùng tên gốc. **Nội dung (giới thiệu, câu chuyện…) phải có đủ VI + EN.**
-- Bản nháp chờ duyệt: `review/ba_vi_drafts.md`.
+- Tư liệu duyệt Ba Vì trước đây được lưu tại `review/ba_vi_drafts.md`; các điểm đã duyệt nằm trong `places.csv`.
 
 ### Quy ước
 - `status`: `draft` → `approved`. **Chỉ dòng `approved` được xuất sang app.**
@@ -66,7 +66,7 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
 ## Database (Supabase)
 
 - **Project:** `vnexplore` (ref `ywsqmfxyrnfswxgvhsuv`, Singapore, gói Free) — https://ywsqmfxyrnfswxgvhsuv.supabase.co
-- **Đã nạp:** 25 places, 4 roles, 33 missions, 5 transport_fares. **Chưa nạp:** candidates.
+- File seed hiện có **136 places, 4 roles, 33 missions, 5 transport_fares**. Môi trường Supabase đang triển khai có thể cũ hơn; frontend hợp nhất dữ liệu từ Supabase với catalogue đóng gói theo `id` để nội dung đã duyệt không bị ẩn.
 - Migrations đã chạy: `0001_init.sql`, `0002_perf.sql` (index + tách policy theo gợi ý của Supabase advisor).
 
 - `supabase/migrations/0001_init.sql` — cấu trúc bảng: nội dung (`places`, `candidates`, `roles`, `missions`, `transport_fares`) và phần người dùng cho sau này (`profiles`, `quests`, `quest_stops`, `quest_likes`), có sẵn phân quyền (RLS): ai cũng đọc được nội dung đã duyệt; người dùng chỉ sửa quest của chính mình; `candidates` không lộ ra ngoài.

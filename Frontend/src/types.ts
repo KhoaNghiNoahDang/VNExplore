@@ -63,6 +63,8 @@ export interface Place extends LatLng {
   depth: 'full' | 'quick'
   /** OpenStreetMap opening_hours syntax, when known. */
   openingHours?: string | null
+  /** ISO date when the displayed price was last verified. */
+  priceCheckedOn?: string | null
   name: L
   /** Original Vietnamese name, always shown under the main name. */
   nameVi: string
@@ -119,6 +121,8 @@ export interface Intent {
   extra?: string
   /** One-line restatement from the language model, shown as "Here's what I understood". */
   summary?: L | null
+  /** Short acknowledgement and one useful trip-specific suggestion. */
+  reply?: L | null
 }
 
 export interface Journey {

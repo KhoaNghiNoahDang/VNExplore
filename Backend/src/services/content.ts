@@ -32,6 +32,7 @@ function toPlace(r: Row) {
     kind: r.kind ?? 'sight',
     depth: r.depth ?? 'full',
     openingHours: r.opening_hours ?? null,
+    priceCheckedOn: r.price_checked_on ?? null,
     name: L(r, 'name'),
     nameVi: String(r.name_vi_short ?? r.name_vi),
     lat: Number(r.lat),
