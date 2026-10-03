@@ -1,5 +1,5 @@
 import { RUSH_HOURS, TRANSPORT } from '../data/transport'
-import type { Intent, LatLng, Leg, Place, Transport } from '../types'
+import type { Challenge, Intent, LatLng, Leg, Place, Transport } from '../types'
 import { isOpenAt } from './hours'
 import type { Weather } from './weather'
 import { distanceM, estimateLeg } from './travel'
@@ -223,14 +223,20 @@ export function suggestPhotoSpot(all: Place[], stops: Place[]): Place | null {
   return candidates.sort((a, b) => nearest(a) - nearest(b))[0]
 }
 
+/** Every question at a place: the on-site challenge first, then the extra quiz. */
+export function quizOf(place: Place): Challenge[] {
+  return [...(place.challenge ? [place.challenge] : []), ...(place.quiz ?? [])]
+}
+
 /** Deterministic shuffle so challenge answers aren't always the first option. */
 export function shuffledOrder(n: number, seed: string): number[] {
   let h = 0
   for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0
   const order = Array.from({ length: n }, (_, i) => i)
   for (let i = n - 1; i > 0; i--) {
-    h = (h * 1103515245 + 12345) >>> 0
-    const j = h % (i + 1)
+    h = (Math.imul(h, 1103515245) + 12345) >>> 0
+    // Use the high bits: an LCG's low bits cycle, which kept the answer out of the first slot.
+    const j = Math.floor((h / 2 ** 32) * (i + 1))
     ;[order[i], order[j]] = [order[j], order[i]]
   }
   return order

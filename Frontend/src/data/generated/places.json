@@ -46,6 +46,7 @@
    "en": "Cover shoulders and knees, speak softly, and don’t point at the altars. Photos are fine outside the main shrine."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Ở cổng có ngọn tháp đá hình cây bút. Ba chữ trên tháp có nghĩa là gì?",
     "en": "At the gate stands a stone tower shaped like a writing brush. What do the three characters on it mean?"
@@ -68,8 +69,104 @@
    "hint": {
     "vi": "Hãy nghĩ tới cây bút và một tờ giấy thật lớn trên đầu bạn.",
     "en": "Think of a brush and a very big sheet of paper above you."
+   },
+   "explain": {
+    "vi": "Ba chữ Hán 寫青天 “Tả Thanh Thiên” trên thân tháp nghĩa là “viết lên trời xanh”. Tháp có đỉnh hình ngọn bút, do nhà nho Nguyễn Văn Siêu cho dựng khi tu sửa đền năm 1865.",
+    "en": "The three characters 寫青天 “Tả Thanh Thiên” mean “writing on the blue sky”. The tower’s tip is shaped like a brush; scholar Nguyễn Văn Siêu had it built when he restored the temple in 1865."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Đền Ngọc Sơn thờ vị thần nào – ngôi sao chủ về văn chương, khoa cử?",
+     "en": "Ngọc Sơn Temple honours which deity – the star of literature and exams?"
+    },
+    "options": [
+     {
+      "vi": "Văn Xương Đế Quân",
+      "en": "Văn Xương Đế Quân (god of literature)"
+     },
+     {
+      "vi": "Thần Tài",
+      "en": "The God of Wealth"
+     },
+     {
+      "vi": "Thổ Công",
+      "en": "The Kitchen-and-Land God"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Tháp Bút và Đài Nghiên ở cổng là một gợi ý lớn.",
+     "en": "The Pen Tower and Ink Slab at the gate are a big clue."
+    },
+    "explain": {
+     "vi": "Đền thờ Văn Xương Đế Quân, vị thần chủ văn chương, khoa cử, cùng Đức Thánh Trần Hưng Đạo – người đánh thắng quân Nguyên thế kỷ 13.",
+     "en": "The temple honours Văn Xương Đế Quân, god of literature and examinations, together with Trần Hưng Đạo, who defeated the Mongol-Yuan armies in the 13th century."
+    }
+   },
+   {
+    "kind": "look",
+    "prompt": {
+     "vi": "Nghiên mực bằng đá trên Đài Nghiên được đặt trên lưng con vật gì?",
+     "en": "The stone ink slab on the Ink Slab Gate rests on the backs of which animals?"
+    },
+    "options": [
+     {
+      "vi": "Ba con ếch",
+      "en": "Three frogs"
+     },
+     {
+      "vi": "Ba con rùa",
+      "en": "Three turtles"
+     },
+     {
+      "vi": "Ba con sư tử",
+      "en": "Three lions"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một con vật nhỏ sống bên nước, hay kêu khi trời mưa.",
+     "en": "A small creature that lives by water and calls when it rains."
+    },
+    "explain": {
+     "vi": "Nghiên mực hình nửa quả đào bổ dọc, đặt trên ba con ếch đá – chiếc “nghiên” đi cùng “cây bút” Tháp Bút.",
+     "en": "The slab is shaped like half a peach cut lengthwise and sits on three stone frogs – the “ink slab” to go with the Pen Tower’s “brush”."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Tiêu bản cụ Rùa Hồ Gươm trưng bày trong đền nặng khoảng bao nhiêu?",
+     "en": "Roughly how heavy is the preserved Hoàn Kiếm turtle displayed in the temple?"
+    },
+    "options": [
+     {
+      "vi": "250 kg",
+      "en": "250 kg"
+     },
+     {
+      "vi": "50 kg",
+      "en": "50 kg"
+     },
+     {
+      "vi": "1 tấn",
+      "en": "1 tonne"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Nặng hơn ba người lớn cộng lại, nhưng chưa tới một tấn.",
+     "en": "Heavier than three adults together, but less than a tonne."
+    },
+    "explain": {
+     "vi": "Cụ rùa mất ngày 2/6/1967; con rùa dài 2,1 m, nặng 250 kg và được giữ làm tiêu bản tại đền Ngọc Sơn.",
+     "en": "The turtle died on 2 June 1967. It was 2.1 m long and weighed 250 kg, and was preserved at Ngọc Sơn Temple."
+    }
+   }
+  ]
  },
  {
   "id": "ma-may-87",
@@ -118,6 +215,7 @@
    "en": "Walk gently on the old wooden floors and don’t sit on displayed furniture."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Thứ gì giúp ánh sáng và gió vào được giữa ngôi nhà dài này?",
     "en": "What lets light and air reach the middle of this long house?"
@@ -140,8 +238,44 @@
    "hint": {
     "vi": "Hãy ngước lên khi bạn tới khoảng trống đầu tiên.",
     "en": "Look up when you reach the first open space."
+   },
+   "explain": {
+    "vi": "Nhà ống phố cổ rất dài và hẹp. Giữa các lớp nhà có khoảng sân trống – giếng trời – để đón ánh sáng và gió vào sâu bên trong.",
+    "en": "Old Quarter tube houses are long and narrow. Open courtyards – light wells – between the sections let light and air reach deep inside."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Năm 1945, ngôi nhà được một thương gia buôn mặt hàng gì mua lại?",
+     "en": "In 1945 the house was bought by a merchant trading in what?"
+    },
+    "options": [
+     {
+      "vi": "Thuốc bắc",
+      "en": "Traditional herbal medicine"
+     },
+     {
+      "vi": "Lụa",
+      "en": "Silk"
+     },
+     {
+      "vi": "Vàng bạc",
+      "en": "Gold and silver"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Mặt hàng này đựng trong những ngăn kéo gỗ nhỏ, mùi thơm hăng hắc.",
+     "en": "It was kept in rows of small wooden drawers and smells pungent."
+    },
+    "explain": {
+     "vi": "Nhà xây khoảng cuối thế kỷ 19. Năm 1945 một thương gia buôn thuốc bắc mua lại; từ 1954 đến 1999 có năm gia đình cùng ở đây. Năm 2004 nhà được xếp hạng di tích quốc gia.",
+     "en": "The house dates from the late 19th century. In 1945 a herbal-medicine merchant bought it; from 1954 to 1999 five families shared it. It became a national monument in 2004."
+    }
+   }
+  ]
  },
  {
   "id": "bach-ma",
@@ -189,6 +323,7 @@
    "en": "Cover shoulders and knees, speak softly, and don’t point at the altars. Photos are fine outside the main shrine."
   },
   "challenge": {
+   "kind": "legend",
    "prompt": {
     "vi": "Theo truyền thuyết, con ngựa trắng đã chỉ cho nhà vua điều gì?",
     "en": "According to the legend, what did the white horse show the king?"
@@ -211,8 +346,74 @@
    "hint": {
     "vi": "Thành đắp mãi vẫn đổ…",
     "en": "The walls kept falling down…"
+   },
+   "explain": {
+    "vi": "Truyền thuyết kể thành Thăng Long đắp mãi vẫn lở; vua Lý Thái Tổ theo vết chân một con ngựa trắng để vạch đường đắp thành và thành đứng vững. Vì thế đền có tên Bạch Mã – “ngựa trắng”.",
+    "en": "The legend says the Thăng Long walls kept collapsing until King Lý Thái Tổ followed the hoofprints of a white horse to lay them out – and they stood. Hence the name Bạch Mã, “white horse”."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Đền Bạch Mã trấn giữ hướng nào của kinh thành Thăng Long?",
+     "en": "Which side of the Thăng Long citadel does Bạch Mã Temple guard?"
+    },
+    "options": [
+     {
+      "vi": "Phía Đông",
+      "en": "The east"
+     },
+     {
+      "vi": "Phía Tây",
+      "en": "The west"
+     },
+     {
+      "vi": "Phía Nam",
+      "en": "The south"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Hướng mặt trời mọc, cũng là hướng sông Hồng.",
+     "en": "Where the sun rises – towards the Red River."
+    },
+    "explain": {
+     "vi": "Đền Bạch Mã là một trong “Thăng Long tứ trấn”: Bạch Mã trấn Đông, Voi Phục trấn Tây, Kim Liên trấn Nam, Quán Thánh trấn Bắc.",
+     "en": "Bạch Mã is one of the “Four Guardian Temples of Thăng Long”: Bạch Mã guards the east, Voi Phục the west, Kim Liên the south and Quán Thánh the north."
+    }
+   },
+   {
+    "kind": "legend",
+    "prompt": {
+     "vi": "Đền Bạch Mã thờ vị thần nào?",
+     "en": "Which deity is worshipped at Bạch Mã Temple?"
+    },
+    "options": [
+     {
+      "vi": "Thần Long Đỗ",
+      "en": "The spirit Long Đỗ"
+     },
+     {
+      "vi": "Thánh Gióng",
+      "en": "Saint Gióng"
+     },
+     {
+      "vi": "Chử Đồng Tử",
+      "en": "Chử Đồng Tử"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Vị thần gốc của đất Thăng Long, tên có chữ “Long” (rồng).",
+     "en": "The original guardian spirit of the land, whose name contains “Long” (dragon)."
+    },
+    "explain": {
+     "vi": "Đền thờ thần Long Đỗ, được xem là thần bảo hộ đất Thăng Long; truyền thuyết kể thần hiện thành ngựa trắng giúp vua Lý Thái Tổ xây thành.",
+     "en": "The temple honours Long Đỗ, guardian spirit of Thăng Long; legend says he appeared as the white horse that helped King Lý Thái Tổ lay out the walls."
+    }
+   }
+  ]
  },
  {
   "id": "water-puppets",
@@ -261,6 +462,7 @@
    "en": "Arrive 15 minutes early; shows start on time. Keep phones silent during the performance."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "Con rối tinh nghịch mở màn buổi diễn là ai?",
     "en": "Who is the cheeky puppet who opens the show?"
@@ -283,8 +485,44 @@
    "hint": {
     "vi": "Cậu bé làng bụng tròn, cười toe toét.",
     "en": "He’s a round-bellied village boy with a big grin."
+   },
+   "explain": {
+    "vi": "Chú Tễu là nhân vật dẫn chuyện của múa rối nước: một chàng nông dân hồn hậu, vui tính, ra mở màn và giới thiệu các tiết mục như ở hội làng.",
+    "en": "Tễu is the narrator of water puppetry: a cheerful, good-hearted young farmer who opens the show and introduces each act, just as at a village festival."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Nhà hát Múa rối Thăng Long ra đời năm 1969 với tên gọi ban đầu là gì?",
+     "en": "Thang Long Puppet Theatre was founded in 1969 under what original name?"
+    },
+    "options": [
+     {
+      "vi": "Đoàn nghệ thuật Kim Đồng",
+      "en": "Kim Đồng Art Troupe"
+     },
+     {
+      "vi": "Đoàn Chèo Hà Nội",
+      "en": "Hanoi Chèo Troupe"
+     },
+     {
+      "vi": "Nhà hát Lớn",
+      "en": "The Opera House"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Kim Đồng là tên một thiếu niên anh hùng – đoàn biểu diễn cho thiếu nhi.",
+     "en": "Kim Đồng was a boy hero – the troupe performed for children."
+    },
+    "explain": {
+     "vi": "Tháng 10/1969 nhà hát thành lập với tên Đoàn nghệ thuật Kim Đồng, ban đầu diễn rối cạn cho thiếu nhi Thủ đô, rồi mới phát triển sân khấu rối nước.",
+     "en": "It was founded in October 1969 as the Kim Đồng Art Troupe, first performing dry-land puppetry for the capital’s children before developing its water-puppet stage."
+    }
+   }
+  ]
  },
  {
   "id": "cathedral",
@@ -333,6 +571,7 @@
    "en": "It is an active church: enter only during open hours and stay quiet during Mass."
   },
   "challenge": {
+   "kind": "architecture",
    "prompt": {
     "vi": "Hai tháp chuông được lấy cảm hứng từ nhà thờ nổi tiếng nào?",
     "en": "Which famous church inspired the twin towers?"
@@ -355,8 +594,74 @@
    "hint": {
     "vi": "Những người thiết kế là người Pháp.",
     "en": "The architects were French."
+   },
+   "explain": {
+    "vi": "Nhà thờ được xây theo phong cách Gothic châu Âu; đôi tháp chuông vuông ở mặt tiền gợi nhớ Nhà thờ Đức Bà Paris.",
+    "en": "The cathedral was built in the European Gothic style; its two square bell towers recall Notre-Dame de Paris."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Nhà thờ Lớn được xây trên nền của ngôi chùa cổ nào?",
+     "en": "The cathedral was built on the site of which old pagoda?"
+    },
+    "options": [
+     {
+      "vi": "Chùa Báo Thiên",
+      "en": "Báo Thiên Pagoda"
+     },
+     {
+      "vi": "Chùa Một Cột",
+      "en": "One Pillar Pagoda"
+     },
+     {
+      "vi": "Chùa Trấn Quốc",
+      "en": "Trấn Quốc Pagoda"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Tên chùa có nghĩa là “báo đáp trời”.",
+     "en": "The pagoda’s name means “repaying Heaven”."
+    },
+    "explain": {
+     "vi": "Năm 1873, đất chùa Báo Thiên được giao cho Giám mục Puginier; nhà thờ bằng gạch được xây ở đây trong những năm 1884–1886.",
+     "en": "In 1873 the grounds of Báo Thiên Pagoda were handed to Bishop Puginier; the brick cathedral was built there in 1884–1886."
+    }
+   },
+   {
+    "kind": "culture",
+    "prompt": {
+     "vi": "Nhà thờ Lớn Hà Nội mang tên vị thánh nào?",
+     "en": "Which saint is Hanoi’s cathedral named after?"
+    },
+    "options": [
+     {
+      "vi": "Thánh Giuse",
+      "en": "Saint Joseph"
+     },
+     {
+      "vi": "Thánh Phêrô",
+      "en": "Saint Peter"
+     },
+     {
+      "vi": "Thánh Phaolô",
+      "en": "Saint Paul"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Vị thánh là thợ mộc, chồng của Đức Maria.",
+     "en": "A carpenter, the husband of Mary."
+    },
+    "explain": {
+     "vi": "Tên chính thức là Nhà thờ Chính tòa Thánh Giuse – nhà thờ chính của Tổng giáo phận Hà Nội.",
+     "en": "Its official name is St Joseph’s Cathedral – the main church of the Archdiocese of Hanoi."
+    }
+   }
+  ]
  },
  {
   "id": "women-museum",
@@ -405,6 +710,7 @@
    "en": "Some personal stories are painful — read quietly and let others take their time."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Trong phòng hàng rong, các chị mang hàng bằng gì?",
     "en": "In the street-vendor room, what do the women carry their goods with?"
@@ -427,8 +733,44 @@
    "hint": {
     "vi": "Hai cái quang, một thanh tre dài.",
     "en": "Two baskets, one long stick."
+   },
+   "explain": {
+    "vi": "Đòn gánh – thanh tre dài, hai đầu treo hai quang – là vật bất ly thân của những người bán hàng rong đi bộ vào phố.",
+    "en": "The carrying pole – a long bamboo pole with a basket hanging at each end – is the street vendor’s constant companion."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Bảo tàng Phụ nữ Việt Nam được thành lập năm nào?",
+     "en": "When was the Vietnamese Women’s Museum founded?"
+    },
+    "options": [
+     {
+      "vi": "1987",
+      "en": "1987"
+     },
+     {
+      "vi": "1945",
+      "en": "1945"
+     },
+     {
+      "vi": "2010",
+      "en": "2010"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Hơn mười năm sau ngày thống nhất đất nước.",
+     "en": "A little more than ten years after reunification."
+    },
+    "explain": {
+     "vi": "Bảo tàng do Hội Liên hiệp Phụ nữ Việt Nam thành lập năm 1987 và mở cửa đón khách năm 1995. Ba chủ đề chính: Phụ nữ trong gia đình, Phụ nữ trong lịch sử và Thời trang phụ nữ.",
+     "en": "The Vietnam Women’s Union founded the museum in 1987; it opened to visitors in 1995. Its three themes: Women in the Family, Women in History and Women’s Fashion."
+    }
+   }
+  ]
  },
  {
   "id": "hoa-lo",
@@ -476,6 +818,7 @@
    "en": "This is a place of suffering. Avoid posing playfully in the cells."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Dòng chữ tiếng Pháp trên cổng là gì?",
     "en": "What French words are written above the gate?"
@@ -498,8 +841,74 @@
    "hint": {
     "vi": "Nghĩa là “ngôi nhà trung tâm”.",
     "en": "It means “central house”."
+   },
+   "explain": {
+    "vi": "“Maison Centrale” (Nhà tù Trung ương) là tên người Pháp đặt khi xây nhà tù năm 1896 trên đất làng Phụ Khánh.",
+    "en": "“Maison Centrale” (Central Prison) is the name the French gave it when they built the prison in 1896 on the land of Phụ Khánh village."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Cái tên “Hỏa Lò” bắt nguồn từ đâu?",
+     "en": "Where does the name “Hỏa Lò” come from?"
+    },
+    "options": [
+     {
+      "vi": "Làng Phụ Khánh chuyên làm nồi đất, bếp lò",
+      "en": "Phụ Khánh village, famous for clay pots and stoves"
+     },
+     {
+      "vi": "Một lò luyện sắt của người Pháp",
+      "en": "A French iron furnace"
+     },
+     {
+      "vi": "Một vụ hỏa hoạn lớn",
+      "en": "A great fire"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "“Lò” ở đây là thứ dùng để nấu ăn hằng ngày.",
+     "en": "The “lò” here is something used for everyday cooking."
+    },
+    "explain": {
+     "vi": "Nhà tù được xây năm 1896 trên đất làng Phụ Khánh – làng có nghề làm nồi đất, ấm, bếp lò nên còn được gọi là “làng Hỏa Lò”.",
+     "en": "The prison was built in 1896 on the land of Phụ Khánh, a village of potters making clay pots, kettles and stoves – nicknamed “Hỏa Lò”, the stove village."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Tù binh phi công Mỹ đặt cho Hỏa Lò biệt danh mỉa mai nào?",
+     "en": "What ironic nickname did captured American pilots give Hỏa Lò?"
+    },
+    "options": [
+     {
+      "vi": "“Hanoi Hilton”",
+      "en": "“Hanoi Hilton”"
+     },
+     {
+      "vi": "“Hanoi Ritz”",
+      "en": "“Hanoi Ritz”"
+     },
+     {
+      "vi": "“Hanoi Plaza”",
+      "en": "“Hanoi Plaza”"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Tên một chuỗi khách sạn nổi tiếng.",
+     "en": "The name of a famous hotel chain."
+    },
+    "explain": {
+     "vi": "Trong chiến tranh, tù binh phi công Mỹ – trong đó có John McCain, sau này là Thượng nghị sĩ – gọi đùa nơi này là “Hanoi Hilton”.",
+     "en": "During the war, American POW pilots – among them John McCain, later a US senator – jokingly called it the “Hanoi Hilton”."
+    }
+   }
+  ]
  },
  {
   "id": "egg-coffee",
@@ -547,6 +956,7 @@
    "en": "Order at the counter, then find a seat — tables are shared when it’s busy."
   },
   "challenge": {
+   "kind": "history",
    "prompt": {
     "vi": "Vì sao ông Giảng dùng trứng thay cho sữa?",
     "en": "Why did Mr. Giang use egg instead of milk?"
@@ -569,8 +979,44 @@
    "hint": {
     "vi": "Đó là năm 1946 – thời buổi khó khăn.",
     "en": "It was 1946 — times were hard."
+   },
+   "explain": {
+    "vi": "Năm 1946 sữa tươi rất khan hiếm. Ông Nguyễn Văn Giảng, khi ấy pha chế ở khách sạn Metropole, đánh bông lòng đỏ trứng để thay sữa – và ly cà phê trứng ra đời.",
+    "en": "In 1946 fresh milk was scarce. Nguyễn Văn Giảng, then a bartender at the Metropole hotel, whisked egg yolk to replace it – and egg coffee was born."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Trước khi mở quán riêng, ông Giảng làm pha chế ở khách sạn nào?",
+     "en": "Before opening his own café, where did Mr Giảng work as a bartender?"
+    },
+    "options": [
+     {
+      "vi": "Khách sạn Metropole Hà Nội",
+      "en": "The Metropole hotel, Hanoi"
+     },
+     {
+      "vi": "Khách sạn Continental Sài Gòn",
+      "en": "The Continental, Saigon"
+     },
+     {
+      "vi": "Khách sạn Rex Sài Gòn",
+      "en": "The Rex, Saigon"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Khách sạn Pháp cổ nổi tiếng nhất Hà Nội, gần Nhà hát Lớn.",
+     "en": "Hanoi’s most famous old French hotel, near the Opera House."
+    },
+    "explain": {
+     "vi": "Ông Nguyễn Văn Giảng pha chế ở khách sạn Metropole khi sáng tạo cà phê trứng năm 1946; món uống được ưa chuộng đến mức ông ra mở quán riêng.",
+     "en": "Nguyễn Văn Giảng was a bartender at the Metropole when he created egg coffee in 1946; it became so popular that he left to open his own café."
+    }
+   }
+  ]
  },
  {
   "id": "bun-cha",
@@ -617,6 +1063,7 @@
    "en": "Add chilli and garlic to your own bowl, not the shared plates. Tissues usually cost a little extra."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "Ăn bún chả thế nào cho đúng?",
     "en": "How do you eat bun cha?"
@@ -639,8 +1086,44 @@
    "hint": {
     "vi": "Hãy nhìn bàn bên cạnh.",
     "en": "Watch the table next to you."
+   },
+   "explain": {
+    "vi": "Bún chả ăn theo kiểu chấm: chả nướng nằm sẵn trong bát nước chấm chua ngọt, còn bún và rau được gắp nhúng vào bát đó.",
+    "en": "Bún chả is a dipping dish: the grilled pork waits in a bowl of sweet-and-sour sauce, and you dip the noodles and herbs into it."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "culture",
+    "prompt": {
+     "vi": "Năm 2016, Tổng thống Mỹ nào ngồi ăn bún chả ở Hà Nội cùng đầu bếp Anthony Bourdain?",
+     "en": "In 2016, which US president ate bún chả in Hanoi with chef Anthony Bourdain?"
+    },
+    "options": [
+     {
+      "vi": "Barack Obama",
+      "en": "Barack Obama"
+     },
+     {
+      "vi": "Donald Trump",
+      "en": "Donald Trump"
+     },
+     {
+      "vi": "George W. Bush",
+      "en": "George W. Bush"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Ông là tổng thống Mỹ đương nhiệm khi thăm Việt Nam tháng 5/2016.",
+     "en": "He was the sitting president when he visited Vietnam in May 2016."
+    },
+    "explain": {
+     "vi": "Tối 23/5/2016, ông Obama và Anthony Bourdain ăn bún chả ở quán Hương Liên, phố Lê Văn Hưu (không phải quán này) cho chương trình “Parts Unknown”.",
+     "en": "On the evening of 23 May 2016, Obama and Anthony Bourdain ate bún chả at Hương Liên on Lê Văn Hưu street (not this shop) for the show “Parts Unknown”."
+    }
+   }
+  ]
  },
  {
   "id": "dong-xuan",
@@ -689,18 +1172,19 @@
    "en": "Ask before photographing sellers. Bargaining is normal for souvenirs, not for food."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
-    "vi": "Đếm số cửa vòm ở mặt tiền chợ. Có bao nhiêu cửa?",
-    "en": "Count the arched gates on the front of the market. How many are there?"
+    "vi": "Nhìn mặt tiền chợ: còn lại bao nhiêu đầu hồi mái tam giác kiểu Pháp?",
+    "en": "Look at the market front: how many French-style triangular gables are left?"
    },
    "options": [
     {
-     "vi": "Năm",
-     "en": "Five"
-    },
-    {
      "vi": "Ba",
      "en": "Three"
+    },
+    {
+     "vi": "Năm",
+     "en": "Five"
     },
     {
      "vi": "Bảy",
@@ -709,10 +1193,46 @@
    ],
    "answer": 0,
    "hint": {
-    "vi": "Cửa lớn nhất ở giữa, mỗi bên hai cửa.",
-    "en": "The biggest one is in the middle, with two on each side."
+    "vi": "Sau vụ cháy năm 1994, hai gian ngoài cùng không được xây lại.",
+    "en": "After the 1994 fire, the two outer halls were not rebuilt."
+   },
+   "explain": {
+    "vi": "Năm 1890 chợ có năm gian với năm đầu hồi kiểu Pháp. Sau trận hỏa hoạn tháng 7/1994, khi xây lại chỉ giữ ba gian mặt tiền; gian thứ nhất và thứ năm bị bỏ để mở rộng đường.",
+    "en": "In 1890 the market had five halls with five French-style gables. After the July 1994 fire, only the middle three were kept when it was rebuilt; the first and fifth were removed to widen the streets."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Chợ Đồng Xuân gặp trận hỏa hoạn lớn vào năm nào?",
+     "en": "In which year did Đồng Xuân Market suffer its great fire?"
+    },
+    "options": [
+     {
+      "vi": "1994",
+      "en": "1994"
+     },
+     {
+      "vi": "1975",
+      "en": "1975"
+     },
+     {
+      "vi": "2005",
+      "en": "2005"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Lửa cháy suốt mấy ngày giữa tháng 7, thập niên 1990.",
+     "en": "It burned for days in mid-July, in the 1990s."
+    },
+    "explain": {
+     "vi": "Tối 14/7/1994 chợ bốc cháy, thiêu rụi gần như toàn bộ các sạp; đến 19/7 đám cháy mới được dập tắt hẳn.",
+     "en": "The fire broke out on the evening of 14 July 1994 and destroyed almost every stall; it was only fully put out on 19 July."
+    }
+   }
+  ]
  },
  {
   "id": "ta-hien",
@@ -759,30 +1279,97 @@
    "en": "Say “Một, hai, ba, dô!” when toasting. Don’t drink and ride a motorbike."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
-    "vi": "“Bia hơi” đặc biệt ở điểm nào?",
-    "en": "What makes “bia hoi” special?"
+    "vi": "Vì sao bia hơi phải uống trong vài ngày, không để lâu như bia chai?",
+    "en": "Why must bia hơi be drunk within days, unlike bottled beer?"
    },
    "options": [
     {
-     "vi": "Nấu trong ngày và bán hết trong ngày",
-     "en": "It’s brewed fresh and sold the same day"
+     "vi": "Bia chưa qua thanh trùng, men vẫn còn sống",
+     "en": "It isn’t pasteurised, so the yeast is still alive"
     },
     {
-     "vi": "Được ủ một năm",
-     "en": "It’s aged for a year"
+     "vi": "Bia được ủ quá lâu",
+     "en": "It has been aged too long"
     },
     {
-     "vi": "Nhập từ Pháp",
-     "en": "It’s imported from France"
+     "vi": "Bia được nhập từ Pháp",
+     "en": "It is imported from France"
     }
    ],
    "answer": 0,
    "hint": {
-    "vi": "Thùng bia được chở đến mỗi sáng.",
-    "en": "Kegs arrive every morning."
+    "vi": "Bia chai, bia lon đều qua một bước diệt men trước khi đóng gói.",
+    "en": "Bottled and canned beer go through a step that kills the yeast before packing."
+   },
+   "explain": {
+    "vi": "Bia hơi là bia tươi chưa qua thanh trùng nên men vẫn còn sống. Vì vậy bia phải giữ lạnh và uống trong vài ngày, khác với bia chai, bia lon đã thanh trùng để được nhiều tháng.",
+    "en": "Bia hơi is fresh beer that has not been pasteurised, so its yeast is still alive. It must be kept cold and drunk within days – unlike pasteurised bottled or canned beer, which keeps for months."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Phố Tạ Hiện mang tên ai?",
+     "en": "Who is Tạ Hiện street named after?"
+    },
+    "options": [
+     {
+      "vi": "Tạ Quang Hiện, lãnh tụ phong trào Cần Vương",
+      "en": "Tạ Quang Hiện, a leader of the Cần Vương resistance"
+     },
+     {
+      "vi": "Một thương nhân người Hoa",
+      "en": "A Chinese merchant"
+     },
+     {
+      "vi": "Một nhà thơ thời Lê",
+      "en": "A Lê-dynasty poet"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một người chống Pháp cuối thế kỷ 19.",
+     "en": "A man who fought the French at the end of the 19th century."
+    },
+    "explain": {
+     "vi": "Từ năm 1945, phố mang tên Tạ Quang Hiện – một lãnh tụ phong trào Cần Vương chống Pháp ở vùng Thái Bình.",
+     "en": "Since 1945 the street has carried the name of Tạ Quang Hiện, a leader of the anti-French Cần Vương movement in Thái Bình."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Bia hơi Hà Nội bắt đầu được bán vào năm nào?",
+     "en": "When did Hanoi bia hơi first go on sale?"
+    },
+    "options": [
+     {
+      "vi": "1960",
+      "en": "1960"
+     },
+     {
+      "vi": "1890",
+      "en": "1890"
+     },
+     {
+      "vi": "1986",
+      "en": "1986"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Hai năm sau chai bia Trúc Bạch đầu tiên (1958).",
+     "en": "Two years after the first bottle of Trúc Bạch beer (1958)."
+    },
+    "explain": {
+     "vi": "Nhà máy bia Hommel (1890) được khôi phục năm 1957 thành Nhà máy bia Hà Nội; chai bia Trúc Bạch đầu tiên ra đời ngày 15/8/1958 và bia hơi bắt đầu có từ năm 1960.",
+     "en": "The Hommel brewery (1890) was revived in 1957 as the Hanoi Brewery; its first bottle of Trúc Bạch came out on 15 August 1958, and bia hơi followed in 1960."
+    }
+   }
+  ]
  },
  {
   "id": "the-huc",
@@ -829,6 +1416,7 @@
    "en": "The bridge is narrow — step aside to take photos so others can pass."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "“Thê Húc” có nghĩa là gì?",
     "en": "What does “The Huc” mean?"
@@ -851,8 +1439,74 @@
    "hint": {
     "vi": "Hãy nghĩ tới mặt trời lúc sớm mai.",
     "en": "Think of the rising sun."
+   },
+   "explain": {
+    "vi": "Thê Húc (棲旭) nghĩa là “nơi đậu ánh sáng ban mai”. Cầu do Nguyễn Văn Siêu cho xây năm 1865.",
+    "en": "Thê Húc (棲旭) means “where the morning sunlight rests”. Nguyễn Văn Siêu had the bridge built in 1865."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "look",
+    "prompt": {
+     "vi": "Cầu Thê Húc có bao nhiêu nhịp?",
+     "en": "How many spans does Thê Húc Bridge have?"
+    },
+    "options": [
+     {
+      "vi": "15 nhịp",
+      "en": "15 spans"
+     },
+     {
+      "vi": "9 nhịp",
+      "en": "9 spans"
+     },
+     {
+      "vi": "21 nhịp",
+      "en": "21 spans"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Đếm số cặp cột gỗ rồi trừ đi một.",
+     "en": "Count the pairs of wooden pillars, then subtract one."
+    },
+    "explain": {
+     "vi": "Cầu có 15 nhịp, đỡ bởi 32 cột gỗ tròn xếp thành 16 cặp.",
+     "en": "The bridge has 15 spans, held up by 32 round wooden pillars in 16 pairs."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Ai cho xây cầu Thê Húc vào năm 1865?",
+     "en": "Who had Thê Húc Bridge built in 1865?"
+    },
+    "options": [
+     {
+      "vi": "Nhà nho Nguyễn Văn Siêu",
+      "en": "Scholar Nguyễn Văn Siêu"
+     },
+     {
+      "vi": "Vua Lê Lợi",
+      "en": "King Lê Lợi"
+     },
+     {
+      "vi": "Vua Lý Thái Tổ",
+      "en": "King Lý Thái Tổ"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Cũng là người dựng Tháp Bút và Đài Nghiên.",
+     "en": "The same man who built the Pen Tower and the Ink Slab."
+    },
+    "explain": {
+     "vi": "Năm 1865, thời vua Tự Đức, nhà nho Nguyễn Văn Siêu (1799–1872) tu sửa đền Ngọc Sơn và xây cầu Thê Húc, Tháp Bút, Đài Nghiên, đình Trấn Ba.",
+     "en": "In 1865, under Emperor Tự Đức, scholar Nguyễn Văn Siêu (1799–1872) restored Ngọc Sơn Temple and built Thê Húc Bridge, the Pen Tower, the Ink Slab and Trấn Ba pavilion."
+    }
+   }
+  ]
  },
  {
   "id": "turtle-tower",
@@ -900,6 +1554,7 @@
    "en": "On weekend evenings the lake roads are pedestrian-only — enjoy them, and keep litter out of the water."
   },
   "challenge": {
+   "kind": "legend",
    "prompt": {
     "vi": "Trong truyền thuyết, vị vua nào trả gươm?",
     "en": "In the legend, which king returned the sword?"
@@ -922,8 +1577,74 @@
    "hint": {
     "vi": "Ông đánh quân Minh vào thế kỷ 15.",
     "en": "He fought the Ming army in the 1400s."
+   },
+   "explain": {
+    "vi": "Theo truyền thuyết, sau khi đánh thắng quân Minh, vua Lê Lợi dạo thuyền trên hồ thì Rùa Vàng nổi lên đòi lại gươm thần. Từ đó hồ mang tên Hoàn Kiếm – “trả gươm”.",
+    "en": "Legend says that after defeating the Ming, King Lê Lợi was boating on the lake when the Golden Turtle rose to take back the magic sword. The lake has been called Hoàn Kiếm – “returned sword” – ever since."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Tháp Rùa được xây vào khoảng thời gian nào?",
+     "en": "When was the Turtle Tower built?"
+    },
+    "options": [
+     {
+      "vi": "1884–1886",
+      "en": "1884–1886"
+     },
+     {
+      "vi": "Thời vua Lê Lợi, thế kỷ 15",
+      "en": "In King Lê Lợi’s time, 15th century"
+     },
+     {
+      "vi": "Sau năm 1954",
+      "en": "After 1954"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Muộn hơn nhiều so với truyền thuyết trả gươm – cùng thời với Nhà thờ Lớn.",
+     "en": "Much later than the sword legend – around the same time as the cathedral."
+    },
+    "explain": {
+     "vi": "Dù gắn với truyền thuyết Lê Lợi, tháp chỉ được xây năm 1884–1886 trên gò Rùa giữa hồ, kết hợp cửa cuốn kiểu Gothic với mái cong truyền thống Việt.",
+     "en": "Despite the Lê Lợi legend, the tower was only built in 1884–1886 on the islet in the lake, mixing Gothic-style arches with a curved Vietnamese roof."
+    }
+   },
+   {
+    "kind": "legend",
+    "prompt": {
+     "vi": "Tên “Hoàn Kiếm” có nghĩa là gì?",
+     "en": "What does the name “Hoàn Kiếm” mean?"
+    },
+    "options": [
+     {
+      "vi": "Trả gươm",
+      "en": "Returned sword"
+     },
+     {
+      "vi": "Rùa vàng",
+      "en": "Golden turtle"
+     },
+     {
+      "vi": "Hồ xanh",
+      "en": "Green lake"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Nhớ lại việc Rùa Vàng làm với thanh gươm của vua.",
+     "en": "Think of what the Golden Turtle did with the king’s sword."
+    },
+    "explain": {
+     "vi": "“Hoàn” là trả lại, “kiếm” là gươm: hồ mang tên theo truyền thuyết vua Lê Lợi trả gươm thần cho Rùa Vàng.",
+     "en": "“Hoàn” means return and “kiếm” means sword: the lake is named for the legend of King Lê Lợi returning the magic sword to the Golden Turtle."
+    }
+   }
+  ]
  },
  {
   "id": "national-history-museum",
@@ -973,6 +1694,7 @@
    "en": "Closed on Mondays. No flash near the artefacts; bags may need to be left at the counter."
   },
   "challenge": {
+   "kind": "architecture",
    "prompt": {
     "vi": "Sảnh chính của bảo tàng có hình gì?",
     "en": "What shape is the main entrance hall?"
@@ -995,8 +1717,74 @@
    "hint": {
     "vi": "Đếm số cạnh của gian phòng dưới mái vòm.",
     "en": "Count the sides of the room under the dome."
+   },
+   "explain": {
+    "vi": "Khối sảnh trung tâm hình bát giác, phủ ba lớp mái nhô cao – nét Á Đông trong toà nhà do kiến trúc sư Ernest Hébrard thiết kế, xây 1926–1932.",
+    "en": "The central hall is octagonal, under a three-tiered raised roof – an Asian touch in the building Ernest Hébrard designed, built 1926–1932."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Khi khánh thành năm 1932, toà nhà là bảo tàng mang tên ai?",
+     "en": "When it opened in 1932, the building was a museum named after whom?"
+    },
+    "options": [
+     {
+      "vi": "Louis Finot",
+      "en": "Louis Finot"
+     },
+     {
+      "vi": "Paul Doumer",
+      "en": "Paul Doumer"
+     },
+     {
+      "vi": "Alexandre Yersin",
+      "en": "Alexandre Yersin"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Vị giám đốc đầu tiên của Trường Viễn Đông Bác cổ.",
+     "en": "The first director of the French School of the Far East."
+    },
+    "explain": {
+     "vi": "Toà nhà khánh thành ngày 17/3/1932 với tên Bảo tàng Louis Finot, theo tên giám đốc đầu tiên của Trường Viễn Đông Bác cổ (EFEO).",
+     "en": "It opened on 17 March 1932 as the Louis Finot Museum, named after the first director of the French School of the Far East (EFEO)."
+    }
+   },
+   {
+    "kind": "culture",
+    "prompt": {
+     "vi": "Người Hà Nội quen gọi toà nhà này là gì?",
+     "en": "What do Hanoians traditionally call this building?"
+    },
+    "options": [
+     {
+      "vi": "Nhà Bác Cổ",
+      "en": "Nhà Bác Cổ (the “Ancient Studies house”)"
+     },
+     {
+      "vi": "Nhà Đoan",
+      "en": "Nhà Đoan (the customs house)"
+     },
+     {
+      "vi": "Nhà Hát Tây",
+      "en": "Nhà Hát Tây (the opera house)"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Lấy từ tên Trường Viễn Đông Bác cổ.",
+     "en": "Taken from the name of the French School of the Far East in Vietnamese."
+    },
+    "explain": {
+     "vi": "Vì là bảo tàng của Trường Viễn Đông Bác cổ, toà nhà được gọi là “Nhà Bác Cổ” – một địa danh quen thuộc trong ký ức Hà Nội.",
+     "en": "Because it belonged to the École française d’Extrême-Orient (Viễn Đông Bác cổ), it became known as “Nhà Bác Cổ”."
+    }
+   }
+  ]
  },
  {
   "id": "hanoi-post-office",
@@ -1029,8 +1817,8 @@
   },
   "tone": "teal",
   "story": {
-   "vi": "Người Pháp xây toà bưu điện trung tâm Hà Nội ở đây năm 1901, trên phần đất của chùa Báo Ân bị phá. Toà nhà bạn thấy hôm nay được dựng lại vào thập niên 1970: năm tầng, trên đỉnh có chiếc đồng hồ lớn. Đồng hồ và hàng chữ trên mặt tiền đã thành biểu tượng của thành phố – 'hẹn nhau dưới đồng hồ Bưu điện' là câu nói của nhiều thế hệ người Hà Nội.",
-   "en": "The French built Hanoi's central post office here in 1901, on land taken from the Bao An pagoda. The building you see now went up in the 1970s: five storeys with a big clock on top. Its clock and lettering became a symbol of the city — 'meet me under the Post Office clock' has been said by generations of Hanoians."
+   "vi": "Người Pháp xây toà bưu điện trung tâm Hà Nội ở đây trong những năm 1894–1899, trên phần đất của chùa Báo Ân bị phá. Toà nhà bạn thấy hôm nay được xây năm 1976: năm tầng, trên đỉnh có chiếc đồng hồ lớn khánh thành ngày 2/9/1978. Đồng hồ và hàng chữ trên mặt tiền đã thành biểu tượng của thành phố – 'hẹn nhau dưới đồng hồ Bưu điện' là câu nói của nhiều thế hệ người Hà Nội.",
+   "en": "The French built Hanoi's central post office here in 1894–1899, on land taken from the Bao An pagoda. The building you see now went up in 1976: five storeys, topped by a big clock inaugurated on 2 September 1978. Its clock and lettering became a symbol of the city — 'meet me under the Post Office clock' has been said by generations of Hanoians."
   },
   "why": {
    "vi": "Vì sao lại đặt ở đây, nhìn ra hồ? Quy hoạch năm 1883 của người Pháp lấy hồ Hoàn Kiếm làm trung tâm mới, và bưu điện là đầu mối liên lạc với cả xứ thuộc địa.",
@@ -1045,6 +1833,7 @@
    "en": "It is a working post office — you can still send a postcard home from the counter inside."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Trên đỉnh toà Bưu điện Bờ Hồ có gì?",
     "en": "What sits on top of the Post Office building?"
@@ -1067,8 +1856,74 @@
    "hint": {
     "vi": "Nó cho cả bờ hồ biết ai đang đến muộn.",
     "en": "It tells everyone at the lake if they are late."
+   },
+   "explain": {
+    "vi": "Cột đồng hồ trên nóc khánh thành trưa ngày 2/9/1978. Đồng hồ có bốn mặt để người đi quanh hồ đều nhìn thấy giờ.",
+    "en": "The clock tower on the roof was inaugurated at noon on 2 September 1978. The clock has four faces so people all around the lake can see the time."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Bưu điện được xây trên đất của ngôi chùa nào bị người Pháp phá năm 1888?",
+     "en": "The post office stands on the site of which pagoda, torn down by the French in 1888?"
+    },
+    "options": [
+     {
+      "vi": "Chùa Báo Ân",
+      "en": "Báo Ân Pagoda"
+     },
+     {
+      "vi": "Chùa Báo Thiên",
+      "en": "Báo Thiên Pagoda"
+     },
+     {
+      "vi": "Chùa Quán Sứ",
+      "en": "Quán Sứ Pagoda"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Ngọn tháp Hòa Phong bên cạnh là phần còn sót lại của chùa.",
+     "en": "Hòa Phong Tower next door is all that survives of it."
+    },
+    "explain": {
+     "vi": "Chùa Báo Ân (xây khoảng năm 1842, 180 gian) bị phá năm 1888 để xây bưu điện; chỉ còn tháp Hòa Phong. (Chùa Báo Thiên là nơi xây Nhà thờ Lớn.)",
+     "en": "Báo Ân Pagoda (built c. 1842, 180 bays) was torn down in 1888 for the post office; only Hòa Phong Tower remains. (Báo Thiên Pagoda was where the cathedral was built.)"
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Khi khánh thành trưa 2/9/1978, đồng hồ Bưu điện phát bài hát nào?",
+     "en": "When it was inaugurated at noon on 2 Sept 1978, which song did the clock play?"
+    },
+    "options": [
+     {
+      "vi": "“Ca ngợi Hồ Chủ tịch”",
+      "en": "“Ca ngợi Hồ Chủ tịch” (Praise to President Hồ)"
+     },
+     {
+      "vi": "“Tiến quân ca”",
+      "en": "“Tiến quân ca” (the national anthem)"
+     },
+     {
+      "vi": "“Hà Nội mùa thu”",
+      "en": "“Hà Nội mùa thu”"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Bài hát của nhạc sĩ Lưu Hữu Phước về Bác Hồ.",
+     "en": "A song by composer Lưu Hữu Phước about Uncle Hồ."
+    },
+    "explain": {
+     "vi": "Cột đồng hồ xây cùng toà nhà năm 1976 và khánh thành vào 12 giờ trưa ngày Quốc khánh 2/9/1978, phát bài “Ca ngợi Hồ Chủ tịch” của nhạc sĩ Lưu Hữu Phước.",
+     "en": "The clock tower went up with the 1976 building and was inaugurated at noon on National Day, 2 Sept 1978, playing Lưu Hữu Phước’s “Praise to President Hồ”."
+    }
+   }
+  ]
  },
  {
   "id": "hoa-phong-tower",
@@ -1105,8 +1960,8 @@
    "en": "Around 1842, governor Nguyen Dang Giai raised money from the people to build Bao An pagoda on the east shore of the lake — 180 bays, famous for its elaborate architecture. In 1888 the French levelled it to build the post office. Only this three-storey tower at the back survived. Its four arched doors are named for four kinds of gratitude: Bao An, Bao Nghia, Bao Duc and Bao Phuc."
   },
   "why": {
-   "vi": "Vì sao hai mặt ghi 'Hòa Phong' còn hai mặt kia lại ghi 'Báo Thiên tháp'? Ngọn tháp mang nhiều tên – hỏi người Hà Nội, bạn sẽ nghe nhiều cách giải thích.",
-   "en": "Why do two sides say 'Hoa Phong' and the other two 'Bao Thien'? The tower carries more than one name — ask a local and you will hear different stories."
+   "vi": "Vì sao một ngọn tháp lẻ loi lại đứng bên đường? Nó là phần duy nhất còn lại của chùa Báo Ân 180 gian, bị phá năm 1888 để xây bưu điện.",
+   "en": "Why does a lone tower stand by the road? It is all that is left of the 180-bay Bao An pagoda, torn down in 1888 to build the post office."
   },
   "photoTip": {
    "vi": "Chụp từ lối đi ven hồ, lấy mặt nước phía sau tháp, sáng sớm khi đường còn vắng.",
@@ -1117,6 +1972,7 @@
    "en": "The tower is a protected relic — look, don't climb."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Tầng một của tháp có mấy cửa vòm?",
     "en": "How many arched doors does the ground floor have?"
@@ -1139,8 +1995,74 @@
    "hint": {
     "vi": "Mỗi hướng một cửa.",
     "en": "One for each direction."
+   },
+   "explain": {
+    "vi": "Tầng một có bốn cửa vòm mở ra bốn hướng, mang tên Báo Ân, Báo Nghĩa, Báo Đức và Báo Phúc môn.",
+    "en": "The ground floor has four arched doors facing the four directions, named Báo Ân, Báo Nghĩa, Báo Đức and Báo Phúc."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Tháp Hòa Phong là dấu tích còn lại của ngôi chùa nào?",
+     "en": "Hòa Phong Tower is the last trace of which pagoda?"
+    },
+    "options": [
+     {
+      "vi": "Chùa Báo Ân",
+      "en": "Báo Ân Pagoda"
+     },
+     {
+      "vi": "Chùa Báo Thiên",
+      "en": "Báo Thiên Pagoda"
+     },
+     {
+      "vi": "Chùa Quán Sứ",
+      "en": "Quán Sứ Pagoda"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Nhìn tên bốn cửa vòm ở tầng một.",
+     "en": "Look at the names over the four ground-floor arches."
+    },
+    "explain": {
+     "vi": "Chùa Báo Ân (còn gọi chùa Liên Trì) có 180 gian, xây khoảng năm 1842; năm 1888 người Pháp phá chùa để xây bưu điện, chỉ giữ lại ngọn tháp này.",
+     "en": "Báo Ân Pagoda (also called Liên Trì) had 180 bays and was built around 1842; the French demolished it in 1888 for the post office, keeping only this tower."
+    }
+   },
+   {
+    "kind": "look",
+    "prompt": {
+     "vi": "Bốn góc tầng hai của tháp có tượng con vật gì?",
+     "en": "Which animals stand at the four corners of the tower’s second level?"
+    },
+    "options": [
+     {
+      "vi": "Con nghê",
+      "en": "Nghê (guardian lion-dogs)"
+     },
+     {
+      "vi": "Con rồng",
+      "en": "Dragons"
+     },
+     {
+      "vi": "Con hạc",
+      "en": "Cranes"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Linh vật giống chó, giống sư tử, hay canh cửa đình chùa.",
+     "en": "A temple guardian that looks part dog, part lion."
+    },
+    "explain": {
+     "vi": "Tầng hai có bốn trụ vuông ở bốn góc, trên mỗi trụ là một con nghê, đều quay về hướng đông.",
+     "en": "The second level has four square pillars at the corners, each topped by a nghê, all facing east."
+    }
+   }
+  ]
  },
  {
   "id": "48-hang-ngang",
@@ -1189,6 +2111,7 @@
    "en": "A place of national memory: dress neatly, speak quietly, don't touch the furniture."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Chiếc bàn nơi viết bản Tuyên ngôn được bọc da màu gì?",
     "en": "What colour was the table where the Declaration was written?"
@@ -1211,8 +2134,44 @@
    "hint": {
     "vi": "Màu của mạ non.",
     "en": "The colour of young rice shoots."
+   },
+   "explain": {
+    "vi": "Theo tư liệu di tích, Bác Hồ viết Tuyên ngôn Độc lập trên chiếc bàn vuông bọc da màu xanh lá mạ trong căn phòng nhỏ ở tầng hai.",
+    "en": "According to the site’s records, Hồ Chí Minh wrote the Declaration of Independence at a small square table covered in rice-shoot green leather, in a little room on the second floor."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Ngôi nhà 48 Hàng Ngang là của gia đình ai?",
+     "en": "Whose family home was 48 Hàng Ngang?"
+    },
+    "options": [
+     {
+      "vi": "Ông Trịnh Văn Bô và bà Hoàng Thị Minh Hồ",
+      "en": "Trịnh Văn Bô and Hoàng Thị Minh Hồ"
+     },
+     {
+      "vi": "Ông Bạch Thái Bưởi",
+      "en": "Bạch Thái Bưởi"
+     },
+     {
+      "vi": "Một viên quan người Pháp",
+      "en": "A French official"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một gia đình buôn bán lớn ở phố Hàng Ngang, hết lòng ủng hộ cách mạng.",
+     "en": "A wealthy merchant family on Hàng Ngang who supported the revolution."
+    },
+    "explain": {
+     "vi": "Đây là nhà và cơ sở kinh doanh của gia đình nhà tư sản yêu nước Trịnh Văn Bô – Hoàng Thị Minh Hồ. Từ 25/8 đến 2/9/1945, Bác Hồ ở và làm việc tại đây.",
+     "en": "It was the home and business of the patriotic merchant couple Trịnh Văn Bô and Hoàng Thị Minh Hồ. Hồ Chí Minh lived and worked here from 25 August to 2 September 1945."
+    }
+   }
+  ]
  },
  {
   "id": "opera-house",
@@ -1262,6 +2221,7 @@
    "en": "Inside only with a performance or guided-tour ticket. Dress smart for evening shows."
   },
   "challenge": {
+   "kind": "architecture",
    "prompt": {
     "vi": "Nhà hát Lớn được xây theo mẫu nhà hát nào?",
     "en": "Which theatre was it modelled on?"
@@ -1284,8 +2244,74 @@
    "hint": {
     "vi": "Người xây là người Pháp.",
     "en": "The builders were French."
+   },
+   "explain": {
+    "vi": "Nhà hát (khởi công 1901, khánh thành 1911) được thiết kế theo mẫu Opéra Garnier ở Paris nhưng nhỏ hơn và dùng vật liệu hợp khí hậu nơi đây.",
+    "en": "The theatre (begun 1901, opened 1911) was modelled on the Opéra Garnier in Paris, only smaller and built with materials suited to the local climate."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Nhà hát Lớn Hà Nội khánh thành năm nào?",
+     "en": "When did the Hanoi Opera House open?"
+    },
+    "options": [
+     {
+      "vi": "1911",
+      "en": "1911"
+     },
+     {
+      "vi": "1886",
+      "en": "1886"
+     },
+     {
+      "vi": "1945",
+      "en": "1945"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Khởi công năm 1901, xây mất khoảng mười năm.",
+     "en": "Work began in 1901 and took about ten years."
+    },
+    "explain": {
+     "vi": "Nhà hát khởi công ngày 7/6/1901 và khánh thành ngày 9/12/1911.",
+     "en": "Construction began on 7 June 1901 and the theatre opened on 9 December 1911."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Quảng trường trước Nhà hát Lớn mang tên gì?",
+     "en": "What is the square in front of the Opera House called?"
+    },
+    "options": [
+     {
+      "vi": "Quảng trường Cách mạng Tháng Tám",
+      "en": "August Revolution Square"
+     },
+     {
+      "vi": "Quảng trường Ba Đình",
+      "en": "Ba Đình Square"
+     },
+     {
+      "vi": "Quảng trường Đông Kinh Nghĩa Thục",
+      "en": "Đông Kinh Nghĩa Thục Square"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Ngày 19/8/1945, cuộc mít tinh giành chính quyền ở Hà Nội diễn ra ngay tại đây.",
+     "en": "On 19 August 1945 the rally that took power in Hanoi was held right here."
+    },
+    "explain": {
+     "vi": "Quảng trường mang tên Cách mạng Tháng Tám, ghi dấu cuộc mít tinh trước Nhà hát Lớn ngày 19/8/1945 mở đầu cuộc giành chính quyền ở Hà Nội.",
+     "en": "The square is named after the August Revolution, recalling the rally in front of the Opera House on 19 August 1945 that began the seizure of power in Hanoi."
+    }
+   }
+  ]
  },
  {
   "id": "o-quan-chuong",
@@ -1334,6 +2360,7 @@
    "en": "Traffic still passes through the gate — step to the side for photos."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Trên cửa chính có ba chữ Hán. Đó là chữ gì?",
     "en": "Above the main arch are three Chinese characters. What do they say?"
@@ -1356,8 +2383,74 @@
    "hint": {
     "vi": "Đó là tên cũ của cửa – sông nằm ở phía đông.",
     "en": "It's the gate's old name — the river is on its east side."
+   },
+   "explain": {
+    "vi": "Cửa ô xây năm 1749 với tên chữ Đông Hà môn (東河門) – “cửa sông phía đông”. Tên Quan Chưởng có sau này, gắn với viên Chưởng cơ tử trận khi giữ cửa chống quân Pháp năm 1873.",
+    "en": "The gate was built in 1749 as Đông Hà môn (東河門), “east river gate”. The name Quan Chưởng came later, after the officer (chưởng cơ) who died defending it against the French in 1873."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Tấm bia năm 1881 gắn bên cửa ô ghi lệnh gì?",
+     "en": "What does the 1881 stone tablet by the gate order?"
+    },
+    "options": [
+     {
+      "vi": "Cấm lính gác sách nhiễu người qua lại",
+      "en": "Guards must not harass people passing through"
+     },
+     {
+      "vi": "Cấm buôn muối qua cửa",
+      "en": "No salt may be traded through the gate"
+     },
+     {
+      "vi": "Mọi người phải nộp thuế khi vào phố",
+      "en": "Everyone must pay a tax to enter"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Tổng đốc Hoàng Diệu muốn bảo vệ người dân đi chợ.",
+     "en": "Governor Hoàng Diệu wanted to protect people coming to market."
+    },
+    "explain": {
+     "vi": "Năm 1881, Tổng đốc Hoàng Diệu cho gắn bia cấm lính canh cửa ô sách nhiễu, đòi tiền người qua lại.",
+     "en": "In 1881 Governor Hoàng Diệu had a tablet put up forbidding the gate guards from harassing or extorting passers-by."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Ô Quan Chưởng có gì đặc biệt so với các cửa ô khác của Hà Nội xưa?",
+     "en": "What makes Ô Quan Chưởng special among old Hanoi’s city gates?"
+    },
+    "options": [
+     {
+      "vi": "Là cửa ô duy nhất còn lại",
+      "en": "It is the only one still standing"
+     },
+     {
+      "vi": "Là cửa ô lớn nhất",
+      "en": "It was the largest"
+     },
+     {
+      "vi": "Là cửa ô xây bằng gỗ",
+      "en": "It was made of wood"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Các cửa ô khác giờ chỉ còn là tên địa danh.",
+     "en": "The other gates survive only as place names."
+    },
+    "explain": {
+     "vi": "Đây là cửa ô duy nhất của kinh thành Thăng Long xưa còn tồn tại. Cửa được giữ lại vì dân phố không chịu ký đơn xin phá.",
+     "en": "It is the only gate of old Thăng Long still standing – it survived because local residents refused to sign a petition to demolish it."
+    }
+   }
+  ]
  },
  {
   "id": "quan-su-pagoda",
@@ -1406,6 +2499,7 @@
    "en": "An active pagoda: cover shoulders and knees, take off shoes where signs ask, and keep quiet during chanting."
   },
   "challenge": {
+   "kind": "history",
    "prompt": {
     "vi": "Tên 'Quán Sứ' bắt nguồn từ đâu?",
     "en": "Where does the name 'Quan Su' come from?"
@@ -1428,8 +2522,44 @@
    "hint": {
     "vi": "Hãy nghĩ tới những vị khách từ Chiêm Thành, Ai Lao.",
     "en": "Think of visitors from Champa and Laos."
+   },
+   "explain": {
+    "vi": "Thời Lê, nơi đây có nhà khách (quán) đón sứ thần các nước. Vì nhiều sứ thần theo đạo Phật nên dựng thêm chùa để họ lễ bái – từ đó có tên Quán Sứ.",
+    "en": "Under the Lê dynasty this was a guesthouse (quán) for foreign envoys (sứ). Many were Buddhist, so a pagoda was added for them to worship – hence Quán Sứ."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Năm 1934, chùa Quán Sứ trở thành trụ sở của tổ chức nào?",
+     "en": "In 1934 Quán Sứ Pagoda became the headquarters of which organisation?"
+    },
+    "options": [
+     {
+      "vi": "Hội Phật giáo Bắc Kỳ",
+      "en": "The Northern Buddhist Association"
+     },
+     {
+      "vi": "Hội Truyền bá Quốc ngữ",
+      "en": "The Association for Spreading Quốc Ngữ"
+     },
+     {
+      "vi": "Đông Kinh Nghĩa Thục",
+      "en": "The Đông Kinh Free School"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một hội của những người theo đạo Phật ở miền Bắc.",
+     "en": "An association of Buddhists in the north."
+    },
+    "explain": {
+     "vi": "Năm 1934 Hội Phật giáo Bắc Kỳ đặt trụ sở tại đây và ra báo Đuốc Tuệ; năm 1942 chùa được xây lại theo thiết kế của Nguyễn Ngọc Ngoạn và Nguyễn Xuân Tùng.",
+     "en": "In 1934 the Northern Buddhist Association made it their headquarters and published the Đuốc Tuệ newspaper here; the pagoda was rebuilt in 1942 to designs by Nguyễn Ngọc Ngoạn and Nguyễn Xuân Tùng."
+    }
+   }
+  ]
  },
  {
   "id": "imperial-citadel",
@@ -1479,6 +2609,7 @@
    "en": "Big site with little shade — bring water and a hat. About 1.3 km from the lake: a good leg for a Grab or motorbike."
   },
   "challenge": {
+   "kind": "history",
    "prompt": {
     "vi": "UNESCO công nhận Hoàng thành là Di sản Thế giới năm nào?",
     "en": "In which year did UNESCO list the citadel as World Heritage?"
@@ -1501,8 +2632,74 @@
    "hint": {
     "vi": "Cùng năm Hà Nội mừng đại lễ 1000 năm.",
     "en": "The same year Hanoi celebrated 1,000 years."
+   },
+   "explain": {
+    "vi": "Ngày 31/7/2010, Khu trung tâm Hoàng thành Thăng Long được UNESCO ghi danh là Di sản Văn hóa Thế giới – đúng năm Hà Nội kỷ niệm 1000 năm Thăng Long.",
+    "en": "On 31 July 2010 UNESCO inscribed the Central Sector of the Imperial Citadel as a World Heritage Site – the very year Hanoi celebrated 1,000 years of Thăng Long."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Khi được ghi danh năm 2010, Hoàng thành Thăng Long là di sản thế giới thứ bao nhiêu?",
+     "en": "When inscribed in 2010, the Imperial Citadel was which number World Heritage Site?"
+    },
+    "options": [
+     {
+      "vi": "Thứ 900",
+      "en": "The 900th"
+     },
+     {
+      "vi": "Thứ 100",
+      "en": "The 100th"
+     },
+     {
+      "vi": "Thứ 1.000",
+      "en": "The 1,000th"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một con số tròn trăm, gần với số năm của Thăng Long nhưng không phải 1.000.",
+     "en": "A round hundred, close to Thăng Long’s age but not 1,000."
+    },
+    "explain": {
+     "vi": "Ngày 31/7/2010, Khu trung tâm Hoàng thành Thăng Long trở thành di sản thế giới thứ 900 được UNESCO ghi danh.",
+     "en": "On 31 July 2010 the Central Sector of the Imperial Citadel became the 900th site on UNESCO’s World Heritage List."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Theo UNESCO, Hoàng thành là trung tâm quyền lực liên tục trong bao lâu?",
+     "en": "According to UNESCO, for how long was the citadel a continuous seat of power?"
+    },
+    "options": [
+     {
+      "vi": "Hơn 13 thế kỷ",
+      "en": "More than 13 centuries"
+     },
+     {
+      "vi": "Khoảng 3 thế kỷ",
+      "en": "About 3 centuries"
+     },
+     {
+      "vi": "Khoảng 50 năm",
+      "en": "About 50 years"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Từ trước thời nhà Lý cho tới ngày nay.",
+     "en": "From before the Lý dynasty right up to today."
+    },
+    "explain": {
+     "vi": "UNESCO ghi nhận ba giá trị nổi bật: lịch sử văn hóa trải dài hơn 13 thế kỷ, là trung tâm quyền lực liên tục qua nhiều triều đại, và hệ thống tầng văn hóa, di tích, di vật phong phú.",
+     "en": "UNESCO recognised three outstanding values: more than 13 centuries of history, an unbroken seat of power across dynasties, and its rich layers of remains and artefacts."
+    }
+   }
+  ]
  },
  {
   "id": "ba-kieu-temple",
@@ -1551,6 +2748,7 @@
    "en": "A place of Mother Goddess worship — dress modestly and ask before photographing ceremonies."
   },
   "challenge": {
+   "kind": "history",
    "prompt": {
     "vi": "Con phố nào cắt đôi khu đền?",
     "en": "Which street cuts the temple in two?"
@@ -1573,8 +2771,44 @@
    "hint": {
     "vi": "Con phố chạy dọc bờ đông của hồ.",
     "en": "It runs along the east shore of the lake."
+   },
+   "explain": {
+    "vi": "Năm 1891, người Pháp lấy đất đền để mở đại lộ Francis Garnier – nay là phố Đinh Tiên Hoàng. Con đường cắt đôi khu đền: cổng tam quan ở bên hồ, đền chính ở bên kia đường.",
+    "en": "In 1891 the French took temple land to build Boulevard Francis Garnier – today’s Đinh Tiên Hoàng street. It cut the temple in two: the gate stayed by the lake, the shrine across the road."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "culture",
+    "prompt": {
+     "vi": "Đền Bà Kiệu chủ yếu thờ vị thánh nào trong Tứ bất tử?",
+     "en": "Which of the Four Immortals is mainly worshipped at Bà Kiệu Temple?"
+    },
+    "options": [
+     {
+      "vi": "Thánh Mẫu Liễu Hạnh",
+      "en": "Mother Goddess Liễu Hạnh"
+     },
+     {
+      "vi": "Thánh Gióng",
+      "en": "Saint Gióng"
+     },
+     {
+      "vi": "Chử Đồng Tử",
+      "en": "Chử Đồng Tử"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Vị thánh duy nhất là nữ trong Tứ bất tử.",
+     "en": "The only woman among the Four Immortals."
+    },
+    "explain": {
+     "vi": "Đền thờ Thánh Mẫu Liễu Hạnh cùng hai thị nữ Quỳnh Hoa và Quế Hoa. Tứ bất tử gồm Tản Viên Sơn Thánh, Thánh Gióng, Chử Đồng Tử và Mẫu Liễu Hạnh.",
+     "en": "The temple honours Mother Goddess Liễu Hạnh with her two maids, Quỳnh Hoa and Quế Hoa. The Four Immortals are Tản Viên, Saint Gióng, Chử Đồng Tử and Liễu Hạnh."
+    }
+   }
+  ]
  },
  {
   "id": "ly-thai-to-park",
@@ -1623,6 +2857,7 @@
    "en": "Morning exercisers welcome visitors — join in, but don't film people up close without asking."
   },
   "challenge": {
+   "kind": "look",
    "prompt": {
     "vi": "Tượng vua Lý Thái Tổ quay mặt về hướng nào?",
     "en": "Which way does the statue of King Ly Thai To face?"
@@ -1645,8 +2880,74 @@
    "hint": {
     "vi": "Đứng trước tượng và nhìn theo hướng nhà vua.",
     "en": "Stand in front of him and look where he looks."
+   },
+   "explain": {
+    "vi": "Tượng (khánh thành năm 2004) nhìn ra hồ Hoàn Kiếm. Tay phải nhà vua cầm Chiếu dời đô, tay trái chỉ xuống đất định đô.",
+    "en": "The statue (unveiled in 2004) looks out over Hoàn Kiếm Lake. The king holds the Edict on Moving the Capital in his right hand and points to the ground of the new capital with his left."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "look",
+    "prompt": {
+     "vi": "Tính cả bệ, tượng đài Lý Thái Tổ cao bao nhiêu?",
+     "en": "Including its base, how tall is the Lý Thái Tổ monument?"
+    },
+    "options": [
+     {
+      "vi": "10,1 m",
+      "en": "10.1 m"
+     },
+     {
+      "vi": "3,3 m",
+      "en": "3.3 m"
+     },
+     {
+      "vi": "20 m",
+      "en": "20 m"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Bằng khoảng một toà nhà ba tầng.",
+     "en": "About as tall as a three-storey building."
+    },
+    "explain": {
+     "vi": "Tượng đồng đúc liền khối cao 6,8 m, đặt trên bệ cao 3,3 m – tổng cộng 10,1 m, nặng 32 tấn; khánh thành ngày 7/10/2004.",
+     "en": "The single-cast bronze figure is 6.8 m tall on a 3.3 m base – 10.1 m in all, weighing 32 tonnes; it was unveiled on 7 October 2004."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Chiếu dời đô của vua Lý Thái Tổ có bao nhiêu chữ?",
+     "en": "How many characters long is King Lý Thái Tổ’s Edict on Moving the Capital?"
+    },
+    "options": [
+     {
+      "vi": "214 chữ",
+      "en": "214"
+     },
+     {
+      "vi": "1.010 chữ",
+      "en": "1,010"
+     },
+     {
+      "vi": "54 chữ",
+      "en": "54"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Con số này trùng với số năm nhà Lý trị vì.",
+     "en": "The same number as the years the Lý dynasty ruled."
+    },
+    "explain": {
+     "vi": "Chiếu dời đô (năm 1010) có 214 chữ – trùng với 214 năm nhà Lý trị vì. Con số 1.010 là năm dời đô, không phải số chữ.",
+     "en": "The Edict (1010) has 214 characters – matching the 214 years of Lý rule. 1,010 is the year of the move, not the length."
+    }
+   }
+  ]
  },
  {
   "id": "cua-bac-church",
@@ -1679,8 +2980,8 @@
   },
   "tone": "teal",
   "story": {
-   "vi": "Được khởi công năm 1925 bởi cha xứ người Pháp Antoine Depaulis (Cố Hương) theo bản vẽ của kiến trúc sư Ernest Hébrard, nhà thờ Cửa Bắc được khánh thành năm 1930. Tên gọi lấy từ Cửa Bắc của thành Thăng Long cũ ngay gần đó. Hébrard phá vỡ lối đối xứng quen thuộc: tháp chuông cao lệch một bên cân với mái vòm ở giữa, mái hiên rộng và bố cục hợp khí hậu nhiệt đới – một ví dụ tiêu biểu của kiến trúc Đông Dương.",
-   "en": "Started in 1925 by French priest Antoine Depaulis to plans by architect Ernest Hébrard, Cua Bac church was consecrated in 1930. It is named after the North Gate of the old Thang Long citadel nearby. Hébrard broke the usual symmetry: a tall bell tower on one side balances a central dome, with wide eaves and a layout suited to the tropics — a key example of the Indochinese style."
+   "vi": "Được khởi công năm 1925 bởi cha xứ người Pháp Antoine Depaulis (Cố Hương) theo bản vẽ của kiến trúc sư Ernest Hébrard, nhà thờ Cửa Bắc hoàn thành vào đầu thập niên 1930. Tên gọi lấy từ Cửa Bắc của thành Thăng Long cũ ngay gần đó. Hébrard phá vỡ lối đối xứng quen thuộc: tháp chuông cao lệch một bên cân với mái vòm ở giữa, mái hiên rộng và bố cục hợp khí hậu nhiệt đới – một ví dụ tiêu biểu của kiến trúc Đông Dương.",
+   "en": "Started in 1925 by French priest Antoine Depaulis to plans by architect Ernest Hébrard, Cua Bac church was completed in the early 1930s. It is named after the North Gate of the old Thang Long citadel nearby. Hébrard broke the usual symmetry: a tall bell tower on one side balances a central dome, with wide eaves and a layout suited to the tropics — a key example of the Indochinese style."
   },
   "why": {
    "vi": "Vì sao không đối xứng như Nhà thờ Lớn? Hébrard muốn một nhà thờ hoà hợp với châu Á, thay vì sao chép từ Pháp.",
@@ -1695,6 +2996,7 @@
    "en": "An active parish: enter quietly outside Mass times. About 1.9 km from the lake — better by bike or Grab."
   },
   "challenge": {
+   "kind": "architecture",
    "prompt": {
     "vi": "Tháp chuông nằm ở đâu so với mái vòm?",
     "en": "Where is the bell tower compared with the dome?"
@@ -1717,8 +3019,44 @@
    "hint": {
     "vi": "Nhà thờ này nổi tiếng vì không đối xứng.",
     "en": "This church is famously not symmetrical."
+   },
+   "explain": {
+    "vi": "Kiến trúc sư Ernest Hébrard cố ý phá thế đối xứng quen thuộc: tháp chuông cao được đặt lệch sang bên phải, cân với mái vòm.",
+    "en": "Architect Ernest Hébrard deliberately broke the usual symmetry: the tall bell tower stands off to the right, balancing the dome."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "culture",
+    "prompt": {
+     "vi": "Tên chính thức của nhà thờ Cửa Bắc là gì?",
+     "en": "What is Cửa Bắc Church’s official name?"
+    },
+    "options": [
+     {
+      "vi": "Nhà thờ Nữ Vương Các Thánh Tử Đạo",
+      "en": "Church of Our Lady Queen of Martyrs"
+     },
+     {
+      "vi": "Nhà thờ Thánh Giuse",
+      "en": "St Joseph’s Church"
+     },
+     {
+      "vi": "Nhà thờ Hàm Long",
+      "en": "Hàm Long Church"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "“Cửa Bắc” chỉ là tên theo cổng thành gần đó; tên chính thức nói về các vị tử đạo.",
+     "en": "“Cửa Bắc” comes from the nearby citadel gate; the official name honours martyrs."
+    },
+    "explain": {
+     "vi": "Tên chính thức là Nhà thờ Nữ Vương Các Thánh Tử Đạo; người ta quen gọi theo Cửa Bắc của thành Hà Nội ở ngay gần.",
+     "en": "Its official name is the Church of Our Lady Queen of Martyrs; people call it after the North Gate of the old citadel nearby."
+    }
+   }
+  ]
  },
  {
   "id": "dien-hong-garden",
@@ -1751,8 +3089,8 @@
   },
   "tone": "leaf",
   "story": {
-   "vi": "Khoảng năm 1899, người Pháp xây khu vườn này để tưởng niệm Léon Chavassieux, một phó Toàn quyền Đông Dương, và đặt tên theo ông. Sau này vườn được đổi tên thành vườn hoa Diên Hồng. Đài phun nước ở đây được xem là cổ nhất Hà Nội và sau hơn trăm năm vẫn giữ nét xưa. Khu vườn nằm giữa khách sạn Metropole và Ngân hàng Nhà nước, là góc chụp ảnh cưới quen thuộc.",
-   "en": "Around 1899 the French built this garden as a memorial to Léon Chavassieux, a deputy governor-general of Indochina, and named it after him. After independence it became Dien Hong garden. Its fountain is said to be the oldest in Hanoi and, after more than a century, still keeps its old look. It sits between the Metropole hotel and the State Bank, and is a favourite spot for wedding photos."
+   "vi": "Người Pháp hoàn thành khu vườn này khoảng năm 1901 để tưởng niệm Léon Chavassieux, một phó Toàn quyền Đông Dương, và đặt tên theo ông. Sau này vườn được đổi tên thành vườn hoa Diên Hồng. Đài phun nước ở đây được xem là cổ nhất Hà Nội và sau hơn trăm năm vẫn giữ nét xưa. Khu vườn nằm giữa khách sạn Metropole và Ngân hàng Nhà nước, là góc chụp ảnh cưới quen thuộc.",
+   "en": "The French completed this garden around 1901 as a memorial to Léon Chavassieux, a deputy governor-general of Indochina, and named it after him. After independence it became Dien Hong garden. Its fountain is said to be the oldest in Hanoi and, after more than a century, still keeps its old look. It sits between the Metropole hotel and the State Bank, and is a favourite spot for wedding photos."
   },
   "why": {
    "vi": "Vì sao gọi là 'vườn hoa Con Cóc'? Hãy nhìn kỹ đài phun nước – người dân đặt tên theo chính thứ họ thấy ở đó.",
@@ -1767,6 +3105,7 @@
    "en": "Wedding shoots often use the fountain — wait your turn and stay out of their frame."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "Người Hà Nội gọi vui vườn hoa này là gì?",
     "en": "What nickname do Hanoians give this garden?"
@@ -1789,8 +3128,74 @@
    "hint": {
     "vi": "Một con vật nhỏ thích nước và mưa.",
     "en": "A small animal that loves water and rain."
+   },
+   "explain": {
+    "vi": "Quanh đài phun nước có bốn tượng cóc bằng đồng phun nước lên trụ đá, nên người Hà Nội gọi đây là “vườn hoa Con Cóc”.",
+    "en": "Four bronze toads around the fountain spray water up the stone pillar – so Hanoians call it the “Toad Garden”."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Thời Pháp, vườn hoa này mang tên ai?",
+     "en": "Under the French, who was this garden named after?"
+    },
+    "options": [
+     {
+      "vi": "Léon Chavassieux, phó Toàn quyền Đông Dương",
+      "en": "Léon Chavassieux, Deputy Governor-General of Indochina"
+     },
+     {
+      "vi": "Paul Bert",
+      "en": "Paul Bert"
+     },
+     {
+      "vi": "Giám mục Puginier",
+      "en": "Bishop Puginier"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một quan chức Pháp mất năm 1895.",
+     "en": "A French official who died in 1895."
+    },
+    "explain": {
+     "vi": "Vườn được người Pháp làm để tưởng niệm Léon Chavassieux (1848–1895), phó Toàn quyền Đông Dương; sau năm 1945 đổi tên thành vườn hoa Diên Hồng.",
+     "en": "The French laid it out in memory of Léon Chavassieux (1848–1895), Deputy Governor-General of Indochina; after 1945 it was renamed Diên Hồng."
+    }
+   },
+   {
+    "kind": "look",
+    "prompt": {
+     "vi": "Có bao nhiêu tượng cóc đồng quanh đài phun nước?",
+     "en": "How many bronze toads sit around the fountain?"
+    },
+    "options": [
+     {
+      "vi": "Bốn",
+      "en": "Four"
+     },
+     {
+      "vi": "Hai",
+      "en": "Two"
+     },
+     {
+      "vi": "Tám",
+      "en": "Eight"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Mỗi hướng một con, cùng phun nước vào trụ đá giữa.",
+     "en": "One on each side, all spraying the central stone pillar."
+    },
+    "explain": {
+     "vi": "Bốn tượng cóc đồng phun nước lên trụ đá vuông cao khoảng 3,5 m ở giữa – lý do người dân gọi đây là vườn hoa Con Cóc.",
+     "en": "Four bronze toads spray water onto the square stone pillar (about 3.5 m tall) in the middle – which is why locals call it the Toad Garden."
+    }
+   }
+  ]
  },
  {
   "id": "pho-10-ly-quoc-su",
@@ -6477,6 +7882,7 @@
    "en": "Don’t pick plants or leave litter in the forest. It is colder and damper up the mountain — bring a jacket and good shoes."
   },
   "challenge": {
+   "kind": "nature",
    "prompt": {
     "vi": "Đỉnh cao nhất của dãy Ba Vì tên là gì?",
     "en": "What is the highest peak of the Ba Vì range called?"
@@ -6497,10 +7903,46 @@
    ],
    "answer": 0,
    "hint": {
-    "vi": "Tên đỉnh là một tước hiệu cao nhất của triều đình.",
-    "en": "Its name is the highest title in a royal court."
+    "vi": "Tên đỉnh là người đứng đầu cả một triều đình.",
+    "en": "The peak is named after the head of a royal court."
+   },
+   "explain": {
+    "vi": "Đỉnh Vua cao 1.296 m là đỉnh cao nhất dãy Ba Vì; tiếp theo là Tản Viên (1.227 m) và Ngọc Hoa (1.131 m). Trên đỉnh Vua có đền thờ Bác Hồ.",
+    "en": "King Peak, 1,296 m, is the highest in the Ba Vì range, ahead of Tản Viên (1,227 m) and Ngọc Hoa (1,131 m). A temple to Hồ Chí Minh stands on King Peak."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Vườn quốc gia Ba Vì được thành lập năm nào?",
+     "en": "When was Ba Vì National Park established?"
+    },
+    "options": [
+     {
+      "vi": "1991",
+      "en": "1991"
+     },
+     {
+      "vi": "1962",
+      "en": "1962"
+     },
+     {
+      "vi": "2010",
+      "en": "2010"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Đầu thập niên 1990.",
+     "en": "At the start of the 1990s."
+    },
+    "explain": {
+     "vi": "Vườn quốc gia Ba Vì được thành lập theo quyết định ngày 16/1/1991 của Chủ tịch Hội đồng Bộ trưởng.",
+     "en": "Ba Vì National Park was established by a government decision of 16 January 1991."
+    }
+   }
+  ]
  },
  {
   "id": "son-tay-ancient-citadel",
@@ -6549,6 +7991,7 @@
    "en": "Please don’t climb the walls or the old gates."
   },
   "challenge": {
+   "kind": "architecture",
    "prompt": {
     "vi": "Tường thành Sơn Tây được xây chủ yếu bằng vật liệu gì?",
     "en": "What is the Sơn Tây citadel wall mainly built from?"
@@ -6571,8 +8014,74 @@
    "hint": {
     "vi": "Đá màu nâu đỏ, bề mặt lỗ chỗ như tổ ong.",
     "en": "A reddish stone full of little holes, like a honeycomb."
+   },
+   "explain": {
+    "vi": "Thành xây năm 1822 thời vua Minh Mạng bằng đá ong – loại đá nâu đỏ, nhiều lỗ, rất sẵn ở vùng Sơn Tây.",
+    "en": "The citadel was built in 1822 under Emperor Minh Mạng from laterite – a porous red-brown stone that is plentiful around Sơn Tây."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "architecture",
+    "prompt": {
+     "vi": "Thành Sơn Tây được xây theo kiểu thành quân sự nào?",
+     "en": "Sơn Tây Citadel follows which style of fortress?"
+    },
+    "options": [
+     {
+      "vi": "Kiểu Vauban",
+      "en": "The Vauban style"
+     },
+     {
+      "vi": "Kiểu lâu đài Gothic",
+      "en": "A Gothic castle"
+     },
+     {
+      "vi": "Kiểu Vạn Lý Trường Thành",
+      "en": "A Great Wall style"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Mang tên một kỹ sư quân sự người Pháp.",
+     "en": "Named after a French military engineer."
+    },
+    "explain": {
+     "vi": "Tường thành chạy gãy khúc theo kiểu Vauban nhưng tổng thể hình vuông, mỗi cạnh khoảng 400 m, có bốn cổng Đông – Tây – Nam – Bắc và hào nước rộng khoảng 20 m.",
+     "en": "The walls zig-zag in the Vauban manner around an overall square of about 400 m a side, with four gates (east, west, south, north) and a moat about 20 m wide."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Thành cổ Sơn Tây được xây dưới triều vua nào?",
+     "en": "Under which emperor was Sơn Tây Citadel built?"
+    },
+    "options": [
+     {
+      "vi": "Vua Minh Mạng (1822)",
+      "en": "Emperor Minh Mạng (1822)"
+     },
+     {
+      "vi": "Vua Lý Thái Tổ (1010)",
+      "en": "King Lý Thái Tổ (1010)"
+     },
+     {
+      "vi": "Vua Lê Lợi (1428)",
+      "en": "King Lê Lợi (1428)"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một vị vua nhà Nguyễn.",
+     "en": "A Nguyễn-dynasty emperor."
+    },
+    "explain": {
+     "vi": "Thành được xây năm 1822 dưới triều vua Minh Mạng, tại thủ phủ trấn Sơn Tây.",
+     "en": "It was built in 1822 under Emperor Minh Mạng, at the seat of Sơn Tây province."
+    }
+   }
+  ]
  },
  {
   "id": "ho-suoi-hai",
@@ -6619,6 +8128,7 @@
    "en": "The lake waters the fields: no litter, and no swimming where signs forbid it."
   },
   "challenge": {
+   "kind": "history",
    "prompt": {
     "vi": "Hồ Suối Hai được xây dựng chủ yếu để làm gì?",
     "en": "What was Suối Hai lake mainly built for?"
@@ -6641,8 +8151,44 @@
    "hint": {
     "vi": "Nó giúp hơn 7.000 ha đồng ruộng có nước.",
     "en": "It keeps more than 7,000 hectares of fields watered."
+   },
+   "explain": {
+    "vi": "Hồ nhân tạo này khởi công năm 1958, khánh thành năm 1964 và cấp nước tưới cho hơn 7.000 ha đất nông nghiệp.",
+    "en": "This man-made lake was begun in 1958, opened in 1964 and irrigates more than 7,000 ha of farmland."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "nature",
+    "prompt": {
+     "vi": "Trong lòng hồ Suối Hai có khoảng bao nhiêu hòn đảo lớn nhỏ?",
+     "en": "About how many islands, large and small, are in Suối Hai Lake?"
+    },
+    "options": [
+     {
+      "vi": "14",
+      "en": "14"
+     },
+     {
+      "vi": "2",
+      "en": "2"
+     },
+     {
+      "vi": "100",
+      "en": "100"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Hơn một chục.",
+     "en": "A little more than a dozen."
+    },
+    "explain": {
+     "vi": "Hồ có mặt nước gần 1.000 ha với 14 đảo lớn nhỏ, tổng diện tích các đảo khoảng 90 ha.",
+     "en": "The lake covers nearly 1,000 ha and holds 14 islands, together about 90 ha."
+    }
+   }
+  ]
  },
  {
   "id": "village-for-ethnic-culture-and-tourism",
@@ -6691,6 +8237,7 @@
    "en": "Ask before entering a house or photographing people; don’t touch altars or ritual objects."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "Việt Nam có bao nhiêu dân tộc?",
     "en": "How many ethnic groups does Vietnam officially have?"
@@ -6713,8 +8260,44 @@
    "hint": {
     "vi": "Một số chẵn, lớn hơn 50 một chút.",
     "en": "An even number, just over 50."
+   },
+   "explain": {
+    "vi": "Việt Nam có 54 dân tộc. Làng Văn hóa – Du lịch tái hiện không gian sống và phong tục của cả 54 dân tộc bên hồ Đồng Mô.",
+    "en": "Vietnam has 54 ethnic groups. The village recreates the homes and customs of all 54 on the shores of Đồng Mô Lake."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "nature",
+    "prompt": {
+     "vi": "Làng Văn hóa – Du lịch các dân tộc Việt Nam nằm bên hồ nào?",
+     "en": "The Vietnam Ethnic Culture Village lies on which lake?"
+    },
+    "options": [
+     {
+      "vi": "Hồ Đồng Mô",
+      "en": "Đồng Mô Lake"
+     },
+     {
+      "vi": "Hồ Suối Hai",
+      "en": "Suối Hai Lake"
+     },
+     {
+      "vi": "Hồ Tây",
+      "en": "West Lake"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Hồ này nằm ở thị xã Sơn Tây, cách trung tâm Hà Nội khoảng 37 km.",
+     "en": "In Sơn Tây, about 37 km from central Hanoi."
+    },
+    "explain": {
+     "vi": "Làng rộng 1.544 ha, trong đó hơn 935 ha là mặt nước hồ Đồng Mô.",
+     "en": "The village covers 1,544 ha, of which more than 935 ha is the water of Đồng Mô Lake."
+    }
+   }
+  ]
  },
  {
   "id": "dinh-mong-phu",
@@ -6764,6 +8347,7 @@
    "en": "A place of worship in a lived-in village: dress modestly, keep your voice low, don’t photograph into homes without asking."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "Dân làng gọi hai giếng cổ hai bên đình Mông Phụ là gì?",
     "en": "What do villagers call the two old wells beside Mông Phụ?"
@@ -6786,8 +8370,74 @@
    "hint": {
     "vi": "Con vật được chạm khắp mái đình.",
     "en": "The creature carved all over the roof."
+   },
+   "explain": {
+    "vi": "Hai giếng cổ ở hai bên đình được dân làng gọi là “hai mắt rồng”.",
+    "en": "Villagers call the two old wells on either side of the communal house “the dragon’s two eyes”."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Năm 2005, Đường Lâm trở thành làng cổ đầu tiên của Việt Nam được công nhận là gì?",
+     "en": "In 2005 Đường Lâm became Vietnam’s first ancient village to be recognised as what?"
+    },
+    "options": [
+     {
+      "vi": "Di tích lịch sử – văn hóa quốc gia",
+      "en": "A national historical and cultural monument"
+     },
+     {
+      "vi": "Di sản thế giới UNESCO",
+      "en": "A UNESCO World Heritage Site"
+     },
+     {
+      "vi": "Làng nghề truyền thống",
+      "en": "A traditional craft village"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một danh hiệu của Nhà nước Việt Nam, không phải của UNESCO.",
+     "en": "A Vietnamese state title, not a UNESCO one."
+    },
+    "explain": {
+     "vi": "Năm 2005, Đường Lâm (gồm năm thôn Mông Phụ, Đông Sàng, Cam Thịnh, Đoài Giáp, Cam Lâm) là làng cổ đầu tiên được xếp hạng di tích lịch sử – văn hóa quốc gia.",
+     "en": "In 2005 Đường Lâm – the five hamlets of Mông Phụ, Đông Sàng, Cam Thịnh, Đoài Giáp and Cam Lâm – became the first ancient village listed as a national historical and cultural monument."
+    }
+   },
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Đường Lâm được gọi là “đất hai vua” vì là quê của ai?",
+     "en": "Đường Lâm is called “the land of two kings” – whose birthplace is it?"
+    },
+    "options": [
+     {
+      "vi": "Phùng Hưng và Ngô Quyền",
+      "en": "Phùng Hưng and Ngô Quyền"
+     },
+     {
+      "vi": "Đinh Bộ Lĩnh và Lê Hoàn",
+      "en": "Đinh Bộ Lĩnh and Lê Hoàn"
+     },
+     {
+      "vi": "Lý Công Uẩn và Trần Cảnh",
+      "en": "Lý Công Uẩn and Trần Cảnh"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một người là Bố Cái Đại Vương, người kia thắng trận Bạch Đằng năm 938.",
+     "en": "One is Bố Cái Đại Vương; the other won the Battle of Bạch Đằng in 938."
+    },
+    "explain": {
+     "vi": "Đường Lâm là quê của Phùng Hưng (Bố Cái Đại Vương) và Ngô Quyền – nên được gọi là “đất hai vua”.",
+     "en": "Đường Lâm is the birthplace of Phùng Hưng (Bố Cái Đại Vương) and Ngô Quyền – hence “the land of two kings”."
+    }
+   }
+  ]
  },
  {
   "id": "den-thuong",
@@ -6835,6 +8485,7 @@
    "en": "A sacred place: dress modestly, stay respectful, and don’t photograph altars where signs say not to. The way up has many steep steps."
   },
   "challenge": {
+   "kind": "legend",
    "prompt": {
     "vi": "Theo truyền thuyết, Sơn Tinh cưới được ai?",
     "en": "In the legend, whom did the Mountain God marry?"
@@ -6857,6 +8508,10 @@
    "hint": {
     "vi": "Cha của nàng là vị vua Hùng thứ mười tám.",
     "en": "Her father was the 18th Hùng King."
+   },
+   "explain": {
+    "vi": "Theo truyền thuyết Sơn Tinh – Thủy Tinh, vua Hùng thứ mười tám kén rể cho công chúa Mị Nương. Sơn Tinh mang lễ vật đến trước nên cưới được nàng.",
+    "en": "In the legend of the Mountain and Water Gods, the 18th Hùng King sought a husband for Princess Mị Nương. Sơn Tinh arrived first with the wedding gifts and won her hand."
    }
   }
  },
@@ -6907,6 +8562,7 @@
    "en": "A quiet memorial: keep your voice down and don’t touch the exhibits."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "Bút danh “Tản Đà” ghép từ tên của những gì?",
     "en": "What does the pen name “Tản Đà” combine?"
@@ -6929,8 +8585,44 @@
    "hint": {
     "vi": "Nhìn quanh: một ngọn núi và một con sông.",
     "en": "Look around: a mountain and a river."
+   },
+   "explain": {
+    "vi": "Bút danh ghép từ núi Tản (Tản Viên) và sông Đà – hai cảnh quen thuộc quanh quê ông ở làng Khê Thượng.",
+    "en": "The pen name joins Mount Tản (Tản Viên) and the Đà River – the two landmarks around his home village of Khê Thượng."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "culture",
+    "prompt": {
+     "vi": "Tên thật của nhà thơ Tản Đà là gì?",
+     "en": "What was the poet Tản Đà’s real name?"
+    },
+    "options": [
+     {
+      "vi": "Nguyễn Khắc Hiếu",
+      "en": "Nguyễn Khắc Hiếu"
+     },
+     {
+      "vi": "Nguyễn Văn Siêu",
+      "en": "Nguyễn Văn Siêu"
+     },
+     {
+      "vi": "Nguyễn Khuyến",
+      "en": "Nguyễn Khuyến"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Tên khu di tích này đã có sẵn đáp án.",
+     "en": "The name of this memorial site gives it away."
+    },
+    "explain": {
+     "vi": "Tản Đà (1889–1939), tên thật Nguyễn Khắc Hiếu, quê làng Khê Thượng – nhà thơ được xem là gạch nối giữa thơ cũ và phong trào Thơ mới.",
+     "en": "Tản Đà (1889–1939), born Nguyễn Khắc Hiếu in Khê Thượng village, is seen as the bridge between classical poetry and the New Poetry movement."
+    }
+   }
+  ]
  },
  {
   "id": "den-va",
@@ -6979,6 +8671,7 @@
    "en": "A place of worship: dress modestly, be respectful and don’t break branches off the old trees."
   },
   "challenge": {
+   "kind": "legend",
    "prompt": {
     "vi": "Đền Và thờ vị thần nào?",
     "en": "Which god is honoured at Đền Và?"
@@ -7001,8 +8694,44 @@
    "hint": {
     "vi": "Vị thần của ngọn núi nhìn thấy từ đây.",
     "en": "The god of the mountain you can see from here."
+   },
+   "explain": {
+    "vi": "Đền Và, còn gọi là Đông Cung, thờ Tản Viên Sơn Thánh – một trong Tứ bất tử của tín ngưỡng dân gian Việt.",
+    "en": "Đền Và, also called the Eastern Palace, honours Tản Viên Sơn Thánh – one of the Four Immortals of Vietnamese folk belief."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "nature",
+    "prompt": {
+     "vi": "Rừng lim cổ quanh đền Và có khoảng bao nhiêu cây?",
+     "en": "About how many old ironwood (lim) trees surround Đền Và?"
+    },
+    "options": [
+     {
+      "vi": "242 cây",
+      "en": "242"
+     },
+     {
+      "vi": "24 cây",
+      "en": "24"
+     },
+     {
+      "vi": "2.420 cây",
+      "en": "2,420"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Hơn hai trăm cây, có cây hai ba người ôm.",
+     "en": "Over two hundred, some needing two or three people to hug."
+    },
+    "explain": {
+     "vi": "Rừng lim cổ rộng khoảng 5,7 ha với 242 cây; có cây đường kính tới 1,5 m. Đền Và được xếp hạng di tích quốc gia năm 1964.",
+     "en": "The old lim forest covers about 5.7 ha with 242 trees, some 1.5 m across. Đền Và was listed as a national monument in 1964."
+    }
+   }
+  ]
  },
  {
   "id": "lang-ngo-quyen",
@@ -7050,6 +8779,7 @@
    "en": "A memorial: stay quiet, dress respectfully and don’t sit on the steles or walls."
   },
   "challenge": {
+   "kind": "history",
    "prompt": {
     "vi": "Ở trận Bạch Đằng năm 938, Ngô Quyền dùng cách gì để phá thuyền giặc?",
     "en": "How did Ngô Quyền wreck the enemy fleet at Bạch Đằng in 938?"
@@ -7072,8 +8802,74 @@
    "hint": {
     "vi": "Thủy triều rút chính là “vũ khí”.",
     "en": "The falling tide was the real weapon."
+   },
+   "explain": {
+    "vi": "Năm 938, Ngô Quyền cho cắm cọc gỗ đầu bịt sắt dưới lòng sông Bạch Đằng. Khi nước triều rút, thuyền quân Nam Hán mắc cọc và bị đánh tan.",
+    "en": "In 938 Ngô Quyền had iron-tipped stakes driven into the bed of the Bạch Đằng River. When the tide went out, the Southern Han ships were caught on them and destroyed."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Sau chiến thắng Bạch Đằng, Ngô Quyền xưng vương và đóng đô ở đâu?",
+     "en": "After Bạch Đằng, where did Ngô Quyền make his capital?"
+    },
+    "options": [
+     {
+      "vi": "Cổ Loa",
+      "en": "Cổ Loa"
+     },
+     {
+      "vi": "Hoa Lư",
+      "en": "Hoa Lư"
+     },
+     {
+      "vi": "Thăng Long",
+      "en": "Thăng Long"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Kinh đô cũ của nước Âu Lạc thời An Dương Vương.",
+     "en": "The old capital of Âu Lạc under King An Dương."
+    },
+    "explain": {
+     "vi": "Sau khi đánh tan quân Nam Hán năm 938, Ngô Quyền xưng vương và đóng đô ở Cổ Loa, nối tiếp kinh đô Âu Lạc xưa. Hoa Lư là kinh đô của nhà Đinh, Thăng Long của nhà Lý.",
+     "en": "After crushing the Southern Han in 938, Ngô Quyền declared himself king and set his capital at Cổ Loa, the old Âu Lạc capital. Hoa Lư was the Đinh capital; Thăng Long the Lý capital."
+    }
+   },
+   {
+    "kind": "look",
+    "prompt": {
+     "vi": "Tấm bia giữa lăng khắc dòng chữ gì?",
+     "en": "What is carved on the stele at the centre of the tomb?"
+    },
+    "options": [
+     {
+      "vi": "“Tiền Ngô Vương lăng”",
+      "en": "“Tiền Ngô Vương lăng” (Tomb of the Former King Ngô)"
+     },
+     {
+      "vi": "“Bố Cái Đại Vương”",
+      "en": "“Bố Cái Đại Vương”"
+     },
+     {
+      "vi": "“Nam quốc sơn hà”",
+      "en": "“Nam quốc sơn hà”"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "“Tiền Ngô” để phân biệt với các vua Ngô đời sau.",
+     "en": "“Former Ngô” distinguishes him from later Ngô rulers."
+    },
+    "explain": {
+     "vi": "Bia đá dựng năm 1821 (Minh Mạng thứ 2) khắc “Tiền Ngô Vương lăng” – lăng của Tiền Ngô Vương Ngô Quyền. Lăng được xây lại năm 1874.",
+     "en": "The stele, set up in 1821 (2nd year of Minh Mạng), reads “Tiền Ngô Vương lăng” – Tomb of the Former King Ngô. The tomb was rebuilt in 1874."
+    }
+   }
+  ]
  },
  {
   "id": "chua-mia",
@@ -7123,6 +8919,7 @@
    "en": "A Buddhist place of worship: dress modestly, remove your hat, speak softly and ask before photographing inside the halls."
   },
   "challenge": {
+   "kind": "culture",
    "prompt": {
     "vi": "Chùa Mía nổi tiếng nhất vì điều gì?",
     "en": "What is Chùa Mía most famous for?"
@@ -7145,7 +8942,43 @@
    "hint": {
     "vi": "Hãy thử đếm những gì đứng trên các bệ thờ.",
     "en": "Try counting what stands on the altars."
+   },
+   "explain": {
+    "vi": "Chùa lưu giữ 287 pho tượng (6 tượng đồng, 106 tượng gỗ, 174 tượng đất), được xem là một trong những nơi giữ nhiều tượng cổ nhất Việt Nam.",
+    "en": "The pagoda keeps 287 statues (6 bronze, 106 wooden, 174 clay) – one of the largest collections of old statues in Vietnam."
    }
-  }
+  },
+  "quiz": [
+   {
+    "kind": "history",
+    "prompt": {
+     "vi": "Năm 1632, ai đứng ra trùng tu chùa và được dân gọi là “Bà chúa Mía”?",
+     "en": "In 1632, who restored the pagoda and became known as “the Lady of Mía”?"
+    },
+    "options": [
+     {
+      "vi": "Bà Ngô Thị Ngọc Diệu, cung tần chúa Trịnh Tráng",
+      "en": "Ngô Thị Ngọc Diệu, a consort of Lord Trịnh Tráng"
+     },
+     {
+      "vi": "Nguyên phi Ỷ Lan",
+      "en": "Queen Ỷ Lan"
+     },
+     {
+      "vi": "Bà Triệu",
+      "en": "Lady Triệu"
+     }
+    ],
+    "answer": 0,
+    "hint": {
+     "vi": "Một bà phi trong phủ chúa Trịnh thế kỷ 17.",
+     "en": "A consort at the Trịnh lords’ court in the 17th century."
+    },
+    "explain": {
+     "vi": "Năm 1632, bà Ngô Thị Ngọc Diệu (còn gọi Nguyễn Thị Ngọc Dong), cung tần của chúa Trịnh Tráng, cùng cha mẹ và dân làng trùng tu chùa; bà được tôn là “Bà chúa Mía”.",
+     "en": "In 1632 Ngô Thị Ngọc Diệu (also called Nguyễn Thị Ngọc Dong), a consort of Lord Trịnh Tráng, restored the pagoda with her parents and the villagers; she is honoured as “the Lady of Mía”."
+    }
+   }
+  ]
  }
 ]

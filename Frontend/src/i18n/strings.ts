@@ -1,4 +1,4 @@
-import type { Lang, Mode, PlaceTag, Theme, Transport } from '../types'
+import type { Lang, Mode, PlaceTag, QuizKind, Theme, Transport } from '../types'
 
 const en = {
   tagline: 'HANOI STORY QUEST',
@@ -88,6 +88,24 @@ const en = {
   missionFrom: (role: string) => `${role} says`,
   reward: 'Reward',
   challengeTitle: 'Find the real detail',
+  quizKind: {
+    look: 'Look closely',
+    history: 'History',
+    legend: 'Legend',
+    culture: 'Culture',
+    architecture: 'Architecture',
+    nature: 'Nature',
+  } as Record<QuizKind, string>,
+  openQuiz: (n: number) => `Quiz · ${n} question${n === 1 ? '' : 's'}`,
+  questionOf: (i: number, n: number) => `Question ${i} of ${n}`,
+  correct: 'Correct!',
+  whyAnswer: 'Why?',
+  nextQuestion: 'Next question',
+  seeScore: 'See my score',
+  quizScore: (k: number, n: number) => `${k}/${n} right on the first try`,
+  quizCheer: (k: number, n: number): string =>
+    k === n ? 'Perfect — a true Hanoi expert!' : k * 2 >= n ? 'Nicely done!' : 'Now you know a little more about this place.',
+  claimReward: 'Claim your reward',
   wrong: 'Not quite — look again.',
   hint: 'Hint',
   foundIt: 'You found it!',
@@ -625,6 +643,24 @@ const vi: Strings = {
   missionFrom: (role: string) => `${role} nhắn`,
   reward: 'Phần thưởng',
   challengeTitle: 'Tìm chi tiết thật',
+  quizKind: {
+    look: 'Quan sát',
+    history: 'Lịch sử',
+    legend: 'Truyền thuyết',
+    culture: 'Văn hoá',
+    architecture: 'Kiến trúc',
+    nature: 'Thiên nhiên',
+  },
+  openQuiz: (n: number) => `Đố vui · ${n} câu`,
+  questionOf: (i: number, n: number) => `Câu ${i}/${n}`,
+  correct: 'Chính xác!',
+  whyAnswer: 'Vì sao?',
+  nextQuestion: 'Câu tiếp theo',
+  seeScore: 'Xem kết quả',
+  quizScore: (k: number, n: number) => `Đúng ngay lần đầu ${k}/${n} câu`,
+  quizCheer: (k: number, n: number): string =>
+    k === n ? 'Tuyệt đối — đúng là chuyên gia Hà Nội!' : k * 2 >= n ? 'Giỏi lắm!' : 'Giờ bạn đã biết thêm về nơi này rồi.',
+  claimReward: 'Nhận phần thưởng',
   wrong: 'Chưa đúng — hãy nhìn lại nhé.',
   hint: 'Gợi ý',
   foundIt: 'Bạn tìm ra rồi!',

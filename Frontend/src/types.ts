@@ -47,12 +47,19 @@ export interface LatLng {
   lng: number
 }
 
-/** "Find a real detail" challenge used by Explore mode. */
+/** What a quiz question is about (shown as a small label). */
+export type QuizKind = 'look' | 'history' | 'legend' | 'culture' | 'architecture' | 'nature'
+
+/** One multiple-choice question at a place: a hint after a wrong try, an explanation once answered. */
 export interface Challenge {
+  /** Missing on rows read from an older Supabase seed. */
+  kind?: QuizKind
   prompt: L
   options: L[]
   answer: number
   hint: L
+  /** Why the answer is right — shown after answering. */
+  explain?: L
 }
 
 export interface Place extends LatLng {
@@ -82,8 +89,10 @@ export interface Place extends LatLng {
   why: L
   photoTip: L
   etiquette: L
-  /** null for quick places. */
+  /** The "find a real detail" question (Explore mission); null for quick places. */
   challenge: Challenge | null
+  /** Extra questions about the place's history, legends and details. */
+  quiz?: Challenge[]
 }
 
 export interface Mission {

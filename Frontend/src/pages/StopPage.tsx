@@ -15,6 +15,7 @@ import {
   MapPin,
   Navigation,
   Pause,
+  Star,
   Volume2,
   Wallet,
 } from 'lucide-react'
@@ -31,7 +32,7 @@ import TopBar from '../components/TopBar'
 import { missionFor } from '../data/roles'
 import { distance, minutes, moneyRange } from '../lib/format'
 import { formatOpeningHours } from '../lib/hours'
-import { googleMapsUrl, shuffledOrder, storyOf } from '../lib/quest'
+import { googleMapsUrl, quizOf, shuffledOrder, storyOf } from '../lib/quest'
 import { distanceM, estimateLeg } from '../lib/travel'
 import { useNarration } from '../lib/useNarration'
 import { useQuest } from '../store/QuestContext'
@@ -252,8 +253,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
             </div>
 
             {missionActive && !hasItem && !skippedMission && mission &&
-              (place.challenge ? (
-                <Challenge place={place} lang={lang} onSolved={() => completeMission(place.id)} onSkip={() => setSkippedMission(true)} />
+              (quizOf(place).length ? (
+                <Quiz place={place} lang={lang} onDone={() => completeMission(place.id)} onSkip={() => setSkippedMission(true)} />
               ) : (
                 // Quick places have no quiz: the traveller confirms they did the mission.
                 <div className="flex gap-2">
@@ -301,6 +302,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
             )}
 
             {storyUnlocked && <InfoGrid place={place} people={people} lang={lang} />}
+            {!(missionActive && !hasItem && !skippedMission && mission) && <QuizPanel place={place} lang={lang} />}
             <PlaceReportPrompt place={place} journeyStartedAt={journey!.startedAt} />
           </>
         )}
@@ -349,55 +351,143 @@ function MissionBubble({ role, task, item, lang }: { role: Role; task: string; i
   )
 }
 
-function Challenge({
+/**
+ * A short quiz at a stop: one question at a time, a hint after a wrong try, then the right answer
+ * with why it is right. Ends with a first-try score. In Explore mode finishing earns the role's item.
+ */
+function Quiz({
   place,
   lang,
-  onSolved,
+  onDone,
   onSkip,
+  doneLabel,
 }: {
   place: Place
   lang: Lang
-  onSolved: () => void
-  onSkip: () => void
+  /** Called from the score screen; omitted = the score screen is the end. */
+  onDone?: () => void
+  onSkip?: () => void
+  doneLabel?: string
 }) {
   const { t } = useQuest()
+  const questions = useMemo(() => quizOf(place), [place])
+  const [step, setStep] = useState(0)
   const [wrong, setWrong] = useState<number[]>([])
-  const c = place.challenge!
-  const order = useMemo(() => shuffledOrder(c.options.length, place.id), [c, place.id])
+  const [solved, setSolved] = useState(false)
+  const [score, setScore] = useState(0)
+  const n = questions.length
+  const finished = step >= n
+  const q = questions[Math.min(step, n - 1)]
+  const order = useMemo(() => shuffledOrder(q.options.length, `${place.id}#${step}`), [q, place.id, step])
+
+  const pick = (k: number) => {
+    if (solved) return
+    if (k !== q.answer) return setWrong((w) => [...w, k])
+    setSolved(true)
+    if (!wrong.length) setScore((s) => s + 1)
+  }
+  const next = () => {
+    setStep((i) => i + 1)
+    setWrong([])
+    setSolved(false)
+  }
+
+  if (finished) {
+    return (
+      <div className="rounded-2xl border-2 border-ink bg-white p-4 text-center">
+        <div className="text-[10px] font-bold uppercase tracking-widest text-brick">{t.openQuiz(n)}</div>
+        <div className="mt-2 flex justify-center gap-1" aria-hidden>
+          {questions.map((_, i) => (
+            <Star key={i} className={`h-5 w-5 ${i < score ? 'fill-sun text-sun-dark' : 'text-sand'}`} />
+          ))}
+        </div>
+        <p className="mt-2 text-sm font-bold">{t.quizScore(score, n)}</p>
+        <p className="mt-0.5 text-[12px] opacity-70">{t.quizCheer(score, n)}</p>
+        {onDone && (
+          <PrimaryButton className="mt-3" onClick={onDone}>
+            <Gift className="h-4 w-4" /> {doneLabel ?? t.claimReward}
+          </PrimaryButton>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="rounded-2xl border-2 border-ink bg-white p-4">
-      <div className="text-[10px] font-bold uppercase tracking-widest text-brick">{t.challengeTitle}</div>
-      <p className="mt-1 text-sm font-bold leading-snug">{c.prompt[lang]}</p>
+      <div className="flex items-center justify-between gap-2 text-[10px] font-bold uppercase tracking-widest">
+        <span className="text-brick">{q.kind ? t.quizKind[q.kind] : t.challengeTitle}</span>
+        {n > 1 && <span className="opacity-50">{t.questionOf(step + 1, n)}</span>}
+      </div>
+      <p className="mt-1 text-sm font-bold leading-snug">{q.prompt[lang]}</p>
       <div className="mt-3 space-y-2">
         {order.map((k) => {
           const isWrong = wrong.includes(k)
+          const isRight = solved && k === q.answer
           return (
             <button
               key={k}
-              disabled={isWrong}
-              onClick={() => (k === c.answer ? onSolved() : setWrong((w) => [...w, k]))}
-              className={`w-full rounded-xl border-2 px-3 py-2.5 text-left text-[13px] font-medium transition ${
-                isWrong ? 'border-brick/30 bg-brick/5 line-through opacity-50' : 'border-sand hover:border-ink'
+              disabled={isWrong || solved}
+              onClick={() => pick(k)}
+              className={`flex w-full items-center gap-2 rounded-xl border-2 px-3 py-2.5 text-left text-[13px] font-medium transition ${
+                isRight
+                  ? 'border-teal bg-teal/10 font-bold text-teal'
+                  : isWrong
+                    ? 'border-brick/30 bg-brick/5 line-through opacity-50'
+                    : solved
+                      ? 'border-sand opacity-50'
+                      : 'border-sand hover:border-ink'
               }`}
             >
-              {c.options[k][lang]}
+              {isRight && <CircleCheck className="h-4 w-4 shrink-0" />}
+              {q.options[k][lang]}
             </button>
           )
         })}
       </div>
-      {wrong.length > 0 && (
+      {!solved && wrong.length > 0 && (
         <p className="mt-3 flex items-start gap-1.5 text-[12px] text-brick">
           <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
-            {t.wrong} <b>{t.hint}:</b> {c.hint[lang]}
+            {t.wrong} <b>{t.hint}:</b> {q.hint[lang]}
           </span>
         </p>
       )}
-      <button onClick={onSkip} className="mt-3 text-[11px] font-bold opacity-50 hover:opacity-80">
-        {t.skipMission}
-      </button>
+      {solved && (
+        <div className="mt-3 rounded-xl bg-teal/10 p-3 text-[12px] leading-snug">
+          <div className="font-bold text-teal">{wrong.length ? t.whyAnswer : t.correct}</div>
+          {q.explain && <p className="mt-1">{q.explain[lang]}</p>}
+          <PrimaryButton className="mt-3" onClick={next}>
+            {step + 1 < n ? t.nextQuestion : t.seeScore}
+          </PrimaryButton>
+        </div>
+      )}
+      {onSkip && !solved && (
+        <button onClick={onSkip} className="mt-3 text-[11px] font-bold opacity-50 hover:opacity-80">
+          {t.skipMission}
+        </button>
+      )}
     </div>
+  )
+}
+
+/** The quiz outside an Explore mission: optional, folded until opened. */
+function QuizPanel({ place, lang }: { place: Place; lang: Lang }) {
+  const { t } = useQuest()
+  const [open, setOpen] = useState(false)
+  const n = quizOf(place).length
+  if (!n) return null
+  return open ? (
+    <Quiz place={place} lang={lang} />
+  ) : (
+    <button
+      onClick={() => setOpen(true)}
+      className="flex w-full items-center justify-between rounded-2xl border-2 border-sand bg-white p-4 text-left text-sm font-bold"
+    >
+      <span className="flex items-center gap-2">
+        <Lightbulb className="h-4 w-4 text-brick" /> {t.openQuiz(n)}
+      </span>
+      <ChevronDown className="h-4 w-4" />
+    </button>
   )
 }
 

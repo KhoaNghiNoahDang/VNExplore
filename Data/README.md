@@ -14,6 +14,7 @@ Mở bằng Google Sheets (File → Import → Upload) hoặc Excel. Mã hoá UT
 | `to_add_manually.csv` | Điểm nổi tiếng **không có trên OpenStreetMap** — cần điền toạ độ bằng tay |
 | `roles.csv` | 4 vai của chế độ Khám phá |
 | `missions.csv` | Nhiệm vụ theo vai × địa điểm |
+| `quizzes.csv` | Câu đố thêm cho mỗi địa điểm (lịch sử, truyền thuyết, kiến trúc…), mỗi câu có **giải thích** và **nguồn** |
 | `transport.csv` | Giá cước, tốc độ, phí gửi xe (hiện app vẫn đọc từ `Frontend/src/data/transport.ts`) |
 
 ### Hai loại địa điểm (`places.csv`)
@@ -30,6 +31,8 @@ Mở bằng Google Sheets (File → Import → Upload) hoặc Excel. Mã hoá UT
 - `status`: `draft` → `approved`. **Chỉ dòng `approved` được xuất sang app.**
 - Giá tính bằng **nghìn đồng** (`30` = 30.000đ). `price_checked_on` = ngày kiểm giá (YYYY-MM-DD).
 - `answer` = đáp án đúng (1, 2 hoặc 3); app tự xáo thứ tự khi hiển thị.
+- Câu đố: câu chính nằm trong `places.csv` (`challenge_*`, kèm `challenge_kind`, `explain_vi/en`), các câu thêm nằm trong `quizzes.csv`. `kind`: look (quan sát tại chỗ), history, legend, culture, architecture, nature. `explain` hiện sau khi trả lời – giải thích vì sao đáp án đúng.
+- **Mỗi câu đố phải có `sources`** (script báo lỗi nếu trống). Chỉ đố những gì nguồn ghi rõ; chi tiết các nguồn ghi khác nhau (năm khánh thành, tên người xây…) thì không đem ra đố.
 - Nhiều giá trị trong một ô cách nhau bằng `; ` (`themes`, `tags`, `sources`, `fav_places`).
 - `themes`: culture, food, rainy, history, photo. `tags`: iconic, groups, quiet, cultural, indoor, localFood, free, history, photo, lively. `tone`: brick, butter, teal, leaf.
 
