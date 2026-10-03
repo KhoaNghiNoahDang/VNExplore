@@ -488,6 +488,12 @@ const en = {
   hintGrab: (price: string, peak: boolean) =>
     `No bike? GrabBike would be about ${price} for this route${peak ? ' (rush hour, a bit pricier)' : ''}. Fares change with the time of day.`,
   rideFareNote: 'Ride-hailing fares are estimated for your departure time; the real price changes with the time of day.',
+  hintRushCar: (saved: number, extra: string | null) =>
+    `It’s rush hour and cars crawl through the Old Quarter. GrabBike slips through the traffic and saves about ${saved} min${extra ? ` for roughly ${extra} more` : ''}.`,
+  hintRushShift: (time: string, saved: number) =>
+    `Your route runs into rush hour. Leaving at ${time} avoids the worst traffic and saves about ${saved} min on the road.`,
+  hintRushDetour: 'Stuck in a jam on the way? Tap Directions: Google Maps reroutes around live traffic.',
+  leaveAt: (time: string) => `Leave at ${time}`,
   closedWhenYouArrive: 'Closed when you arrive',
   close: 'Close',
   thinking: 'Reading your request…',
@@ -1019,6 +1025,12 @@ const vi: Strings = {
   hintGrab: (price: string, peak: boolean) =>
     `Không có xe? Gọi GrabBike cho cả lộ trình khoảng ${price}${peak ? ' (giờ cao điểm nên nhỉnh hơn)' : ''}. Giá thay đổi theo khung giờ.`,
   rideFareNote: 'Cước xe công nghệ ước lượng theo giờ xuất phát; giá thực tế thay đổi theo khung giờ.',
+  hintRushCar: (saved: number, extra: string | null) =>
+    `Đang giờ cao điểm, ô tô dễ kẹt ở phố cổ. Đi GrabBike luồn lách tốt hơn, nhanh hơn khoảng ${saved} phút${extra ? `, chi phí tăng khoảng ${extra}` : ''}.`,
+  hintRushShift: (time: string, saved: number) =>
+    `Lộ trình rơi vào giờ cao điểm. Đi lúc ${time} sẽ tránh được tắc đường, đỡ khoảng ${saved} phút ngồi trên xe.`,
+  hintRushDetour: 'Đang đi mà gặp tắc? Bấm Chỉ đường, Google Maps sẽ tìm đường tránh theo giao thông thực tế.',
+  leaveAt: (time: string) => `Đi lúc ${time}`,
   closedWhenYouArrive: 'Đóng cửa lúc bạn tới',
   close: 'Đóng',
   thinking: 'Đang đọc yêu cầu của bạn…',

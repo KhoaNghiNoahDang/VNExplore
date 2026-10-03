@@ -1,4 +1,4 @@
-import { TRANSPORT } from '../data/transport'
+import { RUSH_HOURS, TRANSPORT } from '../data/transport'
 import type { Intent, LatLng, Leg, Place, Transport } from '../types'
 import { isOpenAt } from './hours'
 import type { Weather } from './weather'
@@ -263,19 +263,40 @@ export function googleMapsUrl(start: LatLng, stops: Place[], transport: Transpor
 
 export interface TransportHint {
   to: Transport
-  reason: 'longWalk' | 'farApart' | 'allClose'
+  /** rushCar: a car stuck in rush hour → bikes; rushShift: same transport, leave outside rush hour. */
+  reason: 'longWalk' | 'farApart' | 'allClose' | 'rushCar' | 'rushShift'
   /** Longest leg, metres (for the message). */
   longestM: number
   savedMin: number
   extraCostK: number
   /** When suggesting your own motorbike: what the same route would cost by GrabBike at the planned time. */
   grab?: { costK: number; peak: boolean }
+  /** rushShift: the suggested departure time (ms). */
+  departAt?: number
+}
+
+/** The first rush-hour window a vehicle leg of the route starts in, as [start, end) timestamps. */
+function firstRushWindow(sum: QuestSummary, departAt: number): [number, number] | null {
+  let t = departAt
+  for (let i = 0; i < sum.legs.length; i++) {
+    const leg = sum.legs[i]
+    if (leg.peak && leg.transport !== 'walk') {
+      const d = new Date(t)
+      const midnight = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime()
+      const w = RUSH_HOURS.find(([a, b]) => d.getHours() * 60 + d.getMinutes() >= a && d.getHours() * 60 + d.getMinutes() < b)
+      if (w) return [midnight + w[0] * 60_000, midnight + w[1] * 60_000]
+    }
+    t += (leg.minutes + sum.stops[i].visitMin) * 60_000
+  }
+  return null
 }
 
 /**
  * Suggest another way to get around when the chosen one fits the route badly:
  * long walks → a motorbike (1–2 people, with a GrabBike fare estimate) or a car (3+); a bike or car for stops a few hundred metres
- * apart → walk (no parking, no fare). Returns null when the choice is fine.
+ * apart → walk (no parking, no fare). In rush hour: a car → GrabBike (bikes slip through jams), or any
+ * vehicle → leave before / after the rush when that saves real time. Returns null when the choice is fine.
+ * There is no live traffic here: for detours around a jam, the Directions button hands off to Google Maps.
  */
 export function suggestTransport(
   start: LatLng,
@@ -307,5 +328,29 @@ export function suggestTransport(
     const s = alt('walk')
     return { to: 'walk', reason: 'allClose', longestM, savedMin: cur.travelMin - s.travelMin, extraCostK: s.travelCostK - cur.travelCostK }
   }
-  return null
+
+  // ---- rush hour (weekday 7–9h, 16:30–19h)
+  if (travel.transport === 'walk') return null
+  const departAt = travel.departAt ?? Date.now()
+  const rush = firstRushWindow(cur, departAt)
+  if (!rush) return null
+
+  if (travel.transport === 'car' && people <= 4) {
+    const s = alt('grabbike')
+    const savedMin = cur.travelMin - s.travelMin
+    if (savedMin >= 8) return { to: 'grabbike', reason: 'rushCar', longestM, savedMin, extraCostK: s.travelCostK - cur.travelCostK }
+  }
+
+  // Leave right after the rush, or early enough that the whole trip ends before it starts.
+  const [rushStart, rushEnd] = rush
+  const candidates = [rushEnd, rushStart - cur.totalMin * 60_000].filter((ms) => ms >= Date.now() && Math.abs(ms - departAt) <= 3 * 3600_000)
+  let best: { at: number; s: QuestSummary } | null = null
+  for (const at of candidates) {
+    const s = summarize(start, stops, people, { ...travel, departAt: at }, order)
+    if (!best || s.travelMin < best.s.travelMin) best = { at, s }
+  }
+  if (!best) return null
+  const savedMin = cur.travelMin - best.s.travelMin
+  if (savedMin < 10) return null
+  return { to: travel.transport, reason: 'rushShift', longestM, savedMin, extraCostK: best.s.travelCostK - cur.travelCostK, departAt: best.at }
 }
