@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { ArrowLeft, AtSign, Check, CircleAlert, KeyRound, Loader2, Mail, Phone, UserRound, X } from 'lucide-react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useCaptcha } from '../components/Captcha'
 import { Field, GoogleG, PasswordField } from '../components/Form'
 import PrimaryButton from '../components/PrimaryButton'
 import Sheet from '../components/Sheet'
@@ -19,18 +20,31 @@ function useNext() {
   return next.startsWith('/') && !next.startsWith('//') ? next : '/'
 }
 
-export default function LoginPage() {
+/**
+ * `embedded`: shown inside another page (the Me tab when signed out) — stay on that page after
+ * signing in, and leave room for the tab bar.
+ */
+export default function LoginPage({ embedded = false, after }: { embedded?: boolean; after?: string } = {}) {
   const { t, lang, setLang } = useQuest()
   const auth = useAuth()
   const navigate = useNavigate()
   const [params] = useSearchParams()
-  const next = useNext()
+  const fromQuery = useNext()
+  const next = after ?? fromQuery
+  // Back = the page before this one. Never jump to `next`: pages that need an account
+  // (Me, Create…) would send a signed-out traveller straight back here, with no way out.
+  const back = () => {
+    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0
+    if (idx > 0) navigate(-1)
+    else navigate('/', { replace: true })
+  }
   const [tab, setTab] = useState<Tab>(params.get('tab') === 'signup' ? 'signup' : 'signin')
 
-  // Signed in (also right after a Google redirect) → go back where we came from.
+  // Signed in (also right after a Google redirect) → go back where we came from. A guest stays:
+  // they came here to sign in to a real account (what they did as a guest is moved into it).
   useEffect(() => {
-    if (auth.session) navigate(next, { replace: true })
-  }, [auth.session, navigate, next])
+    if (auth.session && !auth.isGuest) navigate(next, { replace: true })
+  }, [auth.session, auth.isGuest, navigate, next])
 
   return (
     <div className="thin-scroll relative flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
@@ -39,7 +53,7 @@ export default function LoginPage() {
         <LakeScene className="absolute inset-0 h-full w-full" />
         <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 pt-[max(0.75rem,env(safe-area-inset-top))]">
           <button
-            onClick={() => navigate(next === '/login' ? '/' : next)}
+            onClick={back}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-white/85 shadow-sm backdrop-blur hover:bg-white"
             aria-label={t.back}
           >
@@ -56,7 +70,7 @@ export default function LoginPage() {
       </div>
 
       {/* Card overlapping the illustration */}
-      <div className="relative -mt-6 flex-1 rounded-t-[28px] bg-paper px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6">
+      <div className={`relative -mt-6 flex-1 rounded-t-[28px] bg-paper px-6 pt-6 ${embedded ? 'pb-32' : 'pb-[max(1.5rem,env(safe-area-inset-bottom))]'}`}>
         <DongSonDrum className="pointer-events-none absolute -right-20 top-40 h-56 w-56 text-sand/50" />
         <div className="relative">
           <div className="flex items-center gap-2">
@@ -64,6 +78,9 @@ export default function LoginPage() {
             <h1 className="text-[22px] font-bold leading-tight">{tab === 'signin' ? t.authWelcome : t.authJoin}</h1>
           </div>
           <p className="mt-1 text-[13px] text-bark/80">{t.authSub}</p>
+          {auth.isGuest && (
+            <p className="mt-3 rounded-2xl bg-sun/20 px-3 py-2.5 text-[12px] font-medium text-bark">{t.guestMergeNote}</p>
+          )}
 
           {/* Tabs */}
           <div className="mt-5 grid grid-cols-2 rounded-2xl bg-butter/70 p-1" role="tablist">
@@ -124,8 +141,9 @@ function ErrorBox({ error }: { error: AuthError | null }) {
 
 // ------------------------------------------------------------ sign in
 function SignInForm() {
-  const { t } = useQuest()
+  const { t, lang } = useQuest()
   const { signIn } = useAuth()
+  const captcha = useCaptcha(lang)
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
@@ -138,7 +156,8 @@ function SignInForm() {
     setTouched(true)
     if (!identifier.trim() || !password) return
     setBusy(true)
-    setError(await signIn(identifier, password))
+    setError(await signIn(identifier, password, captcha.token))
+    captcha.reset()
     setBusy(false)
   }
 
@@ -178,7 +197,8 @@ function SignInForm() {
         </div>
       </div>
       <ErrorBox error={error} />
-      <PrimaryButton type="submit" disabled={busy}>
+      {captcha.widget}
+      <PrimaryButton type="submit" disabled={busy || !captcha.ready}>
         {busy && <Loader2 className="h-4 w-4 animate-spin" />} {t.signIn}
       </PrimaryButton>
       {resetOpen && <ResetSheet onClose={() => setResetOpen(false)} />}
@@ -187,8 +207,9 @@ function SignInForm() {
 }
 
 function ResetSheet({ onClose }: { onClose: () => void }) {
-  const { t } = useQuest()
+  const { t, lang } = useQuest()
   const { sendPasswordReset } = useAuth()
+  const captcha = useCaptcha(lang)
   const [email, setEmail] = useState('')
   const [state, setState] = useState<'idle' | 'busy' | 'sent'>('idle')
   const [error, setError] = useState<AuthError | null>(null)
@@ -204,11 +225,13 @@ function ResetSheet({ onClose }: { onClose: () => void }) {
           <p className="text-[13px] text-bark/80">{t.resetSub}</p>
           <Field label={t.email} type="email" value={email} onChange={(e) => setEmail(e.target.value)} icon={<Mail className="h-4 w-4" />} />
           <ErrorBox error={error} />
+          {captcha.widget}
           <PrimaryButton
-            disabled={!valid || state === 'busy'}
+            disabled={!valid || state === 'busy' || !captcha.ready}
             onClick={async () => {
               setState('busy')
-              const err = await sendPasswordReset(email)
+              const err = await sendPasswordReset(email, captcha.token)
+              captcha.reset()
               setError(err)
               setState(err ? 'idle' : 'sent')
             }}
@@ -224,8 +247,9 @@ function ResetSheet({ onClose }: { onClose: () => void }) {
 
 // ------------------------------------------------------------ sign up
 function SignUpForm() {
-  const { t } = useQuest()
+  const { t, lang } = useQuest()
   const { signUp, isUsernameFree } = useAuth()
+  const captcha = useCaptcha(lang)
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [by, setBy] = useState<'email' | 'phone'>('email')
@@ -270,9 +294,11 @@ function SignUpForm() {
         displayName: name,
         username: uname,
         password,
+        captchaToken: captcha.token,
         ...(by === 'email' ? { email } : { phone }),
       }),
     )
+    captcha.reset()
     setBusy(false)
   }
 
@@ -368,7 +394,8 @@ function SignUpForm() {
       </label>
 
       <ErrorBox error={error} />
-      <PrimaryButton type="submit" disabled={busy}>
+      {captcha.widget}
+      <PrimaryButton type="submit" disabled={busy || !captcha.ready}>
         {busy && <Loader2 className="h-4 w-4 animate-spin" />} {by === 'phone' ? t.sendCode : t.createAccount}
       </PrimaryButton>
 

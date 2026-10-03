@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { AlertCircle, Check, Clock3, Copy, ExternalLink, Globe, Link2, Loader2, Lock, LogOut, PencilLine, Plus, Trash2 } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
+import LoginPage from './LoginPage'
+import { SaveAchievementCard } from '../components/PartyBits'
 import { initials } from '../components/AccountButton'
 import { MODE_ICON } from '../components/icons'
 import PrimaryButton from '../components/PrimaryButton'
@@ -30,7 +32,15 @@ export default function MePage() {
   }, [session])
 
   if (!enabled) return <Navigate to="/" replace />
-  if (!loading && !session) return <Navigate to="/login?next=/me" replace />
+  // Checking the saved sign-in: a spinner, not an empty profile.
+  if (loading)
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin text-bark/50" />
+      </div>
+    )
+  // Signed out: the sign-in form right here (the tab bar stays, so there is always a way out).
+  if (!session) return <LoginPage embedded after="/me" />
 
   return (
     <div className="thin-scroll relative flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden">
@@ -56,6 +66,11 @@ export default function MePage() {
         </div>
 
         <DongSonBand className="relative mt-5 h-2 w-full text-sand" />
+
+        {/* A guest (group play): keep the achievements with a real account. */}
+        <div className="relative mt-4">
+          <SaveAchievementCard next="/me" />
+        </div>
 
         <PassportCover journeys={journeys} onOpen={() => navigate('/passport')} />
 

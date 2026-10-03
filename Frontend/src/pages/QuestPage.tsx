@@ -1,35 +1,49 @@
-import { useMemo } from 'react'
-import { Camera, Gift, Headphones, Play, Target, X } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useStart } from '../components/NeedStart'
+import { Camera, Gift, Headphones, Play, Target, Users, X } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
 import { MapStopCard } from '../components/MapCards'
 import MapView, { type MapPanel } from '../components/MapView'
 import PrimaryButton from '../components/PrimaryButton'
 import { CostLines, LegLine, TravelBanner } from '../components/TravelBits'
+import { EventLink, EventStopMeta, eventPrice } from '../components/EventBits'
 import { TransportHintCard, WeatherPill } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripChips from '../components/TripChips'
 import SaveQuestButton from '../components/SaveQuest'
+import { PartyCreateSheet } from '../components/PartyBits'
+import { useAuth } from '../store/AuthContext'
 import { missionFor } from '../data/roles'
 import { distance, duration, minutes, moneyRange } from '../lib/format'
 import { storyMinutes, storyOf, suggestPhotoSpot, summarize } from '../lib/quest'
+import { hanoiClock } from '../lib/events'
 import { useQuest } from '../store/QuestContext'
 
 export default function QuestPage() {
-  const { t, lang, intent, places, areaPlaces, start, selected, toggle, dismissed, dismiss, mode, role, journey, startJourney, travel, geo, routeOrder, weather } =
+  const { t, lang, intent, places, areaPlaces, selected, toggle, dismissed, dismiss, mode, role, journey, startJourney, travel, geo, routeOrder, weather } =
     useQuest()
+  const start = useStart()
   const navigate = useNavigate()
+  const auth = useAuth()
+  const [partyOpen, setPartyOpen] = useState(false)
 
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
   const sum = useMemo(() => summarize(start, chosen, intent?.people ?? 1, travel, routeOrder),
     [start, chosen, intent, travel, routeOrder])
+  // Shared quests are reusable, so they leave out dated event stops.
+  const hasEvents = sum.stops.some((s) => s.event)
+  const shareSum = useMemo(
+    () => (hasEvents ? summarize(start, chosen.filter((p) => !p.event), intent?.people ?? 1, travel, routeOrder) : sum),
+    [hasEvents, start, chosen, intent, travel, routeOrder, sum],
+  )
+  const lateStop = sum.stops.findIndex((_, i) => sum.lateMin[i] > 0)
   const suggestion = useMemo(
     () => suggestPhotoSpot(areaPlaces.filter((p) => !dismissed.includes(p.id)), sum.stops),
     [areaPlaces, dismissed, sum.stops],
   )
 
   if (!intent || !mode) return <Navigate to="/" replace />
-  if (mode === 'explore' && !role) return <Navigate to="/role?next=/quest&back=/" replace />
 
   const explore = mode === 'explore' && role
   const RoleIcon = role ? ROLE_ICON[role.id] : null
@@ -48,7 +62,13 @@ export default function QuestPage() {
     }
   }
 
-  const startButton = (
+  // Explore: the role is chosen here, once the route is known.
+  const needsRole = mode === 'explore' && !role
+  const startButton = needsRole ? (
+    <PrimaryButton disabled={!sum.stops.length} onClick={() => navigate('/role?next=/quest&back=/quest')} className="py-4 font-extrabold shadow-xl">
+      <Target className="h-4 w-4" /> {t.pickRoleForRoute}
+    </PrimaryButton>
+  ) : (
     <PrimaryButton disabled={!sum.stops.length} onClick={go} className="py-4 font-extrabold shadow-xl">
       {sameJourney ? t.continueQuest : t.startQuest} <Play className="h-4 w-4 fill-current" />
     </PrimaryButton>
@@ -89,6 +109,9 @@ export default function QuestPage() {
         </div>
         <div className="mt-2">
           <CostLines costMin={sum.costMin} costMax={sum.costMax} travelCostK={sum.travelCostK} />
+          {sum.stops.some((s) => s.event && !s.event.priceKnown) && (
+            <p className="mt-0.5 text-[10px] font-bold text-bark/60">+ {t.eventTicketsExtra}</p>
+          )}
         </div>
         <div className="mt-3">
           <TripChips transport={travel.transport} />
@@ -96,6 +119,14 @@ export default function QuestPage() {
         {explore && (
           <p className="mt-3 flex items-center gap-1.5 text-xs font-bold text-brick">
             <Target className="h-3.5 w-3.5" /> {role!.goal[lang].replace('{n}', String(sum.stops.length))}
+            <button onClick={() => navigate('/role?next=/quest&back=/quest')} className="ml-auto text-[11px] font-bold text-teal underline underline-offset-2">
+              {t.changeRole}
+            </button>
+          </p>
+        )}
+        {needsRole && sum.stops.length > 0 && (
+          <p className="mt-3 flex items-start gap-1.5 rounded-xl bg-brick/5 px-3 py-2 text-[12px] font-medium text-brick">
+            <Target className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {t.pickRoleHint}
           </p>
         )}
         <p className="mt-2 text-xs opacity-70">{t.questIntro[mode]}</p>
@@ -109,6 +140,11 @@ export default function QuestPage() {
             <WeatherPill weather={weather} />
             <TransportHintCard start={start} stops={sum.stops} people={intent.people} order={routeOrder} />
             <TravelBanner legs={sum.legs} />
+            {lateStop !== -1 && (
+              <p role="alert" className="rounded-2xl border-2 border-brick/30 bg-brick/5 p-3 text-[12px] font-medium text-brick">
+                <b>{sum.stops[lateStop].name[lang]}</b> · {t.eventLate(sum.lateMin[lateStop])}. {t.eventLateHint}
+              </p>
+            )}
             <MapView
               start={start}
               places={sum.stops}
@@ -137,7 +173,7 @@ export default function QuestPage() {
                         </div>
                         {explore && (
                           <div className="flex items-center gap-1 text-[10px] font-bold text-bark">
-                            <Gift className="h-3 w-3" /> {missionFor(role!, s.id).item[lang]}
+                            <Gift className="h-3 w-3" /> {missionFor(role!, s).item[lang]}
                           </div>
                         )}
                         {mode === 'listen' && (
@@ -145,11 +181,21 @@ export default function QuestPage() {
                             <Headphones className="h-3 w-3" /> ~{minutes(storyMinutes(storyOf(s, lang)), lang)}
                           </div>
                         )}
+                        {s.event ? (
+                          <EventStopMeta place={s} wait={sum.waitMin[i]} late={sum.lateMin[i]} />
+                        ) : (
+                          hasEvents && (
+                            <div className="text-[10px] font-semibold text-bark/60">{t.eventArrive(hanoiClock(sum.arriveAt[i]))}</div>
+                          )
+                        )}
                         {mode === 'easy' && (
                           <div className="text-[10px] font-bold text-bark">
-                            {moneyRange(s.priceMin * intent.people, s.priceMax * intent.people, lang)}
+                            {s.event
+                              ? eventPrice(s, intent.people, lang, t)
+                              : moneyRange(s.priceMin * intent.people, s.priceMax * intent.people, lang)}
                           </div>
                         )}
+                        {s.event?.url && <EventLink url={s.event.url} className="mt-1.5 !min-h-9 w-fit !rounded-lg !border !px-2.5 !text-[11px]" />}
                       </div>
                       <button
                         onClick={() => toggle(s.id)}
@@ -164,7 +210,22 @@ export default function QuestPage() {
               })}
             </ol>
 
-            <SaveQuestButton summary={sum} className="w-full" />
+            {mode === 'explore' && auth.enabled && (
+              <button
+                onClick={() => setPartyOpen(true)}
+                className="flex w-full items-center gap-3 rounded-2xl border-2 border-teal/30 bg-teal/5 p-3 text-left transition hover:border-teal"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal text-white">
+                  <Users className="h-5 w-5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-bold">{t.partyPlayTogether}</span>
+                  <span className="block text-[11px] leading-snug text-bark/70">{t.partyPlayTogetherSub}</span>
+                </span>
+              </button>
+            )}
+            <SaveQuestButton summary={shareSum} className="w-full" />
+            {hasEvents && <p className="-mt-4 text-center text-[10px] text-bark/55">{t.eventNotShared}</p>}
 
             {suggestion && (
               <div className="rounded-2xl border-2 border-leaf/20 bg-leaf/5 p-4">
@@ -200,6 +261,7 @@ export default function QuestPage() {
       <div className="px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3">
         {startButton}
       </div>
+      {partyOpen && <PartyCreateSheet stops={sum.stops} routeMin={sum.totalMin} onClose={() => setPartyOpen(false)} />}
     </div>
   )
 }

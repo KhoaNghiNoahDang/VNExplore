@@ -1,5 +1,5 @@
 import type { Area, LatLng } from '../types'
-import { AREA_START } from './area'
+import { AREA_POINT } from './area'
 
 /**
  * Hourly forecast from Open-Meteo (free, no key, CORS-enabled), cached for 30 minutes per area.
@@ -65,7 +65,7 @@ export function loadSeries(area: Area): Promise<Series | null> {
   const cached = readCache(area)
   if (cached) return Promise.resolve(cached)
   if (!mem.has(area)) {
-    const p = load(AREA_START[area]).then((s) => {
+    const p = load(AREA_POINT[area]).then((s) => {
       if (s) {
         try {
           localStorage.setItem(KEY + area, JSON.stringify(s))

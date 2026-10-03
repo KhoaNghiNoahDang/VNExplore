@@ -55,7 +55,7 @@ export function TransportHintCard({
   const body =
     hint.reason === 'allClose'
       ? t.hintAllClose
-      : t.hintFar(distance(hint.longestM), hint.savedMin, hint.extraCostK > 0 ? money(hint.extraCostK) : null)
+      : t.hintFar(distance(hint.walkedM), hint.walkMin, distance(hint.longestM), hint.savedMin, hint.extraCostK > 0 ? money(hint.extraCostK) : null)
 
   return (
     <div className="relative rounded-2xl border-2 border-teal/30 bg-teal/5 p-3 pr-9">

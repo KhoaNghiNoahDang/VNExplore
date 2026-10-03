@@ -69,7 +69,12 @@
     "vi": "Hãy nghĩ tới cây bút và một tờ giấy thật lớn trên đầu bạn.",
     "en": "Think of a brush and a very big sheet of paper above you."
    }
-  }
+  },
+  "sources": [
+   "https://baovanhoa.vn/di-san/trien-lam-di-tich-quoc-gia-dac-biet-o-ha-noi-59651.html"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ma-may-87",
@@ -141,7 +146,12 @@
     "vi": "Hãy ngước lên khi bạn tới khoảng trống đầu tiên.",
     "en": "Look up when you reach the first open space."
    }
-  }
+  },
+  "sources": [
+   "https://kinhte.congthuong.vn/apicenter@/print_article&i=368066"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bach-ma",
@@ -212,7 +222,10 @@
     "vi": "Thành đắp mãi vẫn đổ…",
     "en": "The walls kept falling down…"
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "water-puppets",
@@ -284,7 +297,12 @@
     "vi": "Cậu bé làng bụng tròn, cười toe toét.",
     "en": "He’s a round-bellied village boy with a big grin."
    }
-  }
+  },
+  "sources": [
+   "https://www.vietnamtourism.com/vi/nha-hat-mua-roi-nuoc-thang-long-o-ha-noi-gio-dien-ve-va-thoi"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cathedral",
@@ -356,7 +374,10 @@
     "vi": "Những người thiết kế là người Pháp.",
     "en": "The architects were French."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "women-museum",
@@ -370,7 +391,7 @@
   "nameVi": "Bảo tàng Phụ nữ Việt Nam",
   "lat": 21.0237,
   "lng": 105.8513,
-  "openingHours": null,
+  "openingHours": "Mo-Su 08:00-17:00",
   "priceMin": 40,
   "priceMax": 40,
   "visitMin": 45,
@@ -428,7 +449,12 @@
     "vi": "Hai cái quang, một thanh tre dài.",
     "en": "Two baskets, one long stick."
    }
-  }
+  },
+  "sources": [
+   "https://vietnam.travel/vi/things-to-do/vietnams-must-see-museums"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "hoa-lo",
@@ -499,7 +525,10 @@
     "vi": "Nghĩa là “ngôi nhà trung tâm”.",
     "en": "It means “central house”."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "egg-coffee",
@@ -570,7 +599,10 @@
     "vi": "Đó là năm 1946 – thời buổi khó khăn.",
     "en": "It was 1946 — times were hard."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-cha",
@@ -640,7 +672,10 @@
     "vi": "Hãy nhìn bàn bên cạnh.",
     "en": "Watch the table next to you."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "dong-xuan",
@@ -712,7 +747,10 @@
     "vi": "Cửa lớn nhất ở giữa, mỗi bên hai cửa.",
     "en": "The biggest one is in the middle, with two on each side."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ta-hien",
@@ -782,7 +820,10 @@
     "vi": "Thùng bia được chở đến mỗi sáng.",
     "en": "Kegs arrive every morning."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "the-huc",
@@ -852,7 +893,10 @@
     "vi": "Hãy nghĩ tới mặt trời lúc sớm mai.",
     "en": "Think of the rising sun."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "turtle-tower",
@@ -923,7 +967,10 @@
     "vi": "Ông đánh quân Minh vào thế kỷ 15.",
     "en": "He fought the Ming army in the 1400s."
    }
-  }
+  },
+  "sources": [],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "national-history-museum",
@@ -996,7 +1043,13 @@
     "vi": "Đếm số cạnh của gian phòng dưới mái vòm.",
     "en": "Count the sides of the room under the dome."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Bảo_tàng_Lịch_sử_quốc_gia_(Việt_Nam)",
+   "https://www.wikidata.org/wiki/Q5370414"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "hanoi-post-office",
@@ -1068,7 +1121,13 @@
     "vi": "Nó cho cả bờ hồ biết ai đang đến muộn.",
     "en": "It tells everyone at the lake if they are late."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Bưu_điện_Hà_Nội",
+   "https://www.wikidata.org/wiki/Q113457479"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "hoa-phong-tower",
@@ -1140,7 +1199,13 @@
     "vi": "Mỗi hướng một cửa.",
     "en": "One for each direction."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Tháp_Hòa_Phong",
+   "https://www.wikidata.org/wiki/Q10825843"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "48-hang-ngang",
@@ -1212,7 +1277,13 @@
     "vi": "Màu của mạ non.",
     "en": "The colour of young rice shoots."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Nhà_48_Hàng_Ngang",
+   "https://www.wikidata.org/wiki/Q10800786"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "opera-house",
@@ -1285,7 +1356,14 @@
     "vi": "Người xây là người Pháp.",
     "en": "The builders were French."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Nhà_hát_Lớn_Hà_Nội",
+   "https://www.wikidata.org/wiki/Q1186043",
+   "https://www.vietnamplus.vn/infographics-nha-hat-lon-thanh-pho-ha-noi-diem-hen-van-hoa-post329834.vnp"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "o-quan-chuong",
@@ -1357,7 +1435,13 @@
     "vi": "Đó là tên cũ của cửa – sông nằm ở phía đông.",
     "en": "It's the gate's old name — the river is on its east side."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Ô_Quan_Chưởng",
+   "https://www.wikidata.org/wiki/Q10839688"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "quan-su-pagoda",
@@ -1429,7 +1513,13 @@
     "vi": "Hãy nghĩ tới những vị khách từ Chiêm Thành, Ai Lao.",
     "en": "Think of visitors from Champa and Laos."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Chùa_Quán_Sứ",
+   "https://www.wikidata.org/wiki/Q7273080"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "imperial-citadel",
@@ -1502,7 +1592,14 @@
     "vi": "Cùng năm Hà Nội mừng đại lễ 1000 năm.",
     "en": "The same year Hanoi celebrated 1,000 years."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Hoàng_thành_Thăng_Long",
+   "https://www.wikidata.org/wiki/Q206219",
+   "https://hoangthanhthanglong.com"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ba-kieu-temple",
@@ -1574,7 +1671,13 @@
     "vi": "Con phố chạy dọc bờ đông của hồ.",
     "en": "It runs along the east shore of the lake."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Đền_Bà_Kiệu",
+   "https://www.wikidata.org/wiki/Q16481078"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ly-thai-to-park",
@@ -1646,7 +1749,13 @@
     "vi": "Đứng trước tượng và nhìn theo hướng nhà vua.",
     "en": "Stand in front of him and look where he looks."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Vườn_hoa_Chí_Linh",
+   "https://www.wikidata.org/wiki/Q25418011"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cua-bac-church",
@@ -1718,7 +1827,13 @@
     "vi": "Nhà thờ này nổi tiếng vì không đối xứng.",
     "en": "This church is famously not symmetrical."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Nhà_thờ_Cửa_Bắc",
+   "https://www.wikidata.org/wiki/Q1088224"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "dien-hong-garden",
@@ -1790,7 +1905,13 @@
     "vi": "Một con vật nhỏ thích nước và mưa.",
     "en": "A small animal that loves water and rain."
    }
-  }
+  },
+  "sources": [
+   "https://vi.wikipedia.org/wiki/Vườn_hoa_Diên_Hồng",
+   "https://www.wikidata.org/wiki/Q10834022"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "pho-10-ly-quoc-su",
@@ -1835,7 +1956,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "pho-thin",
@@ -1880,7 +2006,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "pho-bung-hang-trong",
@@ -1925,7 +2056,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "pho-gia-truyen",
@@ -1970,7 +2106,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "pho-tu-lun",
@@ -2015,7 +2156,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "quan-pho-suong",
@@ -2060,7 +2206,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "tu-lun-pho-ga-bun-thang",
@@ -2105,7 +2256,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "vegan-pho-banh-mi",
@@ -2151,7 +2307,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-cha-dac-kim",
@@ -2197,7 +2358,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cua-hang-bun-cha-hang-quat",
@@ -2243,7 +2409,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-cha-ta",
@@ -2289,7 +2460,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-cha-41",
@@ -2335,7 +2511,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cua-hang-bun-cha-huong-lien",
@@ -2381,7 +2562,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "local-street-food",
@@ -2426,7 +2612,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "morning-street-food",
@@ -2471,7 +2662,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-ca-street-fish-noodle",
@@ -2516,7 +2712,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-ca-huong-thuy",
@@ -2561,7 +2762,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "quan-bun-dau-viet",
@@ -2607,7 +2813,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-dau-met-tuan-troc",
@@ -2653,7 +2864,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-moc",
@@ -2698,7 +2914,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bun-ngan-bich-beo",
@@ -2743,7 +2964,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-cuon-ba-hanh",
@@ -2788,7 +3014,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ky-dong",
@@ -2833,7 +3064,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-cuon-hang-cot",
@@ -2878,7 +3114,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-cuon-gia-truyen-thanh-van",
@@ -2923,7 +3164,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-mi-hoi-an",
@@ -2968,7 +3214,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "the-banh-mi-station",
@@ -3013,7 +3264,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-mi-25",
@@ -3058,7 +3314,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-mi-nhu-hoa",
@@ -3103,7 +3364,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "manh-banh-mi-place",
@@ -3148,7 +3414,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-mi-chay-vegan",
@@ -3193,7 +3464,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "xoi-tien",
@@ -3238,7 +3514,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "sticky-rice-with-chicken",
@@ -3283,7 +3564,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "xoi-cat-lam",
@@ -3328,7 +3614,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "mien-luon-chan-cam",
@@ -3373,7 +3664,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "mien-luon-dong-thinh",
@@ -3418,7 +3714,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "mien-banh-da-cua-ly-quoc-su",
@@ -3463,7 +3764,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cha-ca-la-vong",
@@ -3511,7 +3817,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cha-ca-thang-long",
@@ -3559,7 +3870,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "chao-long-pho-co",
@@ -3604,7 +3920,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-xeo-nem-cuon-quay",
@@ -3650,7 +3971,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "nem-phung-nem-chua",
@@ -3695,7 +4021,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "nom-mai-nga",
@@ -3740,7 +4071,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "nga-banh-chuoi-banh-khoai",
@@ -3785,7 +4121,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "oc-bong-quan",
@@ -3832,7 +4173,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "banh-bao-binh-mo",
@@ -3877,7 +4223,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cua-hang-banh-goi",
@@ -3922,7 +4273,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ca-phe-dinh-13",
@@ -3969,7 +4325,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ca-phe-hanoi-egg",
@@ -4016,7 +4377,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "hanoi-coffee-station",
@@ -4063,7 +4429,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "blackbird-coffee",
@@ -4110,7 +4481,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "loading-t-cafe",
@@ -4157,7 +4533,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "hoi-an-corner-cafe",
@@ -4204,7 +4585,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "1-hang-but-very-good-coffee",
@@ -4251,7 +4637,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "caphe-kieu-good-milk-coffee",
@@ -4298,7 +4689,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "nghien-cafe-museum",
@@ -4345,7 +4741,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "the-note-coffee",
@@ -4392,7 +4793,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "xliii-coffee",
@@ -4439,7 +4845,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "helio-coffee",
@@ -4486,7 +4897,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "tranquil-books-coffee",
@@ -4533,7 +4949,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "trang-tien-ice-cream",
@@ -4579,7 +5000,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "kem-thuy-ta",
@@ -4625,7 +5051,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "tra-chanh-pho-co",
@@ -4671,7 +5102,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "uu-dam-chay",
@@ -4717,7 +5153,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "me-an-vegetarian",
@@ -4763,7 +5204,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "quan-an-ngon",
@@ -4810,7 +5256,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "porte-d-annam",
@@ -4857,7 +5308,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "hong-hoais-restaurant",
@@ -4904,7 +5360,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "au-o",
@@ -4951,7 +5412,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "madam-tu-hong",
@@ -4998,7 +5464,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ha-thanh-mansion",
@@ -5045,7 +5516,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "tung-s-kitchen",
@@ -5092,7 +5568,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "august-cinema",
@@ -5139,7 +5620,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cgv-cinema",
@@ -5186,7 +5672,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "rap-kim-dong",
@@ -5233,7 +5724,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "peri-pool-arena",
@@ -5278,7 +5774,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "be-boi-tang-bat-ho",
@@ -5323,7 +5824,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "jump-arena-tang-bat-ho",
@@ -5371,7 +5877,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "san-bong-da-ven-de-3",
@@ -5416,7 +5927,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "hang-ay-stadium",
@@ -5462,7 +5978,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "bach-thao-roller-skating-rink-and-cafe",
@@ -5508,7 +6029,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ninex-pickelball-clb",
@@ -5553,7 +6079,12 @@
    "vi": "",
    "en": ""
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "sua-ba-vi",
@@ -5598,7 +6129,12 @@
    "vi": "Sản phẩm sữa tươi cần giữ lạnh. Kiểm tra hạn dùng và hỏi cách bảo quản nếu còn di chuyển lâu.",
    "en": "Fresh dairy needs to stay chilled. Check the expiry date and ask about storage if you still have a long journey."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "huong-quynh-trau-ngon-36-mon",
@@ -5644,7 +6180,12 @@
    "vi": "Hỏi khẩu phần và giá trước khi gọi vì món thường bán theo đĩa hoặc theo trọng lượng.",
    "en": "Ask about portion size and price before ordering, as dishes may be sold by plate or by weight."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "nha-hang-ban-cooc-garden",
@@ -5689,7 +6230,12 @@
    "vi": "Nếu đi nhóm đông, nên liên hệ trước và hỏi thời gian phục vụ món để không ảnh hưởng lịch trình.",
    "en": "For a large group, contact the restaurant first and ask about serving time so the meal does not delay the route."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "nha-hang-quyet-coi",
@@ -5734,7 +6280,12 @@
    "vi": "Thực đơn và giá có thể thay đổi; hỏi món nổi bật trong ngày và xác nhận giá trước khi gọi.",
    "en": "Menus and prices may change. Ask for the day’s recommendations and confirm prices before ordering."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "nha-hang-k",
@@ -5779,7 +6330,12 @@
    "vi": "Kiểm tra giờ mở cửa trong ngày và hỏi trước khả năng phục vụ nếu đoàn đông.",
    "en": "Check the day’s opening hours and ask about capacity before arriving with a large group."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "quan-pho-ba-beo",
@@ -5824,7 +6380,12 @@
    "vi": "Giờ bán có thể tập trung vào buổi sáng. Nên đến sớm và hỏi giá trước nếu gọi thêm thịt hoặc quẩy.",
    "en": "Service may focus on mornings. Arrive early and ask about extras such as more meat or fried dough."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "cua-hang-bun-bay-cuong",
@@ -5869,7 +6430,12 @@
    "vi": "Nếm nước dùng trước khi thêm mắm tôm hoặc ớt; hỏi quán nếu bạn không ăn được một nguyên liệu nào đó.",
    "en": "Taste the broth before adding shrimp paste or chilli, and tell the shop about any ingredients you cannot eat."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "coffee-may",
@@ -5916,7 +6482,12 @@
    "vi": "Nếu cần làm việc hoặc ngồi lâu, chọn khu vực ít ảnh hưởng đến các bàn khác và gọi thêm đồ uống khi phù hợp.",
    "en": "If staying for a while, choose a quiet seat that does not block other guests and order another drink when appropriate."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ben-thuy",
@@ -5963,7 +6534,12 @@
    "vi": "Kiểm tra giờ mở cửa trước khi đi vì quán nằm xa trung tâm và thông tin có thể thay đổi.",
    "en": "Check opening hours before setting out, as the café is outside the centre and information may change."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "rap-2-9",
@@ -6010,7 +6586,12 @@
    "vi": "Kiểm tra lịch chiếu, đến sớm lấy vé và giữ yên lặng trong phòng chiếu.",
    "en": "Check showtimes, arrive early for tickets and remain quiet during the film."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "khu-cam-trai-son-tinh-camp",
@@ -6057,7 +6638,12 @@
    "vi": "Liên hệ trước về chỗ trống, thiết bị và quy định đốt lửa. Thu gom rác và giữ yên tĩnh vào buổi tối.",
    "en": "Ask ahead about availability, equipment and fire rules. Pack out rubbish and keep noise low at night."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "dong-mo-reservoir",
@@ -6103,7 +6689,12 @@
    "vi": "Không xuống nước ở khu vực không được phép. Giữ sạch bờ hồ và kiểm tra lối vào vì mỗi khu ven hồ có thể có quy định riêng.",
    "en": "Do not enter the water where it is not permitted. Keep the shore clean and check access rules for each lakeside area."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "xuan-khanh-lake",
@@ -6149,7 +6740,12 @@
    "vi": "Không xả rác, không tự ý xuống nước và tránh đi vào khu đất riêng quanh hồ.",
    "en": "Leave no litter, do not enter the water without permission and avoid private land around the lake."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "long-pond",
@@ -6195,7 +6791,12 @@
    "vi": "Kiểm tra giá vé và dịch vụ đang hoạt động trước khi đến; trẻ em cần có người lớn đi cùng gần mặt nước.",
    "en": "Check current tickets and operating attractions before visiting; supervise children near the water."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ao-vua",
@@ -6242,7 +6843,12 @@
    "vi": "Đi giày chống trượt, trông trẻ gần nước và kiểm tra giá vé cùng tình trạng hoạt động trước khi đi.",
    "en": "Wear shoes with grip, supervise children near water and check current tickets and operating conditions before travelling."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "dinh-vua",
@@ -6288,7 +6894,12 @@
    "vi": "Mang nước, áo khoác mỏng và giày bám tốt. Không rời lối đi, bẻ cây hoặc bỏ rác trong rừng.",
    "en": "Bring water, a light jacket and shoes with grip. Stay on the trail and leave plants and rubbish untouched."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "dinh-ngoc-hoa",
@@ -6334,7 +6945,12 @@
    "vi": "Kiểm tra điều kiện đường và thời tiết. Đi theo nhóm, mang giày phù hợp và không tự mở lối mới trong rừng.",
    "en": "Check trail and weather conditions. Walk with others, wear suitable shoes and do not create new paths through the forest."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "french-ruins",
@@ -6381,7 +6997,12 @@
    "vi": "Không leo lên tường, dịch chuyển gạch đá hoặc đi vào phần có nguy cơ sụp. Giữ nguyên rêu và cây bám trên di tích.",
    "en": "Do not climb walls, move bricks or enter unstable sections. Leave moss and vegetation on the ruins untouched."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "khu-trung-bay-may-bay",
@@ -6428,7 +7049,12 @@
    "vi": "Không trèo lên hiện vật hoặc vượt rào. Kiểm tra quyền tiếp cận và tuân thủ biển hướng dẫn tại chỗ.",
    "en": "Do not climb on exhibits or cross barriers. Check public access and follow all signs on site."
   },
-  "challenge": null
+  "challenge": null,
+  "sources": [
+   "openstreetmap"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ba-vi-national-park",
@@ -6500,7 +7126,13 @@
     "vi": "Tên đỉnh là một tước hiệu cao nhất của triều đình.",
     "en": "Its name is the highest title in a royal court."
    }
-  }
+  },
+  "sources": [
+   "wikipedia:vi:Vườn_quốc_gia_Ba_Vì",
+   "wikipedia:en:Ba_Vì_National_Park"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "son-tay-ancient-citadel",
@@ -6572,7 +7204,12 @@
     "vi": "Đá màu nâu đỏ, bề mặt lỗ chỗ như tổ ong.",
     "en": "A reddish stone full of little holes, like a honeycomb."
    }
-  }
+  },
+  "sources": [
+   "wikipedia:vi:Thành_cổ_Sơn_Tây"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "ho-suoi-hai",
@@ -6642,7 +7279,12 @@
     "vi": "Nó giúp hơn 7.000 ha đồng ruộng có nước.",
     "en": "It keeps more than 7,000 hectares of fields watered."
    }
-  }
+  },
+  "sources": [
+   "wikipedia:vi:Hồ_Suối_Hai"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "village-for-ethnic-culture-and-tourism",
@@ -6714,7 +7356,12 @@
     "vi": "Một số chẵn, lớn hơn 50 một chút.",
     "en": "An even number, just over 50."
    }
-  }
+  },
+  "sources": [
+   "kiến thức chung — cần đối chiếu"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "dinh-mong-phu",
@@ -6787,7 +7434,12 @@
     "vi": "Con vật được chạm khắp mái đình.",
     "en": "The creature carved all over the roof."
    }
-  }
+  },
+  "sources": [
+   "wikipedia:vi:Đình_Mông_Phụ"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "den-thuong",
@@ -6858,7 +7510,12 @@
     "vi": "Cha của nàng là vị vua Hùng thứ mười tám.",
     "en": "Her father was the 18th Hùng King."
    }
-  }
+  },
+  "sources": [
+   "kiến thức chung — cần đối chiếu (vị trí theo OpenStreetMap)"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "tan-da-nguyen-khac-hieu-memorial-site",
@@ -6930,7 +7587,12 @@
     "vi": "Nhìn quanh: một ngọn núi và một con sông.",
     "en": "Look around: a mountain and a river."
    }
-  }
+  },
+  "sources": [
+   "kiến thức chung — cần đối chiếu"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "den-va",
@@ -7002,7 +7664,12 @@
     "vi": "Vị thần của ngọn núi nhìn thấy từ đây.",
     "en": "The god of the mountain you can see from here."
    }
-  }
+  },
+  "sources": [
+   "kiến thức chung — cần đối chiếu"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "lang-ngo-quyen",
@@ -7073,7 +7740,12 @@
     "vi": "Thủy triều rút chính là “vũ khí”.",
     "en": "The falling tide was the real weapon."
    }
-  }
+  },
+  "sources": [
+   "kiến thức chung — cần đối chiếu"
+  ],
+  "notice": null,
+  "phone": null
  },
  {
   "id": "chua-mia",
@@ -7146,6 +7818,2196 @@
     "vi": "Hãy thử đếm những gì đứng trên các bệ thờ.",
     "en": "Try counting what stands on the altars."
    }
-  }
+  },
+  "sources": [
+   "kiến thức chung — cần đối chiếu"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bao-tang-ha-noi",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Bảo tàng Hà Nội",
+   "en": "Hanoi Museum"
+  },
+  "nameVi": "Bảo tàng Hà Nội",
+  "lat": 21.01001,
+  "lng": 105.78631,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 30,
+  "visitMin": 75,
+  "themes": [
+   "history",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "indoor",
+   "history",
+   "photo"
+  ],
+  "blurb": {
+   "vi": "Bảo tàng về lịch sử nghìn năm Thăng Long – Hà Nội, lưu giữ hơn 70.000 tài liệu, hiện vật; toà nhà hình kim tự tháp ngược là điểm check-in quen thuộc.",
+   "en": "A museum of a thousand years of Thang Long – Hanoi, holding over 70,000 documents and objects; its upside-down pyramid building is a favourite photo stop."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://kinhte.congthuong.vn/apicenter@/print_article&i=368066"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bao-tang-dan-toc-hoc",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Bảo tàng Dân tộc học Việt Nam",
+   "en": "Vietnam Museum of Ethnology"
+  },
+  "nameVi": "Bảo tàng Dân tộc học Việt Nam",
+  "lat": 21.04008,
+  "lng": 105.79884,
+  "openingHours": "Tu-Su 08:30-17:30",
+  "priceMin": 40,
+  "priceMax": 40,
+  "visitMin": 120,
+  "themes": [
+   "culture",
+   "history",
+   "photo"
+  ],
+  "tags": [
+   "cultural",
+   "groups",
+   "photo"
+  ],
+  "blurb": {
+   "vi": "Mở cửa năm 1997, giới thiệu văn hoá 54 dân tộc Việt Nam; có khu trưng bày trong nhà, vườn nhà truyền thống ngoài trời và toà Cánh Diều về Đông Nam Á. Có biểu diễn miễn phí 2 lần/ngày ở khu vườn.",
+   "en": "Opened in 1997, it presents the cultures of Vietnam’s 54 ethnic groups: indoor galleries, a garden of traditional houses and the Kite building on Southeast Asia. Free shows twice a day in the garden."
+  },
+  "tone": "leaf",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.vme.org.vn",
+   "https://en.wikipedia.org/wiki/Vietnam_Museum_of_Ethnology"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bao-tang-my-thuat",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Bảo tàng Mỹ thuật Việt Nam",
+   "en": "Vietnam National Fine Arts Museum"
+  },
+  "nameVi": "Bảo tàng Mỹ thuật Việt Nam",
+  "lat": 21.03064,
+  "lng": 105.83704,
+  "openingHours": "Tu-Su 08:30-17:00",
+  "priceMin": 30,
+  "priceMax": 30,
+  "visitMin": 75,
+  "themes": [
+   "culture",
+   "rainy",
+   "photo"
+  ],
+  "tags": [
+   "indoor",
+   "cultural"
+  ],
+  "blurb": {
+   "vi": "Bảo tàng mỹ thuật quốc gia, nằm đối diện Văn Miếu và cách Hoàng thành khoảng 10 phút đi bộ; tiện ghép lịch tham quan cả cụm.",
+   "en": "The national fine arts museum, opposite the Temple of Literature and about 10 minutes’ walk from the Imperial Citadel — easy to combine in one outing."
+  },
+  "tone": "brick",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vietnam.travel/vi/things-to-do/vietnams-must-see-museums"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bao-tang-thien-nhien",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Bảo tàng Thiên nhiên Việt Nam",
+   "en": "Vietnam Museum of Nature"
+  },
+  "nameVi": "Bảo tàng Thiên nhiên Việt Nam",
+  "lat": 21.04807,
+  "lng": 105.80054,
+  "openingHours": "08:00-17:00",
+  "priceMin": 0,
+  "priceMax": 0,
+  "visitMin": 60,
+  "themes": [
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "indoor",
+   "free",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Bảo tàng về thế giới tự nhiên Việt Nam, thường được gợi ý cho gia đình có trẻ nhỏ.",
+   "en": "A museum of Vietnam’s natural world, often recommended for families with young children."
+  },
+  "tone": "leaf",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/vi/wonderpedia/news/bao-tang-binh-chung-thong-tin/",
+   "https://vinwonders.com/vi/wonderpedia/news/bao-tang-o-ha-noi/"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bat-trang-tinh-hoa-lang-nghe",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Bảo tàng Gốm Bát Tràng (Trung tâm Tinh hoa Làng nghề Việt)",
+   "en": "Bat Trang Ceramics Museum"
+  },
+  "nameVi": "Bảo tàng Gốm Bát Tràng (Trung tâm Tinh hoa Làng nghề Việt)",
+  "lat": 20.97388,
+  "lng": 105.91295,
+  "openingHours": "08:00-17:00",
+  "priceMin": 30,
+  "priceMax": 30,
+  "visitMin": 120,
+  "themes": [
+   "culture",
+   "photo",
+   "rainy"
+  ],
+  "tags": [
+   "cultural",
+   "indoor",
+   "photo",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Công trình kiến trúc độc đáo giữa làng gốm Bát Tràng, vừa trưng bày gốm vừa có khu trải nghiệm làm gốm (tầng G).",
+   "en": "A striking building in the heart of Bat Trang pottery village, with ceramics galleries and a hands-on pottery area on the ground floor."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/vi/wonderpedia/news/bao-tang-binh-chung-thong-tin/",
+   "https://vinwonders.com/vi/wonderpedia/news/bao-tang-o-ha-noi/",
+   "https://vinwonders.com/vi/wonderpedia/news/workshop-lam-gom-ha-noi/"
+  ],
+  "notice": {
+   "vi": "Nên liên hệ trước khi đến — lịch lớp có thể thay đổi.",
+   "en": "Contact them before you go — class times can change."
+  },
+  "phone": null
+ },
+ {
+  "id": "van-mieu",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Văn Miếu – Quốc Tử Giám",
+   "en": "Temple of Literature"
+  },
+  "nameVi": "Văn Miếu – Quốc Tử Giám",
+  "lat": 21.02746,
+  "lng": 105.835,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 70,
+  "visitMin": 75,
+  "themes": [
+   "culture",
+   "history",
+   "photo"
+  ],
+  "tags": [
+   "iconic",
+   "history",
+   "cultural",
+   "photo",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Văn Miếu thờ Khổng Tử dựng năm 1070, Quốc Tử Giám lập năm 1076, được xem là trường đại học đầu tiên của Việt Nam; nổi tiếng với Khuê Văn Các và 82 bia Tiến sĩ (Di sản tư liệu thế giới).",
+   "en": "The Temple of Literature, built for Confucius in 1070, and the Imperial Academy founded in 1076 — seen as Vietnam’s first university; famous for the Khue Van pavilion and 82 doctoral stelae (UNESCO Memory of the World)."
+  },
+  "tone": "brick",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "Ăn mặc kín đáo, nói khẽ, không chụp ảnh người đang lễ.",
+   "en": "Dress modestly, keep your voice down and don’t photograph people praying."
+  },
+  "challenge": null,
+  "sources": [
+   "https://baovanhoa.vn/di-san/trien-lam-di-tich-quoc-gia-dac-biet-o-ha-noi-59651.html",
+   "https://en.wikipedia.org/wiki/Temple_of_Literature,_Hanoi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "co-loa",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Khu di tích Cổ Loa",
+   "en": "Co Loa Citadel"
+  },
+  "nameVi": "Khu di tích Cổ Loa",
+  "lat": 21.11568,
+  "lng": 105.86844,
+  "openingHours": null,
+  "priceMin": 0,
+  "priceMax": 30,
+  "visitMin": 120,
+  "themes": [
+   "history",
+   "culture",
+   "photo"
+  ],
+  "tags": [
+   "history",
+   "quiet",
+   "photo"
+  ],
+  "blurb": {
+   "vi": "Thành cổ hình xoắn ốc, kinh đô nước Âu Lạc của An Dương Vương (thế kỷ 3 TCN), cách trung tâm khoảng 17 km về phía bắc; nhiều di vật văn hoá Đông Sơn.",
+   "en": "A spiral-walled ancient citadel, capital of King An Duong Vuong’s Au Lac (3rd century BC), about 17 km north of the centre; many Dong Son artefacts."
+  },
+  "tone": "leaf",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://baovanhoa.vn/di-san/trien-lam-di-tich-quoc-gia-dac-biet-o-ha-noi-59651.html",
+   "https://en.wikipedia.org/wiki/C%E1%BB%95_Loa_Citadel"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "cua-bac-gate",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Cửa Bắc (Chính Bắc Môn)",
+   "en": "North Gate (Chinh Bac Mon)"
+  },
+  "nameVi": "Cửa Bắc (Chính Bắc Môn)",
+  "lat": 21.04056,
+  "lng": 105.84103,
+  "openingHours": "24/7",
+  "priceMin": 0,
+  "priceMax": 0,
+  "visitMin": 15,
+  "themes": [
+   "history",
+   "photo"
+  ],
+  "tags": [
+   "history",
+   "free",
+   "photo"
+  ],
+  "blurb": {
+   "vi": "Một trong năm cổng của thành Hà Nội xưa còn sót lại, tham quan tự do; trên tường còn dấu đạn pháo năm 1882.",
+   "en": "One of the old Hanoi citadel’s surviving gates, free to visit; its wall still bears cannon-shell marks from 1882."
+  },
+  "tone": "brick",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/di-tich-lich-su-o-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "chua-tran-quoc",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Chùa Trấn Quốc",
+   "en": "Tran Quoc Pagoda"
+  },
+  "nameVi": "Chùa Trấn Quốc",
+  "lat": 21.04788,
+  "lng": 105.83684,
+  "openingHours": "Mo-Su 08:00-16:00",
+  "priceMin": 0,
+  "priceMax": 0,
+  "visitMin": 30,
+  "themes": [
+   "culture",
+   "history",
+   "photo"
+  ],
+  "tags": [
+   "cultural",
+   "iconic",
+   "free",
+   "photo"
+  ],
+  "blurb": {
+   "vi": "Ngôi chùa cổ bên Hồ Tây, nổi bật với bảo tháp nhiều tầng; điểm ngắm hoàng hôn quen thuộc. Ngày rằm, mùng 1 mở 6:00–18:00.",
+   "en": "An ancient pagoda on West Lake with a tall multi-tiered stupa — a classic sunset spot. Open 6:00–18:00 on the 1st and 15th of the lunar month."
+  },
+  "tone": "brick",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "Ăn mặc kín đáo, nói khẽ, không chụp ảnh người đang lễ.",
+   "en": "Dress modestly, keep your voice down and don’t photograph people praying."
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/di-tich-lich-su-o-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "hoi-quan-quang-dong",
+  "area": "hoan-kiem",
+  "kind": "sight",
+  "depth": "quick",
+  "name": {
+   "vi": "Hội quán Quảng Đông – 22 Hàng Buồm",
+   "en": "Cantonese Assembly Hall (22 Hang Buom)"
+  },
+  "nameVi": "Hội quán Quảng Đông – 22 Hàng Buồm",
+  "lat": 21.03647,
+  "lng": 105.8521,
+  "openingHours": null,
+  "priceMin": 20,
+  "priceMax": 20,
+  "visitMin": 30,
+  "themes": [
+   "culture",
+   "history",
+   "photo"
+  ],
+  "tags": [
+   "cultural",
+   "history",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Hội quán của người Hoa gốc Quảng Đông, di tích kiến trúc nghệ thuật quốc gia từ 2007; nay là Trung tâm Văn hoá Nghệ thuật, hay có triển lãm và biểu diễn.",
+   "en": "The assembly hall of Hanoi’s Cantonese community, a national architectural monument since 2007; now an arts centre with frequent exhibitions and performances."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://kinhte.congthuong.vn/apicenter@/print_article&i=368066",
+   "https://baoquocte.vn/jazz-ha-noi-giai-dieu-khong-bien-gioi-430625.html"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "nha-hat-ho-guom",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Nhà hát Hồ Gươm",
+   "en": "Ho Guom Opera"
+  },
+  "nameVi": "Nhà hát Hồ Gươm",
+  "lat": 21.02217,
+  "lng": 105.85178,
+  "openingHours": null,
+  "priceMin": 300,
+  "priceMax": 2000,
+  "visitMin": 150,
+  "themes": [
+   "culture",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "indoor",
+   "iconic",
+   "photo"
+  ],
+  "blurb": {
+   "vi": "Nhà hát mới ở trung tâm, chuyên giao hưởng, opera và đang mở rộng thành điểm đến văn hoá đa trải nghiệm. Vé bán online trên web nhà hát.",
+   "en": "A new theatre in the centre for symphony and opera, growing into a cultural destination. Tickets are sold on the theatre’s website."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://hoguomopera.com/"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "g4u-acoustic-cafe",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "G4U Acoustic Cafe",
+   "en": "G4U Acoustic Cafe"
+  },
+  "nameVi": "G4U Acoustic Cafe",
+  "lat": 21.02858,
+  "lng": 105.79955,
+  "openingHours": null,
+  "priceMin": 60,
+  "priceMax": 120,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán acoustic trên phố Nguyễn Khang — nơi tập trung nhiều quán nhạc sống; nhạc sống buổi tối, đông khách, giá đồ uống khá cao.",
+   "en": "An acoustic café on Nguyen Khang, a street full of live-music spots; live music in the evening, busy, drinks on the pricey side."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.foody.vn/ha-noi/g4u-acoustic-cafe"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "trinh-ca-cafe",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Trịnh Ca Café",
+   "en": "Trịnh Ca Café"
+  },
+  "nameVi": "Trịnh Ca Café",
+  "lat": 21.04219,
+  "lng": 105.79559,
+  "openingHours": null,
+  "priceMin": 40,
+  "priceMax": 80,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán chuyên nhạc Trịnh, không gian hoài cổ.",
+   "en": "A café devoted to Trinh Cong Son’s songs, in a nostalgic setting."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinpearl.com/vi/quan-cafe-nhac-song-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "xom-ca-phe",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Xóm Cà Phê",
+   "en": "Xóm Cà Phê"
+  },
+  "nameVi": "Xóm Cà Phê",
+  "lat": 21.04219,
+  "lng": 105.79559,
+  "openingHours": null,
+  "priceMin": 40,
+  "priceMax": 80,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê không gian cổ, có đêm nhạc Trịnh và acoustic tối thứ Sáu, thứ Bảy.",
+   "en": "An old-style café with Trinh and acoustic music nights on Friday and Saturday evenings."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinpearl.com/vi/quan-cafe-nhac-song-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "ay-lounge",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Ấy Lounge",
+   "en": "Ấy Lounge"
+  },
+  "nameVi": "Ấy Lounge",
+  "lat": 21.04364,
+  "lng": 105.8457,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 100,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "lively",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Một trong những quán đầu tiên ở Hà Nội làm mô hình cà phê kết hợp nhạc sống.",
+   "en": "One of the first cafés in Hanoi to pair coffee with live music."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinpearl.com/vi/quan-cafe-nhac-song-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "trixie-cafe-lounge",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Trixie Cafe & Lounge",
+   "en": "Trixie Cafe & Lounge"
+  },
+  "nameVi": "Trixie Cafe & Lounge",
+  "lat": 21.01461,
+  "lng": 105.81713,
+  "openingHours": null,
+  "priceMin": 60,
+  "priceMax": 150,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "lively",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Phòng trà – cà phê nhạc sống theo phong cách sang trọng.",
+   "en": "An upmarket live-music lounge in the style of a Vietnamese \"phong trà\"."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinpearl.com/vi/quan-cafe-nhac-song-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "acoustic-cafe-hang-bong",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Acoustic Cafe 236 Hàng Bông",
+   "en": "Acoustic Cafe 236 Hàng Bông"
+  },
+  "nameVi": "Acoustic Cafe 236 Hàng Bông",
+  "lat": 21.02957,
+  "lng": 105.84582,
+  "openingHours": null,
+  "priceMin": 40,
+  "priceMax": 80,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán nhạc sống acoustic ngay khu phố cổ.",
+   "en": "An acoustic live-music café in the Old Quarter."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinpearl.com/vi/quan-cafe-nhac-song-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "polygon-musik",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Polygon Musik",
+   "en": "Polygon Musik"
+  },
+  "nameVi": "Polygon Musik",
+  "lat": 21.02956,
+  "lng": 105.82971,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 100,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "lively",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê nhạc sống có phong cách khá độc đáo trên phố Cát Linh.",
+   "en": "A live-music café with a distinctive style on Cat Linh street."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/vi/wonderpedia/news/cafe-nhac-song-ha-noi/"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "giang-coffee-ha-dong",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Giang Coffee (Hà Đông)",
+   "en": "Giang Coffee (Hà Đông)"
+  },
+  "nameVi": "Giang Coffee (Hà Đông)",
+  "lat": 20.97885,
+  "lng": 105.78643,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 60,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor",
+   "localFood"
+  ],
+  "blurb": {
+   "vi": "Chi nhánh của thương hiệu cà phê trứng lâu đời, có nhạc acoustic.",
+   "en": "A branch of the long-running egg-coffee brand, with acoustic music."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.toplist.vn/top-list/quan-cafe-nhac-acoustic-o-ha-dong-ha-noi-41374.htm"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "ca-phe-cuc-cu",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Cà phê Cúc Cu",
+   "en": "Cà phê Cúc Cu"
+  },
+  "nameVi": "Cà phê Cúc Cu",
+  "lat": 20.97724,
+  "lng": 105.79189,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 60,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán acoustic ở khu đô thị Văn Quán, được giới trẻ Hà Đông ưa chuộng.",
+   "en": "An acoustic café in Van Quan, popular with young people in Ha Dong."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.toplist.vn/top-list/quan-cafe-nhac-acoustic-o-ha-dong-ha-noi-41374.htm",
+   "https://www.facebook.com/CucCuHoiAn"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "acoustic-coffee-ha-dong",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Acoustic Coffee (Hà Đông)",
+   "en": "Acoustic Coffee (Hà Đông)"
+  },
+  "nameVi": "Acoustic Coffee (Hà Đông)",
+  "lat": 20.97686,
+  "lng": 105.78755,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 60,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán nhỏ ấm cúng kết hợp cà phê và nhạc acoustic.",
+   "en": "A small, cosy café with acoustic music."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.toplist.vn/top-list/quan-cafe-nhac-acoustic-o-ha-dong-ha-noi-41374.htm"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "kuku-acoustic-coffee",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Kuku Acoustic Coffee",
+   "en": "Kuku Acoustic Coffee"
+  },
+  "nameVi": "Kuku Acoustic Coffee",
+  "lat": 21.00223,
+  "lng": 105.83132,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 60,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán nhỏ tông đen trắng trong khu tập thể A8 Tôn Thất Tùng.",
+   "en": "A small black-and-white café in the A8 Ton That Tung housing block."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://znews.vn/5-quan-ca-phe-nhac-song-duoc-yeu-thich-o-ha-noi-post737418.html"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "ca-phe-cuoi-ngo",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Cà phê Cuối Ngõ",
+   "en": "Cà phê Cuối Ngõ"
+  },
+  "nameVi": "Cà phê Cuối Ngõ",
+  "lat": 21.02124,
+  "lng": 105.78547,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 60,
+  "visitMin": 75,
+  "themes": [
+   "fun",
+   "culture",
+   "rainy"
+  ],
+  "tags": [
+   "quiet",
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán trong ngõ sâu, vừa uống trà vừa nghe nhạc sống.",
+   "en": "A café deep in an alley — tea with live music."
+  },
+  "tone": "teal",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://znews.vn/5-quan-ca-phe-nhac-song-duoc-yeu-thich-o-ha-noi-post737418.html"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "gom-chi",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Gốm Chi",
+   "en": "Gom Chi pottery workshop"
+  },
+  "nameVi": "Gốm Chi",
+  "lat": 21.01816,
+  "lng": 105.86267,
+  "openingHours": null,
+  "priceMin": 150,
+  "priceMax": 350,
+  "visitMin": 120,
+  "themes": [
+   "culture",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "indoor",
+   "groups",
+   "cultural"
+  ],
+  "blurb": {
+   "vi": "Xưởng nặn gốm được giới trẻ chọn làm điểm vui chơi cuối tuần.",
+   "en": "A pottery studio that young Hanoians pick for a weekend activity."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/vi/wonderpedia/news/workshop-lam-gom-ha-noi/"
+  ],
+  "notice": {
+   "vi": "Nên liên hệ trước khi đến — lịch lớp có thể thay đổi.",
+   "en": "Contact them before you go — class times can change."
+  },
+  "phone": null
+ },
+ {
+  "id": "puppets-studio",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Puppets Studio",
+   "en": "Puppets Studio (pottery)"
+  },
+  "nameVi": "Puppets Studio",
+  "lat": 21.00348,
+  "lng": 105.82051,
+  "openingHours": null,
+  "priceMin": 150,
+  "priceMax": 350,
+  "visitMin": 120,
+  "themes": [
+   "culture",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "indoor",
+   "quiet",
+   "cultural"
+  ],
+  "blurb": {
+   "vi": "Studio gốm có lớp học và workshop thường xuyên, không gian yên tĩnh.",
+   "en": "A pottery studio with regular classes and workshops in a quiet space."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/vi/wonderpedia/news/workshop-lam-gom-ha-noi/"
+  ],
+  "notice": {
+   "vi": "Nên liên hệ trước khi đến — lịch lớp có thể thay đổi.",
+   "en": "Contact them before you go — class times can change."
+  },
+  "phone": null
+ },
+ {
+  "id": "cheapie-coffee-art",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Cheapie Coffee & Art",
+   "en": "Cheapie Coffee & Art"
+  },
+  "nameVi": "Cheapie Coffee & Art",
+  "lat": 21.07366,
+  "lng": 105.81274,
+  "openingHours": null,
+  "priceMin": 150,
+  "priceMax": 300,
+  "visitMin": 120,
+  "themes": [
+   "culture",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Tiệm cà phê kiêm không gian vẽ tranh, workshop hằng tuần theo chủ đề.",
+   "en": "A café and painting space with weekly themed workshops."
+  },
+  "tone": "leaf",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/?p=76241"
+  ],
+  "notice": {
+   "vi": "Nên liên hệ trước khi đến — lịch lớp có thể thay đổi.",
+   "en": "Contact them before you go — class times can change."
+  },
+  "phone": null
+ },
+ {
+  "id": "thekandle",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Thekandle",
+   "en": "Thekandle (candle making)"
+  },
+  "nameVi": "Thekandle",
+  "lat": 21.04364,
+  "lng": 105.8457,
+  "openingHours": null,
+  "priceMin": 200,
+  "priceMax": 350,
+  "visitMin": 120,
+  "themes": [
+   "culture",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "indoor",
+   "quiet"
+  ],
+  "blurb": {
+   "vi": "Workshop làm nến thơm theo hướng nghệ thuật ở phố cổ.",
+   "en": "An arty scented-candle workshop near the Old Quarter."
+  },
+  "tone": "leaf",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/vi/wonderpedia/news/workshop-lam-nen-thom-ha-noi/"
+  ],
+  "notice": {
+   "vi": "Nên liên hệ trước khi đến — lịch lớp có thể thay đổi.",
+   "en": "Contact them before you go — class times can change."
+  },
+  "phone": "0868334331"
+ },
+ {
+  "id": "ribbon-florist",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Ribbon Florist",
+   "en": "Ribbon Florist (flower arranging)"
+  },
+  "nameVi": "Ribbon Florist",
+  "lat": 21.02554,
+  "lng": 105.85758,
+  "openingHours": null,
+  "priceMin": 300,
+  "priceMax": 600,
+  "visitMin": 120,
+  "themes": [
+   "culture",
+   "fun",
+   "photo"
+  ],
+  "tags": [
+   "indoor",
+   "photo"
+  ],
+  "blurb": {
+   "vi": "Tiệm hoa có workshop cắm hoa theo nhiều chủ đề.",
+   "en": "A florist running flower-arranging workshops on different themes."
+  },
+  "tone": "leaf",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://vinwonders.com/?p=73751"
+  ],
+  "notice": {
+   "vi": "Nên liên hệ trước khi đến — lịch lớp có thể thay đổi. Không phải tuần nào cũng mở lớp.",
+   "en": "Contact them before you go — class times can change. Classes don’t run every week."
+  },
+  "phone": "+84969755323"
+ },
+ {
+  "id": "photo-time-chua-lang",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Photo Time (Chùa Láng)",
+   "en": "Photo Time (Chùa Láng)"
+  },
+  "nameVi": "Photo Time (Chùa Láng)",
+  "lat": 21.02469,
+  "lng": 105.80695,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chuỗi photobooth được đánh giá cao về chất lượng ảnh.",
+   "en": "A photobooth chain praised for its photo quality."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "photo-time-xuan-thuy",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Photo Time (Xuân Thuỷ)",
+   "en": "Photo Time (Xuân Thuỷ)"
+  },
+  "nameVi": "Photo Time (Xuân Thuỷ)",
+  "lat": 21.03618,
+  "lng": 105.78227,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chuỗi photobooth được đánh giá cao về chất lượng ảnh.",
+   "en": "A photobooth chain praised for its photo quality."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "finhay-photobooth-nha-chung",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Finhay Photobooth (Nhà Chung)",
+   "en": "Finhay Photobooth (Nhà Chung)"
+  },
+  "nameVi": "Finhay Photobooth (Nhà Chung)",
+  "lat": 21.02736,
+  "lng": 105.85014,
+  "openingHours": null,
+  "priceMin": 0,
+  "priceMax": 0,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chương trình photobooth chụp miễn phí do Finhay tổ chức.",
+   "en": "A free photobooth campaign run by Finhay."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": {
+   "vi": "Chụp miễn phí trong chương trình của Finhay, từ 04/08 đến hết 31/12/2026 hoặc đến khi hết quà.",
+   "en": "Free shots during Finhay’s campaign, 4 Aug – 31 Dec 2026 or while gifts last."
+  },
+  "phone": null
+ },
+ {
+  "id": "finhay-photobooth-chua-boc",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Finhay Photobooth (Chùa Bộc)",
+   "en": "Finhay Photobooth (Chùa Bộc)"
+  },
+  "nameVi": "Finhay Photobooth (Chùa Bộc)",
+  "lat": 21.00817,
+  "lng": 105.82822,
+  "openingHours": null,
+  "priceMin": 0,
+  "priceMax": 0,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chương trình photobooth chụp miễn phí do Finhay tổ chức.",
+   "en": "A free photobooth campaign run by Finhay."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": {
+   "vi": "Chụp miễn phí trong chương trình của Finhay, từ 04/08 đến hết 31/12/2026 hoặc đến khi hết quà.",
+   "en": "Free shots during Finhay’s campaign, 4 Aug – 31 Dec 2026 or while gifts last."
+  },
+  "phone": null
+ },
+ {
+  "id": "finhay-photobooth-nhat-chieu",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Finhay Photobooth (Nhật Chiêu)",
+   "en": "Finhay Photobooth (Nhật Chiêu)"
+  },
+  "nameVi": "Finhay Photobooth (Nhật Chiêu)",
+  "lat": 21.07612,
+  "lng": 105.81536,
+  "openingHours": null,
+  "priceMin": 0,
+  "priceMax": 0,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chương trình photobooth chụp miễn phí do Finhay tổ chức.",
+   "en": "A free photobooth campaign run by Finhay."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": {
+   "vi": "Chụp miễn phí trong chương trình của Finhay, từ 04/08 đến hết 31/12/2026 hoặc đến khi hết quà.",
+   "en": "Free shots during Finhay’s campaign, 4 Aug – 31 Dec 2026 or while gifts last."
+  },
+  "phone": null
+ },
+ {
+  "id": "finhay-photobooth-duong-khue",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Finhay Photobooth (Dương Khuê)",
+   "en": "Finhay Photobooth (Dương Khuê)"
+  },
+  "nameVi": "Finhay Photobooth (Dương Khuê)",
+  "lat": 21.03574,
+  "lng": 105.77417,
+  "openingHours": null,
+  "priceMin": 0,
+  "priceMax": 0,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chương trình photobooth chụp miễn phí do Finhay tổ chức.",
+   "en": "A free photobooth campaign run by Finhay."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": {
+   "vi": "Chụp miễn phí trong chương trình của Finhay, từ 04/08 đến hết 31/12/2026 hoặc đến khi hết quà.",
+   "en": "Free shots during Finhay’s campaign, 4 Aug – 31 Dec 2026 or while gifts last."
+  },
+  "phone": null
+ },
+ {
+  "id": "photobooth-mot-hai-ba-tran-quoc-toan",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Photobooth Một Hai Ba (Trần Quốc Toản)",
+   "en": "Photobooth Một Hai Ba (Trần Quốc Toản)"
+  },
+  "nameVi": "Photobooth Một Hai Ba (Trần Quốc Toản)",
+  "lat": 21.01926,
+  "lng": 105.85068,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chuỗi photobooth với hai concept Vivid và Neutral; chi nhánh này theo concept Vivid.",
+   "en": "A photobooth chain with Vivid and Neutral concepts; this branch is Vivid."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "photobooth-mot-hai-ba-trich-sai",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Photobooth Một Hai Ba (Trích Sài)",
+   "en": "Photobooth Một Hai Ba (Trích Sài)"
+  },
+  "nameVi": "Photobooth Một Hai Ba (Trích Sài)",
+  "lat": 21.0549,
+  "lng": 105.80993,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chuỗi photobooth với hai concept Vivid và Neutral; chi nhánh này theo concept Vivid.",
+   "en": "A photobooth chain with Vivid and Neutral concepts; this branch is Vivid."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "photobooth-mot-hai-ba-mac-dinh-chi",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Photobooth Một Hai Ba (Mạc Đĩnh Chi)",
+   "en": "Photobooth Một Hai Ba (Mạc Đĩnh Chi)"
+  },
+  "nameVi": "Photobooth Một Hai Ba (Mạc Đĩnh Chi)",
+  "lat": 21.04658,
+  "lng": 105.84132,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chuỗi photobooth với hai concept Vivid và Neutral; chi nhánh này theo concept Neutral.",
+   "en": "A photobooth chain with Vivid and Neutral concepts; this branch is Neutral."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.finhay.com.vn/chup-photobooth-o-dau-ha-noi-dep"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "photoism-xuan-thuy",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Photoism (Xuân Thuỷ)",
+   "en": "Photoism (Xuân Thuỷ)"
+  },
+  "nameVi": "Photoism (Xuân Thuỷ)",
+  "lat": 21.03626,
+  "lng": 105.78769,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Chuỗi photobooth chuẩn Hàn Quốc, ảnh sắc nét, nhiều phông nền.",
+   "en": "A Korean-style photobooth chain with sharp photos and many backdrops."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/photobooth-ha-noi"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "pose-photo",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Pose Photo",
+   "en": "Pose Photo"
+  },
+  "nameVi": "Pose Photo",
+  "lat": 21.01647,
+  "lng": 105.81485,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Photobooth phong cách Hàn, tông hồng ngọt ngào, nằm trong ngõ nhỏ.",
+   "en": "A Korean-style photobooth in soft pink, tucked down a small alley."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://mia.vn/cam-nang-du-lich/photobooth-ha-noi-cuc-hot-19165"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "photo-story-chua-lang",
+  "area": "hoan-kiem",
+  "kind": "fun",
+  "depth": "quick",
+  "name": {
+   "vi": "Photo Story (Chùa Láng)",
+   "en": "Photo Story (Chùa Láng)"
+  },
+  "nameVi": "Photo Story (Chùa Láng)",
+  "lat": 21.02357,
+  "lng": 105.80493,
+  "openingHours": null,
+  "priceMin": 50,
+  "priceMax": 120,
+  "visitMin": 20,
+  "themes": [
+   "photo",
+   "fun",
+   "rainy"
+  ],
+  "tags": [
+   "photo",
+   "indoor",
+   "groups"
+  ],
+  "blurb": {
+   "vi": "Photobooth quen thuộc với giới trẻ trên phố Chùa Láng.",
+   "en": "A photobooth popular with young people on Chua Lang street."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://mia.vn/cam-nang-du-lich/photobooth-ha-noi-cuc-hot-19165"
+  ],
+  "notice": null,
+  "phone": null
  }
 ]

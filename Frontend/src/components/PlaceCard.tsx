@@ -1,3 +1,4 @@
+import { useStart } from './NeedStart'
 import { useState } from 'react'
 import { Check, ChevronDown, CircleCheck, Gift, Headphones, Plus, Target } from 'lucide-react'
 import { missionFor } from '../data/roles'
@@ -8,14 +9,16 @@ import { storyMinutes, storyOf } from '../lib/quest'
 import { estimateLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
+import { PlaceNotice, SourceLinks } from './PlaceBits'
 import PlaceThumb from './PlaceThumb'
 import TransportIcon from './TransportIcon'
 
 export default function PlaceCard({ place, people }: { place: Place; people: number }) {
-  const { lang, t, start, selected, toggle, mode, role, travel } = useQuest()
+  const { lang, t, selected, toggle, mode, role, travel } = useQuest()
+  const start = useStart()
   const [expanded, setExpanded] = useState(false)
   const isAdded = selected.includes(place.id)
-  const mission = role ? missionFor(role, place.id) : null
+  const mission = role ? missionFor(role, place) : null
   const isFav = !!role?.favPlaces.includes(place.id)
   const leg = estimateLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
   const perPerson =
@@ -78,6 +81,8 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
         </button>
       )}
 
+      <PlaceNotice place={place} className="mt-3" />
+
       {mode === 'explore' && role && (
         <div className="mt-3 rounded-xl border border-brick/20 bg-brick/5 p-3">
           <div className="flex items-center justify-between text-[10px] font-bold text-brick">
@@ -108,6 +113,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
         {isAdded ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
         {isAdded ? t.added : t.add}
       </button>
+      <SourceLinks sources={place.sources} className="mt-2" />
     </article>
   )
 }

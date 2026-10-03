@@ -35,4 +35,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), maplibreWorker()],
   // MapLibre (~1 MB) is its own lazy chunk, loaded only when a map is on screen.
   build: { chunkSizeWarningLimit: 1200 },
+  server: {
+    // Open the dev server on a phone through a Cloudflare quick tunnel (HTTPS → GPS works).
+    allowedHosts: ['.trycloudflare.com'],
+    // The local backend through the same origin, so it also works from the phone (where
+    // "localhost" is the phone) and over HTTPS. .env.local: VITE_API_URL=/api-dev
+    proxy: {
+      '/api-dev': { target: 'http://localhost:8080', changeOrigin: true, rewrite: (path) => path.replace(/^\/api-dev/, '') },
+    },
+  },
 })

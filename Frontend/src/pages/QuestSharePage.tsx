@@ -18,6 +18,7 @@ import { summarize } from '../lib/quest'
 import { getQuest, isLiked, questUrl, setLiked, type SavedQuest } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
+import { AREA_POINT } from '../lib/area'
 import type { Mode, Place, Theme, Transport } from '../types'
 
 const MODE_ORDER: Mode[] = ['explore', 'listen', 'easy']
@@ -26,7 +27,7 @@ const MODE_ORDER: Mode[] = ['explore', 'listen', 'easy']
 export default function QuestSharePage() {
   const { id = '' } = useParams()
   const { t, lang, places, planFor, setIntent, setFromQuest, setMode, setRole, setTransport, setDepartAt } = useQuest()
-  const { session } = useAuth()
+  const { session, isMember } = useAuth()
   const navigate = useNavigate()
   const [quest, setQuest] = useState<SavedQuest | null | undefined>(undefined)
   const [mode, setPickedMode] = useState<Mode | null>(null)
@@ -52,9 +53,9 @@ export default function QuestSharePage() {
     () => (quest?.stops ?? []).map((s) => places.find((p) => p.id === s.place_id)).filter((p): p is Place => !!p),
     [quest, places],
   )
-  // Start inside the quest's area: from the traveller if they're there, else the area's default start.
+  // From the traveller's real position when we have it, else measured from the quest's first stop.
   const questArea = stops[0]?.area ?? 'hoan-kiem'
-  const start = planFor(questArea).start
+  const start = planFor(questArea).start ?? stops[0] ?? AREA_POINT[questArea]
   const sum = useMemo(
     () => summarize(start, stops, quest?.people ?? 1, { transport: quest?.transport ?? 'walk', departAt: null }, stops.map((p) => p.id)),
     [start, stops, quest],
@@ -91,7 +92,7 @@ export default function QuestSharePage() {
   const cover = stops[0]
 
   const toggleLike = async () => {
-    if (!session) return navigate(`/login?next=${encodeURIComponent(`/q/${quest.id}`)}`)
+    if (!isMember || !session) return navigate(`/login?next=${encodeURIComponent(`/q/${quest.id}`)}`)
     const next = !liked
     setLikedState(next)
     setLikes((n) => n + (next ? 1 : -1))

@@ -23,10 +23,13 @@ Deno.serve(async (req) => {
 
   let username = ''
   let password = ''
+  // Forwarded to Supabase Auth: required once CAPTCHA protection is turned on.
+  let captchaToken: string | undefined
   try {
     const body = await req.json()
     username = String(body.username ?? '').trim().toLowerCase().replace(/^@/, '')
     password = String(body.password ?? '')
+    captchaToken = typeof body.captchaToken === 'string' ? body.captchaToken : undefined
   } catch {
     return json({ error: 'bad_request' }, 400)
   }
@@ -42,7 +45,7 @@ Deno.serve(async (req) => {
   if (!email) return fail()
 
   const anon = createClient(url, Deno.env.get('SUPABASE_ANON_KEY')!, { auth: { persistSession: false } })
-  const { data, error } = await anon.auth.signInWithPassword({ email, password })
+  const { data, error } = await anon.auth.signInWithPassword({ email, password, options: { captchaToken } })
   if (error || !data.session) return fail()
 
   return json({ access_token: data.session.access_token, refresh_token: data.session.refresh_token })

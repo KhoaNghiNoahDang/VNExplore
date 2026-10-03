@@ -1,5 +1,6 @@
 import { RUSH_HOURS, TRANSPORT, WALKING_STREET_BOXES, type Fare } from '../data/transport'
 import type { LatLng, Leg, Transport } from '../types'
+import { hanoiClock } from './hanoiTime'
 
 /** Straight line × 1.3 to approximate street distance, in metres. */
 export function distanceM(a: LatLng, b: LatLng): number {
@@ -17,16 +18,16 @@ const OPEN_ROAD_KMH: Partial<Record<Transport, number>> = { motorbike: 35, grabb
 const outOfTown = (p: LatLng) => distanceM(p, CITY) / 1.3 > 12_000
 
 export function isRushHour(at: Date): boolean {
-  const day = at.getDay()
+  const { day, hour, minute } = hanoiClock(at)
   if (day === 0 || day === 6) return false
-  const m = at.getHours() * 60 + at.getMinutes()
+  const m = hour * 60 + minute
   return RUSH_HOURS.some(([a, b]) => m >= a && m < b)
 }
 
-/** Friday 19:00 → Sunday 24:00. */
+/** Friday 19:00 → Sunday 24:00, Hanoi time. */
 export function isWalkingStreetTime(at: Date): boolean {
-  const day = at.getDay()
-  return (day === 5 && at.getHours() >= 19) || day === 6 || day === 0
+  const { day, hour } = hanoiClock(at)
+  return (day === 5 && hour >= 19) || day === 6 || day === 0
 }
 
 export function inWalkingStreet(p: LatLng): boolean {

@@ -27,6 +27,12 @@ import PlaceReportPrompt from '../components/PlaceReportPrompt'
 import PrimaryButton from '../components/PrimaryButton'
 import Stamp from '../components/Stamp'
 import { LegLine } from '../components/TravelBits'
+import { EventPanel, eventPrice } from '../components/EventBits'
+import { PlaceNotice, SourceLinks } from '../components/PlaceBits'
+import { CoopChallenge, PartyBoard, PartyTimer } from '../components/PartyBits'
+import { markArrived, markMission, useParty } from '../lib/party'
+import { useAuth } from '../store/AuthContext'
+import { eventWhen } from '../lib/events'
 import TopBar from '../components/TopBar'
 import { missionFor } from '../data/roles'
 import { distance, minutes, moneyRange } from '../lib/format'
@@ -57,7 +63,11 @@ export default function StopPage() {
 }
 
 function Stop({ stops, index }: { stops: Place[]; index: number }) {
-  const { t, lang, journey, intent, mode, role, start, arrive, completeMission, travel, geo, setGeoWanted } = useQuest()
+  const { t, lang, journey, intent, mode, role, start, arrive, completeMission, travel, geo, setGeoWanted, party } = useQuest()
+  const auth = useAuth()
+  // Group play: everyone's stamps and missions, and the shared puzzles.
+  const { state: ps } = useParty(party?.id ?? null)
+  const meId = auth.session?.user.id ?? null
   const navigate = useNavigate()
   const narration = useNarration()
   const [skippedMission, setSkippedMission] = useState(false)
@@ -69,8 +79,15 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const hasItem = journey!.items.includes(place.id)
   // A stop has a mission if we're in Explore now and didn't already arrive here in another mode.
   const missionActive = mode === 'explore' && !!role && (!arrived || arrivedMode === 'explore')
-  const mission = role ? missionFor(role, place.id) : null
-  const storyUnlocked = !missionActive || hasItem || skippedMission
+  const mission = role ? missionFor(role, place) : null
+  const solo = !missionActive || hasItem || skippedMission
+  // In a party, a stop with a quiz has a team puzzle: solving it (or skipping) opens the story for all.
+  const coop = !!party && !!ps && !!place.challenge && mode === 'explore'
+  const storyUnlocked = coop ? !!ps!.puzzles[place.id] || skippedMission : solo
+  const doMission = () => {
+    completeMission(place.id)
+    if (party) void markMission(party.id, place.id)
+  }
   const isLast = index === stops.length - 1
   const prev = index === 0 ? (journey!.start ?? start) : stops[index - 1]
   const people = intent!.people
@@ -95,6 +112,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
 
   const onArrive = () => {
     arrive(place.id)
+    if (party) void markArrived(party.id, place.id)
     // Listen mode: the story plays by itself on arrival (inside the tap, so browsers allow audio).
     if (mode === 'listen') narration.play(storyOf(place, lang), lang)
   }
@@ -152,7 +170,10 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
 
       <div className="px-6 pb-2">
         <div className="flex items-center justify-between text-[11px] font-bold">
-          <span className="text-brick">{t.stopOf(index + 1, stops.length)}</span>
+          <span className="flex items-center gap-2 text-brick">
+            {t.stopOf(index + 1, stops.length)}
+            {ps && <PartyTimer party={ps.party} />}
+          </span>
           {mode === 'explore' && role && (
             <span className="flex items-center gap-1 text-bark">
               <Gift className="h-3 w-3" />
@@ -191,10 +212,20 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
             <h1 className="text-lg font-bold leading-tight">{place.name[lang]}</h1>
             {lang === 'en' && <p className="text-[11px] opacity-60">{place.nameVi}</p>}
             <p className="mt-0.5 text-[11px] font-medium">
-              {minutes(place.visitMin, lang)} · {moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
+              {place.event ? (
+                <>
+                  <span className="font-bold text-brick">{eventWhen(place, lang)}</span> · {eventPrice(place, people, lang, t)}
+                </>
+              ) : (
+                <>
+                  {minutes(place.visitMin, lang)} · {moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
+                </>
+              )}
             </p>
           </div>
         </div>
+
+        <PlaceNotice place={place} />
 
         {!arrived ? (
           <>
@@ -204,7 +235,11 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
                 <Headphones className="h-4 w-4 shrink-0" /> {t.autoPlayNote}
               </div>
             )}
-            {mode === 'easy' && <InfoGrid place={place} people={people} lang={lang} only={['price', 'hours', 'photo']} />}
+            {place.event ? (
+              <EventPanel place={place} people={people} />
+            ) : (
+              mode === 'easy' && <InfoGrid place={place} people={people} lang={lang} only={['price', 'hours', 'photo']} />
+            )}
             <div className="rounded-2xl border-2 border-sand bg-white p-3">
               <div className="mb-1 text-[10px] font-bold uppercase tracking-widest opacity-50">{t.thisLeg}</div>
               <LegLine leg={leg} people={people} />
@@ -251,9 +286,11 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
               </div>
             </div>
 
+            {coop && <CoopChallenge place={place} state={ps!} meId={meId} />}
+
             {missionActive && !hasItem && !skippedMission && mission &&
-              (place.challenge ? (
-                <Challenge place={place} lang={lang} onSolved={() => completeMission(place.id)} onSkip={() => setSkippedMission(true)} />
+              (place.challenge && !party ? (
+                <Challenge place={place} lang={lang} onSolved={doMission} onSkip={() => setSkippedMission(true)} />
               ) : (
                 // Quick places have no quiz: the traveller confirms they did the mission.
                 <div className="flex gap-2">
@@ -263,7 +300,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
                   >
                     {t.skipMission}
                   </button>
-                  <PrimaryButton className="flex-1" onClick={() => completeMission(place.id)}>
+                  <PrimaryButton className="flex-1" onClick={doMission}>
                     <CircleCheck className="h-4 w-4" /> {t.missionDoneBtn}
                   </PrimaryButton>
                 </div>
@@ -300,10 +337,18 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
               </div>
             )}
 
-            {storyUnlocked && <InfoGrid place={place} people={people} lang={lang} />}
-            <PlaceReportPrompt place={place} journeyStartedAt={journey!.startedAt} />
+            {place.event ? (
+              <EventPanel place={place} people={people} />
+            ) : (
+              <>
+                {storyUnlocked && <InfoGrid place={place} people={people} lang={lang} />}
+                <PlaceReportPrompt place={place} journeyStartedAt={journey!.startedAt} />
+              </>
+            )}
           </>
         )}
+        {ps && <PartyBoard state={ps} placeId={place.id} meId={meId} />}
+        {!place.event && <SourceLinks sources={place.sources} />}
       </div>
 
       <div className="border-t border-sand/60 px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3">

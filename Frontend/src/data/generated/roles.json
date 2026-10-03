@@ -1,6 +1,13 @@
 [
  {
   "id": "merchant",
+  "area": "any",
+  "tags": [
+   "food",
+   "culture",
+   "sight",
+   "market"
+  ],
   "name": {
    "vi": "Thương nhân phố Hàng",
    "en": "Hang Street Merchant"
@@ -109,6 +116,7 @@
     }
    }
   },
+  "templates": [],
   "fallback": {
    "task": {
     "vi": "Tìm một chi tiết thật ở đây để có thêm hàng cho sạp.",
@@ -127,6 +135,13 @@
  },
  {
   "id": "scholar",
+  "area": "any",
+  "tags": [
+   "history",
+   "culture",
+   "sight",
+   "talk"
+  ],
   "name": {
    "vi": "Sĩ tử lên kinh",
    "en": "Scholar Bound for the Capital"
@@ -246,6 +261,7 @@
     }
    }
   },
+  "templates": [],
   "fallback": {
    "task": {
     "vi": "Quan sát thật kỹ — sĩ tử giỏi là người để ý chi tiết.",
@@ -264,6 +280,14 @@
  },
  {
   "id": "photographer",
+  "area": "any",
+  "tags": [
+   "photo",
+   "history",
+   "sight",
+   "exhibition",
+   "film"
+  ],
   "name": {
    "vi": "Nhiếp ảnh gia thập niên 1930",
    "en": "1930s Photographer"
@@ -383,6 +407,7 @@
     }
    }
   },
+  "templates": [],
   "fallback": {
    "task": {
     "vi": "Tìm một chi tiết kể được câu chuyện của nơi này.",
@@ -401,6 +426,11 @@
  },
  {
   "id": "chef",
+  "area": "any",
+  "tags": [
+   "food",
+   "market"
+  ],
   "name": {
    "vi": "Đầu bếp tập sự",
    "en": "Apprentice Cook"
@@ -498,6 +528,7 @@
     }
    }
   },
+  "templates": [],
   "fallback": {
    "task": {
     "vi": "Nơi nào cũng có một hương vị. Tìm chi tiết ẩn giấu nó.",

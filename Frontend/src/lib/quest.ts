@@ -1,5 +1,6 @@
 import { TRANSPORT } from '../data/transport'
 import type { Intent, LatLng, Leg, Place, Transport } from '../types'
+import { hanoiClock } from './hanoiTime'
 import { isOpenAt } from './hours'
 import type { Weather } from './weather'
 import { distanceM, estimateLeg } from './travel'
@@ -44,6 +45,106 @@ export interface QuestSummary {
   costMax: number
   /** Fares, fuel and parking for the group. */
   travelCostK: number
+  /** When the visit at stops[i] begins (ms) — after waiting for an event to start. */
+  arriveAt: number[]
+  /** Minutes spent waiting at stops[i] for an event to start. */
+  waitMin: number[]
+  /** Minutes too late for stops[i] (a show that already began, an exhibition about to close). 0 = on time. */
+  lateMin: number[]
+  /** Total waiting, also counted in totalMin. */
+  waitTotalMin: number
+}
+
+interface Timed {
+  legs: Leg[]
+  arriveAt: number[]
+  waitMin: number[]
+  lateMin: number[]
+}
+
+/**
+ * Walk the stops in order. Event stops have a fixed time: arrive early and you wait for the start,
+ * arrive after a show began (or too close to an exhibition's closing) and you are late.
+ */
+function walk(start: LatLng, stops: Place[], people: number, travel: Travel): Timed {
+  const out: Timed = { legs: [], arriveAt: [], waitMin: [], lateMin: [] }
+  let t = travel.departAt ?? Date.now()
+  let cur: LatLng = start
+  for (const s of stops) {
+    const leg = estimateLeg(cur, s, travel.transport, new Date(t), people)
+    t += leg.minutes * 60_000
+    let wait = 0
+    let late = 0
+    const e = s.event
+    if (e) {
+      if (t < e.startMs) wait = (e.startMs - t) / 60_000
+      else if (e.kind === 'show') late = (t - e.startMs) / 60_000
+      else late = Math.max(0, (t + s.visitMin * 60_000 - e.endMs) / 60_000)
+    }
+    t += wait * 60_000
+    out.legs.push(leg)
+    out.arriveAt.push(t)
+    out.waitMin.push(Math.round(wait))
+    out.lateMin.push(Math.round(late))
+    t += s.visitMin * 60_000
+    cur = s
+  }
+  return out
+}
+
+/** Lateness is never worth it; after that, prefer less waiting and a shorter day. */
+function cost(start: LatLng, stops: Place[], people: number, travel: Travel): number {
+  const w = walk(start, stops, people, travel)
+  const late = w.lateMin.reduce((a, b) => a + b, 0)
+  const wait = w.waitMin.reduce((a, b) => a + b, 0)
+  const end = stops.length ? w.arriveAt[stops.length - 1] + stops[stops.length - 1].visitMin * 60_000 : 0
+  return late * 1000 + wait * 2 + end / 60_000
+}
+
+/**
+ * Nearest-first for ordinary stops, then each event (earliest first) goes into the slot
+ * where it fits best: before its start, with as little waiting as possible. Finally, stops are
+ * moved one at a time while that helps (e.g. a museum fills the gap before a 15:30 talk).
+ */
+function orderWithEvents(start: LatLng, places: Place[], people: number, travel: Travel): Place[] {
+  let seq = insertEvents(start, places, people, travel)
+  let best = cost(start, seq, people, travel)
+  for (let round = 0, improved = true; improved && round < 4; round++) {
+    improved = false
+    for (let from = 0; from < seq.length; from++) {
+      for (let to = 0; to < seq.length; to++) {
+        if (to === from) continue
+        const trial = [...seq]
+        trial.splice(to, 0, trial.splice(from, 1)[0])
+        const c = cost(start, trial, people, travel)
+        if (c < best - 0.5) {
+          best = c
+          seq = trial
+          improved = true
+        }
+      }
+    }
+  }
+  return seq
+}
+
+function insertEvents(start: LatLng, places: Place[], people: number, travel: Travel): Place[] {
+  const events = places.filter((p) => p.event).sort((a, b) => a.event!.startMs - b.event!.startMs)
+  let seq = orderStops(start, places.filter((p) => !p.event))
+  for (const ev of events) {
+    let best: Place[] = []
+    let bestCost = Infinity
+    for (let i = 0; i <= seq.length; i++) {
+      const trial = [...seq.slice(0, i), ev, ...seq.slice(i)]
+      const c = cost(start, trial, people, travel)
+      if (c < bestCost) {
+        bestCost = c
+        best = trial
+      }
+    }
+    seq = best
+  }
+  return seq
 }
 
 /** Walks the route in time order so each leg sees its own traffic (rush hour, walking street). */
@@ -57,25 +158,24 @@ export function summarize(
 ): QuestSummary {
   const stops = order?.length
     ? [...places].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
-    : orderStops(start, places)
-  const legs: Leg[] = []
-  let t = travel.departAt ?? Date.now()
-  let cur: LatLng = start
-  for (const s of stops) {
-    const leg = estimateLeg(cur, s, travel.transport, new Date(t), people)
-    legs.push(leg)
-    t += (leg.minutes + s.visitMin) * 60_000
-    cur = s
-  }
+    : places.some((p) => p.event)
+      ? orderWithEvents(start, places, people, travel)
+      : orderStops(start, places)
+  const { legs, arriveAt, waitMin, lateMin } = walk(start, stops, people, travel)
   const visitMin = stops.reduce((sum, s) => sum + s.visitMin, 0)
   const travelMin = legs.reduce((sum, l) => sum + l.minutes, 0)
+  const waitTotalMin = waitMin.reduce((sum, w) => sum + w, 0)
   return {
     stops,
     legs,
+    arriveAt,
+    waitMin,
+    lateMin,
+    waitTotalMin,
     distanceM: legs.reduce((sum, l) => sum + l.distanceM, 0),
     visitMin,
     travelMin,
-    totalMin: visitMin + travelMin,
+    totalMin: visitMin + travelMin + waitTotalMin,
     costMin: stops.reduce((sum, s) => sum + s.priceMin, 0) * people,
     costMax: stops.reduce((sum, s) => sum + s.priceMax, 0) * people,
     travelCostK: legs.reduce((sum, l) => sum + l.costK, 0),
@@ -129,7 +229,7 @@ const BREAKFAST = /phở|bánh cuốn|xôi|bánh mì|bún riêu|miến|cháo|pho
 
 function contextBonus(place: Place, intent: Intent, ctx: PlanContext, named: boolean): number {
   const at = ctx.at ?? new Date()
-  const hour = at.getHours()
+  const { hour } = hanoiClock(at)
   const w = ctx.weather
   const indoor = place.tags.includes('indoor')
   let bonus = 0
@@ -266,14 +366,31 @@ export interface TransportHint {
   reason: 'longWalk' | 'farApart' | 'allClose'
   /** Longest leg, metres (for the message). */
   longestM: number
+  /** Walking on the current route: metres and minutes. */
+  walkedM: number
+  walkMin: number
   savedMin: number
   extraCostK: number
 }
 
+/** "Too far to walk": one walk over 1.5 km (~20 min), 4 km in total, or an hour on foot. */
+export const WALK_LIMIT = { legM: 1500, totalM: 4000, totalMin: 60 }
+
+/** Walking on a route: total and longest walked leg (legs a vehicle can't do count too). */
+export function walkingOf(sum: QuestSummary): { walkedM: number; walkMin: number; longestWalkM: number } {
+  const walks = sum.legs.filter((l) => l.transport === 'walk')
+  return {
+    walkedM: walks.reduce((n, l) => n + l.distanceM, 0),
+    walkMin: walks.reduce((n, l) => n + l.minutes, 0),
+    longestWalkM: Math.max(0, ...walks.map((l) => l.distanceM)),
+  }
+}
+
 /**
  * Suggest another way to get around when the chosen one fits the route badly:
- * long walks → GrabBike (1–2 people) or a car (3+); a bike or car for stops a few hundred metres
- * apart → walk (no parking, no fare). Returns null when the choice is fine.
+ * too much walking (see WALK_LIMIT) → GrabBike (1–2 people) or a car (3+), when that saves at
+ * least 8 minutes; a bike or car for stops a few hundred metres apart → walk (no parking, no fare).
+ * Returns null when the choice is fine.
  */
 export function suggestTransport(
   start: LatLng,
@@ -285,19 +402,36 @@ export function suggestTransport(
   if (!stops.length) return null
   const cur = summarize(start, stops, people, travel, order)
   const longestM = Math.max(...cur.legs.map((l) => l.distanceM))
-  const walkedM = cur.legs.filter((l) => l.transport === 'walk').reduce((n, l) => n + l.distanceM, 0)
+  const { walkedM, walkMin, longestWalkM } = walkingOf(cur)
   const alt = (to: Transport) => summarize(start, stops, people, { ...travel, transport: to }, order)
 
-  if (travel.transport === 'walk' && (longestM > 2000 || walkedM > 5000)) {
+  const tooFar = longestWalkM > WALK_LIMIT.legM || walkedM > WALK_LIMIT.totalM || walkMin > WALK_LIMIT.totalMin
+  if (travel.transport === 'walk' && tooFar) {
     const to: Transport = people >= 3 ? 'car' : 'grabbike'
     const s = alt(to)
     const savedMin = cur.travelMin - s.travelMin
-    if (savedMin < 10) return null
-    return { to, reason: longestM > 5000 ? 'farApart' : 'longWalk', longestM, savedMin, extraCostK: s.travelCostK - cur.travelCostK }
+    if (savedMin < 8) return null
+    return {
+      to,
+      reason: longestM > 5000 ? 'farApart' : 'longWalk',
+      longestM,
+      walkedM,
+      walkMin,
+      savedMin,
+      extraCostK: s.travelCostK - cur.travelCostK,
+    }
   }
   if (travel.transport !== 'walk' && longestM < 900 && cur.distanceM < 2500) {
     const s = alt('walk')
-    return { to: 'walk', reason: 'allClose', longestM, savedMin: cur.travelMin - s.travelMin, extraCostK: s.travelCostK - cur.travelCostK }
+    return {
+      to: 'walk',
+      reason: 'allClose',
+      longestM,
+      walkedM,
+      walkMin,
+      savedMin: cur.travelMin - s.travelMin,
+      extraCostK: s.travelCostK - cur.travelCostK,
+    }
   }
   return null
 }

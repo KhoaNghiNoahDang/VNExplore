@@ -1,0 +1,2157 @@
+{
+ "roles": [
+  {
+   "id": "merchant",
+   "area": "any",
+   "tags": [
+    "food",
+    "culture",
+    "sight",
+    "market"
+   ],
+   "name": {
+    "vi": "Thương nhân phố Hàng",
+    "en": "Hang Street Merchant"
+   },
+   "intro": {
+    "vi": "Bạn vừa từ quê lên kinh với chiếc xe hàng và giấc mơ lớn. Phố cổ có 36 phố phường, mỗi phố một nghề — hãy tìm chỗ đứng của mình.",
+    "en": "You’ve just arrived from the countryside with a cart and big dreams. The Old Quarter has 36 streets, each selling one thing — find your place among them."
+   },
+   "goal": {
+    "vi": "Gom đủ {n} món hàng để mở sạp",
+    "en": "Gather {n} goods to open your stall"
+   },
+   "itemNoun": {
+    "vi": "món hàng",
+    "en": "goods"
+   },
+   "favPlaces": [
+    "ma-may-87",
+    "dong-xuan",
+    "bach-ma",
+    "egg-coffee",
+    "ta-hien",
+    "women-museum",
+    "o-quan-chuong",
+    "hanoi-post-office"
+   ],
+   "missions": {
+    "ma-may-87": {
+     "task": {
+      "vi": "Học cách một gia đình buôn bán xưa bày hàng ở gian trước.",
+      "en": "Learn how an old merchant family set up shop at the front of the house."
+     },
+     "item": {
+      "vi": "Tấm biển hiệu",
+      "en": "A shop signboard"
+     }
+    },
+    "dong-xuan": {
+     "task": {
+      "vi": "Tìm nơi dân buôn sỉ tụ họp và lấy được lòng tin của họ.",
+      "en": "Find where wholesale traders gather and earn their trust."
+     },
+     "item": {
+      "vi": "Một súc lụa",
+      "en": "A bolt of silk"
+     }
+    },
+    "bach-ma": {
+     "task": {
+      "vi": "Xin thần trấn phía Đông phù hộ cho việc buôn bán.",
+      "en": "Ask the guardian of the east for a blessing on your trade."
+     },
+     "item": {
+      "vi": "Dải lụa đỏ may mắn",
+      "en": "A lucky red ribbon"
+     }
+    },
+    "egg-coffee": {
+     "task": {
+      "vi": "Khám phá cách một người buôn khéo vượt qua lúc thiếu sữa.",
+      "en": "Discover how a clever trader beat the milk shortage."
+     },
+     "item": {
+      "vi": "Công thức bí truyền",
+      "en": "A secret recipe"
+     }
+    },
+    "ta-hien": {
+     "task": {
+      "vi": "Ngồi cùng phố một ly và nghe giá cả trong ngày.",
+      "en": "Share a drink with the street and hear the day’s prices."
+     },
+     "item": {
+      "vi": "Một mối khách quen",
+      "en": "A regular customer"
+     }
+    },
+    "women-museum": {
+     "task": {
+      "vi": "Học mẹo của các chị hàng rong vào phố từ tờ mờ sáng.",
+      "en": "Learn the tricks of the street vendors who walk in before dawn."
+     },
+     "item": {
+      "vi": "Chiếc đòn gánh",
+      "en": "A bamboo shoulder pole"
+     }
+    },
+    "o-quan-chuong": {
+     "task": {
+      "vi": "Đi qua cửa ô phía Đông nơi hàng hoá từ bến sông vào phố – và đọc lệnh cấm sách nhiễu người qua lại.",
+      "en": "Pass the east gate where goods came up from the river — and read the rule that protected traders."
+     },
+     "item": {
+      "vi": "Tấm thẻ qua cửa ô",
+      "en": "A gate pass"
+     }
+    },
+    "hanoi-post-office": {
+     "task": {
+      "vi": "Tìm nơi tin tức và đơn hàng từ khắp xứ được truyền về bằng điện tín.",
+      "en": "Find where news and orders from the whole country arrived by wire."
+     },
+     "item": {
+      "vi": "Bức điện tín của mối hàng",
+      "en": "A telegram from a buyer"
+     }
+    }
+   },
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm một thứ người xưa có thể mang ra chợ bán.",
+      "en": "At {place}, find something people long ago could have sold at market."
+     },
+     "item": {
+      "vi": "Một mặt hàng xưa",
+      "en": "An old trade good"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Hỏi giá món rẻ nhất ở {place} và ghi lại.",
+      "en": "Ask the price of the cheapest dish at {place} and write it down."
+     },
+     "item": {
+      "vi": "Một bảng giá",
+      "en": "A price list"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Đoán xem {place} kiếm tiền từ đâu: vé, đồ ăn hay thứ gì khác?",
+      "en": "Guess how {place} makes its money: tickets, snacks or something else?"
+     },
+     "item": {
+      "vi": "Một bí quyết làm ăn",
+      "en": "A business secret"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Xem sự kiện bán vé thế nào và đếm xem có bao nhiêu người tới.",
+      "en": "See how the event sells tickets and count how many people came."
+     },
+     "item": {
+      "vi": "Một tấm vé",
+      "en": "A ticket"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, đoán xem nơi này từng tấp nập buôn bán thứ gì.",
+      "en": "At {place}, guess what trade once bustled here."
+     },
+     "item": {
+      "vi": "Một ghi chép chợ xưa",
+      "en": "A note on the old market"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, tìm đồ lễ người ta dâng và đoán chúng được mua ở đâu — nhớ giữ trật tự.",
+      "en": "At {place}, spot the offerings and guess where they were bought — keep quiet and respectful."
+     },
+     "item": {
+      "vi": "Một lời cầu buôn may bán đắt",
+      "en": "A prayer for good trade"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Quanh {place}, tìm một biển hiệu cũ và đoán cửa hàng đó bán gì.",
+      "en": "Around {place}, find an old shop sign and guess what it sold."
+     },
+     "item": {
+      "vi": "Một tấm biển hiệu",
+      "en": "A shop sign"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, xem quán bán chạy nhất món gì và vì sao.",
+      "en": "At {place}, see which dish sells best and why."
+     },
+     "item": {
+      "vi": "Một món bán chạy",
+      "en": "A best-seller"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Tìm một chi tiết thật ở đây để có thêm hàng cho sạp.",
+     "en": "Find a real detail here to earn something for your stall."
+    },
+    "item": {
+     "vi": "Một bí quyết buôn bán",
+     "en": "A trade secret"
+    }
+   },
+   "ending": {
+    "vi": "Hàng đã bày đủ, dải lụa đỏ treo trước cửa, sạp hàng nhỏ của bạn mở trên một phố Hàng. Hàng xóm ghé qua chúc may mắn — bạn không còn là người mới đến, bạn đã là một phần của phố cổ.",
+    "en": "With your goods laid out and a red ribbon over the door, your little stall opens on a Hang street. The neighbours come by to wish you luck — you are no longer a newcomer, you are part of the Old Quarter."
+   },
+   "tone": "butter",
+   "draft": true
+  },
+  {
+   "id": "scholar",
+   "area": "any",
+   "tags": [
+    "history",
+    "culture",
+    "sight",
+    "talk"
+   ],
+   "name": {
+    "vi": "Sĩ tử lên kinh",
+    "en": "Scholar Bound for the Capital"
+   },
+   "intro": {
+    "vi": "Bạn đã đi bộ nhiều tuần để lên Thăng Long ứng thí. Trước khi cổng trường thi mở, bạn phải thu thập phúc lành và trí tuệ của kinh thành.",
+    "en": "You’ve walked for weeks to sit the royal exam in Thang Long. Before the exam gate opens, you must gather the blessings and wisdom of the capital."
+   },
+   "goal": {
+    "vi": "Gom {n} bảo vật để vào trường thi",
+    "en": "Collect {n} treasures to enter the exam hall"
+   },
+   "itemNoun": {
+    "vi": "bảo vật",
+    "en": "treasures"
+   },
+   "favPlaces": [
+    "ngoc-son",
+    "the-huc",
+    "turtle-tower",
+    "bach-ma",
+    "hoa-lo",
+    "women-museum",
+    "quan-su-pagoda",
+    "imperial-citadel",
+    "48-hang-ngang"
+   ],
+   "missions": {
+    "ngoc-son": {
+     "task": {
+      "vi": "Thắp hương thần Văn Xương và đọc chữ trên Tháp Bút.",
+      "en": "Pray to the god of literature and read the words on the Pen Tower."
+     },
+     "item": {
+      "vi": "Cây bút lông",
+      "en": "A calligraphy brush"
+     }
+    },
+    "the-huc": {
+     "task": {
+      "vi": "Bước qua cầu ánh ban mai với tâm trí sáng suốt.",
+      "en": "Cross the bridge of morning light with a clear mind."
+     },
+     "item": {
+      "vi": "Tia nắng ban mai",
+      "en": "A ray of morning light"
+     }
+    },
+    "turtle-tower": {
+     "task": {
+      "vi": "Nghe truyền thuyết trả gươm — bài học về sự khiêm nhường.",
+      "en": "Learn the legend of the returned sword — a lesson in humility."
+     },
+     "item": {
+      "vi": "Phúc lành của Rùa Vàng",
+      "en": "The golden turtle’s blessing"
+     }
+    },
+    "bach-ma": {
+     "task": {
+      "vi": "Tìm hiểu thành Thăng Long được vạch ra như thế nào.",
+      "en": "Find out how the capital’s walls were first traced."
+     },
+     "item": {
+      "vi": "Bản đồ kinh thành",
+      "en": "A map of the citadel"
+     }
+    },
+    "hoa-lo": {
+     "task": {
+      "vi": "Tưởng nhớ những người vẫn học, vẫn viết sau song sắt.",
+      "en": "Remember those who studied and wrote even behind prison walls."
+     },
+     "item": {
+      "vi": "Cuốn sổ bí mật",
+      "en": "A hidden notebook"
+     }
+    },
+    "women-museum": {
+     "task": {
+      "vi": "Hiểu sự hy sinh của ai đã giúp sĩ tử lên được kinh thành.",
+      "en": "Learn whose sacrifices let a scholar travel to the capital."
+     },
+     "item": {
+      "vi": "Lá thư của mẹ",
+      "en": "A mother’s letter"
+     }
+    },
+    "quan-su-pagoda": {
+     "task": {
+      "vi": "Tìm hiểu kinh thành đón tiếp sứ thần ra sao – bài học về bang giao.",
+      "en": "Learn how the capital welcomed foreign envoys — a lesson in diplomacy."
+     },
+     "item": {
+      "vi": "Ấn tín của sứ thần",
+      "en": "An envoy's seal"
+     }
+    },
+    "imperial-citadel": {
+     "task": {
+      "vi": "Bước qua Đoan Môn, cánh cổng mọi vị quan phải đi qua để vào chầu vua.",
+      "en": "Walk through Doan Mon, the gate every official passed to reach the king."
+     },
+     "item": {
+      "vi": "Dải đai triều phục",
+      "en": "A court robe sash"
+     }
+    },
+    "48-hang-ngang": {
+     "task": {
+      "vi": "Tìm chiếc bàn nhỏ nơi những lời đầu tiên của một đất nước mới được viết ra.",
+      "en": "Find the small table where a new country's first words were written."
+     },
+     "item": {
+      "vi": "Trang giấy đánh máy",
+      "en": "A typed page"
+     }
+    }
+   },
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm một dòng chữ, con số hoặc biểu tượng và đoán ý nghĩa.",
+      "en": "At {place}, find an inscription, number or symbol and guess its meaning."
+     },
+     "item": {
+      "vi": "Một câu đối",
+      "en": "A couplet"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, đoán xem món ăn này đã có từ bao giờ.",
+      "en": "At {place}, guess how long this dish has existed."
+     },
+     "item": {
+      "vi": "Một trang sử ẩm thực",
+      "en": "A page of food history"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Quan sát luật chơi ở {place} và giải thích lại cho bạn đồng hành.",
+      "en": "Watch how things work at {place} and explain the rules to a companion."
+     },
+     "item": {
+      "vi": "Một bài học mới",
+      "en": "A new lesson"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Ghi lại tên người biểu diễn hoặc tác giả, rồi kể lại cho cả nhóm một điều về họ.",
+      "en": "Note the performer’s or artist’s name, then tell the group one thing about them."
+     },
+     "item": {
+      "vi": "Một trang ghi chép",
+      "en": "A page of notes"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, tìm một mốc năm và tính xem cách đây bao nhiêu năm.",
+      "en": "At {place}, find a year and work out how long ago it was."
+     },
+     "item": {
+      "vi": "Một mốc thời gian",
+      "en": "A date to remember"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, tìm chữ Hán hoặc câu đối và đoán một chữ — giữ trật tự nơi thờ tự.",
+      "en": "At {place}, find Chinese characters or a couplet and guess one word — stay respectful."
+     },
+     "item": {
+      "vi": "Một chữ Hán",
+      "en": "A character"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, đặt một câu hỏi mà bạn muốn tìm câu trả lời sau chuyến đi.",
+      "en": "At {place}, write down one question you want answered after the trip."
+     },
+     "item": {
+      "vi": "Một câu hỏi hay",
+      "en": "A good question"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, học cách gọi món bằng tiếng Việt và thử gọi.",
+      "en": "At {place}, learn how to order in Vietnamese and give it a try."
+     },
+     "item": {
+      "vi": "Một câu tiếng Việt",
+      "en": "A Vietnamese phrase"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Quan sát thật kỹ — sĩ tử giỏi là người để ý chi tiết.",
+     "en": "Observe carefully — a true scholar notices the details."
+    },
+    "item": {
+     "vi": "Một trang ghi chép",
+     "en": "A page of notes"
+    }
+   },
+   "ending": {
+    "vi": "Trống điểm, cổng trường thi mở. Với cây bút, trang ghi chép và phúc lành của kinh thành, bạn ngồi vào lều thi. Dù kết quả thế nào, bạn đã học được điều kinh thành muốn dạy.",
+    "en": "The drum sounds and the exam gate opens. With your brush, your notes and the blessings of the capital, you take your seat. Whatever the result, you have learned what the city had to teach."
+   },
+   "tone": "teal",
+   "draft": true
+  },
+  {
+   "id": "photographer",
+   "area": "any",
+   "tags": [
+    "photo",
+    "history",
+    "sight",
+    "exhibition",
+    "film"
+   ],
+   "name": {
+    "vi": "Nhiếp ảnh gia thập niên 1930",
+    "en": "1930s Photographer"
+   },
+   "intro": {
+    "vi": "Những năm 1930. Bạn vừa mua chiếc máy ảnh đầu tiên cùng vài tấm kính phim. Một tờ báo Hà Thành sẽ in triển lãm của bạn — nếu bạn mang về đúng những khung hình.",
+    "en": "It’s 1930-something. You’ve bought your first camera with a handful of glass plates. A Hanoi newspaper will print your exhibition — if you bring the right shots."
+   },
+   "goal": {
+    "vi": "Chụp đủ {n} khung hình cho triển lãm",
+    "en": "Capture {n} frames for your exhibition"
+   },
+   "itemNoun": {
+    "vi": "khung hình",
+    "en": "frames"
+   },
+   "favPlaces": [
+    "the-huc",
+    "cathedral",
+    "turtle-tower",
+    "dong-xuan",
+    "ngoc-son",
+    "hoa-lo",
+    "opera-house",
+    "hoa-phong-tower",
+    "o-quan-chuong"
+   ],
+   "missions": {
+    "the-huc": {
+     "task": {
+      "vi": "Chờ ánh sáng đậu trên dáng cầu đỏ rồi bấm máy.",
+      "en": "Wait for the light to rest on the red curve, then shoot."
+     },
+     "item": {
+      "vi": "Khung hình: cây cầu đỏ",
+      "en": "Frame: the red bridge"
+     }
+    },
+    "cathedral": {
+     "task": {
+      "vi": "Chụp đôi tháp chuông Pháp mới xây cho tờ báo.",
+      "en": "Photograph the new French-built towers for the newspaper."
+     },
+     "item": {
+      "vi": "Khung hình: đôi tháp chuông",
+      "en": "Frame: the twin towers"
+     }
+    },
+    "turtle-tower": {
+     "task": {
+      "vi": "Chụp ngọn tháp trên mặt nước lặng, như huyền thoại ngưng đọng.",
+      "en": "Capture the tower in still water, like a legend frozen in time."
+     },
+     "item": {
+      "vi": "Khung hình: hồ trả gươm",
+      "en": "Frame: the returned sword"
+     }
+    },
+    "dong-xuan": {
+     "task": {
+      "vi": "Tìm khoảnh khắc đông vui nhất của chợ và giữ nó lại.",
+      "en": "Find the market’s busiest moment and freeze it."
+     },
+     "item": {
+      "vi": "Khung hình: chợ lớn",
+      "en": "Frame: the great market"
+     }
+    },
+    "ngoc-son": {
+     "task": {
+      "vi": "Chụp ngọn Tháp Bút viết lên trời xanh.",
+      "en": "Photograph the Pen Tower that writes on the sky."
+     },
+     "item": {
+      "vi": "Khung hình: Tháp Bút",
+      "en": "Frame: the Pen Tower"
+     }
+    },
+    "hoa-lo": {
+     "task": {
+      "vi": "Ghi lại cổng nhà tù mà báo chí không dám nhắc tới.",
+      "en": "Document the prison gate the newspapers won’t talk about."
+     },
+     "item": {
+      "vi": "Khung hình: cánh cổng sắt",
+      "en": "Frame: the iron gate"
+     }
+    },
+    "opera-house": {
+     "task": {
+      "vi": "Chụp Nhà hát Lớn mới khánh thành cho số báo buổi chiều.",
+      "en": "Photograph the brand-new Opera House for the evening edition."
+     },
+     "item": {
+      "vi": "Khung hình: mặt tiền Nhà hát",
+      "en": "Frame: the Opera facade"
+     }
+    },
+    "hoa-phong-tower": {
+     "task": {
+      "vi": "Ghi lại mảnh cuối cùng của một ngôi chùa lớn trước khi nó bị lãng quên.",
+      "en": "Capture the last piece of a great pagoda before it is forgotten."
+     },
+     "item": {
+      "vi": "Khung hình: ngọn tháp đơn độc",
+      "en": "Frame: the lone tower"
+     }
+    },
+    "o-quan-chuong": {
+     "task": {
+      "vi": "Chụp cửa ô cổ với dòng người qua lại.",
+      "en": "Shoot the old city gate with life passing through it."
+     },
+     "item": {
+      "vi": "Khung hình: cửa ô phía Đông",
+      "en": "Frame: the east gate"
+     }
+    }
+   },
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Chụp {place} từ một góc mà ít ai đứng.",
+      "en": "Photograph {place} from an angle few people stand at."
+     },
+     "item": {
+      "vi": "Một khung hình lạ",
+      "en": "An unusual frame"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Chụp món ăn ở {place} từ trên xuống, kèm đôi tay đang ăn.",
+      "en": "Shoot the food at {place} from above, with hands in the frame."
+     },
+     "item": {
+      "vi": "Khung hình bữa ăn",
+      "en": "A meal frame"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Bắt khoảnh khắc ai đó đang cười ở {place}.",
+      "en": "Catch someone laughing at {place}."
+     },
+     "item": {
+      "vi": "Khung hình niềm vui",
+      "en": "A frame of joy"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Chụp không khí sự kiện — chỉ khi được phép, không dùng đèn flash.",
+      "en": "Capture the mood of the event — only where allowed, no flash."
+     },
+     "item": {
+      "vi": "Khung hình sân khấu",
+      "en": "A stage frame"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "photo",
+     "task": {
+      "vi": "Ở {place}, chụp một khung hình có người địa phương làm điểm nhấn — xin phép trước khi chụp cận.",
+      "en": "At {place}, frame a shot with a local as the focus — ask before close-ups."
+     },
+     "item": {
+      "vi": "Khung hình chân dung",
+      "en": "A portrait frame"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, chụp một chi tiết cũ nhất mà bạn tìm được.",
+      "en": "At {place}, photograph the oldest detail you can find."
+     },
+     "item": {
+      "vi": "Khung hình hoài cổ",
+      "en": "A vintage frame"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, chụp mái hoặc cổng từ xa, không chụp người đang lễ.",
+      "en": "At {place}, shoot the roof or gate from afar — not people praying."
+     },
+     "item": {
+      "vi": "Khung hình mái ngói",
+      "en": "A rooftop frame"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, chụp tay người nấu đang làm món.",
+      "en": "At {place}, photograph the cook’s hands at work."
+     },
+     "item": {
+      "vi": "Khung hình bếp lửa",
+      "en": "A kitchen frame"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Tìm một chi tiết kể được câu chuyện của nơi này.",
+     "en": "Find the one detail that tells this place’s story."
+    },
+    "item": {
+     "vi": "Khung hình đường phố",
+     "en": "A street frame"
+    }
+   },
+   "ending": {
+    "vi": "Những tấm kính phim được tráng rửa và treo lên tường toà báo. Người đọc dừng lại trước từng tấm — họ nhận ra chính con phố của mình. Chín mươi năm sau, bạn vừa chụp lại đúng những khung hình ấy.",
+    "en": "Your glass plates are developed and pinned on the newspaper’s wall. Readers stop in front of them — they recognise their own streets. Ninety years later, you have just taken the same photos again."
+   },
+   "tone": "brick",
+   "draft": true
+  },
+  {
+   "id": "chef",
+   "area": "any",
+   "tags": [
+    "food",
+    "market"
+   ],
+   "name": {
+    "vi": "Đầu bếp tập sự",
+    "en": "Apprentice Cook"
+   },
+   "intro": {
+    "vi": "Sư phụ giao cho bạn chiếc giỏ trống và bảo vào phố cổ. Muốn nấu mâm cỗ đầu tiên, bạn phải học hương vị Hà Nội từ chính những người làm ra nó.",
+    "en": "Your master sent you into the Old Quarter with an empty basket. To cook your first feast, you must learn the city’s flavours from those who made them."
+   },
+   "goal": {
+    "vi": "Gom {n} nguyên liệu cho mâm cỗ đầu tiên",
+    "en": "Gather {n} ingredients for your first feast"
+   },
+   "itemNoun": {
+    "vi": "nguyên liệu",
+    "en": "ingredients"
+   },
+   "favPlaces": [
+    "bun-cha",
+    "egg-coffee",
+    "dong-xuan",
+    "ta-hien",
+    "ma-may-87",
+    "water-puppets",
+    "ly-thai-to-park"
+   ],
+   "missions": {
+    "bun-cha": {
+     "task": {
+      "vi": "Học bí quyết bát nước chấm — chua, ngọt, mặn, thơm khói.",
+      "en": "Learn the secret of the dipping broth — sweet, sour, salty, smoky."
+     },
+     "item": {
+      "vi": "Làn khói than hoa",
+      "en": "Charcoal smoke"
+     }
+    },
+    "egg-coffee": {
+     "task": {
+      "vi": "Xem lòng đỏ và đường biến thành kem như thế nào.",
+      "en": "Watch how yolk and sugar become cream."
+     },
+     "item": {
+      "vi": "Kem trứng vàng",
+      "en": "Golden egg cream"
+     }
+    },
+    "dong-xuan": {
+     "task": {
+      "vi": "Tìm rau thơm tươi nhất ở ngõ sau chợ.",
+      "en": "Find the freshest herbs in the market’s back alley."
+     },
+     "item": {
+      "vi": "Bó rau thơm",
+      "en": "A bundle of fresh herbs"
+     }
+    },
+    "ta-hien": {
+     "task": {
+      "vi": "Nếm thử món nhắm buổi tối của phố.",
+      "en": "Taste what the street snacks on in the evening."
+     },
+     "item": {
+      "vi": "Món nhắm vỉa hè",
+      "en": "A street snack"
+     }
+    },
+    "ma-may-87": {
+     "task": {
+      "vi": "Tìm gian bếp của nhà cổ và xem một gia đình xưa nấu nướng.",
+      "en": "Find the kitchen of the old house and see how a family cooked."
+     },
+     "item": {
+      "vi": "Chiếc niêu đất",
+      "en": "A family clay pot"
+     }
+    },
+    "water-puppets": {
+     "task": {
+      "vi": "Xem cảnh đồng lúa — nơi mọi bữa cơm bắt đầu.",
+      "en": "Watch the rice-field scenes — where every meal begins."
+     },
+     "item": {
+      "vi": "Nắm gạo mới",
+      "en": "A handful of new rice"
+     }
+    },
+    "ly-thai-to-park": {
+     "task": {
+      "vi": "Quan sát người tập buổi sáng và tìm hiểu Hà Nội ăn gì trước 7 giờ.",
+      "en": "Watch the morning crowd and learn what Hanoi eats before 7 am."
+     },
+     "item": {
+      "vi": "Bí mật bữa sáng",
+      "en": "A breakfast secret"
+     }
+    }
+   },
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm một thứ gợi bạn nhớ tới một nguyên liệu nấu ăn.",
+      "en": "At {place}, find something that reminds you of a cooking ingredient."
+     },
+     "item": {
+      "vi": "Một ý tưởng món mới",
+      "en": "An idea for a dish"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Nếm món ở {place} và đoán ba gia vị chính.",
+      "en": "Taste the food at {place} and guess its three main seasonings."
+     },
+     "item": {
+      "vi": "Một gia vị bí mật",
+      "en": "A secret seasoning"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Tìm món ăn vặt người ta hay mua ở {place}.",
+      "en": "Find the snack people usually buy at {place}."
+     },
+     "item": {
+      "vi": "Một món ăn vặt",
+      "en": "A street snack"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Xem sự kiện có đồ ăn, đồ uống gì và chọn một thứ để thử.",
+      "en": "See what food and drink the event offers and pick one to try."
+     },
+     "item": {
+      "vi": "Một hương vị đêm hội",
+      "en": "A taste of the night"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, đoán xem người xưa ở đây ăn gì mỗi sáng.",
+      "en": "At {place}, guess what people here once ate for breakfast."
+     },
+     "item": {
+      "vi": "Một thực đơn xưa",
+      "en": "An old menu"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Quanh {place}, tìm một gánh hàng rong và xem họ bán món gì.",
+      "en": "Around {place}, find a street vendor and see what they sell."
+     },
+     "item": {
+      "vi": "Một món gánh rong",
+      "en": "A street-cart dish"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, quan sát thứ tự người bán cho nguyên liệu vào bát.",
+      "en": "At {place}, watch the order the cook adds ingredients to the bowl."
+     },
+     "item": {
+      "vi": "Một bí quyết nêm nếm",
+      "en": "A seasoning secret"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, nghĩ ra một món ăn hợp để thưởng thức sau buổi vui chơi.",
+      "en": "At {place}, dream up the perfect dish to eat after the fun."
+     },
+     "item": {
+      "vi": "Một công thức mới",
+      "en": "A new recipe"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Nơi nào cũng có một hương vị. Tìm chi tiết ẩn giấu nó.",
+     "en": "Every place has a flavour. Find the detail that hides it."
+    },
+    "item": {
+     "vi": "Một chút vị Hà Nội",
+     "en": "A pinch of Hanoi"
+    }
+   },
+   "ending": {
+    "vi": "Trở về bếp, bạn bày ra tất cả những gì đã gom được. Sư phụ nếm thìa đầu tiên, lặng đi một lúc rồi gật đầu: “Giờ con nấu như người đã đi qua từng con phố ấy.”",
+    "en": "Back in the kitchen, you lay out everything you gathered. Your master tastes the first spoonful, pauses, and nods. “Now you cook like someone who has walked these streets.”"
+   },
+   "tone": "leaf",
+   "draft": true
+  },
+  {
+   "id": "reporter",
+   "area": "hoan-kiem",
+   "tags": [
+    "history",
+    "photo",
+    "sight",
+    "talk"
+   ],
+   "name": {
+    "vi": "Phóng viên báo Đông Dương",
+    "en": "Indochina Reporter"
+   },
+   "intro": {
+    "vi": "Toà soạn cần một số báo đặc biệt về Hà Nội trước sáng mai. Bạn có cuốn sổ, cây bút chì và một ngày để săn tin từ chính những con phố.",
+    "en": "The newsroom needs a special issue on Hanoi by tomorrow morning. You have a notebook, a pencil and one day to find the stories in the streets themselves."
+   },
+   "goal": {
+    "vi": "Săn đủ {n} tin bài cho số báo đặc biệt",
+    "en": "Gather {n} scoops for the special issue"
+   },
+   "itemNoun": {
+    "vi": "tin bài",
+    "en": "scoops"
+   },
+   "favPlaces": [
+    "hoa-lo",
+    "hanoi-post-office",
+    "cathedral",
+    "opera-house",
+    "national-history-museum",
+    "hoa-phong-tower",
+    "48-hang-ngang"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm một chi tiết đủ lạ để làm tít báo.",
+      "en": "At {place}, find a detail odd enough for a headline."
+     },
+     "item": {
+      "vi": "Một dòng tít",
+      "en": "A headline"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Phỏng vấn nhanh: hỏi người bán ở {place} đã làm nghề bao lâu.",
+      "en": "Quick interview: ask the vendor at {place} how long they’ve been at it."
+     },
+     "item": {
+      "vi": "Một câu trích dẫn",
+      "en": "A quote"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Đếm xem có bao nhiêu người ở {place} và họ đến từ đâu.",
+      "en": "Count how many people are at {place} and guess where they’re from."
+     },
+     "item": {
+      "vi": "Một con số",
+      "en": "A statistic"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Viết một câu tường thuật ngắn về sự kiện, như cho trang nhất.",
+      "en": "Write a one-line report on the event, as if for the front page."
+     },
+     "item": {
+      "vi": "Một bản tin nóng",
+      "en": "A breaking story"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, tìm một sự kiện từng xảy ra và viết tít như báo năm ấy.",
+      "en": "At {place}, find something that once happened here and write a headline as the paper would have then."
+     },
+     "item": {
+      "vi": "Một tin cũ",
+      "en": "An old scoop"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "photo",
+     "task": {
+      "vi": "Ở {place}, chụp một ảnh đủ để làm ảnh bìa số báo.",
+      "en": "At {place}, take a photo good enough for the front page."
+     },
+     "item": {
+      "vi": "Một ảnh bìa",
+      "en": "A cover photo"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, quan sát lặng lẽ và ghi lại ba âm thanh bạn nghe được.",
+      "en": "At {place}, observe quietly and note three sounds you hear."
+     },
+     "item": {
+      "vi": "Một bản ghi hiện trường",
+      "en": "A field report"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, hỏi một người qua đường: \"Nơi này có gì đặc biệt?\" — hoặc tự trả lời nếu ngại.",
+      "en": "At {place}, ask a passer-by \"What’s special here?\" — or answer it yourself if shy."
+     },
+     "item": {
+      "vi": "Một ý kiến người dân",
+      "en": "A vox pop"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, ghi giá món ăn để so sánh với một quán khác trong ngày.",
+      "en": "At {place}, note the price to compare with another stall later today."
+     },
+     "item": {
+      "vi": "Một bảng so sánh giá",
+      "en": "A price check"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Tìm một chi tiết đủ lạ để làm tít báo.",
+     "en": "Find a detail odd enough to make a headline."
+    },
+    "item": {
+     "vi": "Một dòng tít",
+     "en": "A headline"
+    }
+   },
+   "ending": {
+    "vi": "Bản in đầu tiên còn thơm mùi mực. Trang nhất là những câu chuyện bạn nhặt được trên đường — và sáng nay, cả thành phố đang đọc chúng.",
+    "en": "The first copies still smell of ink. The front page is made of the stories you picked up along the way — and this morning, the whole city is reading them."
+   },
+   "tone": "teal",
+   "draft": true
+  },
+  {
+   "id": "architect",
+   "area": "hoan-kiem",
+   "tags": [
+    "history",
+    "photo",
+    "culture",
+    "sight"
+   ],
+   "name": {
+    "vi": "Kiến trúc sư phố Pháp",
+    "en": "French Quarter Architect"
+   },
+   "intro": {
+    "vi": "Bạn được mời thiết kế một toà nhà mới cho Hà Nội. Trước khi đặt bút, hãy học cách những công trình cũ đã hoà Đông với Tây.",
+    "en": "You’ve been asked to design a new building for Hanoi. Before you draw a line, learn how the old buildings blended East and West."
+   },
+   "goal": {
+    "vi": "Vẽ đủ {n} bản phác thảo cho công trình mới",
+    "en": "Draw {n} sketches for your new building"
+   },
+   "itemNoun": {
+    "vi": "bản phác thảo",
+    "en": "sketches"
+   },
+   "favPlaces": [
+    "opera-house",
+    "hanoi-post-office",
+    "cathedral",
+    "national-history-museum",
+    "cua-bac-church",
+    "hoa-phong-tower",
+    "o-quan-chuong"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm chi tiết pha trộn Đông và Tây — mái, cửa hay hoa văn.",
+      "en": "At {place}, find a detail that mixes East and West — roof, door or pattern."
+     },
+     "item": {
+      "vi": "Một bản phác thảo",
+      "en": "A sketch"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Quan sát {place}: quán tận dụng không gian nhỏ thế nào?",
+      "en": "Study {place}: how does it make the most of a small space?"
+     },
+     "item": {
+      "vi": "Một mẹo không gian",
+      "en": "A space trick"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Xem {place} được bố trí thế nào để nhiều người dùng cùng lúc.",
+      "en": "See how {place} is laid out so many people can use it at once."
+     },
+     "item": {
+      "vi": "Một sơ đồ mặt bằng",
+      "en": "A floor plan"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Quan sát sân khấu và chỗ ngồi: người xem ở cuối có nghe rõ không?",
+      "en": "Study the stage and seats: can people at the back hear well?"
+     },
+     "item": {
+      "vi": "Một bản vẽ âm học",
+      "en": "An acoustics sketch"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, đoán toà nhà được xây năm nào chỉ bằng cách nhìn.",
+      "en": "At {place}, guess when the building went up just by looking."
+     },
+     "item": {
+      "vi": "Một bản ghi niên đại",
+      "en": "A dating note"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, đếm số lớp mái và tìm con vật trang trí trên nóc.",
+      "en": "At {place}, count the roof tiers and find the animal on the ridge."
+     },
+     "item": {
+      "vi": "Một bản vẽ mái",
+      "en": "A roof drawing"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "photo",
+     "task": {
+      "vi": "Ở {place}, tìm đường thẳng đẹp nhất — một hàng cột, một mép tường — và căn khung theo nó.",
+      "en": "At {place}, find the cleanest line — a row of columns, an edge — and frame along it."
+     },
+     "item": {
+      "vi": "Một đường nét",
+      "en": "A clean line"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm vật liệu chính: gạch, gỗ, đá hay vữa?",
+      "en": "At {place}, work out the main material: brick, wood, stone or plaster?"
+     },
+     "item": {
+      "vi": "Một mẫu vật liệu",
+      "en": "A material sample"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Tìm một chi tiết kiến trúc — mái, cửa sổ, hoa văn — và nhìn thật kỹ.",
+     "en": "Find one architectural detail — a roof, a window, a pattern — and study it."
+    },
+    "item": {
+     "vi": "Một nét phác thảo",
+     "en": "A quick sketch"
+    }
+   },
+   "ending": {
+    "vi": "Bản vẽ cuối cùng nằm trên bàn: mái ngói của phố cổ, cửa chớp kiểu Pháp, khoảng sân cho cây xanh. Một toà nhà chỉ có thể đứng ở Hà Nội.",
+    "en": "The final drawing lies on the table: Old Quarter tiles, French shutters, a courtyard for trees. A building that could only stand in Hanoi."
+   },
+   "tone": "brick",
+   "draft": true
+  },
+  {
+   "id": "storyteller",
+   "area": "any",
+   "tags": [
+    "culture",
+    "history",
+    "sight",
+    "theatre"
+   ],
+   "name": {
+    "vi": "Người kể chuyện dân gian",
+    "en": "Folk Storyteller"
+   },
+   "intro": {
+    "vi": "Làng bạn sắp có hội, và bà con chờ những câu chuyện mới. Hãy đi tìm tích xưa ở đền, ở hồ, ở những nơi người ta vẫn còn kể.",
+    "en": "Your village festival is coming and everyone is waiting for new tales. Go and find the old legends — at temples, lakes, wherever people still tell them."
+   },
+   "goal": {
+    "vi": "Gom {n} tích truyện cho đêm hội",
+    "en": "Collect {n} tales for festival night"
+   },
+   "itemNoun": {
+    "vi": "tích truyện",
+    "en": "tales"
+   },
+   "favPlaces": [
+    "ngoc-son",
+    "turtle-tower",
+    "the-huc",
+    "water-puppets",
+    "ba-kieu-temple",
+    "quan-su-pagoda",
+    "bach-ma",
+    "den-va",
+    "den-thuong",
+    "dinh-mong-phu"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm hình con vật hoặc vị thần và đoán câu chuyện sau nó.",
+      "en": "At {place}, find an animal or deity figure and guess the story behind it."
+     },
+     "item": {
+      "vi": "Một tích truyện",
+      "en": "A tale"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Hỏi hoặc đoán: món ở {place} có gắn với dịp lễ nào không?",
+      "en": "Ask or guess: is the food at {place} tied to any festival?"
+     },
+     "item": {
+      "vi": "Một chuyện bên mâm",
+      "en": "A table tale"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Kể cho bạn đồng hành một câu chuyện ngắn bắt đầu ở {place}.",
+      "en": "Tell a companion a short story that begins at {place}."
+     },
+     "item": {
+      "vi": "Một chuyện mới",
+      "en": "A new story"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Sau sự kiện, kể lại nó trong ba câu cho người chưa đến.",
+      "en": "After the event, retell it in three sentences for someone who wasn’t there."
+     },
+     "item": {
+      "vi": "Một chuyện kể lại",
+      "en": "A retold tale"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, tưởng tượng một nhân vật từng sống ở đây và đặt tên cho họ.",
+      "en": "At {place}, imagine someone who lived here and give them a name."
+     },
+     "item": {
+      "vi": "Một nhân vật mới",
+      "en": "A new character"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "photo",
+     "task": {
+      "vi": "Ở {place}, chọn một khung cảnh làm \"cảnh mở đầu\" cho câu chuyện.",
+      "en": "At {place}, pick a view as the opening scene of a story."
+     },
+     "item": {
+      "vi": "Một cảnh mở đầu",
+      "en": "An opening scene"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm một vật nhỏ có thể là \"chìa khoá\" trong một câu chuyện.",
+      "en": "At {place}, find a small object that could be the key to a story."
+     },
+     "item": {
+      "vi": "Một chiếc chìa khoá",
+      "en": "A story key"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, đặt tên cho món ăn như thể nó là món của một vị vua.",
+      "en": "At {place}, name the dish as if a king had ordered it."
+     },
+     "item": {
+      "vi": "Một món ngự thiện",
+      "en": "A royal dish"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Hình dung nơi này một trăm năm trước — ai đã đứng đây?",
+     "en": "Picture this place a hundred years ago — who stood here?"
+    },
+    "item": {
+     "vi": "Một mẩu chuyện",
+     "en": "A fragment of a tale"
+    }
+   },
+   "ending": {
+    "vi": "Đêm hội, bên đống lửa, bạn kể lại từng tích truyện đã gom được. Lũ trẻ ngồi im phăng phắc — và câu chuyện lại sống thêm một đời nữa.",
+    "en": "On festival night, by the fire, you tell every tale you gathered. The children sit perfectly still — and the stories live for another generation."
+   },
+   "tone": "butter",
+   "draft": true
+  },
+  {
+   "id": "painter",
+   "area": "any",
+   "tags": [
+    "photo",
+    "culture",
+    "sight",
+    "exhibition"
+   ],
+   "name": {
+    "vi": "Hoạ sĩ vẽ phố",
+    "en": "Street Painter"
+   },
+   "intro": {
+    "vi": "Phòng tranh nhỏ của bạn mở cửa vào cuối tuần, nhưng tường vẫn trống. Mang theo sổ vẽ và tìm những sắc màu chỉ Hà Nội mới có.",
+    "en": "Your little gallery opens this weekend, but the walls are still bare. Take your sketchbook and find the colours only Hanoi has."
+   },
+   "goal": {
+    "vi": "Tìm {n} sắc màu cho phòng tranh",
+    "en": "Find {n} colours for your gallery"
+   },
+   "itemNoun": {
+    "vi": "sắc màu",
+    "en": "colours"
+   },
+   "favPlaces": [
+    "dien-hong-garden",
+    "the-huc",
+    "cathedral",
+    "ta-hien",
+    "48-hang-ngang",
+    "ma-may-87",
+    "ly-thai-to-park",
+    "long-pond",
+    "xuan-khanh-lake"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Chọn màu nổi bật nhất ở {place} và đặt tên cho nó.",
+      "en": "Pick the boldest colour at {place} and give it a name."
+     },
+     "item": {
+      "vi": "Một vệt màu",
+      "en": "A dab of colour"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, đếm xem trên bàn ăn có bao nhiêu màu.",
+      "en": "At {place}, count how many colours are on the table."
+     },
+     "item": {
+      "vi": "Bảng màu bữa ăn",
+      "en": "A meal palette"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Phác nhanh dáng một người đang vui chơi ở {place} — chỉ cần vài nét.",
+      "en": "Quickly sketch someone having fun at {place} — a few lines will do."
+     },
+     "item": {
+      "vi": "Một nét ký hoạ",
+      "en": "A quick sketch"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Ghi lại ánh sáng và màu sắc của sân khấu bằng ba từ.",
+      "en": "Describe the stage’s light and colour in three words."
+     },
+     "item": {
+      "vi": "Một sắc đèn",
+      "en": "A stage colour"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, tìm vết thời gian — rêu, sơn bong, gạch mòn — và tả màu của nó.",
+      "en": "At {place}, find a mark of time — moss, peeling paint, worn brick — and describe its colour."
+     },
+     "item": {
+      "vi": "Một sắc cũ",
+      "en": "An old hue"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "photo",
+     "task": {
+      "vi": "Ở {place}, nheo mắt nhìn và tìm ba mảng màu lớn nhất.",
+      "en": "At {place}, squint and find the three biggest blocks of colour."
+     },
+     "item": {
+      "vi": "Một bố cục",
+      "en": "A composition"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, tìm màu đỏ và vàng của nơi thờ tự và đoán ý nghĩa.",
+      "en": "At {place}, find the reds and golds of the shrine and guess what they mean."
+     },
+     "item": {
+      "vi": "Một sắc đỏ son",
+      "en": "A lacquer red"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, vẽ nhanh đường chân trời trong 30 giây.",
+      "en": "At {place}, sketch the skyline in 30 seconds."
+     },
+     "item": {
+      "vi": "Một nét chân trời",
+      "en": "A skyline line"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Chọn một màu nổi bật nhất ở đây và tìm xem nó đến từ đâu.",
+     "en": "Pick the boldest colour here and find where it comes from."
+    },
+    "item": {
+     "vi": "Một vệt màu",
+     "en": "A dab of colour"
+    }
+   },
+   "ending": {
+    "vi": "Những bức tranh treo kín tường: vàng của tường cũ, đỏ của cầu, xanh của hồ. Khách đứng lặng trước tranh — họ nhận ra Hà Nội của chính mình.",
+    "en": "The paintings fill the walls: the yellow of old walls, the red of the bridge, the green of the lake. Visitors stand still in front of them — they recognise their own Hanoi."
+   },
+   "tone": "leaf",
+   "draft": true
+  },
+  {
+   "id": "food-writer",
+   "area": "any",
+   "tags": [
+    "food",
+    "market",
+    "culture"
+   ],
+   "name": {
+    "vi": "Người viết sổ tay ẩm thực",
+    "en": "Food Guide Writer"
+   },
+   "intro": {
+    "vi": "Một nhà xuất bản muốn cuốn sổ tay ẩm thực Hà Nội đầu tiên. Bạn có cái bụng đói và một ngày để tìm những món đáng ghi lại.",
+    "en": "A publisher wants the first pocket guide to Hanoi’s food. You have an empty stomach and one day to find the dishes worth writing down."
+   },
+   "goal": {
+    "vi": "Ghi đủ {n} món tủ vào sổ tay",
+    "en": "Note down {n} signature dishes"
+   },
+   "itemNoun": {
+    "vi": "món tủ",
+    "en": "signature dishes"
+   },
+   "favPlaces": [
+    "bun-cha",
+    "egg-coffee",
+    "dong-xuan",
+    "ta-hien"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Hỏi hoặc đoán quanh {place} có quán nào người địa phương hay ăn.",
+      "en": "Ask or guess which nearby place locals eat at around {place}."
+     },
+     "item": {
+      "vi": "Một lời mách",
+      "en": "A local tip"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Chấm điểm món ở {place} theo ba tiêu chí: vị, giá, không khí.",
+      "en": "Rate the food at {place} on taste, price and atmosphere."
+     },
+     "item": {
+      "vi": "Một trang đánh giá",
+      "en": "A review page"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Tìm đồ uống được gọi nhiều nhất ở {place}.",
+      "en": "Find the most-ordered drink at {place}."
+     },
+     "item": {
+      "vi": "Một ly đặc trưng",
+      "en": "A signature drink"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Ghi lại món ăn hoặc thức uống mọi người cầm theo tới sự kiện.",
+      "en": "Note what people bring to eat or drink at the event."
+     },
+     "item": {
+      "vi": "Một ghi chú đêm hội",
+      "en": "A festival note"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, đoán món ăn nào đã có từ thời nơi này được xây.",
+      "en": "At {place}, guess which dish already existed when this place was built."
+     },
+     "item": {
+      "vi": "Một chú thích lịch sử",
+      "en": "A history footnote"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, viết một câu mô tả món ăn mà không dùng chữ \"ngon\".",
+      "en": "At {place}, describe the dish in one sentence without the word \"delicious\"."
+     },
+     "item": {
+      "vi": "Một câu mô tả",
+      "en": "A tasting note"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm loại rau, nước chấm hoặc gia vị đi kèm và ghi tên.",
+      "en": "At {place}, find the herbs, dip or condiment served alongside and note its name."
+     },
+     "item": {
+      "vi": "Một món kèm",
+      "en": "A side note"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Quanh {place}, tìm mùi thơm nhất và lần theo nó.",
+      "en": "Around {place}, find the best smell and follow it."
+     },
+     "item": {
+      "vi": "Một mùi hương",
+      "en": "A scent trail"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Hỏi hoặc đoán xem người ở đây hay ăn gì quanh đây.",
+     "en": "Ask or guess what people around here like to eat."
+    },
+    "item": {
+     "vi": "Một lời mách",
+     "en": "A local tip"
+    }
+   },
+   "ending": {
+    "vi": "Cuốn sổ tay đầu tiên ra lò, trang nào cũng lấm tấm vết nước dùng. Người đọc mang nó đi khắp phố — và quán quen của bạn bỗng đông hơn hẳn.",
+    "en": "The first guide comes off the press, every page spotted with broth. Readers carry it all over town — and your favourite stalls are suddenly much busier."
+   },
+   "tone": "butter",
+   "draft": true
+  },
+  {
+   "id": "performer",
+   "area": "any",
+   "tags": [
+    "fun",
+    "event",
+    "music",
+    "theatre",
+    "film",
+    "culture"
+   ],
+   "name": {
+    "vi": "Nghệ sĩ lưu diễn",
+    "en": "Touring Performer"
+   },
+   "intro": {
+    "vi": "Gánh hát của bạn vừa tới Hà Nội. Trước đêm diễn, hãy đi xem thành phố này vui chơi, xem diễn và vỗ tay như thế nào.",
+    "en": "Your troupe has just arrived in Hanoi. Before opening night, go and see how this city plays, watches shows and applauds."
+   },
+   "goal": {
+    "vi": "Gom {n} tràng pháo tay cho đêm diễn",
+    "en": "Earn {n} rounds of applause for opening night"
+   },
+   "itemNoun": {
+    "vi": "tràng pháo tay",
+    "en": "rounds of applause"
+   },
+   "favPlaces": [
+    "water-puppets",
+    "opera-house",
+    "august-cinema",
+    "hang-ay-stadium",
+    "ly-thai-to-park"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm một chỗ có thể làm sân khấu và hình dung tiết mục của bạn.",
+      "en": "At {place}, find a spot that could be a stage and imagine your act there."
+     },
+     "item": {
+      "vi": "Một ý tưởng tiết mục",
+      "en": "An act idea"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Lắng nghe âm thanh ở {place} — tiếng gọi món, tiếng bát đũa — và nhại lại một nhịp.",
+      "en": "Listen to {place} — orders, bowls, chopsticks — and copy one rhythm."
+     },
+     "item": {
+      "vi": "Một nhịp phố",
+      "en": "A street rhythm"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Thử trò chơi ở {place} và tạo một tư thế \"chào khán giả\" thật đẹp.",
+      "en": "Try the activity at {place} and strike a proper bow for the crowd."
+     },
+     "item": {
+      "vi": "Một tràng pháo tay",
+      "en": "A round of applause"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Xem hết tiết mục và vỗ tay to nhất khi kết thúc.",
+      "en": "Watch the whole act and clap the loudest at the end."
+     },
+     "item": {
+      "vi": "Một tràng pháo tay",
+      "en": "A round of applause"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, diễn lại bằng điệu bộ một cảnh có thể từng xảy ra ở đây.",
+      "en": "At {place}, mime a scene that might once have happened here."
+     },
+     "item": {
+      "vi": "Một màn kịch câm",
+      "en": "A mime act"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, lắng nghe tiếng chuông hoặc tiếng mõ — chỉ nghe, giữ im lặng.",
+      "en": "At {place}, listen for a bell or wooden drum — just listen, stay quiet."
+     },
+     "item": {
+      "vi": "Một nhịp chuông",
+      "en": "A bell rhythm"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, rủ cả nhóm tạo một tư thế chụp ảnh như poster phim.",
+      "en": "At {place}, get the group to pose like a film poster."
+     },
+     "item": {
+      "vi": "Một tấm poster",
+      "en": "A poster shot"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm chỗ có tiếng vọng tốt nhất và thử vỗ tay nhẹ.",
+      "en": "At {place}, find the spot with the best echo and clap softly."
+     },
+     "item": {
+      "vi": "Một tiếng vọng",
+      "en": "An echo"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Tìm thứ khiến người ở đây vui — một âm thanh, một trò chơi, một nụ cười.",
+     "en": "Find what makes people here happy — a sound, a game, a smile."
+    },
+    "item": {
+     "vi": "Một tiếng cười",
+     "en": "A laugh"
+    }
+   },
+   "ending": {
+    "vi": "Màn nhung kéo lên. Bạn đưa vào tiết mục những điều đã thấy trên phố — và khán giả Hà Nội đứng dậy vỗ tay rất lâu.",
+    "en": "The curtain rises. You put everything you saw in the streets into the show — and the Hanoi audience gives you a long standing ovation."
+   },
+   "tone": "brick",
+   "draft": true
+  },
+  {
+   "id": "botanist",
+   "area": "ba-vi",
+   "tags": [
+    "photo",
+    "sight",
+    "culture"
+   ],
+   "name": {
+    "vi": "Nhà thực vật học",
+    "en": "Botanist"
+   },
+   "intro": {
+    "vi": "Viện nghiên cứu cử bạn lên núi Ba Vì để lập bộ sưu tập mới. Rừng, hồ và đồi chè đang chờ được ghi chép.",
+    "en": "The institute has sent you up Ba Vi mountain to start a new collection. Forests, lakes and tea hills are waiting to be recorded."
+   },
+   "goal": {
+    "vi": "Thu {n} mẫu vật cho bộ sưu tập",
+    "en": "Collect {n} specimens for the collection"
+   },
+   "itemNoun": {
+    "vi": "mẫu vật",
+    "en": "specimens"
+   },
+   "favPlaces": [
+    "ba-vi-national-park",
+    "xuan-khanh-lake",
+    "dong-mo-reservoir",
+    "long-pond",
+    "dinh-vua",
+    "ho-suoi-hai",
+    "dinh-ngoc-hoa"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm một loài cây và tả lá của nó — chỉ nhìn, không hái.",
+      "en": "At {place}, find a plant and describe its leaves — look, don’t pick."
+     },
+     "item": {
+      "vi": "Một mẫu lá",
+      "en": "A leaf sample"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm nguyên liệu nào được trồng ngay trên núi Ba Vì.",
+      "en": "At {place}, find an ingredient grown right on Ba Vi mountain."
+     },
+     "item": {
+      "vi": "Một mẫu nông sản",
+      "en": "A crop sample"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, nghe xem có bao nhiêu loại tiếng chim hoặc côn trùng.",
+      "en": "At {place}, listen for how many kinds of birds or insects you can hear."
+     },
+     "item": {
+      "vi": "Một bản ghi âm rừng",
+      "en": "A forest recording"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Tìm xem sự kiện có dùng hoa, lá hay cây gì để trang trí.",
+      "en": "See which flowers, leaves or plants the event uses as decoration."
+     },
+     "item": {
+      "vi": "Một cành hoa ép",
+      "en": "A pressed flower"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "photo",
+     "task": {
+      "vi": "Ở {place}, chụp cận một chiếc lá hoặc bông hoa — không hái.",
+      "en": "At {place}, take a close-up of a leaf or flower — don’t pick it."
+     },
+     "item": {
+      "vi": "Một ảnh cận cảnh",
+      "en": "A macro shot"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, tìm cây cổ thụ trong khuôn viên và ước tuổi của nó.",
+      "en": "At {place}, find the oldest tree on the grounds and guess its age."
+     },
+     "item": {
+      "vi": "Một vòng gỗ",
+      "en": "A tree ring"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, đếm xem có bao nhiêu sắc xanh khác nhau.",
+      "en": "At {place}, count how many different greens you can see."
+     },
+     "item": {
+      "vi": "Một bảng sắc xanh",
+      "en": "A chart of greens"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm loại rau rừng hoặc lá thuốc có trong món.",
+      "en": "At {place}, find a wild herb or medicinal leaf in the dish."
+     },
+     "item": {
+      "vi": "Một mẫu thảo dược",
+      "en": "A herb sample"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Quan sát một loài cây ở đây — chỉ nhìn và chụp, không hái.",
+     "en": "Study one plant here — look and photograph, don’t pick."
+    },
+    "item": {
+     "vi": "Một trang ghi chép thực địa",
+     "en": "A field note"
+    }
+   },
+   "ending": {
+    "vi": "Cuốn sổ thực địa dày lên từng trang. Về đến viện, bạn trải chúng ra bàn — cả một khu rừng Ba Vì nằm gọn trong những nét vẽ và tấm ảnh.",
+    "en": "Your field notebook has grown page by page. Back at the institute you spread it out — a whole Ba Vi forest held in sketches and photos."
+   },
+   "tone": "leaf",
+   "draft": true
+  },
+  {
+   "id": "forest-keeper",
+   "area": "ba-vi",
+   "tags": [
+    "culture",
+    "history",
+    "photo",
+    "sight",
+    "fun"
+   ],
+   "name": {
+    "vi": "Người giữ rừng Tản Viên",
+    "en": "Tan Vien Forest Keeper"
+   },
+   "intro": {
+    "vi": "Núi Tản Viên là nơi thờ Sơn Tinh. Làng giao cho bạn đi một vòng quanh núi, ghi lại dấu vết của rừng, của đền và của người.",
+    "en": "Mount Tan Vien is home to the mountain god Son Tinh. The village asks you to walk around the mountain and record the marks of forest, temple and people."
+   },
+   "goal": {
+    "vi": "Ghi lại {n} dấu ấn của núi rừng",
+    "en": "Record {n} marks of the mountain"
+   },
+   "itemNoun": {
+    "vi": "dấu ấn",
+    "en": "marks"
+   },
+   "favPlaces": [
+    "den-thuong",
+    "den-va",
+    "french-ruins",
+    "son-tay-ancient-citadel",
+    "village-for-ethnic-culture-and-tourism",
+    "chua-mia",
+    "dinh-mong-phu",
+    "lang-ngo-quyen",
+    "khu-cam-trai-son-tinh-camp"
+   ],
+   "missions": {},
+   "templates": [
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, tìm dấu vết cho thấy người và núi rừng sống cùng nhau.",
+      "en": "At {place}, find a sign that people and the mountain live together."
+     },
+     "item": {
+      "vi": "Một dấu ấn núi",
+      "en": "A mountain mark"
+     }
+    },
+    {
+     "kind": "food",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, hỏi xem món nào làm từ sản vật của rừng.",
+      "en": "At {place}, ask which dish is made from forest produce."
+     },
+     "item": {
+      "vi": "Một sản vật rừng",
+      "en": "A forest gift"
+     }
+    },
+    {
+     "kind": "fun",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, nhặt một mẩu rác (nếu có) để giữ rừng sạch.",
+      "en": "At {place}, pick up a piece of litter (if any) to keep the forest clean."
+     },
+     "item": {
+      "vi": "Một lời cảm ơn của rừng",
+      "en": "The forest’s thanks"
+     }
+    },
+    {
+     "kind": "event",
+     "tag": null,
+     "task": {
+      "vi": "Tìm một chi tiết văn hoá của người miền núi trong sự kiện.",
+      "en": "Find a detail of mountain culture in the event."
+     },
+     "item": {
+      "vi": "Một dấu ấn bản làng",
+      "en": "A village mark"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "history",
+     "task": {
+      "vi": "Ở {place}, tìm dấu vết của người xưa — tường, bậc đá, nền móng.",
+      "en": "At {place}, find traces of people long ago — walls, stone steps, foundations."
+     },
+     "item": {
+      "vi": "Một dấu tích",
+      "en": "A trace of the past"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "cultural",
+     "task": {
+      "vi": "Ở {place}, tìm hiểu nơi này thờ ai — chắp tay nếu muốn, giữ trật tự.",
+      "en": "At {place}, find out who is worshipped here — bow if you wish, stay quiet."
+     },
+     "item": {
+      "vi": "Một lời khấn núi",
+      "en": "A mountain prayer"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": "photo",
+     "task": {
+      "vi": "Ở {place}, chụp toàn cảnh núi Tản từ chỗ đứng đẹp nhất.",
+      "en": "At {place}, photograph Mount Tan from the best viewpoint."
+     },
+     "item": {
+      "vi": "Một tầm nhìn núi",
+      "en": "A mountain view"
+     }
+    },
+    {
+     "kind": "sight",
+     "tag": null,
+     "task": {
+      "vi": "Ở {place}, ngồi yên một phút và đếm những âm thanh của rừng.",
+      "en": "At {place}, sit still for a minute and count the forest sounds."
+     },
+     "item": {
+      "vi": "Một phút lặng",
+      "en": "A quiet minute"
+     }
+    }
+   ],
+   "fallback": {
+    "task": {
+     "vi": "Tìm một dấu vết cho thấy con người đã sống cùng núi rừng ở đây.",
+     "en": "Find a sign that people have lived alongside the mountain here."
+    },
+    "item": {
+     "vi": "Một dấu chân",
+     "en": "A footprint"
+    }
+   },
+   "ending": {
+    "vi": "Bạn thắp nén hương ở đền Thượng và đặt cuốn sổ lên ban thờ. Gió thổi qua rừng, như lời Sơn Tinh cảm ơn người đã ghé thăm núi.",
+    "en": "You light incense at the Upper Temple and lay your notebook on the altar. Wind moves through the forest, like Son Tinh thanking you for visiting the mountain."
+   },
+   "tone": "teal",
+   "draft": true
+  }
+ ]
+}

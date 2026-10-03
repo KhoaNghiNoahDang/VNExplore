@@ -1,0 +1,2456 @@
+[
+ {
+  "id": "pho-di-bo-ho-guom",
+  "area": "hoan-kiem",
+  "kind": "open",
+  "category": "festival",
+  "adult": false,
+  "name": {
+   "vi": "Phố đi bộ Hồ Gươm",
+   "en": "Hoan Kiem Walking Street"
+  },
+  "blurb": {
+   "vi": "Tối cuối tuần, các phố quanh hồ cấm xe: trò chơi dân gian, nhạc đường phố và cả gia đình dạo bộ.",
+   "en": "On weekend evenings the streets around the lake close to traffic: folk games, street music and families out for a stroll."
+  },
+  "placeId": null,
+  "venue": "Quanh Hồ Hoàn Kiếm",
+  "address": "Đinh Tiên Hoàng, Lê Thái Tổ, Hàng Khay",
+  "lat": 21.0287,
+  "lng": 105.8524,
+  "fromDate": "2026-01-01",
+  "toDate": "2027-12-31",
+  "weekdays": [
+   5,
+   6,
+   0
+  ],
+  "times": [
+   "19:00"
+  ],
+  "endTime": "23:59",
+  "visitMin": 60,
+  "priceMin": 0,
+  "priceMax": 0,
+  "ticket": false,
+  "url": null,
+  "host": "",
+  "source": "Biên tập",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-97",
+  "area": "hanoi",
+  "kind": "open",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Complex 01",
+   "en": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Complex 01"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "APD Center for Art Patronage and Development",
+  "address": "Common Room/Complex Square, Complex 01, số 29 ngách 31 ngõ 167 Tây Sơn, Kim Liên, Hà Nội",
+  "lat": 21.01056,
+  "lng": 105.82672,
+  "fromDate": "2026-08-06",
+  "toDate": "2026-10-31",
+  "weekdays": [],
+  "times": [
+   "10:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2498449534011903/2498449647345225?event_time_id=2498449570678566",
+  "host": "APD Center for Art Patronage and Development",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-100",
+  "area": "hanoi",
+  "kind": "open",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong Embassy",
+   "en": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong Embassy"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "APD Center for Art Patronage and Development",
+  "address": "Tầng 4, Tòa nhà N01-T4, Khu Đoàn Ngoại giao, Hoàng Minh Thảo, Xuân Đỉnh, Hà Nội",
+  "lat": 21.063,
+  "lng": 105.79516,
+  "fromDate": "2026-08-12",
+  "toDate": "2026-10-31",
+  "weekdays": [],
+  "times": [
+   "08:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2498449534011903/2498449647345225?event_time_id=2498449570678566",
+  "host": "APD Center for Art Patronage and Development",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-101",
+  "area": "hanoi",
+  "kind": "open",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong Hoàng Đạo Thúy",
+   "en": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong Hoàng Đạo Thúy"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "APD Center for Art Patronage and Development",
+  "address": "Tầng 2, Tòa nhà 25T2, Trần Duy Hưng, Yên Hòa, Hà Nội",
+  "lat": 21.00671,
+  "lng": 105.80149,
+  "fromDate": "2026-08-12",
+  "toDate": "2026-10-31",
+  "weekdays": [],
+  "times": [
+   "08:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2498449534011903/2498449647345225?event_time_id=2498449570678566",
+  "host": "APD Center for Art Patronage and Development",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-102",
+  "area": "hanoi",
+  "kind": "open",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Flow Haus – Ideation Space",
+   "en": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Flow Haus – Ideation Space"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "APD Center for Art Patronage and Development",
+  "address": "Tầng 1, Tòa nhà Golden Palace, 54 Lê Văn Lương, Yên Hòa, Hà Nội",
+  "lat": 21.0043,
+  "lng": 105.80243,
+  "fromDate": "2026-08-12",
+  "toDate": "2026-10-31",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2498449534011903/2498449647345225?event_time_id=2498449570678566",
+  "host": "APD Center for Art Patronage and Development",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-98",
+  "area": "hoan-kiem",
+  "kind": "open",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong Phan Bội Châu",
+   "en": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong Phan Bội Châu"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "APD Center for Art Patronage and Development",
+  "address": "51 Phan Bội Châu, Cửa Nam, Hà Nội",
+  "lat": 21.02648,
+  "lng": 105.8436,
+  "fromDate": "2026-08-12",
+  "toDate": "2026-10-31",
+  "weekdays": [],
+  "times": [
+   "08:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2498449534011903/2498449647345225?event_time_id=2498449570678566",
+  "host": "APD Center for Art Patronage and Development",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-99",
+  "area": "hanoi",
+  "kind": "open",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong IPH",
+   "en": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG — Toong IPH"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "APD Center for Art Patronage and Development",
+  "address": "Tầng 3, Tòa nhà IPH, 241 Xuân Thủy, Cầu Giấy, Hà Nội",
+  "lat": 21.03588,
+  "lng": 105.78258,
+  "fromDate": "2026-08-12",
+  "toDate": "2026-10-31",
+  "weekdays": [],
+  "times": [
+   "08:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2498449534011903/2498449647345225?event_time_id=2498449570678566",
+  "host": "APD Center for Art Patronage and Development",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-41",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "Chuyên đề điện ảnh: ĐI TÌM HẠNH PHÚC",
+   "en": "Chuyên đề điện ảnh: ĐI TÌM HẠNH PHÚC"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Tổ Chim Xanh - Bluebirds' Nest",
+  "address": "Sân tập thể ngõ 27 Đặng Dung (cạnh trường mầm non Kidsland), Hanoi, Vietnam",
+  "lat": 21.04206,
+  "lng": 105.84138,
+  "fromDate": "2026-09-28",
+  "toDate": "2026-09-29",
+  "weekdays": [],
+  "times": [
+   "19:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/893853920249917/893853936916582/",
+  "host": "Tổ Chim Xanh - Bluebirds' Nest",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-13",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "talk",
+  "adult": false,
+  "name": {
+   "vi": "CƠ HỘI NGHỀ NGHIỆP TRONG NGÀNH KỸ THUẬT TẠI ĐỨC",
+   "en": "CƠ HỘI NGHỀ NGHIỆP TRONG NGÀNH KỸ THUẬT TẠI ĐỨC"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Goethe-Institut Hanoi",
+  "address": "58 Phố Nguyễn Thái Học, Quận Ba Đình, Hanoi, Vietnam 100000",
+  "lat": 21.0302,
+  "lng": 105.83765,
+  "fromDate": "2026-09-29",
+  "toDate": "2026-09-29",
+  "weekdays": [],
+  "times": [
+   "18:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1079895531416258/",
+  "host": "Goethe-Institut Hanoi",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-6",
+  "area": "hoan-kiem",
+  "kind": "open",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG",
+   "en": "TRÌNH CHIẾU KỲ #2 - FETA 2026 / VIDEO ART SỔNG CHUỒNG"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "APD Center for Art Patronage and Development",
+  "address": "Creative Square. 1 Lương Yên, Bạch Đằng, Hai Bà Trưng, Hanoi, Vietnam 10000",
+  "lat": 21.0117,
+  "lng": 105.86329,
+  "fromDate": "2026-09-29",
+  "toDate": "2026-10-05",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2498449534011903/",
+  "host": "APD Center for Art Patronage and Development",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-85",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "Hạnh phúc | Le Bonheur (1965) | Weekly Movie Gathering | 29.09.2026",
+   "en": "Hạnh phúc | Le Bonheur (1965) | Weekly Movie Gathering | 29.09.2026"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Tổ Chim Xanh - Bluebirds' Nest",
+  "address": "Sân tập thể ngõ 27 Đặng Dung (cạnh trường mầm non Kidsland), Hanoi, Vietnam",
+  "lat": 21.04206,
+  "lng": 105.84138,
+  "fromDate": "2026-09-29",
+  "toDate": "2026-09-29",
+  "weekdays": [],
+  "times": [
+   "19:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1088311697343854",
+  "host": "Tổ Chim Xanh - Bluebirds' Nest",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-104",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": true,
+  "name": {
+   "vi": "Vocal Jazz Trio 103 - \"EVERYTHING I WANTED\" - BILLIE EILISH IN THE JAZZ LANGUAGE BY JULIE",
+   "en": "Vocal Jazz Trio 103 - \"EVERYTHING I WANTED\" - BILLIE EILISH IN THE JAZZ LANGUAGE BY JULIE"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Long Waits a modest jazz club",
+  "address": "Long Waits a modest jazz club",
+  "lat": 21.03251,
+  "lng": 105.84565,
+  "fromDate": "2026-09-30",
+  "toDate": "2026-09-30",
+  "weekdays": [],
+  "times": [
+   "21:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1025961230466866/",
+  "host": "Long Waits a modest jazz club",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-31",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "HANOI SWING OUT in SEPTEMBER",
+   "en": "HANOI SWING OUT in SEPTEMBER"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "COMPLEX 01",
+  "address": "29 ngách 31 ngõ 167 Tây Sơn, Hanoi, Vietnam 100000",
+  "lat": 21.01056,
+  "lng": 105.82672,
+  "fromDate": "2026-09-30",
+  "toDate": "2026-09-30",
+  "weekdays": [],
+  "times": [
+   "19:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1599023525228888/",
+  "host": "COMPLEX 01",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-105",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": true,
+  "name": {
+   "vi": "LIVE CONCERT CROSSOVER JAZZ 26: FROM STANDARDS TO CONTEMPORARY JAZZ",
+   "en": "LIVE CONCERT CROSSOVER JAZZ 26: FROM STANDARDS TO CONTEMPORARY JAZZ"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Long Waits a modest jazz club",
+  "address": "Long Waits a modest jazz club",
+  "lat": 21.03251,
+  "lng": 105.84565,
+  "fromDate": "2026-10-02",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "21:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/928938886642083/",
+  "host": "Long Waits a modest jazz club",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-124",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "When Two Waves Meet",
+   "en": "When Two Waves Meet"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "GIAO Collective",
+  "address": "Nhà Hát Ca Múa Nhạc Thăng Long",
+  "lat": 21.0332,
+  "lng": 105.85038,
+  "fromDate": "2026-10-02",
+  "toDate": "2026-10-02",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/917254784477401/",
+  "host": "GIAO Collective",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-129",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Đêm Hoan ca",
+   "en": "Đêm Hoan ca"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Ca đoàn Gloria",
+  "address": "Số 40 Nhà Chung, Hà Nội",
+  "lat": 21.02751,
+  "lng": 105.84914,
+  "fromDate": "2026-10-02",
+  "toDate": "2026-10-02",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2173786423544868/",
+  "host": "Ca đoàn Gloria",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-137",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Đêm Nhạc Tình Ca: VỀ LẠI PHỐ XƯA",
+   "en": "Đêm Nhạc Tình Ca: VỀ LẠI PHỐ XƯA"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Phòng Trà Trịnh Ca",
+  "address": "Phòng Trà Trịnh Ca",
+  "lat": 21.04092,
+  "lng": 105.79294,
+  "fromDate": "2026-10-02",
+  "toDate": "2026-10-02",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1454075539985263/",
+  "host": "Phòng Trà Trịnh Ca",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-107",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "exhibition",
+  "adult": false,
+  "name": {
+   "vi": "Sắc Tâm 2026 - Triển lãm Sơn mài & Trầm hương",
+   "en": "Sắc Tâm 2026 - Triển lãm Sơn mài & Trầm hương"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Nguyen Art Gallery",
+  "address": "Văn Miếu - Quốc Tử Giám",
+  "lat": 21.02812,
+  "lng": 105.83567,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "18:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1632381955277278/",
+  "host": "Nguyen Art Gallery",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-112",
+  "area": "hanoi",
+  "kind": "open",
+  "category": "exhibition",
+  "adult": false,
+  "name": {
+   "vi": "Triển lãm 'Thiên Hà Lam' | Azure Galaxy",
+   "en": "Triển lãm 'Thiên Hà Lam' | Azure Galaxy"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VCCA Vincom Center for Contemporary Art",
+  "address": "VCCA Vincom Center for Contemporary Art",
+  "lat": 21.00315,
+  "lng": 105.81481,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-09",
+  "weekdays": [],
+  "times": [
+   "10:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1635130714811843/",
+  "host": "VCCA Vincom Center for Contemporary Art",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-116",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "talk",
+  "adult": false,
+  "name": {
+   "vi": "Ra mắt cuốn sách “Dấu vân tay của phố” - Tác giả Nguyễn Trương Quý",
+   "en": "Ra mắt cuốn sách “Dấu vân tay của phố” - Tác giả Nguyễn Trương Quý"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Nhã Nam",
+  "address": "2 Phố Lê Thái Tổ, Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội, Việt Nam",
+  "lat": 21.03161,
+  "lng": 105.85104,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1751119456005253/",
+  "host": "Nhã Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-118",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "talk",
+  "adult": false,
+  "name": {
+   "vi": "CHƯƠNG TRÌNH ĐỐI THOẠI VỀ ĐỨC TIN QUA TÁC PHẨM VĂN CHƯƠNG “BÊN KIA IM LẶNG”",
+   "en": "CHƯƠNG TRÌNH ĐỐI THOẠI VỀ ĐỨC TIN QUA TÁC PHẨM VĂN CHƯƠNG “BÊN KIA IM LẶNG”"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": "women-museum",
+  "venue": "Sống - Sách và Tri thức Việt",
+  "address": "Nhà Thờ Lớn Hà Nội",
+  "lat": 21.02365,
+  "lng": 105.8512,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "15:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/28327302786939702/",
+  "host": "Sống - Sách và Tri thức Việt",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-119",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Bán Vé Liveshow Đêm Nhạc Âm Nhạc & Điện Ảnh 2 – Musique De Salon 22 – Ngày 03/10/2026 Tại Hà Nội",
+   "en": "Bán Vé Liveshow Đêm Nhạc Âm Nhạc & Điện Ảnh 2 – Musique De Salon 22 – Ngày 03/10/2026 Tại Hà Nội"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "address": "Cung Văn Hoá Hữu Nghị Việt Xô",
+  "lat": 21.02198,
+  "lng": 105.84397,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "20:15"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1052527420808266/",
+  "host": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-126",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "No Headliner Good Gig giới thiệu: Hali & KIKI",
+   "en": "No Headliner Good Gig giới thiệu: Hali & KIKI"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "No Headliner",
+  "address": "HUB Cổng Nối, 02 Trịnh Công Sơn, phường Tây Hồ, Hà Nội",
+  "lat": 21.07616,
+  "lng": 105.81604,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "19:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1411688894468096/",
+  "host": "No Headliner",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-127",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "Thu Đi Qua Mùa Nhớ",
+   "en": "Thu Đi Qua Mùa Nhớ"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Must Hanoi",
+  "address": "Hanoi",
+  "lat": 20.97485,
+  "lng": 105.65274,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "19:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1615642803242820/",
+  "host": "Must Hanoi",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-131",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "mối / Phuc海福 & Band / Lưu Thanh Duy",
+   "en": "mối / Phuc海福 & Band / Lưu Thanh Duy"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "JamBox",
+  "address": "142 An Duong Vuong, Tay Ho, Vietnam 1000",
+  "lat": 21.09026,
+  "lng": 105.81137,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "20:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1616720153146119/",
+  "host": "JamBox",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-135",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "workshop",
+  "adult": false,
+  "name": {
+   "vi": "Stage Design - Workshop (free entrance)",
+   "en": "Stage Design - Workshop (free entrance)"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Studio 13",
+  "address": "13 Hàng Bông, Hàng Trống, Hoàn Kiếm, Hanoi, Vietnam 100000",
+  "lat": 21.03231,
+  "lng": 105.84792,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "09:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1701721660889986/",
+  "host": "Studio 13",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-14",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "French Cinema Rendez-vous",
+   "en": "French Cinema Rendez-vous"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Viện Pháp tại Việt Nam - Hà Nội",
+  "address": "Viện Pháp tại Hà Nội, 15 Thiền Quang, Hai Bà Trưng, Hà Nội, Hanoi, Vietnam 100000",
+  "lat": 21.01965,
+  "lng": 105.84256,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "12:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1629214782106851/1629214798773516/",
+  "host": "Viện Pháp tại Việt Nam - Hà Nội",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-42",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "MỘT GIỜ ĐỌC SÂU: Ngày hôm sau - Chuyển tiếp, Đổi thay và Bước tới",
+   "en": "MỘT GIỜ ĐỌC SÂU: Ngày hôm sau - Chuyển tiếp, Đổi thay và Bước tới"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Nhà xuất bản Phụ nữ Việt Nam",
+  "address": "Tổ Chim Xanh - Bluebirds' Nest",
+  "lat": 21.04194,
+  "lng": 105.84143,
+  "fromDate": "2026-10-03",
+  "toDate": "2026-10-03",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1093179976739618/",
+  "host": "Nhà xuất bản Phụ nữ Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-109",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "Hà Nội ảnh phim in trên giấy Dó",
+   "en": "Hà Nội ảnh phim in trên giấy Dó"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Zó Project",
+  "address": "66 Hàng Trống, Hà Nội",
+  "lat": 21.02473,
+  "lng": 105.84935,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "10:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1559220849292314/",
+  "host": "Zó Project",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-111",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "music",
+  "adult": true,
+  "name": {
+   "vi": "47th Hanoi Enthusiastic Music Festival-第47回河内熱饗音楽祭",
+   "en": "47th Hanoi Enthusiastic Music Festival-第47回河内熱饗音楽祭"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "河内熱饗音楽隊　Hanoi Enthusiastic Club Band",
+  "address": "Polygon Musik",
+  "lat": 21.01073,
+  "lng": 105.82676,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "13:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/4651833831767124/",
+  "host": "河内熱饗音楽隊　Hanoi Enthusiastic Club Band",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-117",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "talk",
+  "adult": false,
+  "name": {
+   "vi": "Ra mắt sách Hương vị phố cổ Hà Nội - Ký hoạ và tuỳ bút",
+   "en": "Ra mắt sách Hương vị phố cổ Hà Nội - Ký hoạ và tuỳ bút"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Nhã Nam",
+  "address": "2 Phố Lê Thái Tổ, Phường Hàng Trống, Quận Hoàn Kiếm, Hà Nội, Việt Nam",
+  "lat": 21.03161,
+  "lng": 105.85104,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2809153252893866/",
+  "host": "Nhã Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-128",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "[một cuộc chơi][cùng nhau] #3",
+   "en": "[một cuộc chơi][cùng nhau] #3"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Vietnam Youth Music Institute - VYMI",
+  "address": "Nhà hát Hồ Gươm",
+  "lat": 21.02894,
+  "lng": 105.85241,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "15:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2299029704167740/",
+  "host": "Vietnam Youth Music Institute - VYMI",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-132",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "Hot Ones the Spicy Challenge",
+   "en": "Hot Ones the Spicy Challenge"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "JamBox",
+  "address": "142 An Duong Vuong, Tay Ho, Vietnam 1000",
+  "lat": 21.09026,
+  "lng": 105.81137,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "15:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1409420651161637/",
+  "host": "JamBox",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-133",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "Hanoi Bluegrass Jam Session #3 at JamBox",
+   "en": "Hanoi Bluegrass Jam Session #3 at JamBox"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "JamBox",
+  "address": "142 An Duong Vuong, Tay Ho, Hanoi, Vietnam",
+  "lat": 21.0899,
+  "lng": 105.81337,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "17:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1615954913527688/",
+  "host": "JamBox",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-134",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "Sunday Sunset Jams at JamBox, Hanoi",
+   "en": "Sunday Sunset Jams at JamBox, Hanoi"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "JamBox",
+  "address": "142 An Duong Vuong, Tay Ho, Vietnam 1000",
+  "lat": 21.09026,
+  "lng": 105.81137,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "18:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1144990467853637/",
+  "host": "JamBox",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-138",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "workshop",
+  "adult": false,
+  "name": {
+   "vi": "ĐIỆP SA | WORKSHOP SÁNG TẠO VẬT PHẨM TRANG TRÍ",
+   "en": "ĐIỆP SA | WORKSHOP SÁNG TẠO VẬT PHẨM TRANG TRÍ"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Thanh Di",
+  "address": "Tầng 4, Số 7, ngõ 12A Lý Nam Đế, Hanoi, Vietnam 10000",
+  "lat": 21.03813,
+  "lng": 105.84558,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "14:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/983942264727761/",
+  "host": "Thanh Di",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-68",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "talk",
+  "adult": false,
+  "name": {
+   "vi": "MÙA THU ĐỌC SÁCH: Ngày hôm sau - Chuyển tiếp, Đổi thay và Bước tới",
+   "en": "MÙA THU ĐỌC SÁCH: Ngày hôm sau - Chuyển tiếp, Đổi thay và Bước tới"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Nhà xuất bản Phụ nữ Việt Nam",
+  "address": "Hồ Hoàn Kiếm",
+  "lat": 21.029675,
+  "lng": 105.85332,
+  "fromDate": "2026-10-04",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "15:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1377821320735080",
+  "host": "Nhà xuất bản Phụ nữ Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-103",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "SÁNG TÁC BẰNG TIẾNG PHÁP – CÂU CHUYỆN VỀ NGÔN NGỮ, HÀNH TRÌNH CỦA NGÔN TỪ",
+   "en": "SÁNG TÁC BẰNG TIẾNG PHÁP – CÂU CHUYỆN VỀ NGÔN NGỮ, HÀNH TRÌNH CỦA NGÔN TỪ"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Viện Pháp tại Việt Nam - Hà Nội",
+  "address": "Viện Pháp tại Hà Nội, 15 Thiền Quang, Hai Bà Trưng, Hà Nội, Hanoi, Vietnam 100000",
+  "lat": 21.01965,
+  "lng": 105.84256,
+  "fromDate": "2026-10-08",
+  "toDate": "2026-10-08",
+  "weekdays": [],
+  "times": [
+   "12:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1057367410620195/",
+  "host": "Viện Pháp tại Việt Nam - Hà Nội",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-130",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Open Mic Friday's at JamBox - 8pm till late",
+   "en": "Open Mic Friday's at JamBox - 8pm till late"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "JamBox",
+  "address": "142 An Duong Vuong, Tay Ho, Vietnam 1000",
+  "lat": 21.09026,
+  "lng": 105.81137,
+  "fromDate": "2026-10-09",
+  "toDate": "2026-10-09",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2719103081818718/",
+  "host": "JamBox",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-136",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "theatre",
+  "adult": false,
+  "name": {
+   "vi": "JULIET & ROMEO",
+   "en": "JULIET & ROMEO"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "ATH Theatre",
+  "address": "No.1 Alley 12B Thạch Cầu, Long Biên, Hà Nội, Hanoi, Vietnam",
+  "lat": 21.02462,
+  "lng": 105.88253,
+  "fromDate": "2026-10-09",
+  "toDate": "2026-10-11",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1821369555535413/",
+  "host": "ATH Theatre",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-140",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "exhibition",
+  "adult": false,
+  "name": {
+   "vi": "Khai mạc và Art Tour/Artist Talk Triển lãm Huyễn Sắc Xoay Vần | Spinning Ghost Colors của Kito",
+   "en": "Khai mạc và Art Tour/Artist Talk Triển lãm Huyễn Sắc Xoay Vần | Spinning Ghost Colors của Kito"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "The Japan Foundation Center for Cultural Exchange in Vietnam",
+  "address": "27 P. Quang Trung, Cửa Nam, Hà Nội, Hanoi, Vietnam",
+  "lat": 21.0218,
+  "lng": 105.84877,
+  "fromDate": "2026-10-09",
+  "toDate": "2026-10-09",
+  "weekdays": [],
+  "times": [
+   "10:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/4378425645624292/",
+  "host": "The Japan Foundation Center for Cultural Exchange in Vietnam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-114",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "milkiwav presents: WAV",
+   "en": "milkiwav presents: WAV"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "milkiwav.cult",
+  "address": "Polygon Musik",
+  "lat": 21.01073,
+  "lng": 105.82676,
+  "fromDate": "2026-10-10",
+  "toDate": "2026-10-10",
+  "weekdays": [],
+  "times": [
+   "19:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1075107441807563/",
+  "host": "milkiwav.cult",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-139",
+  "area": "hoan-kiem",
+  "kind": "open",
+  "category": "exhibition",
+  "adult": false,
+  "name": {
+   "vi": "Triển lãm Huyễn Sắc Xoay Vần | Spinning Ghost Colors của Kito",
+   "en": "Triển lãm Huyễn Sắc Xoay Vần | Spinning Ghost Colors của Kito"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "The Japan Foundation Center for Cultural Exchange in Vietnam",
+  "address": "27 P. Quang Trung, Cửa Nam, Hà Nội, Hanoi, Vietnam",
+  "lat": 21.0218,
+  "lng": 105.84877,
+  "fromDate": "2026-10-10",
+  "toDate": "2026-10-14",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": "18:00",
+  "visitMin": 45,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/2499486973795017/",
+  "host": "The Japan Foundation Center for Cultural Exchange in Vietnam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-16",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "CPAN - HANOI CLASSICAL GUITAR CONCERT No.27: HÀ NỘI MÙA THU",
+   "en": "CPAN - HANOI CLASSICAL GUITAR CONCERT No.27: HÀ NỘI MÙA THU"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Cà phê Thứ Bảy Hà Nội",
+  "address": "Shop house 09 Park 1, Times City, 458 Minh Khai, quận Hai Bà Trưng, Hà Nội , Hanoi, Vietnam",
+  "lat": 20.99424,
+  "lng": 105.868,
+  "fromDate": "2026-10-11",
+  "toDate": "2026-10-11",
+  "weekdays": [],
+  "times": [
+   "19:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1092321513765808/",
+  "host": "Cà phê Thứ Bảy Hà Nội",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-120",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "BÁN VÉ LIVESHOW ĐÊM NHẠC PHÚ QUANG – CÒN MÃI MỘT TÌNH YÊU NGÀY 12/10/2026 TẠI HÀ NỘI – VÉ ĐẸP TỪ BAN",
+   "en": "BÁN VÉ LIVESHOW ĐÊM NHẠC PHÚ QUANG – CÒN MÃI MỘT TÌNH YÊU NGÀY 12/10/2026 TẠI HÀ NỘI – VÉ ĐẸP TỪ BAN"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "address": "Nhà hát Hồ Gươm",
+  "lat": 21.02207,
+  "lng": 105.85217,
+  "fromDate": "2026-10-12",
+  "toDate": "2026-10-12",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1079633904462505/",
+  "host": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-121",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "BÁN VÉ LIVESHOW TRỊNH CÔNG SƠN, VĂN CAO - TỪ THIÊN THAI ĐẾN Ở TRỌ, 14/10 - VÉ ĐẸP TỪ BAN TỔ CHỨC",
+   "en": "BÁN VÉ LIVESHOW TRỊNH CÔNG SƠN, VĂN CAO - TỪ THIÊN THAI ĐẾN Ở TRỌ, 14/10 - VÉ ĐẸP TỪ BAN TỔ CHỨC"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "address": "Nhà hát Hồ Gươm",
+  "lat": 21.02207,
+  "lng": 105.85217,
+  "fromDate": "2026-10-14",
+  "toDate": "2026-10-14",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1710658106689086/",
+  "host": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-86",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hòa nhạc đặt vé trước số 187",
+   "en": "Hòa nhạc đặt vé trước số 187"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Phòng hòa nhạc Lớn VNAM, 77 Hào Nam, Ô Chợ Dừa, Hà Nội",
+  "lat": 21.02279,
+  "lng": 105.82622,
+  "fromDate": "2026-10-16",
+  "toDate": "2026-10-16",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/H%C3%B2a%20nh%E1%BA%A1c%20%C4%91%E1%BA%B7t%20v%C3%A9%20tr%C6%B0%E1%BB%9Bc%20s%E1%BB%91%20187-11",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-17",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "GG & ĐT : LÀNG VĂN HIẾN VEN SÔNG TRONG ĐÔ THỊ HIỆN ĐẠI",
+   "en": "GG & ĐT : LÀNG VĂN HIẾN VEN SÔNG TRONG ĐÔ THỊ HIỆN ĐẠI"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Cà phê Thứ Bảy Hà Nội",
+  "address": "Shop house 09 Park 1, Times City, 458 Minh Khai, quận Hai Bà Trưng, Hà Nội , Hanoi, Vietnam",
+  "lat": 20.99424,
+  "lng": 105.868,
+  "fromDate": "2026-10-17",
+  "toDate": "2026-10-17",
+  "weekdays": [],
+  "times": [
+   "14:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1058694043540541/",
+  "host": "Cà phê Thứ Bảy Hà Nội",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-122",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "BÁN VÉ ĐÊM NHẠC LIVESHOW TRUNG QUÂN IDOL – NGÀY 18/10/2026 TẠI HÀ NỘI – VÉ ĐẸP TỪ BAN TỔ CHỨC",
+   "en": "BÁN VÉ ĐÊM NHẠC LIVESHOW TRUNG QUÂN IDOL – NGÀY 18/10/2026 TẠI HÀ NỘI – VÉ ĐẸP TỪ BAN TỔ CHỨC"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "address": "Cung Văn Hoá Hữu Nghị Việt Xô",
+  "lat": 21.02198,
+  "lng": 105.84397,
+  "fromDate": "2026-10-18",
+  "toDate": "2026-10-18",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1172240712000227/",
+  "host": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-18",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "other",
+  "adult": false,
+  "name": {
+   "vi": "CP GG&ĐT: CHÁNH NIỆM SINH THÁI: TIẾP CẬN PHẬT GIÁO TRONG BẢO VỆ MÔI TRƯỜNG",
+   "en": "CP GG&ĐT: CHÁNH NIỆM SINH THÁI: TIẾP CẬN PHẬT GIÁO TRONG BẢO VỆ MÔI TRƯỜNG"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Cà phê Thứ Bảy Hà Nội",
+  "address": "Shop house 09 Park 1, Times City, 458 Minh Khai, quận Hai Bà Trưng, Hà Nội , Hanoi, Vietnam",
+  "lat": 20.99424,
+  "lng": 105.868,
+  "fromDate": "2026-10-18",
+  "toDate": "2026-10-18",
+  "weekdays": [],
+  "times": [
+   "15:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1309623714449570/",
+  "host": "Cà phê Thứ Bảy Hà Nội",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-123",
+  "area": "hanoi",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Bán Vé Liveshow Đêm Nhạc – Liveconcert Người Tình 9 – Lệ Quyên, Phan Mạnh Quỳnh 20/10/2026",
+   "en": "Bán Vé Liveshow Đêm Nhạc – Liveconcert Người Tình 9 – Lệ Quyên, Phan Mạnh Quỳnh 20/10/2026"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "address": "Trung Tâm Hội Nghị Quốc Gia",
+  "lat": 21.00563,
+  "lng": 105.78761,
+  "fromDate": "2026-10-20",
+  "toDate": "2026-10-20",
+  "weekdays": [],
+  "times": [
+   "19:30"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.facebook.com/events/1035871819234813/",
+  "host": "Liveshow Hay - Đơn Vị Bán Vé Chính Thống",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-92",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hòa nhạc Vietcombank",
+   "en": "Hòa nhạc Vietcombank"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Nhà hát Hồ Gươm, Hà Nội",
+  "lat": 21.02207,
+  "lng": 105.85217,
+  "fromDate": "2026-11-01",
+  "toDate": "2026-11-01",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/hoa-nhac-vietcombank-34",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-93",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hòa nhạc cổ điển SM tại VIệt Nam",
+   "en": "Hòa nhạc cổ điển SM tại VIệt Nam"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Nhà hát Hồ Gươm, Hà Nội",
+  "lat": 21.02207,
+  "lng": 105.85217,
+  "fromDate": "2026-11-05",
+  "toDate": "2026-11-05",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/hoa-nhac-co-dien-sm-tai-viet-nam-32",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-89",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "VYMI Family Concert",
+   "en": "VYMI Family Concert"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Phòng hòa nhạc Lớn VNAM, 77 Hào Nam, Ô Chợ Dừa, Hà Nội",
+  "lat": 21.02279,
+  "lng": 105.82622,
+  "fromDate": "2026-11-14",
+  "toDate": "2026-11-14",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/h%C3%B2a-nh%E1%BA%A1c-gia-%C4%91%C3%ACnh-Vymi-33",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-87",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hòa nhạc đặt vé trước số 188",
+   "en": "Hòa nhạc đặt vé trước số 188"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Phòng hòa nhạc Lớn VNAM, 77 Hào Nam, Ô Chợ Dừa, Hà Nội",
+  "lat": 21.02279,
+  "lng": 105.82622,
+  "fromDate": "2026-11-25",
+  "toDate": "2026-11-25",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/H%C3%B2a%20nh%E1%BA%A1c%20%C4%91%E1%BA%B7t%20v%C3%A9%20tr%C6%B0%E1%BB%9Bc%20s%E1%BB%91%20188-12",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-94",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hòa nhạc kỷ niệm 125 năm khách sạn Metropole: Những tác phẩm Mozart vượt thời gian cùng VNSO",
+   "en": "Hòa nhạc kỷ niệm 125 năm khách sạn Metropole: Những tác phẩm Mozart vượt thời gian cùng VNSO"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Khách sạn Metropole, Hà Nội",
+  "lat": 21.02541,
+  "lng": 105.85637,
+  "fromDate": "2026-12-05",
+  "toDate": "2026-12-05",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/hoa-nhac-ky-niem-125-nam-khach-san-metropole-nhung-tac-pham-mozart-vuot-thoi-gian-cung-vnso-35",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-95",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hòa nhạc từ thiện giáng sinh",
+   "en": "Hòa nhạc từ thiện giáng sinh"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": "cathedral",
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Nhà thờ lớn Hà Nội, Hà Nội",
+  "lat": 21.028677,
+  "lng": 105.848506,
+  "fromDate": "2026-12-26",
+  "toDate": "2026-12-26",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/hoa-nhac-tu-thien-giang-sinh-18",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-90",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Chùm tác phẩm Haydn",
+   "en": "Chùm tác phẩm Haydn"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Phòng hòa nhạc Lớn VNAM, 77 Hào Nam, Ô Chợ Dừa, Hà Nội",
+  "lat": 21.02279,
+  "lng": 105.82622,
+  "fromDate": "2026-12-31",
+  "toDate": "2026-12-31",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/chum-tac-pham-haydn-20",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-91",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Chùm tác phẩm Tchaikovsky",
+   "en": "Chùm tác phẩm Tchaikovsky"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Phòng hòa nhạc Lớn VNAM, 77 Hào Nam, Ô Chợ Dừa, Hà Nội",
+  "lat": 21.02279,
+  "lng": 105.82622,
+  "fromDate": "2026-12-31",
+  "toDate": "2026-12-31",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/chum-tac-pham-tchaikovsky-21",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-96",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Chuỗi hòa nhạc \"Âm nhạc từ thành viên\" I",
+   "en": "Chuỗi hòa nhạc \"Âm nhạc từ thành viên\" I"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Nhà hát Hồ Gươm, Hà Nội",
+  "lat": 21.02207,
+  "lng": 105.85217,
+  "fromDate": "2027-01-17",
+  "toDate": "2027-01-17",
+  "weekdays": [],
+  "times": [
+   "12:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/chuoi-hoa-nhac-am-nhac-tu-thanh-vien-i-29",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "hm-88",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hòa nhạc đặt vé trước số 189",
+   "en": "Hòa nhạc đặt vé trước số 189"
+  },
+  "blurb": {
+   "vi": "",
+   "en": ""
+  },
+  "placeId": null,
+  "venue": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "address": "Phòng hòa nhạc Lớn VNAM, 77 Hào Nam, Ô Chợ Dừa, Hà Nội",
+  "lat": 21.02279,
+  "lng": 105.82622,
+  "fromDate": "2027-01-27",
+  "toDate": "2027-01-27",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://www.vnso.org.vn/vi/dat-ve/H%C3%B2a%20nh%E1%BA%A1c%20%C4%91%E1%BA%B7t%20v%C3%A9%20tr%C6%B0%E1%BB%9Bc%20s%E1%BB%91%20189-13",
+  "host": "VNSO - Dàn nhạc Giao hưởng Việt Nam",
+  "source": "Hanoi Maps",
+  "timeConfirmed": true
+ },
+ {
+  "id": "vh-le-hoi-van-hoa-the-gioi-2026",
+  "area": "hoan-kiem",
+  "kind": "open",
+  "category": "festival",
+  "adult": false,
+  "name": {
+   "vi": "Lễ hội Văn hoá Thế giới tại Hà Nội lần II – \"Hội tụ di sản, Kiến tạo tương lai\"",
+   "en": "World Culture Festival in Hanoi (2nd edition)"
+  },
+  "blurb": {
+   "vi": "45 không gian văn hoá, 35 gian ẩm thực, chiếu phim 18 nước, thời trang 19 nước, 20 đoàn nghệ thuật quốc tế.",
+   "en": "45 culture spaces, 35 food stalls, films from 18 countries, fashion from 19 and 20 international arts troupes."
+  },
+  "placeId": "imperial-citadel",
+  "venue": "Hoàng thành Thăng Long",
+  "address": "19C Hoàng Diệu, Ba Đình",
+  "lat": 21.036289,
+  "lng": 105.840442,
+  "fromDate": "2026-10-01",
+  "toDate": "2026-10-04",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": "21:00",
+  "visitMin": 90,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://mekongasean.vn/sap-dien-ra-le-hoi-van-hoa-the-gioi-tai-ha-noi-lan-thu-hai-59854.html",
+  "host": "",
+  "source": "Báo chí (mekongasean.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-nguyen-du-hxh-1009",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "theatre",
+  "adult": false,
+  "name": {
+   "vi": "Sân khấu kịch huyền ảo: Nguyễn Du – Hồ Xuân Hương Ngoại Truyện",
+   "en": "Fantasy play: Nguyen Du – Ho Xuan Huong, the untold story"
+  },
+  "blurb": {
+   "vi": "Vở kịch huyền ảo về hai đại thi hào; giá vé tuỳ vị trí ghế.",
+   "en": "A fantasy play about two great poets; ticket price depends on the seat."
+  },
+  "placeId": null,
+  "venue": "Nhà hát Tuổi Trẻ",
+  "address": "Số 11 Ngô Thì Nhậm, Hai Bà Trưng",
+  "lat": 21.017581,
+  "lng": 105.853308,
+  "fromDate": "2026-10-09",
+  "toDate": "2026-10-09",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": 300,
+  "priceMax": 300,
+  "ticket": true,
+  "url": "https://ticketgo.vn/",
+  "host": "",
+  "source": "Nền tảng bán vé (ticketgo.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-nguyen-du-hxh-1016",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "theatre",
+  "adult": false,
+  "name": {
+   "vi": "Sân khấu kịch huyền ảo: Nguyễn Du – Hồ Xuân Hương Ngoại Truyện",
+   "en": "Fantasy play: Nguyen Du – Ho Xuan Huong, the untold story"
+  },
+  "blurb": {
+   "vi": "Vở kịch huyền ảo về hai đại thi hào; giá vé tuỳ vị trí ghế.",
+   "en": "A fantasy play about two great poets; ticket price depends on the seat."
+  },
+  "placeId": null,
+  "venue": "Nhà hát Tuổi Trẻ",
+  "address": "Số 11 Ngô Thì Nhậm, Hai Bà Trưng",
+  "lat": 21.017581,
+  "lng": 105.853308,
+  "fromDate": "2026-10-16",
+  "toDate": "2026-10-16",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": 300,
+  "priceMax": 300,
+  "ticket": true,
+  "url": "https://ticketgo.vn/",
+  "host": "",
+  "source": "Nền tảng bán vé (ticketgo.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-nguyen-du-hxh-1106",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "theatre",
+  "adult": false,
+  "name": {
+   "vi": "Sân khấu kịch huyền ảo: Nguyễn Du – Hồ Xuân Hương Ngoại Truyện",
+   "en": "Fantasy play: Nguyen Du – Ho Xuan Huong, the untold story"
+  },
+  "blurb": {
+   "vi": "Vở kịch huyền ảo về hai đại thi hào; giá vé tuỳ vị trí ghế.",
+   "en": "A fantasy play about two great poets; ticket price depends on the seat."
+  },
+  "placeId": null,
+  "venue": "Nhà hát Tuổi Trẻ",
+  "address": "Số 11 Ngô Thì Nhậm, Hai Bà Trưng",
+  "lat": 21.017581,
+  "lng": 105.853308,
+  "fromDate": "2026-11-06",
+  "toDate": "2026-11-06",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": 300,
+  "priceMax": 300,
+  "ticket": true,
+  "url": "https://ticketgo.vn/",
+  "host": "",
+  "source": "Nền tảng bán vé (ticketgo.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-bigbang-my-dinh-2026",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "BIGBANG 2026-2027 World Tour <XX: COSMOS> in Hanoi",
+   "en": "BIGBANG 2026-2027 World Tour <XX: COSMOS> in Hanoi"
+  },
+  "blurb": {
+   "vi": "Tâm điểm mùa concert tháng 10; mua vé qua kênh bán vé chính thức.",
+   "en": "The highlight of October’s concert season; tickets through the official sellers."
+  },
+  "placeId": null,
+  "venue": "Sân vận động Quốc gia Mỹ Đình",
+  "address": "1 Lê Đức Thọ, Nam Từ Liêm",
+  "lat": 21.0205,
+  "lng": 105.76393,
+  "fromDate": "2026-10-24",
+  "toDate": "2026-10-25",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 180,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://vtv.vn/su-bung-no-cua-cac-concert-quy-mo-lon-va-co-hoi-dinh-hinh-cac-ip-van-hoa-100260928161459087.htm",
+  "host": "",
+  "source": "Báo chí (vtv.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-lien-hoan-san-khau-2026",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "theatre",
+  "adult": false,
+  "name": {
+   "vi": "Liên hoan Sân khấu Hà Nội mở rộng 2026",
+   "en": "Hanoi Open Theatre Festival 2026"
+  },
+  "blurb": {
+   "vi": "Chèo, cải lương, kịch nói, nhạc kịch, xiếc, rối, tuồng; giá vé theo từng vở.",
+   "en": "Cheo, cai luong, spoken drama, musicals, circus, puppetry and tuong; prices per show."
+  },
+  "placeId": null,
+  "venue": "Rạp Công Nhân (và Đại Nam, Hồng Hà, Cung Việt Xô, Nhà hát Hồ Gươm…)",
+  "address": "42 Tràng Tiền, Hoàn Kiếm",
+  "lat": 21.025308,
+  "lng": 105.854807,
+  "fromDate": "2026-09-03",
+  "toDate": "2026-09-13",
+  "weekdays": [],
+  "times": [
+   "19:30"
+  ],
+  "endTime": null,
+  "visitMin": 150,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": true,
+  "url": "https://daibieunhandan.vn/dau-thang-9-se-dien-ra-lien-hoan-san-khau-ha-noi-mo-rong-2026-10416231.html",
+  "host": "",
+  "source": "Báo chí (daibieunhandan.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-festival-thang-long-2026",
+  "area": "hoan-kiem",
+  "kind": "open",
+  "category": "festival",
+  "adult": false,
+  "name": {
+   "vi": "Festival Thăng Long – Hà Nội lần II \"Dòng chảy di sản\"",
+   "en": "Thang Long – Hanoi Festival (2nd edition)"
+  },
+  "blurb": {
+   "vi": "Hàng chục sự kiện, hơn 3.000 nghệ sĩ; phần lớn miễn phí.",
+   "en": "Dozens of events and over 3,000 artists; mostly free."
+  },
+  "placeId": "imperial-citadel",
+  "venue": "Hoàng thành (và Văn Miếu, Bảo tàng Hà Nội, Bát Tràng, Tượng đài Cảm tử, QT Đông Kinh Nghĩa Thục)",
+  "address": "19C Hoàng Diệu, Ba Đình",
+  "lat": 21.036289,
+  "lng": 105.840442,
+  "fromDate": "2026-09-11",
+  "toDate": "2026-09-20",
+  "weekdays": [],
+  "times": [
+   "09:00"
+  ],
+  "endTime": "21:00",
+  "visitMin": 90,
+  "priceMin": 0,
+  "priceMax": 0,
+  "ticket": false,
+  "url": "https://baoquocte.vn/khai-mac-festival-thang-long-ha-noi-2026-bua-tiec-nghe-thuat-da-mau-sac-van-hoa-442897.html",
+  "host": "",
+  "source": "Báo chí (baoquocte.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-jazztival-2026",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "music",
+  "adult": false,
+  "name": {
+   "vi": "Hanoi Jazztival 2026 – \"Jazz Hà Nội, Giai điệu không biên giới\"",
+   "en": "Hanoi Jazztival 2026"
+  },
+  "blurb": {
+   "vi": "Khai mạc, toạ đàm, workshop và Night Jam tại các jazz club; phần lớn miễn phí.",
+   "en": "Opening night, talks, workshops and Night Jams at jazz clubs; mostly free."
+  },
+  "placeId": "opera-house",
+  "venue": "Vườn âm nhạc Nhà hát Lớn (và 22 Hàng Buồm, Bảo tàng Phụ nữ, các jazz club)",
+  "address": "1A Tràng Tiền, Hoàn Kiếm",
+  "lat": 21.024193,
+  "lng": 105.857825,
+  "fromDate": "2026-09-17",
+  "toDate": "2026-09-19",
+  "weekdays": [],
+  "times": [
+   "20:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": 0,
+  "priceMax": 0,
+  "ticket": false,
+  "url": "https://nhadautu.vn/kham-pha-ban-do-nhac-jazz-quoc-te-tai-ha-noi-vao-thang-9-d106942.html",
+  "host": "",
+  "source": "Báo chí (nhadautu.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ },
+ {
+  "id": "vh-lhp-tai-lieu-chau-au-2026",
+  "area": "hoan-kiem",
+  "kind": "show",
+  "category": "film",
+  "adult": false,
+  "name": {
+   "vi": "Liên hoan Phim tài liệu châu Âu – Việt Nam lần 16",
+   "en": "16th European–Vietnamese Documentary Film Festival"
+  },
+  "blurb": {
+   "vi": "25 phim (11 quốc tế, 14 Việt Nam).",
+   "en": "25 films (11 international, 14 Vietnamese)."
+  },
+  "placeId": null,
+  "venue": "Hãng Phim tài liệu và khoa học Trung ương",
+  "address": "465 Hoàng Hoa Thám, Ba Đình",
+  "lat": 21.04374,
+  "lng": 105.81308,
+  "fromDate": "2026-09-18",
+  "toDate": "2026-09-26",
+  "weekdays": [],
+  "times": [
+   "19:00"
+  ],
+  "endTime": null,
+  "visitMin": 120,
+  "priceMin": null,
+  "priceMax": null,
+  "ticket": false,
+  "url": "https://mekongasean.vn/14-tac-pham-trong-nuoc-tham-gia-lien-hoan-phim-tai-lieu-chau-au-viet-nam-2026-59631.html",
+  "host": "",
+  "source": "Báo chí (mekongasean.vn) · Văn hoá–Giải trí HN (tổng hợp 03/10/2026)",
+  "timeConfirmed": false
+ }
+]

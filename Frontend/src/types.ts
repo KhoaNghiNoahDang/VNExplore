@@ -84,6 +84,75 @@ export interface Place extends LatLng {
   etiquette: L
   /** null for quick places. */
   challenge: Challenge | null
+  /** Set when this stop is one sitting of a dated event (a synthetic place, id "ev:…"). */
+  event?: EventStop
+  /** Where the information comes from: URLs or names. */
+  sources?: string[]
+  /** Shown prominently, e.g. workshops: "contact them before you go". */
+  notice?: L | null
+  /** Phone number to call (digits, optional leading +). */
+  phone?: string | null
+}
+
+export type EventCategory = 'music' | 'theatre' | 'film' | 'exhibition' | 'workshop' | 'talk' | 'market' | 'festival' | 'other'
+
+/** A dated event from Data/sheets/events.csv. Dates and times are Hanoi local time. */
+export interface QuestEvent extends LatLng {
+  id: string
+  /** 'hanoi' = elsewhere in the city (outside the two planning areas). */
+  area: Area | 'hanoi'
+  /** show: be there before a start time · open: drop in any time between start and end. */
+  kind: 'show' | 'open'
+  category: EventCategory
+  /** Bar / club (alcohol, 18+). */
+  adult: boolean
+  name: L
+  /** May be empty (imported events): the app describes it from venue + time. */
+  blurb: L
+  /** A place in the catalogue the event takes place at, if any. */
+  placeId: string | null
+  venue: string
+  address: string
+  /** YYYY-MM-DD, inclusive. */
+  fromDate: string
+  toDate: string
+  /** 0 = Sunday … 6 = Saturday; empty = every day. */
+  weekdays: number[]
+  /** HH:MM start times (several for shows with more than one performance a day). */
+  times: string[]
+  /** HH:MM; open events only. */
+  endTime: string | null
+  /** Show length, or a suggested visit for open events. */
+  visitMin: number
+  /** Thousand VND per person; null = unknown (see the event page). */
+  priceMin: number | null
+  priceMax: number | null
+  ticket: boolean
+  url: string | null
+  host: string
+  source: string
+  /** false = the source gives no time; the shown time is an estimate. */
+  timeConfirmed: boolean
+}
+
+/** One sitting of an event, attached to the synthetic stop that represents it in a quest. */
+export interface EventStop {
+  eventId: string
+  kind: QuestEvent['kind']
+  category: EventCategory
+  adult: boolean
+  /** Instants (ms). For shows: the performance; for open events: when the doors are open. */
+  startMs: number
+  endMs: number
+  url: string | null
+  venue: string
+  address: string
+  host: string
+  ticket: boolean
+  priceKnown: boolean
+  placeId: string | null
+  source: string
+  timeConfirmed: boolean
 }
 
 export interface Mission {
@@ -91,8 +160,18 @@ export interface Mission {
   item: L
 }
 
+export interface RoleTemplate extends Mission {
+  kind: 'sight' | 'food' | 'fun' | 'event'
+  /** Preferred at places with this theme or tag (e.g. "cultural" for temples); null = any place. */
+  tag: string | null
+}
+
 export interface Role {
   id: string
+  /** 'any', or the one area this role is written for (Ba Vì roles). */
+  area: 'any' | Area
+  /** Themes, kinds of stop and event categories the role fits — used to suggest it for a route. */
+  tags: string[]
   name: L
   intro: L
   /** Use {n} for the number of stops. */
@@ -101,9 +180,13 @@ export interface Role {
   /** Places that fit this role, best first. */
   favPlaces: string[]
   missions: Record<string, Mission>
+  /** Missions by kind of stop, in the role's voice. "{place}" is replaced by the stop's name. */
+  templates: RoleTemplate[]
   fallback: Mission
   ending: L
   tone: Place['tone']
+  /** Not reviewed yet (only shown when running locally). */
+  draft?: boolean
 }
 
 export interface Intent {
@@ -132,6 +215,6 @@ export interface Journey {
   /** placeIds whose mission was completed (item + gold seal). */
   items: string[]
   startedAt: number
-  /** Where the journey began (the traveller's location, or Hoan Kiem Lake). */
+  /** Where the journey began (the traveller's real location, or the start point they picked). */
   start: LatLng
 }

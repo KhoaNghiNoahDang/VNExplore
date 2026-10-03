@@ -78,7 +78,7 @@ const FLOATING = ['/quests', '/me']
  */
 export default function TabBar({ docked = false }: { docked?: boolean }) {
   const { t } = useQuest()
-  const { session, enabled } = useAuth()
+  const { enabled } = useAuth()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const hidden = useAutoHide()
@@ -89,7 +89,7 @@ export default function TabBar({ docked = false }: { docked?: boolean }) {
     { to: '/', icon: Compass, label: t.tabGo, active: pathname === '/' },
     { to: '/quests', icon: ScrollText, label: t.tabQuests, active: pathname.startsWith('/quests') },
     ...(enabled
-      ? [{ to: session ? '/me' : '/login?next=/me', icon: UserRound, label: t.tabMe, active: pathname === '/me' }]
+      ? [{ to: '/me', icon: UserRound, label: t.tabMe, active: pathname === '/me' }]
       : []),
   ]
 

@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 
 /** Parse a CSV file (UTF-8, optional BOM, quoted fields with "" escapes). Adds __line for error messages. */
 export function readCsv(path) {
@@ -21,4 +21,14 @@ export function readCsv(path) {
   return body
     .filter((r) => r.some((x) => x.trim()))
     .map((r, i) => ({ __line: i + 2, ...Object.fromEntries(head.map((h, j) => [h.trim(), (r[j] ?? '').trim()])) }))
+}
+
+/** Write rows as CSV (UTF-8 with BOM so Excel/Sheets keep Vietnamese text). `__line` is dropped. */
+export function writeCsv(path, columns, rows) {
+  const cell = (v) => {
+    const s = String(v ?? '')
+    return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s
+  }
+  const lines = [columns.join(','), ...rows.map((r) => columns.map((c) => cell(r[c])).join(','))]
+  writeFileSync(path, '﻿' + lines.join('\n') + '\n')
 }

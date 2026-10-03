@@ -12,12 +12,25 @@ import { duration } from '../lib/format'
 import { recordJourney } from '../lib/passport'
 import { summarize } from '../lib/quest'
 import { useAuth } from '../store/AuthContext'
+import { PartyBoard, SaveAchievementCard } from '../components/PartyBits'
+import { finishMine, finishParty, useParty, type PartyState } from '../lib/party'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
 
 export default function FinishPage() {
-  const { t, lang, journey, places, intent, mode, role, start, reset, travel, fromQuest } = useQuest()
+  const { t, lang, journey, places, intent, mode, role, start, reset, travel, fromQuest, party } = useQuest()
   const auth = useAuth()
+  const { state: ps } = useParty(party?.id ?? null)
+  const meId = auth.session?.user.id ?? null
+
+  // Group play: mark me as done; the host closes the party once everyone is.
+  useEffect(() => {
+    if (party) void finishMine(party.id)
+  }, [party])
+  const everyoneDone = !!ps && ps.members.length > 0 && ps.members.every((m) => m.finishedAt)
+  useEffect(() => {
+    if (ps && everyoneDone && ps.party.hostId === meId && ps.party.status !== 'finished') void finishParty(ps.party.id)
+  }, [ps, everyoneDone, meId])
   const navigate = useNavigate()
   const [copied, setCopied] = useState(false)
   const [stored, setStored] = useState<'saving' | 'done' | null>(null)
@@ -113,6 +126,10 @@ export default function FinishPage() {
           </div>
         </div>
 
+        {ps && <TeamResult ps={ps} everyoneDone={everyoneDone} meId={meId} />}
+
+        <SaveAchievementCard next="/finish" />
+
         {stored && visited.length > 0 && (
           <button
             onClick={() => navigate(userId || !auth.enabled ? '/passport' : '/login?next=/passport')}
@@ -162,7 +179,7 @@ export default function FinishPage() {
                     <li key={s.id} className={`flex items-start gap-2 ${got ? '' : 'opacity-40'}`}>
                       {got ? <Gift className="mt-0.5 h-3.5 w-3.5 shrink-0 text-bark" /> : <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" />}
                       <div className="min-w-0 flex-1 leading-tight">
-                        <div className="text-[12px] font-bold">{missionFor(role, s.id).item[lang]}</div>
+                        <div className="text-[12px] font-bold">{missionFor(role, s).item[lang]}</div>
                         <div className="text-[10px] opacity-60">{s.name[lang]}</div>
                       </div>
                       {got && <Award className="h-4 w-4 shrink-0 text-sun-dark" />}
@@ -266,5 +283,33 @@ function Postcard({
         </div>
       </div>
     </div>
+  )
+}
+
+/** "Your team escaped!" — who finished, team time, and the clock (when the party used one). */
+function TeamResult({ ps, everyoneDone, meId }: { ps: PartyState; everyoneDone: boolean; meId: string | null }) {
+  const { t, lang } = useQuest()
+  const p = ps.party
+  const waiting = ps.members.filter((m) => !m.finishedAt).length
+  const end = everyoneDone ? Math.max(...ps.members.map((m) => m.finishedAt ?? 0)) : Date.now()
+  const teamMin = p.startedAt ? Math.max(1, Math.round((end - p.startedAt) / 60_000)) : null
+  const limit = p.timerMode === 'countdown' ? p.timeLimitMin : null
+  return (
+    <section className={`space-y-3 rounded-[24px] border-2 p-4 ${everyoneDone ? 'border-sun-dark bg-butter/60' : 'border-sand bg-white'}`}>
+      <div className="text-center">
+        <div className="text-[17px] font-extrabold">{everyoneDone ? t.partyFinishTitle : t.partyFinishWaiting(waiting)}</div>
+        {teamMin !== null && p.timerMode !== 'off' && (
+          <div className="mt-1 text-[12px] font-bold text-bark/80">
+            {t.partyFinishTime(duration(teamMin, lang))}
+            {limit !== null && everyoneDone && (
+              <div className={teamMin <= limit ? 'text-teal' : 'text-brick'}>
+                {teamMin <= limit ? t.partyBeatClock(duration(limit - teamMin, lang)) : t.partyOverClock(duration(teamMin - limit, lang))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <PartyBoard state={ps} meId={meId} />
+    </section>
   )
 }

@@ -17,7 +17,7 @@ const SCROLL_KEY = 'vnexplore:questsScroll'
 
 export default function QuestsPage() {
   const { t, lang, places } = useQuest()
-  const { session } = useAuth()
+  const { isMember } = useAuth()
   const navigate = useNavigate()
   const tabHidden = useAutoHide()
   const [quests, setQuests] = useState<SavedQuest[] | null>(null)
@@ -69,7 +69,7 @@ export default function QuestsPage() {
     if (el && el.scrollTop > 0) el.scrollTo({ top: 0 })
   }, [mode, theme])
     const byId = useMemo(() => new Map(places.map((p) => [p.id, p])), [places])
-  const create = () => navigate(session ? '/create' : '/login?next=/create')
+  const create = () => navigate(isMember ? '/create' : '/login?next=/create')
 
   const chip = (on: boolean) =>
     `inline-flex shrink-0 items-center gap-1 rounded-full border-2 px-3 py-1.5 text-[12px] font-bold transition ${

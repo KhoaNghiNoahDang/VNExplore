@@ -299,6 +299,7 @@ function ItemsView({ items, byId }: { items: Map<string, Set<string>>; byId: Map
         const ids = [...new Set([...Object.keys(role.missions), ...got])].filter((id) => byId.has(id))
         const Icon = ROLE_ICON[role.id]
         const have = ids.filter((id) => got.has(id)).length
+        if (!ids.length) return null // a role never played, with no place-specific missions
         return (
           <section key={role.id} className="rounded-[22px] border-2 border-sand bg-white p-4">
             <div className="flex items-center gap-3">
@@ -317,7 +318,7 @@ function ItemsView({ items, byId }: { items: Map<string, Set<string>>; byId: Map
                   <li key={id} className={`rounded-2xl p-2.5 ${on ? 'bg-butter' : 'border-2 border-dashed border-sand'}`}>
                     <div className="flex items-center gap-1.5">
                       {on ? <Gift className="h-4 w-4 shrink-0 text-bark" /> : <Lock className="h-3.5 w-3.5 shrink-0 text-bark/40" />}
-                      <span className={`text-[12px] font-bold leading-tight ${on ? '' : 'text-bark/45'}`}>{on ? missionFor(role, id).item[lang] : t.lockedItem}</span>
+                      <span className={`text-[12px] font-bold leading-tight ${on ? '' : 'text-bark/45'}`}>{on ? missionFor(role, place).item[lang] : t.lockedItem}</span>
                     </div>
                     <div className={`mt-0.5 truncate text-[10px] ${on ? 'text-bark/75' : 'text-bark/40'}`}>{t.itemAt(place.name[lang])}</div>
                   </li>
