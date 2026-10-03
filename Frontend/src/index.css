@@ -51,6 +51,20 @@ button:disabled {
   border-radius: 10px;
 }
 
+.vx-place-blurb:not(.is-expanded) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.vx-planner-reply:not(.is-expanded) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 @keyframes pulse-ring {
   0% { box-shadow: 0 0 0 0 rgb(47 138 132 / 0.5); }
   100% { box-shadow: 0 0 0 14px rgb(47 138 132 / 0); }
@@ -121,4 +135,11 @@ button:disabled {
 }
 .maplibregl-ctrl-attrib {
   font-size: 9px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .listening,
+  .vx-user {
+    animation: none;
+  }
 }

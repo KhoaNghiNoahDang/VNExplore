@@ -14,6 +14,7 @@ function toPlace(r: PlaceRow): Place {
     kind: (r.kind as Place['kind']) ?? 'sight',
     depth: (r.depth as Place['depth']) ?? 'full',
     openingHours: (r.opening_hours as string | null) ?? null,
+    priceCheckedOn: (r.price_checked_on as string | null) ?? null,
     name: L(r, 'name'),
     nameVi: String(r.name_vi_short ?? r.name_vi),
     lat: Number(r.lat),
@@ -47,7 +48,34 @@ export async function fetchPlaces(): Promise<Place[]> {
   try {
     const { data, error } = await supabase.from('places').select('*').eq('status', 'approved')
     if (error) throw error
-    return data?.length ? (data as PlaceRow[]).map(toPlace) : PLACES
+    if (!data?.length) return PLACES
+
+    // Deployments can temporarily have an older Supabase seed than the bundled
+    // catalogue. Preserve the bundled editorial copy while still accepting
+    // remote operational fields such as coordinates, prices and opening hours.
+    const merged = new Map(PLACES.map((place) => [place.id, place]))
+    for (const row of data as PlaceRow[]) {
+      const remote = toPlace(row)
+      const bundled = merged.get(remote.id)
+      merged.set(
+        remote.id,
+        bundled
+          ? {
+              ...bundled,
+              ...remote,
+              name: bundled.name,
+              nameVi: bundled.nameVi,
+              blurb: bundled.blurb,
+              story: bundled.story,
+              why: bundled.why,
+              photoTip: bundled.photoTip,
+              etiquette: bundled.etiquette,
+              challenge: bundled.challenge ?? remote.challenge,
+            }
+          : remote,
+      )
+    }
+    return [...merged.values()]
   } catch (err) {
     console.warn('Supabase unavailable, using bundled places:', err)
     return PLACES

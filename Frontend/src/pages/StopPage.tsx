@@ -5,6 +5,7 @@ import {
   Camera,
   ChevronDown,
   CircleCheck,
+  Clock3,
   Gift,
   Handshake,
   Headphones,
@@ -22,12 +23,14 @@ import { ROLE_ICON, TONE_BG } from '../components/icons'
 import { MapStopCard } from '../components/MapCards'
 import MapView, { type MapPanel } from '../components/MapView'
 import PlaceThumb from '../components/PlaceThumb'
+import PlaceReportPrompt from '../components/PlaceReportPrompt'
 import PrimaryButton from '../components/PrimaryButton'
 import Stamp from '../components/Stamp'
 import { LegLine } from '../components/TravelBits'
 import TopBar from '../components/TopBar'
 import { missionFor } from '../data/roles'
 import { distance, minutes, moneyRange } from '../lib/format'
+import { formatOpeningHours } from '../lib/hours'
 import { googleMapsUrl, shuffledOrder, storyOf } from '../lib/quest'
 import { distanceM, estimateLeg } from '../lib/travel'
 import { useNarration } from '../lib/useNarration'
@@ -201,7 +204,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
                 <Headphones className="h-4 w-4 shrink-0" /> {t.autoPlayNote}
               </div>
             )}
-            {mode === 'easy' && <InfoGrid place={place} people={people} lang={lang} only={['price', 'photo']} />}
+            {mode === 'easy' && <InfoGrid place={place} people={people} lang={lang} only={['price', 'hours', 'photo']} />}
             <div className="rounded-2xl border-2 border-sand bg-white p-3">
               <div className="mb-1 text-[10px] font-bold uppercase tracking-widest opacity-50">{t.thisLeg}</div>
               <LegLine leg={leg} people={people} />
@@ -298,6 +301,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
             )}
 
             {storyUnlocked && <InfoGrid place={place} people={people} lang={lang} />}
+            <PlaceReportPrompt place={place} journeyStartedAt={journey!.startedAt} />
           </>
         )}
       </div>
@@ -423,11 +427,14 @@ function StoryText({
   )
 }
 
-type InfoKey = 'why' | 'price' | 'photo' | 'etiquette'
+type InfoKey = 'why' | 'price' | 'hours' | 'photo' | 'etiquette'
 
 function InfoGrid({ place, people, lang, only }: { place: Place; people: number; lang: Lang; only?: InfoKey[] }) {
   const { t } = useQuest()
   const perPerson = moneyRange(place.priceMin, place.priceMax, lang)
+  const checked = place.priceCheckedOn
+    ? new Intl.DateTimeFormat(lang === 'vi' ? 'vi-VN' : 'en', { month: 'short', year: 'numeric' }).format(new Date(place.priceCheckedOn))
+    : ''
   const rows: { key: InfoKey; icon: typeof Lightbulb; title: string; body: string }[] = [
     { key: 'why', icon: Lightbulb, title: t.why, body: place.why[lang] },
     {
@@ -437,8 +444,10 @@ function InfoGrid({ place, people, lang, only }: { place: Place; people: number;
       body:
         place.priceMax === 0
           ? perPerson
-          : `${perPerson}${t.perPerson} · ${moneyRange(place.priceMin * people, place.priceMax * people, lang)} ${t.forN(people)}`,
+          : `${perPerson}${t.perPerson} · ${moneyRange(place.priceMin * people, place.priceMax * people, lang)} ${t.forN(people)}` +
+            (checked ? ` · ${t.priceChecked(checked)}` : ''),
     },
+    { key: 'hours', icon: Clock3, title: t.openingHours, body: formatOpeningHours(place.openingHours, lang) },
     { key: 'photo', icon: Camera, title: t.photoAngle, body: place.photoTip[lang] },
     { key: 'etiquette', icon: Handshake, title: t.etiquette, body: place.etiquette[lang] },
   ]

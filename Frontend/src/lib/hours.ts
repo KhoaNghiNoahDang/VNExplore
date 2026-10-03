@@ -72,3 +72,16 @@ export function isOpenAt(value: string | null | undefined, at: Date): boolean | 
       (r.days.has(yesterday) && r.ranges.some(([a, b]) => b > 1440 && min + 1440 >= a && min + 1440 < b)),
   )
 }
+
+/** Compact, human-readable form of the common OSM day tokens used by our data. */
+export function formatOpeningHours(value: string | null | undefined, lang: 'vi' | 'en'): string {
+  if (!value) return ''
+  if (value.trim() === '24/7') return lang === 'vi' ? 'Mở cửa 24 giờ' : 'Open 24 hours'
+  const names =
+    lang === 'vi'
+      ? { Mo: 'T2', Tu: 'T3', We: 'T4', Th: 'T5', Fr: 'T6', Sa: 'T7', Su: 'CN' }
+      : { Mo: 'Mon', Tu: 'Tue', We: 'Wed', Th: 'Thu', Fr: 'Fri', Sa: 'Sat', Su: 'Sun' }
+  return value
+    .replace(/Mo|Tu|We|Th|Fr|Sa|Su/g, (day) => names[day as keyof typeof names])
+    .replace(/\s*;\s*/g, ' · ')
+}
