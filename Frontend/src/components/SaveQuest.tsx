@@ -25,17 +25,17 @@ export default function SaveQuestButton({ summary, className = '' }: { summary: 
 
   // Back from the login page with ?save=1 → open the sheet.
   useEffect(() => {
-    if (params.get('save') === '1' && auth.session) {
+    if (params.get('save') === '1' && auth.isMember) {
       setOpen(true)
       params.delete('save')
       setParams(params, { replace: true })
     }
-  }, [params, setParams, auth.session])
+  }, [params, setParams, auth.isMember])
 
   if (!auth.enabled || !summary.stops.length) return null
 
   const onClick = () => {
-    if (auth.session) setOpen(true)
+    if (auth.isMember) setOpen(true)
     else navigate(`/login?next=${encodeURIComponent(`${pathname}?save=1`)}`)
   }
 
@@ -52,7 +52,7 @@ export default function SaveQuestButton({ summary, className = '' }: { summary: 
       >
         <Bookmark className="h-4 w-4" /> {t.saveQuest}
       </button>
-      {open && auth.session && (
+      {open && auth.isMember && (
         <SaveSheet
           onClose={() => setOpen(false)}
           defaultTitle={defaultTitle}

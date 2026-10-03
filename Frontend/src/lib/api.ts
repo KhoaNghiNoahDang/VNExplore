@@ -1,5 +1,6 @@
+import { EVENTS } from '../data/events'
 import { PLACES } from '../data/places'
-import type { Place, PlaceTag, Theme } from '../types'
+import type { Place, PlaceTag, QuestEvent, Theme } from '../types'
 import { supabase } from './supabase'
 
 /** A row of public.places (flat, one column per language). */
@@ -30,6 +31,9 @@ function toPlace(r: PlaceRow): Place {
     why: L(r, 'why'),
     photoTip: L(r, 'photo_tip'),
     etiquette: L(r, 'etiquette'),
+    sources: Array.isArray(r.sources) ? (r.sources as string[]) : [],
+    notice: r.notice_vi ? L(r, 'notice') : null,
+    phone: (r.phone as string | null) ?? null,
     challenge: !r.challenge_vi ? null : {
       prompt: L(r, 'challenge'),
       options: [L(r, 'option1'), L(r, 'option2'), L(r, 'option3')],
@@ -71,6 +75,10 @@ export async function fetchPlaces(): Promise<Place[]> {
               photoTip: bundled.photoTip,
               etiquette: bundled.etiquette,
               challenge: bundled.challenge ?? remote.challenge,
+              // An older Supabase seed may not have these yet: keep the bundled ones.
+              sources: remote.sources?.length ? remote.sources : bundled.sources,
+              notice: remote.notice ?? bundled.notice,
+              phone: remote.phone ?? bundled.phone,
             }
           : remote,
       )
@@ -79,5 +87,58 @@ export async function fetchPlaces(): Promise<Place[]> {
   } catch (err) {
     console.warn('Supabase unavailable, using bundled places:', err)
     return PLACES
+  }
+}
+
+const list = (v: unknown): string[] => (Array.isArray(v) ? v.map(String) : [])
+const WEEKDAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+
+function toEvent(r: PlaceRow): QuestEvent {
+  const price = (v: unknown) => (v === null || v === undefined ? null : Number(v))
+  return {
+    id: String(r.id),
+    area: r.area as QuestEvent['area'],
+    kind: r.kind as QuestEvent['kind'],
+    category: (r.category as QuestEvent['category']) ?? 'other',
+    adult: r.sensitivity === 'adult',
+    name: { vi: String(r.name_vi), en: String(r.name_en || r.name_vi) },
+    blurb: L(r, 'blurb'),
+    placeId: (r.place_id as string | null) ?? null,
+    venue: String(r.venue ?? ''),
+    address: String(r.address ?? ''),
+    lat: Number(r.lat),
+    lng: Number(r.lng),
+    fromDate: String(r.from_date),
+    toDate: String(r.to_date),
+    weekdays: list(r.weekdays).map((d) => WEEKDAYS.indexOf(d)).filter((d) => d >= 0),
+    times: list(r.start_times),
+    endTime: (r.end_time as string | null) ?? null,
+    visitMin: Number(r.visit_min),
+    priceMin: price(r.price_min_k),
+    priceMax: price(r.price_max_k),
+    ticket: (r.needs_ticket as unknown) === true,
+    url: (r.event_url as string | null) ?? null,
+    host: String(r.host_name ?? ''),
+    source: String(r.source ?? ''),
+    timeConfirmed: r.time_confirmed === undefined || r.time_confirmed === null || (r.time_confirmed as unknown) === true,
+  }
+}
+
+/**
+ * Approved events that haven't ended. Supabase rows win over the bundled copy by id;
+ * the bundled copy is used alone while the events table doesn't exist yet (0009_events.sql).
+ */
+export async function fetchEvents(): Promise<QuestEvent[]> {
+  const since = new Date(Date.now() - 90 * 86_400_000).toISOString().slice(0, 10)
+  if (!supabase) return EVENTS
+  try {
+    const { data, error } = await supabase.from('events').select('*').eq('status', 'approved').gte('to_date', since)
+    if (error) throw error
+    const merged = new Map(EVENTS.map((e) => [e.id, e]))
+    for (const row of (data ?? []) as PlaceRow[]) merged.set(String(row.id), toEvent(row))
+    return [...merged.values()]
+  } catch (err) {
+    console.info('Events table unavailable, using bundled events:', (err as { message?: string }).message ?? err)
+    return EVENTS
   }
 }

@@ -68,7 +68,7 @@ export function TransportHintCard({
         ? t.hintRushCar(hint.savedMin, extra)
         : hint.reason === 'rushShift'
           ? t.hintRushShift(leaveTime, hint.savedMin)
-          : t.hintFar(distance(hint.longestM), hint.savedMin, extra)
+          : t.hintFar(distance(hint.walkedM), hint.walkMin, distance(hint.longestM), hint.savedMin, extra)
 
   return (
     <div className="relative rounded-2xl border-2 border-teal/30 bg-teal/5 p-3 pr-9">

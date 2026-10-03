@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { LatLng } from '../types'
-import { areaAt } from './area'
 
-export type GeoStatus = 'off' | 'asking' | 'on' | 'far' | 'denied' | 'unavailable'
+export type GeoStatus = 'off' | 'asking' | 'on' | 'denied' | 'unavailable'
 
 export interface Geo {
   status: GeoStatus
-  /** Latest fix (also set when 'far', so the UI can say how far). */
+  /** Latest real fix from the device. */
   position: LatLng | null
   accuracyM: number | null
 }
@@ -16,7 +15,7 @@ export interface Geo {
  * Browser geolocation (free, needs HTTPS and the user's permission).
  * `enabled` is remembered, so after a reload tracking resumes without a new prompt.
  */
-export function useGeolocation(enabled: boolean, center: LatLng) {
+export function useGeolocation(enabled: boolean) {
   const [geo, setGeo] = useState<Geo>({ status: 'off', position: null, accuracyM: null })
   const watchId = useRef<number | null>(null)
 
@@ -39,19 +38,14 @@ export function useGeolocation(enabled: boolean, center: LatLng) {
     watchId.current = navigator.geolocation.watchPosition(
       (pos) => {
         const p = { lat: pos.coords.latitude, lng: pos.coords.longitude }
-        setGeo({
-          // 'far' = outside every area we cover (Hoan Kiem, Ba Vi); plans then start from the area's default.
-          status: areaAt(p) ? 'on' : 'far',
-          position: p,
-          accuracyM: pos.coords.accuracy,
-        })
+        setGeo({ status: 'on', position: p, accuracyM: pos.coords.accuracy })
       },
       (err) =>
         setGeo({ status: err.code === err.PERMISSION_DENIED ? 'denied' : 'unavailable', position: null, accuracyM: null }),
       { enableHighAccuracy: true, maximumAge: 10_000, timeout: 20_000 },
     )
     return stop
-  }, [enabled, center, stop])
+  }, [enabled, stop])
 
   return geo
 }

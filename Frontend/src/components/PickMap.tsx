@@ -54,7 +54,7 @@ export default function PickMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Move when asked (search result, my location, default start).
+  // Move when asked (search result, my location).
   useEffect(() => {
     map.current?.flyTo({ center: [center.lng, center.lat], zoom: center.zoom ?? 16, duration: 600 })
   }, [center.lat, center.lng, center.zoom, center.nonce])

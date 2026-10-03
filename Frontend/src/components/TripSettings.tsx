@@ -1,8 +1,8 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Check, ChevronRight, Clock3, Home, LocateFixed, LocateOff, Loader2, MapPin, Navigation, Search, ShieldCheck, Stamp as StampIcon, X } from 'lucide-react'
+import { Check, ChevronRight, Clock3, LocateFixed, LocateOff, Loader2, MapPin, Navigation, Search, ShieldCheck, Stamp as StampIcon, X } from 'lucide-react'
 import { TRANSPORTS } from '../data/transport'
 import { TRANSPORT_INFO } from '../i18n/strings'
-import { AREA_START, areaAt } from '../lib/area'
+import { AREA_POINT } from '../lib/area'
 import { geocodeSearch, type GeoResult } from '../lib/backend'
 import { distanceM } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
@@ -119,45 +119,46 @@ export function DepartSheet({ onClose }: { onClose: () => void }) {
 /**
  * Ask before using location: what it's for, that it stays on the phone, then the browser's own prompt.
  * Also used to turn location off, and to explain how to re-enable it after a "Block".
+ * There is no made-up fallback: without location the traveller picks a start point on the map.
  */
 export function LocationSheet({
-  area,
   onClose,
-  onDecided,
+  onPickStart,
 }: {
-  area: Area
   onClose: () => void
-  /** Called after "Allow" or "Not now" (e.g. to continue a pending search). */
-  onDecided?: (allowed: boolean) => void
+  /** "Pick a start point on the map instead". */
+  onPickStart: () => void
 }) {
   const { t, geo, geoWanted, setGeoWanted } = useQuest()
-  const fallback = t.startDefault[area]
-  const decide = (allowed: boolean) => {
-    setGeoWanted(allowed)
+  const allow = () => {
+    setGeoWanted(true)
     markGeoAsked()
-    onDecided?.(allowed)
     onClose()
+  }
+  const pick = () => {
+    markGeoAsked()
+    onClose()
+    onPickStart()
   }
 
   // Already on: show what we have and let them turn it off.
-  if (geoWanted && (geo.status === 'on' || geo.status === 'far' || geo.status === 'asking')) {
+  if (geoWanted && (geo.status === 'on' || geo.status === 'asking')) {
     return (
       <Sheet title={t.geoOnTitle} onClose={onClose}>
         <div className="flex items-start gap-3 rounded-2xl bg-teal/10 p-3 text-[13px] text-teal">
           {geo.status === 'asking' ? <Loader2 className="mt-0.5 h-5 w-5 shrink-0 animate-spin" /> : <LocateFixed className="mt-0.5 h-5 w-5 shrink-0" />}
           <span className="font-medium">
-            {geo.status === 'asking'
-              ? t.locating
-              : geo.status === 'far'
-                ? t.geoFarNote(fallback)
-                : t.geoOnNote(geo.accuracyM ? Math.round(geo.accuracyM) : null)}
+            {geo.status === 'asking' ? t.locating : t.geoOnNote(geo.accuracyM ? Math.round(geo.accuracyM) : null)}
           </span>
         </div>
         <button
-          onClick={() => decide(false)}
+          onClick={() => {
+            setGeoWanted(false)
+            onClose()
+          }}
           className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-sand bg-white py-3 text-[14px] font-bold text-bark hover:bg-cream"
         >
-          <LocateOff className="h-4 w-4" /> {t.geoOff(fallback)}
+          <LocateOff className="h-4 w-4" /> {t.geoOff}
         </button>
       </Sheet>
     )
@@ -194,13 +195,13 @@ export function LocationSheet({
         <PrimaryButton
           onClick={() => {
             if (blocked) setGeoWanted(false) // reset, so switching on again re-runs the browser request
-            setTimeout(() => decide(true), blocked ? 50 : 0)
+            setTimeout(allow, blocked ? 50 : 0)
           }}
         >
           <LocateFixed className="h-4 w-4" /> {blocked ? t.geoRetry : t.geoAllow}
         </PrimaryButton>
-        <button onClick={() => decide(false)} className="w-full rounded-2xl py-3 text-[14px] font-bold text-bark/70 hover:bg-cream">
-          {t.geoSkip(fallback)}
+        <button onClick={pick} className="flex w-full items-center justify-center gap-1.5 rounded-2xl py-3 text-[14px] font-bold text-bark/70 hover:bg-cream">
+          <MapPin className="h-4 w-4" /> {t.geoSkip}
         </button>
       </div>
     </Sheet>
@@ -249,11 +250,12 @@ function nearLabel(p: LatLng, places: Place[], lang: 'vi' | 'en'): string | null
 
 /**
  * Choose where the trip starts: search a place or address, or move the map under the pin.
- * Also: use my location (asks first), or go back to the default start.
+ * Also: use my location (asks first).
  */
 export function StartSheet({ area, onClose, onUseLocation }: { area: Area; onClose: () => void; onUseLocation: () => void }) {
-  const { t, lang, places, customStart, setCustomStart, geo, geoWanted, setGeoWanted } = useQuest()
-  const first = customStart ?? (geoWanted && geo.status === 'on' && geo.position ? geo.position : AREA_START[area])
+  const { t, lang, places, customStart, setCustomStart, geo } = useQuest()
+  // Open the map on the traveller (or their earlier pick); the area's middle is only a map view.
+  const first = customStart ?? (geo.status === 'on' && geo.position ? geo.position : AREA_POINT[area])
   const [center, setCenter] = useState<LatLng & { zoom?: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
   const [point, setPoint] = useState<LatLng>({ lat: first.lat, lng: first.lng })
   const pointRef = useRef(point)
@@ -396,28 +398,16 @@ export function StartSheet({ area, onClose, onUseLocation }: { area: Area; onClo
         </>
       )}
 
-      <div className="mt-3 grid grid-cols-2 gap-2">
-        <button
-          onClick={() => {
-            setCustomStart(null)
-            onClose()
-            onUseLocation()
-          }}
-          className="flex items-center justify-center gap-1.5 rounded-2xl border-2 border-sand bg-white px-2 py-2.5 text-[12px] font-bold text-teal hover:border-teal/40"
-        >
-          <LocateFixed className="h-4 w-4 shrink-0" /> {t.useMyLocation}
-        </button>
-        <button
-          onClick={() => {
-            setCustomStart(null)
-            setGeoWanted(false)
-            onClose()
-          }}
-          className="flex items-center justify-center gap-1.5 rounded-2xl border-2 border-sand bg-white px-2 py-2.5 text-[12px] font-bold text-bark hover:border-bark/30"
-        >
-          <Home className="h-4 w-4 shrink-0" /> <span className="truncate">{t.startDefault[area]}</span>
-        </button>
-      </div>
+      <button
+        onClick={() => {
+          setCustomStart(null)
+          onClose()
+          onUseLocation()
+        }}
+        className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-2xl border-2 border-sand bg-white px-2 py-2.5 text-[13px] font-bold text-teal hover:border-teal/40"
+      >
+        <LocateFixed className="h-4 w-4 shrink-0" /> {t.useMyLocation}
+      </button>
     </Sheet>
   )
 }
@@ -456,33 +446,29 @@ export default function TripSettings({
   isDefault = false,
   locationSheet,
   onLocationSheet,
-  onLocationDecided,
 }: {
   area: Area
   transport: Transport
   isDefault?: boolean
   locationSheet: boolean
   onLocationSheet: (open: boolean) => void
-  /** e.g. continue a search that was waiting for the answer */
-  onLocationDecided?: (allowed: boolean) => void
 }) {
-  const { t, lang, geo, geoWanted, customStart } = useQuest()
+  const { t, lang, geo, geoWanted, customStart, planFor } = useQuest()
   const [sheet, setSheet] = useState<'transport' | 'depart' | 'start' | null>(null)
   const departLabel = useDepartLabel()
 
-  const picked = customStart && areaAt(customStart) === area ? customStart : null
-  const here = !picked && geoWanted && geo.status === 'on' && areaAt(geo.position) === area
-  const startValue = picked ? picked.label : here ? t.startHere : t.startDefault[area]
+  const picked = customStart
+  // Real position: live, or the last fix while a new one is on its way.
+  const here = !picked && !!planFor(area).start
+  const startValue = picked ? picked.label : here ? t.startHere : t.startUnknown
   const startNote = picked
     ? t.startPickedNote
-    : here
-    ? null
     : geoWanted && geo.status === 'asking'
       ? t.locating
-      : geoWanted && geo.status === 'denied'
-        ? t.geoBlockedShort
-        : geoWanted && geo.status === 'far'
-          ? t.geoFarShort
+      : here
+        ? null
+        : geoWanted && geo.status === 'denied'
+          ? t.geoBlockedShort
           : t.geoTapToUse
 
   return (
@@ -518,7 +504,7 @@ export default function TripSettings({
       {sheet === 'transport' && <TransportSheet current={transport} onClose={() => setSheet(null)} />}
       {sheet === 'depart' && <DepartSheet onClose={() => setSheet(null)} />}
       {sheet === 'start' && <StartSheet area={area} onClose={() => setSheet(null)} onUseLocation={() => onLocationSheet(true)} />}
-      {locationSheet && <LocationSheet area={area} onClose={() => onLocationSheet(false)} onDecided={onLocationDecided} />}
+      {locationSheet && <LocationSheet onClose={() => onLocationSheet(false)} onPickStart={() => setSheet('start')} />}
     </>
   )
 }

@@ -18,6 +18,7 @@ import { summarize } from '../lib/quest'
 import { getQuest, upsertQuest, type Audience, type BestTime, type TipKind, type Visibility } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
+import { AREA_POINT } from '../lib/area'
 import type { Mode, Place, Theme, Transport } from '../types'
 
 const THEMES: Theme[] = ['food', 'photo', 'history', 'culture', 'rainy', 'fun']
@@ -40,7 +41,7 @@ interface StopDraft {
 export default function CreateQuestPage() {
   const q = useQuest()
   const { t, lang, places, planFor } = q
-  const { enabled, loading, session } = useAuth()
+  const { enabled, loading, session, isGuest } = useAuth()
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const editId = params.get('edit')
@@ -87,8 +88,9 @@ export default function CreateQuestPage() {
         setReady(true)
       })
     } else if (params.get('from') === 'route' && q.selected.length) {
-      const chosen = places.filter((p) => q.selected.includes(p.id))
-      const ordered = summarize(q.start, chosen, q.intent?.people ?? 1, q.travel, q.routeOrder).stops
+      // Events have a date: a reusable quest keeps only the places.
+      const chosen = places.filter((p) => q.selected.includes(p.id) && !p.event)
+      const ordered = summarize(q.start ?? chosen[0], chosen, q.intent?.people ?? 1, q.travel, q.routeOrder).stops
       setStops(ordered.slice(0, MAX_STOPS).map((p) => ({ placeId: p.id, tipKind: null, tip: '' })))
       setThemes(q.intent?.themes ?? [])
       setPeople(q.intent?.people ?? 2)
@@ -103,14 +105,14 @@ export default function CreateQuestPage() {
   const byId = useMemo(() => new Map(places.map((p) => [p.id, p])), [places])
   const stopPlaces = stops.map((s) => byId.get(s.placeId)).filter((p): p is Place => !!p)
   const summary = useMemo(
-    // Numbers from the quest's own area (not wherever the author happens to be right now).
-    () => summarize(planFor(stopPlaces[0]?.area ?? 'hoan-kiem').start, stopPlaces, people, { transport, departAt: null }, stopPlaces.map((p) => p.id)),
+    // Numbers measured from the quest's first stop (not wherever the author happens to be right now).
+    () => summarize(stopPlaces[0] ?? AREA_POINT['hoan-kiem'], stopPlaces, people, { transport, departAt: null }, stopPlaces.map((p) => p.id)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [planFor, stops, people, transport, byId],
   )
 
   if (!enabled) return <Navigate to="/" replace />
-  if (!loading && !session) return <Navigate to={`/login?next=${encodeURIComponent(`/create${location.search}`)}`} replace />
+  if (!loading && (!session || isGuest)) return <Navigate to={`/login?next=${encodeURIComponent(`/create${location.search}`)}`} replace />
   if (!ready || !session) {
     return (
       <div className="flex flex-1 items-center justify-center">

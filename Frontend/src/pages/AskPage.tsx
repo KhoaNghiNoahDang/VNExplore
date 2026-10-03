@@ -7,7 +7,7 @@ import PrimaryButton from '../components/PrimaryButton'
 import TabBar from '../components/TabBar'
 import { WeatherPill } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
-import TripSettings, { geoAsked } from '../components/TripSettings'
+import TripSettings from '../components/TripSettings'
 import { understandRequest } from '../lib/backend'
 import { mergeUnderstood, parseIntent, withAreaDefaults } from '../lib/intent'
 import { preselect, rankPlaces } from '../lib/quest'
@@ -25,7 +25,9 @@ export default function AskPage() {
   const text = draft.trim()
   const parsed = useMemo(() => (text ? parseIntent(text) : null), [text])
   // A new request: the area named in the text, else where the traveller is (not the last saved plan).
-  const askArea = planFor(parsed?.area ?? null).area
+  const askPlan = planFor(parsed?.area ?? null)
+  const askArea = askPlan.area
+  const hasStart = !!askPlan.start
   const preview = useMemo(() => (parsed ? withAreaDefaults(parsed, askArea) : null), [parsed, askArea])
   const ready = !!preview
 
@@ -44,8 +46,9 @@ export default function AskPage() {
 
   const [thinking, setThinking] = useState(false)
   const [locSheet, setLocSheet] = useState(false)
-  // Waiting for a first location fix before searching (after "Allow" on the location question).
-  const [waitGeo, setWaitGeo] = useState(false)
+  // A search waiting for a start point: a first location fix, or a point picked on the map.
+  const [pending, setPending] = useState(false)
+  const locatingForSearch = pending && geoWanted && geo.status === 'asking'
 
   const submit = async () => {
     if (thinking) return
@@ -60,9 +63,11 @@ export default function AskPage() {
       modeBox.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
     }
-    // First search ever: ask whether to use location (once). The search continues after the answer.
-    if (!geoWanted && !geoAsked()) {
-      setLocSheet(true)
+    // Plans start from where the traveller really is. Without a position yet: wait for the fix that's
+    // on its way, or ask (turn on location, or pick a start point). The search continues by itself.
+    if (!hasStart) {
+      setPending(true)
+      if (!(geoWanted && geo.status === 'asking')) setLocSheet(true)
       return
     }
     // Let the language model read the request (≤ 4 s); on any problem keep the rule-based reading.
@@ -85,28 +90,32 @@ export default function AskPage() {
     )
     setThinking(false)
     // Plan inside one area: the one named in the text, else where the traveller is.
-    const { area, places: pool, start } = planFor(merged.area)
+    const { area, places: pool, start: planned } = planFor(merged.area)
+    const start = planned ?? askPlan.start!
     const intent = withAreaDefaults(merged, area)
     const transport = picked ?? intent.transport
     const ranked = rankPlaces(pool, intent, start, [], contextFor(area))
     setIntent(intent, preselect(ranked, intent, start, [], { transport, departAt: travel.departAt }))
-    // Explore adds one step: choose a role (it then re-picks places that fit the role).
-    navigate(mode === 'explore' ? '/role?next=/places&fresh=1' : '/places')
+    // Explore picks its role later, once the route is known (roles are suggested from the stops).
+    navigate('/places')
   }
 
   const submitRef = useRef(submit)
   submitRef.current = submit
   useEffect(() => {
-    if (!waitGeo) return
-    const done = geo.status !== 'asking' && geo.status !== 'off'
-    const go = () => {
-      setWaitGeo(false)
+    if (pending && hasStart) {
+      setPending(false)
       submitRef.current()
     }
-    if (done) return go()
-    const timer = setTimeout(go, 6000)
-    return () => clearTimeout(timer)
-  }, [waitGeo, geo.status])
+  }, [pending, hasStart])
+  // The browser just refused (or failed) after "Allow" while a search waits: show the help and the
+  // map picker once — only on that change, so it never pops over a sheet the traveller opened.
+  const prevGeoStatus = useRef(geo.status)
+  useEffect(() => {
+    const was = prevGeoStatus.current
+    prevGeoStatus.current = geo.status
+    if (pending && was === 'asking' && (geo.status === 'denied' || geo.status === 'unavailable')) setLocSheet(true)
+  }, [pending, geo.status])
 
   const cta = !preview ? t.showPlaces : !mode ? t.pickMode : mode === 'explore' ? t.chooseRole : t.showPlaces
 
@@ -210,7 +219,6 @@ export default function AskPage() {
             isDefault={!picked && (!preview || preview.transportIsDefault)}
             locationSheet={locSheet}
             onLocationSheet={setLocSheet}
-            onLocationDecided={(allowed) => (allowed ? setWaitGeo(true) : submitRef.current?.())}
           />
         </div>
 
@@ -233,9 +241,9 @@ export default function AskPage() {
             <IntentChips intent={preview} />
           </div>
         )}
-        <PrimaryButton onClick={submit} disabled={!ready || thinking || waitGeo}>
-          {thinking || waitGeo ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-          {waitGeo ? t.locating : thinking ? t.thinking : cta}
+        <PrimaryButton onClick={submit} disabled={!ready || thinking || locatingForSearch}>
+          {thinking || locatingForSearch ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+          {locatingForSearch ? t.locating : thinking ? t.thinking : cta}
         </PrimaryButton>
         <TabBar docked />
       </div>

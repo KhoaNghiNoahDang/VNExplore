@@ -1,3 +1,5 @@
+import { hanoiClock } from './hanoiTime'
+
 /**
  * Just enough of OpenStreetMap's `opening_hours` syntax for the values in our data:
  *   "Mo-Su 06:00-22:00", "Mo-Sa 07:00-19:00, Su 07:00-17:00", "Mo-Fr 06:00-14:00; Sa 08:00-12:00",
@@ -62,8 +64,8 @@ export function isOpenAt(value: string | null | undefined, at: Date): boolean | 
   if (!cache.has(value)) cache.set(value, parse(value))
   const rules = cache.get(value)
   if (!rules) return null
-  const day = at.getDay()
-  const min = at.getHours() * 60 + at.getMinutes()
+  const { day, hour, minute } = hanoiClock(at)
+  const min = hour * 60 + minute
   const yesterday = (day + 6) % 7
   return rules.some(
     (r) =>

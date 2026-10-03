@@ -76,6 +76,13 @@ export default function TripSummary({
           <dt>{t.fareLabel}</dt>
           <dd className="font-bold">{sum.travelCostK > 0 ? `≈${money(sum.travelCostK)}` : t.freeShort}</dd>
         </div>
+        {/* Visits + travel + waiting add up to the total time above. */}
+        {sum.waitTotalMin > 0 && (
+          <div className="flex justify-between gap-1">
+            <dt>{t.waitTime}</dt>
+            <dd className="font-bold">{duration(sum.waitTotalMin, lang)}</dd>
+          </div>
+        )}
       </dl>
       {sum.legs.some((l) => l.costK > 0 && (l.transport === 'grabbike' || l.transport === 'car')) && (
         <p className="mt-1 text-[10px] leading-snug text-bark/60">{t.rideFareNote}</p>

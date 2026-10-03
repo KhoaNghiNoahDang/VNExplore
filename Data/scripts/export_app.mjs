@@ -3,6 +3,8 @@
  *
  *   Frontend/src/data/generated/places.json   (Place[], each with its extra quiz questions from quizzes.csv)
  *   Frontend/src/data/generated/roles.json    (Role[] with their approved missions)
+ *   Frontend/src/data/generated/events.json   (QuestEvent[]; events that ended >90 days ago are dropped)
+ *   Frontend/src/data/generated/drafts.json   (roles with draft content — the app shows them in local dev only)
  *
  * Only rows with status=approved are exported. Rows are validated; any problem stops the export
  * with a clear message (so a typo in the sheet can't break the app).
@@ -108,6 +110,18 @@ const places = readCsv('places.csv')
       photoTip: full ? L(F, r, 'photo_tip') : optL(F, r, 'photo_tip'),
       etiquette: full ? L(F, r, 'etiquette') : optL(F, r, 'etiquette'),
       challenge,
+      // Where the information comes from (URLs or names), shown in the app.
+      sources: list(r.sources ?? ''),
+      // A prominent notice (e.g. workshops: "contact them before you go") and a phone number.
+      notice: (() => {
+        const n = optL(F, r, 'notice')
+        return n.vi ? n : null
+      })(),
+      phone: (() => {
+        const p = (r.phone ?? '').replace(/[\s.]/g, '')
+        if (p && !/^\+?\d{8,13}$/.test(p)) fail(F, r, `phone "${r.phone}" doesn't look like a phone number`)
+        return p || null
+      })(),
     }
   })
 
@@ -134,12 +148,37 @@ for (const r of readCsv('quizzes.csv').filter((q) => q.status === 'approved')) {
 }
 
 // ---------------------------------------------------------------- roles + missions
-const missions = readCsv('missions.csv').filter((m) => m.status === 'approved' && ids.has(m.place_id))
-const roles = readCsv('roles.csv').map((r) => {
+// Roles are picked AFTER the route: each role has tags (themes, kinds of stop, event categories)
+// used to suggest the roles that fit the chosen stops, its own missions for some places, and
+// mission templates per kind of stop (sight / food / fun / event) so every stop gets a task in
+// the role's voice. Approved rows → roles.json; drafts → drafts.json (shown only in local dev).
+const ROLE_AREAS = ['any', ...AREAS]
+const TEMPLATE_KINDS = ['sight', 'food', 'fun', 'event']
+const ROLE_TAGS = new Set([...THEMES, ...KINDS, 'event', 'music', 'theatre', 'film', 'exhibition', 'workshop', 'talk', 'market', 'festival'])
+const allMissions = readCsv('missions.csv').filter((m) => ids.has(m.place_id))
+const allTemplates = readCsv('role_templates.csv')
+const roleRows = readCsv('roles.csv')
+const roleIds = new Set(roleRows.map((r) => r.id))
+allTemplates.forEach((t) => {
+  if (!roleIds.has(t.role_id)) fail('role_templates.csv', t, `unknown role "${t.role_id}"`)
+  if (!TEMPLATE_KINDS.includes(t.kind)) fail('role_templates.csv', t, `kind must be one of ${TEMPLATE_KINDS.join(', ')}`)
+  if (!['draft', 'approved'].includes(t.status)) fail('role_templates.csv', t, 'status must be draft or approved')
+  if (t.tag && !THEMES.includes(t.tag) && !TAGS.includes(t.tag)) fail('role_templates.csv', t, `tag must be a place theme or tag (got "${t.tag}")`)
+})
+
+/** A role built from its row plus the missions / templates whose status is in `statuses`. */
+function buildRole(r, statuses) {
   const F = 'roles.csv'
-  const own = missions.filter((m) => m.role_id === r.id)
+  if (!ROLE_AREAS.includes(r.area)) fail(F, r, `area must be one of ${ROLE_AREAS.join(', ')}`)
+  const tags = list(r.tags)
+  tags.filter((t) => !ROLE_TAGS.has(t)).forEach((t) => fail(F, r, `unknown tag "${t}"`))
+  if (!tags.length) fail(F, r, 'tags is empty')
+  const own = allMissions.filter((m) => m.role_id === r.id && statuses.includes(m.status))
+  const templates = allTemplates.filter((t) => t.role_id === r.id && statuses.includes(t.status))
   return {
     id: text(F, r, 'id'),
+    area: r.area,
+    tags,
     name: L(F, r, 'name'),
     intro: L(F, r, 'intro'),
     goal: L(F, r, 'goal'),
@@ -149,11 +188,95 @@ const roles = readCsv('roles.csv').map((r) => {
     missions: Object.fromEntries(
       own.map((m) => [m.place_id, { task: L('missions.csv', m, 'task'), item: L('missions.csv', m, 'item') }]),
     ),
+    // Several per kind; a tagged one is preferred at places with that theme / tag.
+    templates: templates.map((t) => ({
+      kind: t.kind,
+      tag: t.tag || null,
+      task: L('role_templates.csv', t, 'task'),
+      item: L('role_templates.csv', t, 'item'),
+    })),
     fallback: { task: L(F, r, 'fallback_task'), item: L(F, r, 'fallback_item') },
     ending: L(F, r, 'ending'),
     tone: TONES.includes(r.tone) ? r.tone : (fail(F, r, 'bad tone'), 'teal'),
   }
-})
+}
+const missions = allMissions.filter((m) => m.status === 'approved')
+const roles = roleRows.filter((r) => (r.status || 'approved') === 'approved').map((r) => buildRole(r, ['approved']))
+// Local preview: every role with drafts included, flagged so the app can badge it.
+const draftRoles = roleRows
+  .filter((r) => r.status === 'draft' || allMissions.some((m) => m.role_id === r.id && m.status === 'draft') ||
+    allTemplates.some((t) => t.role_id === r.id && t.status === 'draft'))
+  .map((r) => ({ ...buildRole(r, ['approved', 'draft']), draft: true }))
+
+// ---------------------------------------------------------------- events
+const EVENT_KINDS = ['show', 'open']
+const CATEGORIES = ['music', 'theatre', 'film', 'exhibition', 'workshop', 'talk', 'market', 'festival', 'other']
+const WEEKDAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+const isDate = (s) => /^\d{4}-\d{2}-\d{2}$/.test(s)
+const isTime = (s) => /^\d{2}:\d{2}$/.test(s)
+// Keep events that ended up to 90 days ago, so recent journeys in the passport still resolve.
+const keepFrom = new Date(Date.now() - 90 * 86_400_000).toISOString().slice(0, 10)
+const eventIds = new Set()
+const events = readCsv('events.csv')
+  .filter((r) => r.status === 'approved')
+  .map((r) => {
+    const F = 'events.csv'
+    if (eventIds.has(r.id)) fail(F, r, `duplicate id "${r.id}"`)
+    eventIds.add(r.id)
+    if (!/^[a-z0-9-]+$/.test(r.id)) fail(F, r, 'id: lowercase letters, digits and "-" only')
+    if (![...AREAS, 'hanoi'].includes(r.area)) fail(F, r, `area must be one of ${AREAS.join(', ')}, hanoi`)
+    if (!EVENT_KINDS.includes(r.kind)) fail(F, r, `kind must be one of ${EVENT_KINDS.join(', ')}`)
+    if (!CATEGORIES.includes(r.category)) fail(F, r, `category must be one of ${CATEGORIES.join(', ')}`)
+    if (!['ok', 'adult'].includes(r.sensitivity)) fail(F, r, 'sensitivity must be ok or adult')
+    if (!isDate(r.from_date) || !isDate(r.to_date)) fail(F, r, 'from_date / to_date must be YYYY-MM-DD')
+    else if (r.to_date < r.from_date) fail(F, r, 'to_date is before from_date')
+    const weekdays = list(r.weekdays).map((d) => {
+      const i = WEEKDAYS.indexOf(d)
+      if (i === -1) fail(F, r, `unknown weekday "${d}" (use ${WEEKDAYS.join(', ')})`)
+      return i
+    })
+    const times = list(r.start_times)
+    if (!times.length) fail(F, r, 'start_times is empty')
+    times.filter((t) => !isTime(t)).forEach((t) => fail(F, r, `start time "${t}" must be HH:MM`))
+    if (r.kind === 'open' && (!isTime(r.end_time) || r.end_time <= times[0]))
+      fail(F, r, 'open events need an end_time (HH:MM) after the start time')
+    if (r.kind === 'show' && times.length > 1 && r.end_time) fail(F, r, 'leave end_time empty for shows with several start times')
+    const priced = r.price_min_k !== '' || r.price_max_k !== ''
+    const priceMin = priced ? num(F, r, 'price_min_k') : null
+    const priceMax = priced ? num(F, r, 'price_max_k') : null
+    if (priced && priceMax < priceMin) fail(F, r, 'price_max_k is lower than price_min_k')
+    if (r.event_url && !/^https:\/\//.test(r.event_url)) fail(F, r, 'event_url must start with https://')
+    if (r.place_id && !ids.has(r.place_id)) fail(F, r, `place_id "${r.place_id}" is not an approved place`)
+    return {
+      id: r.id,
+      area: r.area,
+      kind: r.kind,
+      category: r.category,
+      adult: r.sensitivity === 'adult',
+      name: { vi: text(F, r, 'name_vi'), en: r.name_en || r.name_vi },
+      blurb: optL(F, r, 'blurb'),
+      placeId: r.place_id || null,
+      venue: r.venue,
+      address: r.address,
+      lat: num(F, r, 'lat'),
+      lng: num(F, r, 'lng'),
+      fromDate: r.from_date,
+      toDate: r.to_date,
+      weekdays,
+      times,
+      endTime: r.end_time || null,
+      visitMin: num(F, r, 'visit_min'),
+      priceMin,
+      priceMax,
+      ticket: r.needs_ticket === 'true',
+      url: r.event_url || null,
+      host: r.host_name,
+      source: r.source,
+      // false = the source gives no time; the app labels it an estimate.
+      timeConfirmed: r.time_confirmed !== 'false',
+    }
+  })
+  .filter((e) => e.toDate >= keepFrom)
 
 if (errors.length) {
   console.error(`✗ ${errors.length} problem(s) — nothing exported:\n  ` + errors.join('\n  '))
@@ -163,6 +286,9 @@ if (errors.length) {
 mkdirSync(OUT, { recursive: true })
 writeFileSync(join(OUT, 'places.json'), JSON.stringify(places, null, 1) + '\n')
 writeFileSync(join(OUT, 'roles.json'), JSON.stringify(roles, null, 1) + '\n')
+writeFileSync(join(OUT, 'events.json'), JSON.stringify(events, null, 1) + '\n')
+writeFileSync(join(OUT, 'drafts.json'), JSON.stringify({ roles: draftRoles }, null, 1) + '\n')
 console.log(
-  `✓ ${places.length} places, ${quizIds.size} extra quiz questions, ${roles.length} roles, ${missions.length} missions → Frontend/src/data/generated/`,
+  `✓ ${places.length} places, ${quizIds.size} extra quiz questions, ${roles.length} roles, ${missions.length} missions, ${events.length} events → Frontend/src/data/generated/`,
 )
+console.log(`  drafts.json: ${draftRoles.length} roles with drafts (local preview only)`)

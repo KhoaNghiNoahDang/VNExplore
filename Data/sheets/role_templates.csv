@@ -1,0 +1,98 @@
+﻿role_id,kind,tag,status,task_vi,task_en,item_vi,item_en
+merchant,sight,,draft,"Ở {place}, tìm một thứ người xưa có thể mang ra chợ bán.","At {place}, find something people long ago could have sold at market.",Một mặt hàng xưa,An old trade good
+merchant,food,,draft,Hỏi giá món rẻ nhất ở {place} và ghi lại.,Ask the price of the cheapest dish at {place} and write it down.,Một bảng giá,A price list
+merchant,fun,,draft,"Đoán xem {place} kiếm tiền từ đâu: vé, đồ ăn hay thứ gì khác?","Guess how {place} makes its money: tickets, snacks or something else?",Một bí quyết làm ăn,A business secret
+merchant,event,,draft,Xem sự kiện bán vé thế nào và đếm xem có bao nhiêu người tới.,See how the event sells tickets and count how many people came.,Một tấm vé,A ticket
+scholar,sight,,draft,"Ở {place}, tìm một dòng chữ, con số hoặc biểu tượng và đoán ý nghĩa.","At {place}, find an inscription, number or symbol and guess its meaning.",Một câu đối,A couplet
+scholar,food,,draft,"Ở {place}, đoán xem món ăn này đã có từ bao giờ.","At {place}, guess how long this dish has existed.",Một trang sử ẩm thực,A page of food history
+scholar,fun,,draft,Quan sát luật chơi ở {place} và giải thích lại cho bạn đồng hành.,Watch how things work at {place} and explain the rules to a companion.,Một bài học mới,A new lesson
+scholar,event,,draft,"Ghi lại tên người biểu diễn hoặc tác giả, rồi kể lại cho cả nhóm một điều về họ.","Note the performer’s or artist’s name, then tell the group one thing about them.",Một trang ghi chép,A page of notes
+photographer,sight,,draft,Chụp {place} từ một góc mà ít ai đứng.,Photograph {place} from an angle few people stand at.,Một khung hình lạ,An unusual frame
+photographer,food,,draft,"Chụp món ăn ở {place} từ trên xuống, kèm đôi tay đang ăn.","Shoot the food at {place} from above, with hands in the frame.",Khung hình bữa ăn,A meal frame
+photographer,fun,,draft,Bắt khoảnh khắc ai đó đang cười ở {place}.,Catch someone laughing at {place}.,Khung hình niềm vui,A frame of joy
+photographer,event,,draft,"Chụp không khí sự kiện — chỉ khi được phép, không dùng đèn flash.","Capture the mood of the event — only where allowed, no flash.",Khung hình sân khấu,A stage frame
+chef,sight,,draft,"Ở {place}, tìm một thứ gợi bạn nhớ tới một nguyên liệu nấu ăn.","At {place}, find something that reminds you of a cooking ingredient.",Một ý tưởng món mới,An idea for a dish
+chef,food,,draft,Nếm món ở {place} và đoán ba gia vị chính.,Taste the food at {place} and guess its three main seasonings.,Một gia vị bí mật,A secret seasoning
+chef,fun,,draft,Tìm món ăn vặt người ta hay mua ở {place}.,Find the snack people usually buy at {place}.,Một món ăn vặt,A street snack
+chef,event,,draft,"Xem sự kiện có đồ ăn, đồ uống gì và chọn một thứ để thử.",See what food and drink the event offers and pick one to try.,Một hương vị đêm hội,A taste of the night
+reporter,sight,,draft,"Ở {place}, tìm một chi tiết đủ lạ để làm tít báo.","At {place}, find a detail odd enough for a headline.",Một dòng tít,A headline
+reporter,food,,draft,Phỏng vấn nhanh: hỏi người bán ở {place} đã làm nghề bao lâu.,Quick interview: ask the vendor at {place} how long they’ve been at it.,Một câu trích dẫn,A quote
+reporter,fun,,draft,Đếm xem có bao nhiêu người ở {place} và họ đến từ đâu.,Count how many people are at {place} and guess where they’re from.,Một con số,A statistic
+reporter,event,,draft,"Viết một câu tường thuật ngắn về sự kiện, như cho trang nhất.","Write a one-line report on the event, as if for the front page.",Một bản tin nóng,A breaking story
+architect,sight,,draft,"Ở {place}, tìm chi tiết pha trộn Đông và Tây — mái, cửa hay hoa văn.","At {place}, find a detail that mixes East and West — roof, door or pattern.",Một bản phác thảo,A sketch
+architect,food,,draft,Quan sát {place}: quán tận dụng không gian nhỏ thế nào?,Study {place}: how does it make the most of a small space?,Một mẹo không gian,A space trick
+architect,fun,,draft,Xem {place} được bố trí thế nào để nhiều người dùng cùng lúc.,See how {place} is laid out so many people can use it at once.,Một sơ đồ mặt bằng,A floor plan
+architect,event,,draft,Quan sát sân khấu và chỗ ngồi: người xem ở cuối có nghe rõ không?,Study the stage and seats: can people at the back hear well?,Một bản vẽ âm học,An acoustics sketch
+storyteller,sight,,draft,"Ở {place}, tìm hình con vật hoặc vị thần và đoán câu chuyện sau nó.","At {place}, find an animal or deity figure and guess the story behind it.",Một tích truyện,A tale
+storyteller,food,,draft,Hỏi hoặc đoán: món ở {place} có gắn với dịp lễ nào không?,Ask or guess: is the food at {place} tied to any festival?,Một chuyện bên mâm,A table tale
+storyteller,fun,,draft,Kể cho bạn đồng hành một câu chuyện ngắn bắt đầu ở {place}.,Tell a companion a short story that begins at {place}.,Một chuyện mới,A new story
+storyteller,event,,draft,"Sau sự kiện, kể lại nó trong ba câu cho người chưa đến.","After the event, retell it in three sentences for someone who wasn’t there.",Một chuyện kể lại,A retold tale
+painter,sight,,draft,Chọn màu nổi bật nhất ở {place} và đặt tên cho nó.,Pick the boldest colour at {place} and give it a name.,Một vệt màu,A dab of colour
+painter,food,,draft,"Ở {place}, đếm xem trên bàn ăn có bao nhiêu màu.","At {place}, count how many colours are on the table.",Bảng màu bữa ăn,A meal palette
+painter,fun,,draft,Phác nhanh dáng một người đang vui chơi ở {place} — chỉ cần vài nét.,Quickly sketch someone having fun at {place} — a few lines will do.,Một nét ký hoạ,A quick sketch
+painter,event,,draft,Ghi lại ánh sáng và màu sắc của sân khấu bằng ba từ.,Describe the stage’s light and colour in three words.,Một sắc đèn,A stage colour
+food-writer,sight,,draft,Hỏi hoặc đoán quanh {place} có quán nào người địa phương hay ăn.,Ask or guess which nearby place locals eat at around {place}.,Một lời mách,A local tip
+food-writer,food,,draft,"Chấm điểm món ở {place} theo ba tiêu chí: vị, giá, không khí.","Rate the food at {place} on taste, price and atmosphere.",Một trang đánh giá,A review page
+food-writer,fun,,draft,Tìm đồ uống được gọi nhiều nhất ở {place}.,Find the most-ordered drink at {place}.,Một ly đặc trưng,A signature drink
+food-writer,event,,draft,Ghi lại món ăn hoặc thức uống mọi người cầm theo tới sự kiện.,Note what people bring to eat or drink at the event.,Một ghi chú đêm hội,A festival note
+performer,sight,,draft,"Ở {place}, tìm một chỗ có thể làm sân khấu và hình dung tiết mục của bạn.","At {place}, find a spot that could be a stage and imagine your act there.",Một ý tưởng tiết mục,An act idea
+performer,food,,draft,"Lắng nghe âm thanh ở {place} — tiếng gọi món, tiếng bát đũa — và nhại lại một nhịp.","Listen to {place} — orders, bowls, chopsticks — and copy one rhythm.",Một nhịp phố,A street rhythm
+performer,fun,,draft,"Thử trò chơi ở {place} và tạo một tư thế ""chào khán giả"" thật đẹp.",Try the activity at {place} and strike a proper bow for the crowd.,Một tràng pháo tay,A round of applause
+performer,event,,draft,Xem hết tiết mục và vỗ tay to nhất khi kết thúc.,Watch the whole act and clap the loudest at the end.,Một tràng pháo tay,A round of applause
+botanist,sight,,draft,"Ở {place}, tìm một loài cây và tả lá của nó — chỉ nhìn, không hái.","At {place}, find a plant and describe its leaves — look, don’t pick.",Một mẫu lá,A leaf sample
+botanist,food,,draft,"Ở {place}, tìm nguyên liệu nào được trồng ngay trên núi Ba Vì.","At {place}, find an ingredient grown right on Ba Vi mountain.",Một mẫu nông sản,A crop sample
+botanist,fun,,draft,"Ở {place}, nghe xem có bao nhiêu loại tiếng chim hoặc côn trùng.","At {place}, listen for how many kinds of birds or insects you can hear.",Một bản ghi âm rừng,A forest recording
+botanist,event,,draft,"Tìm xem sự kiện có dùng hoa, lá hay cây gì để trang trí.","See which flowers, leaves or plants the event uses as decoration.",Một cành hoa ép,A pressed flower
+forest-keeper,sight,,draft,"Ở {place}, tìm dấu vết cho thấy người và núi rừng sống cùng nhau.","At {place}, find a sign that people and the mountain live together.",Một dấu ấn núi,A mountain mark
+forest-keeper,food,,draft,"Ở {place}, hỏi xem món nào làm từ sản vật của rừng.","At {place}, ask which dish is made from forest produce.",Một sản vật rừng,A forest gift
+forest-keeper,fun,,draft,"Ở {place}, nhặt một mẩu rác (nếu có) để giữ rừng sạch.","At {place}, pick up a piece of litter (if any) to keep the forest clean.",Một lời cảm ơn của rừng,The forest’s thanks
+forest-keeper,event,,draft,Tìm một chi tiết văn hoá của người miền núi trong sự kiện.,Find a detail of mountain culture in the event.,Một dấu ấn bản làng,A village mark
+merchant,sight,history,draft,"Ở {place}, đoán xem nơi này từng tấp nập buôn bán thứ gì.","At {place}, guess what trade once bustled here.",Một ghi chép chợ xưa,A note on the old market
+merchant,sight,cultural,draft,"Ở {place}, tìm đồ lễ người ta dâng và đoán chúng được mua ở đâu — nhớ giữ trật tự.","At {place}, spot the offerings and guess where they were bought — keep quiet and respectful.",Một lời cầu buôn may bán đắt,A prayer for good trade
+merchant,sight,,draft,"Quanh {place}, tìm một biển hiệu cũ và đoán cửa hàng đó bán gì.","Around {place}, find an old shop sign and guess what it sold.",Một tấm biển hiệu,A shop sign
+merchant,food,,draft,"Ở {place}, xem quán bán chạy nhất món gì và vì sao.","At {place}, see which dish sells best and why.",Một món bán chạy,A best-seller
+scholar,sight,history,draft,"Ở {place}, tìm một mốc năm và tính xem cách đây bao nhiêu năm.","At {place}, find a year and work out how long ago it was.",Một mốc thời gian,A date to remember
+scholar,sight,cultural,draft,"Ở {place}, tìm chữ Hán hoặc câu đối và đoán một chữ — giữ trật tự nơi thờ tự.","At {place}, find Chinese characters or a couplet and guess one word — stay respectful.",Một chữ Hán,A character
+scholar,sight,,draft,"Ở {place}, đặt một câu hỏi mà bạn muốn tìm câu trả lời sau chuyến đi.","At {place}, write down one question you want answered after the trip.",Một câu hỏi hay,A good question
+scholar,food,,draft,"Ở {place}, học cách gọi món bằng tiếng Việt và thử gọi.","At {place}, learn how to order in Vietnamese and give it a try.",Một câu tiếng Việt,A Vietnamese phrase
+photographer,sight,photo,draft,"Ở {place}, chụp một khung hình có người địa phương làm điểm nhấn — xin phép trước khi chụp cận.","At {place}, frame a shot with a local as the focus — ask before close-ups.",Khung hình chân dung,A portrait frame
+photographer,sight,history,draft,"Ở {place}, chụp một chi tiết cũ nhất mà bạn tìm được.","At {place}, photograph the oldest detail you can find.",Khung hình hoài cổ,A vintage frame
+photographer,sight,cultural,draft,"Ở {place}, chụp mái hoặc cổng từ xa, không chụp người đang lễ.","At {place}, shoot the roof or gate from afar — not people praying.",Khung hình mái ngói,A rooftop frame
+photographer,food,,draft,"Ở {place}, chụp tay người nấu đang làm món.","At {place}, photograph the cook’s hands at work.",Khung hình bếp lửa,A kitchen frame
+chef,sight,history,draft,"Ở {place}, đoán xem người xưa ở đây ăn gì mỗi sáng.","At {place}, guess what people here once ate for breakfast.",Một thực đơn xưa,An old menu
+chef,sight,,draft,"Quanh {place}, tìm một gánh hàng rong và xem họ bán món gì.","Around {place}, find a street vendor and see what they sell.",Một món gánh rong,A street-cart dish
+chef,food,,draft,"Ở {place}, quan sát thứ tự người bán cho nguyên liệu vào bát.","At {place}, watch the order the cook adds ingredients to the bowl.",Một bí quyết nêm nếm,A seasoning secret
+chef,fun,,draft,"Ở {place}, nghĩ ra một món ăn hợp để thưởng thức sau buổi vui chơi.","At {place}, dream up the perfect dish to eat after the fun.",Một công thức mới,A new recipe
+reporter,sight,history,draft,"Ở {place}, tìm một sự kiện từng xảy ra và viết tít như báo năm ấy.","At {place}, find something that once happened here and write a headline as the paper would have then.",Một tin cũ,An old scoop
+reporter,sight,photo,draft,"Ở {place}, chụp một ảnh đủ để làm ảnh bìa số báo.","At {place}, take a photo good enough for the front page.",Một ảnh bìa,A cover photo
+reporter,sight,cultural,draft,"Ở {place}, quan sát lặng lẽ và ghi lại ba âm thanh bạn nghe được.","At {place}, observe quietly and note three sounds you hear.",Một bản ghi hiện trường,A field report
+reporter,sight,,draft,"Ở {place}, hỏi một người qua đường: ""Nơi này có gì đặc biệt?"" — hoặc tự trả lời nếu ngại.","At {place}, ask a passer-by ""What’s special here?"" — or answer it yourself if shy.",Một ý kiến người dân,A vox pop
+reporter,food,,draft,"Ở {place}, ghi giá món ăn để so sánh với một quán khác trong ngày.","At {place}, note the price to compare with another stall later today.",Một bảng so sánh giá,A price check
+architect,sight,history,draft,"Ở {place}, đoán toà nhà được xây năm nào chỉ bằng cách nhìn.","At {place}, guess when the building went up just by looking.",Một bản ghi niên đại,A dating note
+architect,sight,cultural,draft,"Ở {place}, đếm số lớp mái và tìm con vật trang trí trên nóc.","At {place}, count the roof tiers and find the animal on the ridge.",Một bản vẽ mái,A roof drawing
+architect,sight,photo,draft,"Ở {place}, tìm đường thẳng đẹp nhất — một hàng cột, một mép tường — và căn khung theo nó.","At {place}, find the cleanest line — a row of columns, an edge — and frame along it.",Một đường nét,A clean line
+architect,sight,,draft,"Ở {place}, tìm vật liệu chính: gạch, gỗ, đá hay vữa?","At {place}, work out the main material: brick, wood, stone or plaster?",Một mẫu vật liệu,A material sample
+storyteller,sight,history,draft,"Ở {place}, tưởng tượng một nhân vật từng sống ở đây và đặt tên cho họ.","At {place}, imagine someone who lived here and give them a name.",Một nhân vật mới,A new character
+storyteller,sight,photo,draft,"Ở {place}, chọn một khung cảnh làm ""cảnh mở đầu"" cho câu chuyện.","At {place}, pick a view as the opening scene of a story.",Một cảnh mở đầu,An opening scene
+storyteller,sight,,draft,"Ở {place}, tìm một vật nhỏ có thể là ""chìa khoá"" trong một câu chuyện.","At {place}, find a small object that could be the key to a story.",Một chiếc chìa khoá,A story key
+storyteller,food,,draft,"Ở {place}, đặt tên cho món ăn như thể nó là món của một vị vua.","At {place}, name the dish as if a king had ordered it.",Một món ngự thiện,A royal dish
+painter,sight,history,draft,"Ở {place}, tìm vết thời gian — rêu, sơn bong, gạch mòn — và tả màu của nó.","At {place}, find a mark of time — moss, peeling paint, worn brick — and describe its colour.",Một sắc cũ,An old hue
+painter,sight,photo,draft,"Ở {place}, nheo mắt nhìn và tìm ba mảng màu lớn nhất.","At {place}, squint and find the three biggest blocks of colour.",Một bố cục,A composition
+painter,sight,cultural,draft,"Ở {place}, tìm màu đỏ và vàng của nơi thờ tự và đoán ý nghĩa.","At {place}, find the reds and golds of the shrine and guess what they mean.",Một sắc đỏ son,A lacquer red
+painter,sight,,draft,"Ở {place}, vẽ nhanh đường chân trời trong 30 giây.","At {place}, sketch the skyline in 30 seconds.",Một nét chân trời,A skyline line
+food-writer,sight,history,draft,"Ở {place}, đoán món ăn nào đã có từ thời nơi này được xây.","At {place}, guess which dish already existed when this place was built.",Một chú thích lịch sử,A history footnote
+food-writer,food,,draft,"Ở {place}, viết một câu mô tả món ăn mà không dùng chữ ""ngon"".","At {place}, describe the dish in one sentence without the word ""delicious"".",Một câu mô tả,A tasting note
+food-writer,food,,draft,"Ở {place}, tìm loại rau, nước chấm hoặc gia vị đi kèm và ghi tên.","At {place}, find the herbs, dip or condiment served alongside and note its name.",Một món kèm,A side note
+food-writer,sight,,draft,"Quanh {place}, tìm mùi thơm nhất và lần theo nó.","Around {place}, find the best smell and follow it.",Một mùi hương,A scent trail
+performer,sight,history,draft,"Ở {place}, diễn lại bằng điệu bộ một cảnh có thể từng xảy ra ở đây.","At {place}, mime a scene that might once have happened here.",Một màn kịch câm,A mime act
+performer,sight,cultural,draft,"Ở {place}, lắng nghe tiếng chuông hoặc tiếng mõ — chỉ nghe, giữ im lặng.","At {place}, listen for a bell or wooden drum — just listen, stay quiet.",Một nhịp chuông,A bell rhythm
+performer,fun,,draft,"Ở {place}, rủ cả nhóm tạo một tư thế chụp ảnh như poster phim.","At {place}, get the group to pose like a film poster.",Một tấm poster,A poster shot
+performer,sight,,draft,"Ở {place}, tìm chỗ có tiếng vọng tốt nhất và thử vỗ tay nhẹ.","At {place}, find the spot with the best echo and clap softly.",Một tiếng vọng,An echo
+botanist,sight,photo,draft,"Ở {place}, chụp cận một chiếc lá hoặc bông hoa — không hái.","At {place}, take a close-up of a leaf or flower — don’t pick it.",Một ảnh cận cảnh,A macro shot
+botanist,sight,cultural,draft,"Ở {place}, tìm cây cổ thụ trong khuôn viên và ước tuổi của nó.","At {place}, find the oldest tree on the grounds and guess its age.",Một vòng gỗ,A tree ring
+botanist,sight,,draft,"Ở {place}, đếm xem có bao nhiêu sắc xanh khác nhau.","At {place}, count how many different greens you can see.",Một bảng sắc xanh,A chart of greens
+botanist,food,,draft,"Ở {place}, tìm loại rau rừng hoặc lá thuốc có trong món.","At {place}, find a wild herb or medicinal leaf in the dish.",Một mẫu thảo dược,A herb sample
+forest-keeper,sight,history,draft,"Ở {place}, tìm dấu vết của người xưa — tường, bậc đá, nền móng.","At {place}, find traces of people long ago — walls, stone steps, foundations.",Một dấu tích,A trace of the past
+forest-keeper,sight,cultural,draft,"Ở {place}, tìm hiểu nơi này thờ ai — chắp tay nếu muốn, giữ trật tự.","At {place}, find out who is worshipped here — bow if you wish, stay quiet.",Một lời khấn núi,A mountain prayer
+forest-keeper,sight,photo,draft,"Ở {place}, chụp toàn cảnh núi Tản từ chỗ đứng đẹp nhất.","At {place}, photograph Mount Tan from the best viewpoint.",Một tầm nhìn núi,A mountain view
+forest-keeper,sight,,draft,"Ở {place}, ngồi yên một phút và đếm những âm thanh của rừng.","At {place}, sit still for a minute and count the forest sounds.",Một phút lặng,A quiet minute

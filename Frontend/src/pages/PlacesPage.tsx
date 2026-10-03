@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useStart } from '../components/NeedStart'
 import { ArrowRight, ChevronDown, MapPin, Sparkles, X } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
@@ -9,18 +10,21 @@ import PlaceCard from '../components/PlaceCard'
 import PrimaryButton from '../components/PrimaryButton'
 import Sheet from '../components/Sheet'
 import { CostLines, TravelBanner } from '../components/TravelBits'
+import { EventsSection } from '../components/EventBits'
 import { TransportHintCard } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripSummary from '../components/TripSummary'
 import TripChips from '../components/TripChips'
 import { duration, minutes, moneyRange } from '../lib/format'
-import { rankPlaces, summarize } from '../lib/quest'
-import { buildPlannerReply } from '../lib/plannerReply'
+import { rankPlaces, suggestTransport, summarize } from '../lib/quest'
+import { eventWhen } from '../lib/events'
+import { buildPlannerReply, buildRouteDetails } from '../lib/plannerReply'
 import { estimateLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 
 export default function PlacesPage() {
-  const { t, lang, intent, places, areaPlaces, area, contextFor, loading, start, selected, toggle, mode, role, travel, geo } = useQuest()
+  const { t, lang, intent, places, areaPlaces, area, contextFor, loading, selected, toggle, mode, role, travel, geo, eventOptions } = useQuest()
+  const start = useStart()
   const navigate = useNavigate()
   const [view, setView] = useState<'list' | 'map'>('list')
   const [focusedId, setFocusedId] = useState<string | null>(null)
@@ -33,20 +37,28 @@ export default function PlacesPage() {
     [areaPlaces, intent, start, favIds, contextFor, area],
   )
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
+  // One pin per event on the map: the sitting in the plan, else the earliest.
+  const eventPlaces = useMemo(
+    () => eventOptions.map((o) => o.sittings.find((s) => selected.includes(s.id)) ?? o.sittings[0]),
+    [eventOptions, selected],
+  )
   const sum = useMemo(() => summarize(start, chosen, intent?.people ?? 1, travel), [start, chosen, intent, travel])
 
   if (!intent || !mode) return <Navigate to="/" replace />
-  if (mode === 'explore' && !role) return <Navigate to="/role?next=/places&back=/" replace />
 
-  const focused = ranked.find((p) => p.id === focusedId) ?? null
+  const focused = [...eventPlaces, ...ranked].find((p) => p.id === focusedId) ?? null
   const at = new Date(travel.departAt ?? Date.now())
   // A model reply describes the transport chosen when the request was submitted.
   // Once the traveller accepts a route-aware switch, use the local live reply so the advice never
   // keeps talking about the old transport.
   const liveIntent = travel.transport === intent.transport ? intent : { ...intent, transport: travel.transport }
-  const plannerReply =
-    (travel.transport === intent.transport ? intent.reply?.[lang] : '') ||
-    buildPlannerReply(liveIntent, area, lang, contextFor(area).weather ?? null)
+  // With places picked, the details come from the route itself (and follow every change of stops,
+  // transport or departure); before that, the model's reply or a local one.
+  const plannerReply = chosen.length
+    ? buildRouteDetails(liveIntent, lang, contextFor(area).weather ?? null, sum,
+        suggestTransport(start, chosen, intent.people, travel))
+    : (travel.transport === intent.transport ? intent.reply?.[lang] : '') ||
+      buildPlannerReply(liveIntent, area, lang, contextFor(area).weather ?? null)
 
   const summaryBlock = (
     <>
@@ -96,7 +108,7 @@ export default function PlacesPage() {
 
   return (
     <div className="relative flex min-h-0 flex-1 flex-col">
-      <TopBar backTo={mode === 'explore' ? '/role?next=/places&back=/' : '/'} showMode />
+      <TopBar backTo="/" showMode />
 
       <div className={`thin-scroll min-h-0 flex-1 overflow-y-auto ${chosen.length ? 'pb-28' : 'pb-6'}`}>
         <section className="px-5 pb-3">
@@ -188,12 +200,16 @@ export default function PlacesPage() {
           {loading ? (
             <p className="py-10 text-center text-sm opacity-60">{t.loading}</p>
           ) : view === 'list' ? (
-            ranked.map((p) => <PlaceCard key={p.id} place={p} people={intent.people} />)
+            <>
+              <EventsSection people={intent.people} />
+              <h2 className="pt-2 text-[15px] font-extrabold">{t.placesTitle}</h2>
+              {ranked.map((p) => <PlaceCard key={p.id} place={p} people={intent.people} />)}
+            </>
           ) : (
             <>
               <MapView
                 start={start}
-                places={ranked}
+                places={[...eventPlaces, ...ranked]}
                 selectedIds={selected}
                 focusedId={focusedId}
                 onPinClick={(p) => setFocusedId(p.id)}
@@ -208,8 +224,9 @@ export default function PlacesPage() {
                   <div className="min-w-0">
                     <div className="truncate text-sm font-bold">{focused.name[lang]}</div>
                     <div className="mt-0.5 text-[11px] text-bark/65">
-                      {moneyRange(focused.priceMin * intent.people, focused.priceMax * intent.people, lang)} ·{' '}
-                      {minutes(focused.visitMin, lang)}
+                      {focused.event
+                        ? eventWhen(focused, lang)
+                        : <>{moneyRange(focused.priceMin * intent.people, focused.priceMax * intent.people, lang)} · {minutes(focused.visitMin, lang)}</>}
                     </div>
                   </div>
                   <button

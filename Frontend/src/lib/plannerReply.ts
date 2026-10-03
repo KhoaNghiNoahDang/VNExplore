@@ -1,4 +1,7 @@
+import { TRANSPORT_INFO } from '../i18n/strings'
 import type { Area, Intent, Lang } from '../types'
+import { distance, duration, money } from './format'
+import { walkingOf, WALK_LIMIT, type QuestSummary, type TransportHint } from './quest'
 import type { Weather } from './weather'
 
 const AREA_NAME: Record<Lang, Record<Area, string>> = {
@@ -52,4 +55,80 @@ export function buildPlannerReply(intent: Intent, area: Area, lang: Lang, weathe
   else if (intent.people > 2) advice = `For a group of ${intent.people}, I’ll favour places that are easy to enjoy together.`
   else advice = `With ${intent.hours} hours, I’ll keep the plan full enough without making it feel rushed.`
   return `${opening} ${advice}`
+}
+
+/**
+ * "Trip details" once places are picked: worked out from the actual route, so it follows every
+ * change of stops, transport or departure — time against the hours asked for, how much walking,
+ * and whether another way of getting around fits better.
+ */
+export function buildRouteDetails(
+  intent: Intent,
+  lang: Lang,
+  weather: Weather | null,
+  sum: QuestSummary,
+  hint: TransportHint | null,
+): string {
+  const vi = lang === 'vi'
+  const tr = intent.transport
+  const name = TRANSPORT_INFO[lang][tr].name
+  const n = sum.stops.length
+  const budget = intent.hours * 60
+  const { walkedM, walkMin, longestWalkM } = walkingOf(sum)
+  const rides = sum.legs.filter((l) => l.transport !== 'walk')
+  const forced = sum.legs.filter((l) => l.transport === 'walk' && tr !== 'walk')
+  const inStreet = forced.some((l) => l.note === 'walkingStreet')
+  const peak = rides.some((l) => l.peak)
+  const out: string[] = []
+
+  // 1. Time against what they asked for.
+  const total = duration(sum.totalMin, lang)
+  const parts = vi
+    ? [`${duration(sum.visitMin, lang)} tham quan`, `${duration(sum.travelMin, lang)} di chuyển`]
+    : [`${duration(sum.visitMin, lang)} visiting`, `${duration(sum.travelMin, lang)} getting around`]
+  if (sum.waitTotalMin > 0) parts.push(vi ? `${duration(sum.waitTotalMin, lang)} chờ sự kiện` : `${duration(sum.waitTotalMin, lang)} waiting for events`)
+  const fit =
+    sum.totalMin > budget + 10
+      ? vi ? `vượt ${duration(sum.totalMin - budget, lang)} so với ${intent.hours} giờ bạn muốn, bỏ bớt một điểm sẽ thong thả hơn` : `${duration(sum.totalMin - budget, lang)} over your ${intent.hours} hours; dropping a stop would ease the pace`
+      : vi ? `vừa trong ${intent.hours} giờ bạn muốn` : `within your ${intent.hours} hours`
+  out.push(vi ? `${n} điểm, khoảng ${total} (${parts.join(', ')}) — ${fit}.` : `${n} stops, about ${total} (${parts.join(', ')}) — ${fit}.`)
+
+  // 2. Getting around.
+  if (tr === 'walk') {
+    const far = longestWalkM > WALK_LIMIT.legM || walkedM > WALK_LIMIT.totalM || walkMin > WALK_LIMIT.totalMin
+    if (hint && hint.to !== 'walk') {
+      const alt = TRANSPORT_INFO[lang][hint.to].name
+      const extra = hint.extraCostK > 0 ? money(hint.extraCostK) : null
+      out.push(vi
+        ? `Đi bộ tổng ${distance(walkedM)} (~${walkMin} phút), chặng dài nhất ${distance(longestWalkM)} — khá xa để đi bộ. Đi ${alt} sẽ nhanh hơn khoảng ${hint.savedMin} phút${extra ? `, thêm khoảng ${extra} tiền xe` : ''}.`
+        : `That’s ${distance(walkedM)} on foot (~${walkMin} min), the longest stretch ${distance(longestWalkM)} — a long way to walk. ${alt} would save about ${hint.savedMin} min${extra ? ` for roughly ${extra} in fares` : ''}.`)
+    } else if (far) {
+      out.push(vi
+        ? `Đi bộ tổng ${distance(walkedM)} (~${walkMin} phút) — hơi dài, nhưng đi xe cũng không nhanh hơn bao nhiêu vì phải chờ xe và gửi xe.`
+        : `That’s ${distance(walkedM)} on foot (~${walkMin} min) — quite a lot, but a ride wouldn’t be much quicker once you count waiting and parking.`)
+    } else {
+      out.push(vi
+        ? `Đi bộ tổng ${distance(walkedM)} (~${walkMin} phút), chặng dài nhất ${distance(longestWalkM)} — vừa sức đi bộ.`
+        : `About ${distance(walkedM)} on foot (~${walkMin} min), the longest stretch ${distance(longestWalkM)} — an easy walk.`)
+    }
+  } else if (hint?.to === 'walk') {
+    out.push(vi
+      ? `Các điểm chỉ cách nhau vài trăm mét — đi bộ cũng nhanh như đi ${name} mà không tốn gửi xe hay cước.`
+      : `The stops are only a few hundred metres apart — walking is as quick as ${name}, with no parking or fares.`)
+  } else {
+    const fare = sum.travelCostK > 0 ? money(sum.travelCostK) : null
+    out.push(vi
+      ? `Đi ${name}: ${rides.length}/${sum.legs.length} chặng đi xe, mất ${duration(sum.travelMin, lang)}${fare ? `, chi phí khoảng ${fare}` : ''}.`
+      : `By ${name}: ${rides.length} of ${sum.legs.length} legs ride, ${duration(sum.travelMin, lang)} on the move${fare ? `, about ${fare}` : ''}.`)
+    if (forced.length)
+      out.push(inStreet
+        ? vi ? `${forced.length} chặng nằm trong phố đi bộ cuối tuần nên vẫn phải đi bộ.` : `${forced.length} legs are inside the weekend walking street, so they’re on foot.`
+        : vi ? `${forced.length} chặng quá ngắn để gọi xe nên tính là đi bộ.` : `${forced.length} legs are too short to be worth a ride, so they’re walked.`)
+    if (peak) out.push(vi ? 'Có chặng rơi vào giờ cao điểm nên xe đi chậm hơn.' : 'Some legs fall in rush hour, so traffic is slower.')
+  }
+
+  // 3. Weather, briefly.
+  if (weather?.rainy) out.push(vi ? `Khả năng mưa ${weather.rainProb}% — mang theo áo mưa.` : `${weather.rainProb}% chance of rain — bring a raincoat.`)
+  else if (weather?.hot && tr === 'walk') out.push(vi ? `Trời khoảng ${weather.tempC}°C, nhớ mang nước.` : `Around ${weather.tempC}°C — carry water.`)
+  return out.join(' ')
 }
