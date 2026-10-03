@@ -1,5 +1,5 @@
-import { TRANSPORT } from '../data/transport'
-import type { Intent, LatLng, Leg, Place, Transport } from '../types'
+import { RUSH_HOURS, TRANSPORT } from '../data/transport'
+import type { Challenge, Intent, LatLng, Leg, Place, Transport } from '../types'
 import { hanoiClock } from './hanoiTime'
 import { isOpenAt } from './hours'
 import type { Weather } from './weather'
@@ -323,14 +323,20 @@ export function suggestPhotoSpot(all: Place[], stops: Place[]): Place | null {
   return candidates.sort((a, b) => nearest(a) - nearest(b))[0]
 }
 
+/** Every question at a place: the on-site challenge first, then the extra quiz. */
+export function quizOf(place: Place): Challenge[] {
+  return [...(place.challenge ? [place.challenge] : []), ...(place.quiz ?? [])]
+}
+
 /** Deterministic shuffle so challenge answers aren't always the first option. */
 export function shuffledOrder(n: number, seed: string): number[] {
   let h = 0
   for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0
   const order = Array.from({ length: n }, (_, i) => i)
   for (let i = n - 1; i > 0; i--) {
-    h = (h * 1103515245 + 12345) >>> 0
-    const j = h % (i + 1)
+    h = (Math.imul(h, 1103515245) + 12345) >>> 0
+    // Use the high bits: an LCG's low bits cycle, which kept the answer out of the first slot.
+    const j = Math.floor((h / 2 ** 32) * (i + 1))
     ;[order[i], order[j]] = [order[j], order[i]]
   }
   return order
@@ -363,7 +369,8 @@ export function googleMapsUrl(start: LatLng, stops: Place[], transport: Transpor
 
 export interface TransportHint {
   to: Transport
-  reason: 'longWalk' | 'farApart' | 'allClose'
+  /** rushCar: a car stuck in rush hour → bikes; rushShift: same transport, leave outside rush hour. */
+  reason: 'longWalk' | 'farApart' | 'allClose' | 'rushCar' | 'rushShift'
   /** Longest leg, metres (for the message). */
   longestM: number
   /** Walking on the current route: metres and minutes. */
@@ -371,6 +378,27 @@ export interface TransportHint {
   walkMin: number
   savedMin: number
   extraCostK: number
+  /** When suggesting your own motorbike: what the same route would cost by GrabBike at the planned time. */
+  grab?: { costK: number; peak: boolean }
+  /** rushShift: the suggested departure time (ms). */
+  departAt?: number
+}
+
+/** The first rush-hour window a vehicle leg of the route starts in, as [start, end) timestamps. */
+function firstRushWindow(sum: QuestSummary, departAt: number): [number, number] | null {
+  let t = departAt
+  for (let i = 0; i < sum.legs.length; i++) {
+    const leg = sum.legs[i]
+    if (leg.peak && leg.transport !== 'walk') {
+      const { hour, minute } = hanoiClock(t)
+      const m = hour * 60 + minute
+      const midnight = t - m * 60_000 - (t % 60_000) // Hanoi midnight (UTC+7 is a whole-hour offset)
+      const w = RUSH_HOURS.find(([a, b]) => m >= a && m < b)
+      if (w) return [midnight + w[0] * 60_000, midnight + w[1] * 60_000]
+    }
+    t += (leg.minutes + sum.stops[i].visitMin) * 60_000
+  }
+  return null
 }
 
 /** "Too far to walk": one walk over 1.5 km (~20 min), 4 km in total, or an hour on foot. */
@@ -388,9 +416,11 @@ export function walkingOf(sum: QuestSummary): { walkedM: number; walkMin: number
 
 /**
  * Suggest another way to get around when the chosen one fits the route badly:
- * too much walking (see WALK_LIMIT) → GrabBike (1–2 people) or a car (3+), when that saves at
- * least 8 minutes; a bike or car for stops a few hundred metres apart → walk (no parking, no fare).
- * Returns null when the choice is fine.
+ * too much walking (see WALK_LIMIT) → a motorbike (1–2 people, with a GrabBike fare estimate) or a car
+ * (3+), when that saves at least 8 minutes; a bike or car for stops a few hundred metres apart → walk
+ * (no parking, no fare). In rush hour: a car → GrabBike (bikes slip through jams), or any vehicle →
+ * leave before / after the rush when that saves real time. Returns null when the choice is fine.
+ * There is no live traffic here: for detours around a jam, the Directions button hands off to Google Maps.
  */
 export function suggestTransport(
   start: LatLng,
@@ -407,11 +437,11 @@ export function suggestTransport(
 
   const tooFar = longestWalkM > WALK_LIMIT.legM || walkedM > WALK_LIMIT.totalM || walkMin > WALK_LIMIT.totalMin
   if (travel.transport === 'walk' && tooFar) {
-    const to: Transport = people >= 3 ? 'car' : 'grabbike'
+    const to: Transport = people >= 3 ? 'car' : 'motorbike'
     const s = alt(to)
     const savedMin = cur.travelMin - s.travelMin
     if (savedMin < 8) return null
-    return {
+    const hint: TransportHint = {
       to,
       reason: longestM > 5000 ? 'farApart' : 'longWalk',
       longestM,
@@ -420,6 +450,12 @@ export function suggestTransport(
       savedMin,
       extraCostK: s.travelCostK - cur.travelCostK,
     }
+    if (to === 'motorbike') {
+      // GrabBike fares follow the clock (rush-hour surcharge), so estimate for the planned departure.
+      const g = alt('grabbike')
+      hint.grab = { costK: g.travelCostK, peak: g.legs.some((l) => l.peak && l.costK > 0) }
+    }
+    return hint
   }
   if (travel.transport !== 'walk' && longestM < 900 && cur.distanceM < 2500) {
     const s = alt('walk')
@@ -433,5 +469,29 @@ export function suggestTransport(
       extraCostK: s.travelCostK - cur.travelCostK,
     }
   }
-  return null
+
+  // ---- rush hour (weekday 7–9h, 16:30–19h)
+  if (travel.transport === 'walk') return null
+  const departAt = travel.departAt ?? Date.now()
+  const rush = firstRushWindow(cur, departAt)
+  if (!rush) return null
+
+  if (travel.transport === 'car' && people <= 4) {
+    const s = alt('grabbike')
+    const savedMin = cur.travelMin - s.travelMin
+    if (savedMin >= 8) return { to: 'grabbike', reason: 'rushCar', longestM, walkedM, walkMin, savedMin, extraCostK: s.travelCostK - cur.travelCostK }
+  }
+
+  // Leave right after the rush, or early enough that the whole trip ends before it starts.
+  const [rushStart, rushEnd] = rush
+  const candidates = [rushEnd, rushStart - cur.totalMin * 60_000].filter((ms) => ms >= Date.now() && Math.abs(ms - departAt) <= 3 * 3600_000)
+  let best: { at: number; s: QuestSummary } | null = null
+  for (const at of candidates) {
+    const s = summarize(start, stops, people, { ...travel, departAt: at }, order)
+    if (!best || s.travelMin < best.s.travelMin) best = { at, s }
+  }
+  if (!best) return null
+  const savedMin = cur.travelMin - best.s.travelMin
+  if (savedMin < 10) return null
+  return { to: travel.transport, reason: 'rushShift', longestM, walkedM, walkMin, savedMin, extraCostK: best.s.travelCostK - cur.travelCostK, departAt: best.at }
 }

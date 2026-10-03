@@ -1,7 +1,7 @@
 /**
  * Export APPROVED rows from Data/sheets/*.csv into the app:
  *
- *   Frontend/src/data/generated/places.json   (Place[])
+ *   Frontend/src/data/generated/places.json   (Place[], each with its extra quiz questions from quizzes.csv)
  *   Frontend/src/data/generated/roles.json    (Role[] with their approved missions)
  *   Frontend/src/data/generated/events.json   (QuestEvent[]; events that ended >90 days ago are dropped)
  *   Frontend/src/data/generated/drafts.json   (roles with draft content — the app shows them in local dev only)
@@ -26,6 +26,8 @@ const KINDS = ['sight', 'food', 'fun']
 const DEPTHS = ['full', 'quick']
 const TAGS = ['iconic', 'groups', 'quiet', 'cultural', 'indoor', 'localFood', 'free', 'history', 'photo', 'lively']
 const TONES = ['brick', 'butter', 'teal', 'leaf']
+/** What a quiz question is about (shown as a small label). */
+const QUIZ_KINDS = ['look', 'history', 'legend', 'culture', 'architecture', 'nature']
 const readCsv = (name) => readCsvFile(join(DATA, 'sheets', name))
 
 const errors = []
@@ -49,6 +51,21 @@ const optL = (file, r, base) => {
   return { vi, en }
 }
 
+/** One multiple-choice question: three options, a hint after a wrong try, an explanation after the answer. */
+function question(file, r, promptKey, kindKey) {
+  const answer = num(file, r, 'answer')
+  if (![1, 2, 3].includes(answer)) fail(file, r, 'answer must be 1, 2 or 3')
+  if (!QUIZ_KINDS.includes(r[kindKey])) fail(file, r, `${kindKey} must be one of ${QUIZ_KINDS.join(', ')}`)
+  return {
+    kind: r[kindKey],
+    prompt: L(file, r, promptKey),
+    options: [L(file, r, 'option1'), L(file, r, 'option2'), L(file, r, 'option3')],
+    answer: answer - 1,
+    hint: L(file, r, 'hint'),
+    explain: L(file, r, 'explain'),
+  }
+}
+
 // ---------------------------------------------------------------- places
 const places = readCsv('places.csv')
   .filter((r) => r.status === 'approved')
@@ -69,17 +86,7 @@ const places = readCsv('places.csv')
     if (priceMax < priceMin) fail(F, r, 'price_max_k is lower than price_min_k')
     // Full places need their story and challenge (Listen + Explore); quick ones only an intro.
     const story = full ? L(F, r, 'story') : optL(F, r, 'story')
-    let challenge = null
-    if (full || r.challenge_vi) {
-      const answer = num(F, r, 'answer')
-      if (![1, 2, 3].includes(answer)) fail(F, r, 'answer must be 1, 2 or 3')
-      challenge = {
-        prompt: L(F, r, 'challenge'),
-        options: [L(F, r, 'option1'), L(F, r, 'option2'), L(F, r, 'option3')],
-        answer: answer - 1,
-        hint: L(F, r, 'hint'),
-      }
-    }
+    const challenge = full || r.challenge_vi ? question(F, r, 'challenge', 'challenge_kind') : null
     return {
       id: text(F, r, 'id'),
       area: r.area,
@@ -122,6 +129,22 @@ const ids = new Set()
 for (const p of places) {
   if (ids.has(p.id)) errors.push(`places.csv: duplicate id "${p.id}"`)
   ids.add(p.id)
+}
+
+// ---------------------------------------------------------------- extra quiz questions
+// Every approved question must say where its facts come from (`sources`).
+const quizIds = new Set()
+for (const r of readCsv('quizzes.csv').filter((q) => q.status === 'approved')) {
+  const F = 'quizzes.csv'
+  if (quizIds.has(r.id)) fail(F, r, `duplicate id "${r.id}"`)
+  quizIds.add(r.id)
+  const place = places.find((p) => p.id === r.place_id)
+  if (!place) {
+    fail(F, r, `unknown or unapproved place_id "${r.place_id}"`)
+    continue
+  }
+  if (!r.sources) fail(F, r, 'sources is empty — every question needs a source')
+  ;(place.quiz ??= []).push(question(F, r, 'question', 'kind'))
 }
 
 // ---------------------------------------------------------------- roles + missions
@@ -265,5 +288,7 @@ writeFileSync(join(OUT, 'places.json'), JSON.stringify(places, null, 1) + '\n')
 writeFileSync(join(OUT, 'roles.json'), JSON.stringify(roles, null, 1) + '\n')
 writeFileSync(join(OUT, 'events.json'), JSON.stringify(events, null, 1) + '\n')
 writeFileSync(join(OUT, 'drafts.json'), JSON.stringify({ roles: draftRoles }, null, 1) + '\n')
-console.log(`✓ ${places.length} places, ${roles.length} roles, ${missions.length} missions, ${events.length} events → Frontend/src/data/generated/`)
+console.log(
+  `✓ ${places.length} places, ${quizIds.size} extra quiz questions, ${roles.length} roles, ${missions.length} missions, ${events.length} events → Frontend/src/data/generated/`,
+)
 console.log(`  drafts.json: ${draftRoles.length} roles with drafts (local preview only)`)

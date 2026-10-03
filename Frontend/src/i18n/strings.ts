@@ -1,4 +1,4 @@
-import type { EventCategory, Lang, Mode, PlaceTag, Theme, Transport } from '../types'
+import type { EventCategory, Lang, Mode, PlaceTag, QuizKind, Theme, Transport } from '../types'
 
 const en = {
   tagline: 'HANOI STORY QUEST',
@@ -95,6 +95,24 @@ const en = {
   missionFrom: (role: string) => `${role} says`,
   reward: 'Reward',
   challengeTitle: 'Find the real detail',
+  quizKind: {
+    look: 'Look closely',
+    history: 'History',
+    legend: 'Legend',
+    culture: 'Culture',
+    architecture: 'Architecture',
+    nature: 'Nature',
+  } as Record<QuizKind, string>,
+  openQuiz: (n: number) => `Quiz · ${n} question${n === 1 ? '' : 's'}`,
+  questionOf: (i: number, n: number) => `Question ${i} of ${n}`,
+  correct: 'Correct!',
+  whyAnswer: 'Why?',
+  nextQuestion: 'Next question',
+  seeScore: 'See my score',
+  quizScore: (k: number, n: number) => `${k}/${n} right on the first try`,
+  quizCheer: (k: number, n: number): string =>
+    k === n ? 'Perfect — a true Hanoi expert!' : k * 2 >= n ? 'Nicely done!' : 'Now you know a little more about this place.',
+  claimReward: 'Claim your reward',
   wrong: 'Not quite — look again.',
   hint: 'Hint',
   foundIt: 'You found it!',
@@ -494,6 +512,15 @@ const en = {
     `That’s a lot of walking: ${walked} (~${walkMin} min) in total, the longest stretch ${longest}. Switching saves about ${saved} min${extra ? ` for roughly ${extra} more` : ''}.`,
   hintAllClose: 'All stops are only a few hundred metres apart: walking is just as quick, with no parking or fares.',
   switchTo: (name: string) => `Switch to ${name}`,
+  hintGrab: (price: string, peak: boolean) =>
+    `No bike? GrabBike would be about ${price} for this route${peak ? ' (rush hour, a bit pricier)' : ''}. Fares change with the time of day.`,
+  rideFareNote: 'Ride-hailing fares are estimated for your departure time; the real price changes with the time of day.',
+  hintRushCar: (saved: number, extra: string | null) =>
+    `It’s rush hour and cars crawl through the Old Quarter. GrabBike slips through the traffic and saves about ${saved} min${extra ? ` for roughly ${extra} more` : ''}.`,
+  hintRushShift: (time: string, saved: number) =>
+    `Your route runs into rush hour. Leaving at ${time} avoids the worst traffic and saves about ${saved} min on the road.`,
+  hintRushDetour: 'Stuck in a jam on the way? Tap Directions: Google Maps reroutes around live traffic.',
+  leaveAt: (time: string) => `Leave at ${time}`,
   closedWhenYouArrive: 'Closed when you arrive',
   eventsTitle: 'Events during your trip',
   eventsSub: (from: string, to: string) => `${from}–${to} · Hanoi time`,
@@ -721,6 +748,24 @@ const vi: Strings = {
   missionFrom: (role: string) => `${role} nhắn`,
   reward: 'Phần thưởng',
   challengeTitle: 'Tìm chi tiết thật',
+  quizKind: {
+    look: 'Quan sát',
+    history: 'Lịch sử',
+    legend: 'Truyền thuyết',
+    culture: 'Văn hoá',
+    architecture: 'Kiến trúc',
+    nature: 'Thiên nhiên',
+  },
+  openQuiz: (n: number) => `Đố vui · ${n} câu`,
+  questionOf: (i: number, n: number) => `Câu ${i}/${n}`,
+  correct: 'Chính xác!',
+  whyAnswer: 'Vì sao?',
+  nextQuestion: 'Câu tiếp theo',
+  seeScore: 'Xem kết quả',
+  quizScore: (k: number, n: number) => `Đúng ngay lần đầu ${k}/${n} câu`,
+  quizCheer: (k: number, n: number): string =>
+    k === n ? 'Tuyệt đối — đúng là chuyên gia Hà Nội!' : k * 2 >= n ? 'Giỏi lắm!' : 'Giờ bạn đã biết thêm về nơi này rồi.',
+  claimReward: 'Nhận phần thưởng',
   wrong: 'Chưa đúng — hãy nhìn lại nhé.',
   hint: 'Gợi ý',
   foundIt: 'Bạn tìm ra rồi!',
@@ -1120,6 +1165,15 @@ const vi: Strings = {
     `Đi bộ khá xa: tổng ${walked} (~${walkMin} phút), chặng dài nhất ${longest}. Đổi phương tiện sẽ tiết kiệm khoảng ${saved} phút${extra ? `, chi phí tăng khoảng ${extra}` : ''}.`,
   hintAllClose: 'Các điểm chỉ cách nhau vài trăm mét: đi bộ cũng nhanh mà không mất tiền gửi xe hay cước.',
   switchTo: (name: string) => `Đổi sang ${name}`,
+  hintGrab: (price: string, peak: boolean) =>
+    `Không có xe? Gọi GrabBike cho cả lộ trình khoảng ${price}${peak ? ' (giờ cao điểm nên nhỉnh hơn)' : ''}. Giá thay đổi theo khung giờ.`,
+  rideFareNote: 'Cước xe công nghệ ước lượng theo giờ xuất phát; giá thực tế thay đổi theo khung giờ.',
+  hintRushCar: (saved: number, extra: string | null) =>
+    `Đang giờ cao điểm, ô tô dễ kẹt ở phố cổ. Đi GrabBike luồn lách tốt hơn, nhanh hơn khoảng ${saved} phút${extra ? `, chi phí tăng khoảng ${extra}` : ''}.`,
+  hintRushShift: (time: string, saved: number) =>
+    `Lộ trình rơi vào giờ cao điểm. Đi lúc ${time} sẽ tránh được tắc đường, đỡ khoảng ${saved} phút ngồi trên xe.`,
+  hintRushDetour: 'Đang đi mà gặp tắc? Bấm Chỉ đường, Google Maps sẽ tìm đường tránh theo giao thông thực tế.',
+  leaveAt: (time: string) => `Đi lúc ${time}`,
   closedWhenYouArrive: 'Đóng cửa lúc bạn tới',
   eventsTitle: 'Sự kiện trong khung giờ của bạn',
   eventsSub: (from: string, to: string) => `${from}–${to} · giờ Hà Nội`,

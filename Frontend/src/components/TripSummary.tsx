@@ -84,6 +84,9 @@ export default function TripSummary({
           </div>
         )}
       </dl>
+      {sum.legs.some((l) => l.costK > 0 && (l.transport === 'grabbike' || l.transport === 'car')) && (
+        <p className="mt-1 text-[10px] leading-snug text-bark/60">{t.rideFareNote}</p>
+      )}
     </div>
   )
 }

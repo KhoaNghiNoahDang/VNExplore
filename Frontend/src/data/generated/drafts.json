@@ -33,7 +33,10 @@
     "ta-hien",
     "women-museum",
     "o-quan-chuong",
-    "hanoi-post-office"
+    "hanoi-post-office",
+    "ba-kieu-temple",
+    "dinh-mong-phu",
+    "village-for-ethnic-culture-and-tourism"
    ],
    "missions": {
     "ma-may-87": {
@@ -98,8 +101,8 @@
     },
     "o-quan-chuong": {
      "task": {
-      "vi": "Đi qua cửa ô phía Đông nơi hàng hoá từ bến sông vào phố – và đọc lệnh cấm sách nhiễu người qua lại.",
-      "en": "Pass the east gate where goods came up from the river — and read the rule that protected traders."
+      "vi": "Đi qua cửa ô phía Đông nơi hàng từ bến sông vào phố, và tìm tấm bia cấm lính gác sách nhiễu người qua lại.",
+      "en": "Walk through the east gate where goods came up from the river, and find the tablet forbidding guards to harass travellers."
      },
      "item": {
       "vi": "Tấm thẻ qua cửa ô",
@@ -114,6 +117,36 @@
      "item": {
       "vi": "Bức điện tín của mối hàng",
       "en": "A telegram from a buyer"
+     }
+    },
+    "ba-kieu-temple": {
+     "task": {
+      "vi": "Đứng ở cổng tam quan bên hồ rồi tìm xem đền chính nằm ở phía bên kia đường chỗ nào.",
+      "en": "Stand at the gate by the lake, then find where the main shrine is across the road."
+     },
+     "item": {
+      "vi": "Lá bùa bình an",
+      "en": "A good-luck charm"
+     }
+    },
+    "dinh-mong-phu": {
+     "task": {
+      "vi": "Dạo làng Đường Lâm, tìm những chum tương bày trước cửa và hỏi chủ nhà làm tương thế nào.",
+      "en": "Stroll Đường Lâm, find the jars of fermented soybean paste by the doors and ask how it is made."
+     },
+     "item": {
+      "vi": "Một chum tương làng",
+      "en": "A jar of village bean paste"
+     }
+    },
+    "village-for-ethnic-culture-and-tourism": {
+     "task": {
+      "vi": "Ghé khu làng của một dân tộc, tìm một món đồ thủ công và hỏi nó được làm từ gì.",
+      "en": "Visit one of the ethnic villages, find a handicraft and ask what it is made from."
+     },
+     "item": {
+      "vi": "Tấm vải thổ cẩm",
+      "en": "A piece of brocade"
      }
     }
    },
@@ -266,13 +299,17 @@
     "women-museum",
     "quan-su-pagoda",
     "imperial-citadel",
-    "48-hang-ngang"
+    "48-hang-ngang",
+    "national-history-museum",
+    "lang-ngo-quyen",
+    "tan-da-nguyen-khac-hieu-memorial-site",
+    "son-tay-ancient-citadel"
    ],
    "missions": {
     "ngoc-son": {
      "task": {
-      "vi": "Thắp hương thần Văn Xương và đọc chữ trên Tháp Bút.",
-      "en": "Pray to the god of literature and read the words on the Pen Tower."
+      "vi": "Tìm Tháp Bút và Đài Nghiên ở cổng đền – bộ “bút nghiên” của sĩ tử – rồi đọc chữ khắc trên tháp.",
+      "en": "Find the Pen Tower and the Ink Slab at the temple gate – a scholar’s brush and ink – and read the words on the tower."
      },
      "item": {
       "vi": "Cây bút lông",
@@ -281,8 +318,8 @@
     },
     "the-huc": {
      "task": {
-      "vi": "Bước qua cầu ánh ban mai với tâm trí sáng suốt.",
-      "en": "Cross the bridge of morning light with a clear mind."
+      "vi": "Đếm số nhịp cầu khi bước qua – sĩ tử giỏi để ý từng chi tiết nhỏ.",
+      "en": "Count the bridge’s spans as you cross – a good scholar notices every detail."
      },
      "item": {
       "vi": "Tia nắng ban mai",
@@ -357,6 +394,46 @@
      "item": {
       "vi": "Trang giấy đánh máy",
       "en": "A typed page"
+     }
+    },
+    "national-history-museum": {
+     "task": {
+      "vi": "Đi qua các phòng từ thời tiền sử tới triều Nguyễn, chọn một hiện vật và kể lại cho bạn đồng hành nghe.",
+      "en": "Walk from prehistory to the Nguyễn dynasty, pick one object and tell your companions its story."
+     },
+     "item": {
+      "vi": "Trang sử chép tay",
+      "en": "A hand-copied page of history"
+     }
+    },
+    "lang-ngo-quyen": {
+     "task": {
+      "vi": "Đọc dòng chữ trên tấm bia giữa lăng – sĩ tử nào cũng phải biết vị vua mở đầu nền tự chủ.",
+      "en": "Read the stele at the centre of the tomb – every scholar should know the king who began independence."
+     },
+     "item": {
+      "vi": "Bản dập văn bia",
+      "en": "A rubbing of the stele"
+     }
+    },
+    "tan-da-nguyen-khac-hieu-memorial-site": {
+     "task": {
+      "vi": "Tìm một câu thơ của Tản Đà ở khu lưu niệm và chép lại vào sổ tay.",
+      "en": "Find a line of Tản Đà’s poetry at the memorial and copy it into your notebook."
+     },
+     "item": {
+      "vi": "Tập thơ Tản Đà",
+      "en": "A book of Tản Đà’s poems"
+     }
+    },
+    "son-tay-ancient-citadel": {
+     "task": {
+      "vi": "Đi dọc tường thành đá ong và đếm xem thành có mấy cổng.",
+      "en": "Walk along the laterite walls and count how many gates the citadel has."
+     },
+     "item": {
+      "vi": "Bản đồ thành Sơn Tây",
+      "en": "A map of the citadel"
      }
     }
    },
@@ -510,7 +587,12 @@
     "hoa-lo",
     "opera-house",
     "hoa-phong-tower",
-    "o-quan-chuong"
+    "o-quan-chuong",
+    "dien-hong-garden",
+    "cua-bac-church",
+    "ho-suoi-hai",
+    "den-va",
+    "ba-vi-national-park"
    ],
    "missions": {
     "the-huc": {
@@ -601,6 +683,56 @@
      "item": {
       "vi": "Khung hình: cửa ô phía Đông",
       "en": "Frame: the east gate"
+     }
+    },
+    "dien-hong-garden": {
+     "task": {
+      "vi": "Chụp đài phun nước sao cho thấy đủ bốn chú cóc đồng trong một khung.",
+      "en": "Frame the fountain so all four bronze toads fit in one shot."
+     },
+     "item": {
+      "vi": "Khung hình: vườn hoa Con Cóc",
+      "en": "Frame: the Toad Garden"
+     }
+    },
+    "cua-bac-church": {
+     "task": {
+      "vi": "Lùi lại thật xa và chụp nhà thờ sao cho thấy rõ tháp chuông lệch về một bên.",
+      "en": "Step well back and shoot the church so its off-centre bell tower is clear."
+     },
+     "item": {
+      "vi": "Khung hình: tháp chuông lệch",
+      "en": "Frame: the off-centre tower"
+     }
+    },
+    "ho-suoi-hai": {
+     "task": {
+      "vi": "Chụp mặt hồ lúc nắng xiên, bắt được ít nhất một hòn đảo trong khung hình.",
+      "en": "Shoot the lake in slanting light with at least one island in the frame."
+     },
+     "item": {
+      "vi": "Khung hình: hồ Suối Hai",
+      "en": "Frame: Suối Hai Lake"
+     }
+    },
+    "den-va": {
+     "task": {
+      "vi": "Chụp một gốc lim cổ, nhờ bạn đồng hành đứng cạnh để thấy cây to cỡ nào.",
+      "en": "Photograph an old ironwood tree with a companion beside it to show its size."
+     },
+     "item": {
+      "vi": "Khung hình: rừng lim cổ",
+      "en": "Frame: the ironwood forest"
+     }
+    },
+    "ba-vi-national-park": {
+     "task": {
+      "vi": "Lên cao và chụp một khung có cả mây lẫn rừng.",
+      "en": "Climb high and catch both clouds and forest in one frame."
+     },
+     "item": {
+      "vi": "Khung hình: mây núi Ba Vì",
+      "en": "Frame: Ba Vì in the clouds"
      }
     }
    },
@@ -749,13 +881,15 @@
     "ta-hien",
     "ma-may-87",
     "water-puppets",
-    "ly-thai-to-park"
+    "ly-thai-to-park",
+    "dinh-mong-phu",
+    "village-for-ethnic-culture-and-tourism"
    ],
    "missions": {
     "bun-cha": {
      "task": {
-      "vi": "Học bí quyết bát nước chấm — chua, ngọt, mặn, thơm khói.",
-      "en": "Learn the secret of the dipping broth — sweet, sour, salty, smoky."
+      "vi": "Nếm bát nước chấm và đoán xem có những vị gì: chua, ngọt, mặn hay cay?",
+      "en": "Taste the dipping sauce and guess what’s in it: sour, sweet, salty or spicy?"
      },
      "item": {
       "vi": "Làn khói than hoa",
@@ -820,6 +954,26 @@
      "item": {
       "vi": "Bí mật bữa sáng",
       "en": "A breakfast secret"
+     }
+    },
+    "dinh-mong-phu": {
+     "task": {
+      "vi": "Nếm một món quà quê Đường Lâm – chè lam hay kẹo dồi – và tả lại vị của nó.",
+      "en": "Taste a Đường Lâm treat – chè lam or kẹo dồi – and describe how it tastes."
+     },
+     "item": {
+      "vi": "Gói chè lam",
+      "en": "A packet of chè lam"
+     }
+    },
+    "village-for-ethnic-culture-and-tourism": {
+     "task": {
+      "vi": "Tìm hiểu một món ăn của một dân tộc ít người và hỏi người ta nấu nó dịp nào.",
+      "en": "Learn about a dish from one of the ethnic minorities and ask when it is cooked."
+     },
+     "item": {
+      "vi": "Công thức món ăn dân tộc",
+      "en": "An ethnic family recipe"
      }
     }
    },
