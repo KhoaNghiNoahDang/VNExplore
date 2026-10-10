@@ -2,7 +2,6 @@ import type { EventCategory, Lang, Mode, PlaceTag, QuizKind, Theme, Transport } 
 
 const en = {
   tagline: 'HANOI STORY QUEST',
-  area: 'HOAN KIEM · HANOI',
   askTitle: 'What kind of Hanoi do you want today?',
   askSub: 'Tell us in one sentence — you can change anything later.',
   askPlaceholder: 'I am at Hoan Kiem Lake. I want to explore Hanoi culture at a reasonable cost for 5 people, by Grab.',
@@ -41,7 +40,7 @@ const en = {
   roleMissionPreview: 'Your missions on this route',
 
   placesTitle: 'Places picked for you',
-  placesCount: (n: number, area = 'Hoan Kiem') => `${n} places around ${area}`,
+  placesCount: (n: number, where: string | null) => (where ? `${n} places around ${where}` : `${n} places near you`),
   editHint: 'Edit your request',
   listTab: 'List',
   mapTab: 'Map',
@@ -84,6 +83,8 @@ const en = {
   startQuest: 'Start',
   continueQuest: 'Continue journey',
   emptyQuest: 'Your route is empty. Go back and add a few places.',
+  nothingNearby:
+    'VNExplore has no places near this start point yet. Pick another start point, or name an area in your request — e.g. “Hoàn Kiếm” or “Ba Vì”.',
   back: 'Back',
   remove: 'Remove',
 
@@ -250,7 +251,7 @@ const en = {
   myLocation: 'My location',
   panelShow: 'Show list',
   panelHide: 'Hide list',
-  mapTitlePlaces: (n: number, area = 'Hoan Kiem') => `${n} places around ${area}`,
+  mapTitlePlaces: (n: number, where: string | null) => (where ? `${n} places around ${where}` : `${n} places near you`),
   mapTitleRoute: (n: number) => `Your route · ${n} stops`,
 
 
@@ -498,8 +499,8 @@ const en = {
   // ---- areas + quick places
   missionDoneBtn: 'Mission done',
   aboutPlace: 'About this place',
-  areaName: { 'hoan-kiem': 'Hoan Kiem · Hanoi', 'ba-vi': 'Ba Vi · Hanoi' } as Record<string, string>,
-  areaShort: { 'hoan-kiem': 'Hoan Kiem', 'ba-vi': 'Ba Vi' } as Record<string, string>,
+  /** Region of the plan above the request box; null = no named region (plans follow the start point). */
+  areaHeader: (name: string | null) => (name ? `${name} · Hanoi` : 'Near you'),
   openNow: 'Open now',
   closedNow: 'Closed now',
 
@@ -655,7 +656,6 @@ type Strings = typeof en
 
 const vi: Strings = {
   tagline: 'HÀNH TRÌNH KỂ CHUYỆN HÀ NỘI',
-  area: 'HOÀN KIẾM · HÀ NỘI',
   askTitle: 'Hôm nay bạn muốn một Hà Nội như thế nào?',
   askSub: 'Kể cho chúng tôi trong một câu — bạn có thể đổi mọi thứ sau.',
   askPlaceholder: 'Mình đang ở Hồ Gươm, muốn khám phá văn hoá Hà Nội với chi phí hợp lý cho 5 người, đi Grab.',
@@ -694,7 +694,7 @@ const vi: Strings = {
   roleMissionPreview: 'Nhiệm vụ của bạn trên lộ trình này',
 
   placesTitle: 'Địa điểm dành cho bạn',
-  placesCount: (n: number, area = 'Hoàn Kiếm') => `${n} địa điểm quanh ${area}`,
+  placesCount: (n: number, where: string | null) => (where ? `${n} địa điểm quanh ${where}` : `${n} địa điểm quanh bạn`),
   editHint: 'Sửa yêu cầu',
   listTab: 'Danh sách',
   mapTab: 'Bản đồ',
@@ -737,6 +737,8 @@ const vi: Strings = {
   startQuest: 'Bắt đầu',
   continueQuest: 'Tiếp tục hành trình',
   emptyQuest: 'Lộ trình đang trống. Quay lại và thêm vài địa điểm nhé.',
+  nothingNearby:
+    'VNExplore chưa có địa điểm nào quanh điểm xuất phát này. Bạn thử chọn điểm xuất phát khác, hoặc nêu tên khu trong yêu cầu — ví dụ “Hoàn Kiếm” hay “Ba Vì”.',
   back: 'Quay lại',
   remove: 'Bỏ',
 
@@ -903,7 +905,7 @@ const vi: Strings = {
   myLocation: 'Vị trí của tôi',
   panelShow: 'Hiện danh sách',
   panelHide: 'Thu gọn',
-  mapTitlePlaces: (n: number, area = 'Hoàn Kiếm') => `${n} địa điểm quanh ${area}`,
+  mapTitlePlaces: (n: number, where: string | null) => (where ? `${n} địa điểm quanh ${where}` : `${n} địa điểm quanh bạn`),
   mapTitleRoute: (n: number) => `Lộ trình · ${n} điểm`,
 
 
@@ -1151,8 +1153,7 @@ const vi: Strings = {
   // ---- areas + quick places
   missionDoneBtn: 'Đã làm xong nhiệm vụ',
   aboutPlace: 'Giới thiệu',
-  areaName: { 'hoan-kiem': 'Hoàn Kiếm · Hà Nội', 'ba-vi': 'Ba Vì · Hà Nội' },
-  areaShort: { 'hoan-kiem': 'Hoàn Kiếm', 'ba-vi': 'Ba Vì' },
+  areaHeader: (name: string | null) => (name ? `${name} · Hà Nội` : 'Quanh bạn'),
   openNow: 'Đang mở cửa',
   closedNow: 'Đang đóng cửa',
 

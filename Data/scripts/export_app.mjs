@@ -21,7 +21,10 @@ const DATA = join(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = join(DATA, '..', 'Frontend', 'src', 'data', 'generated')
 
 const THEMES = ['culture', 'food', 'rainy', 'history', 'photo', 'fun']
-const AREAS = ['hoan-kiem', 'ba-vi']
+/** Region label: lowercase words joined by '-' (hoan-kiem, ba-vi, nam-tu-liem, hanoi…). Only a label —
+ * the app plans around the start point, so a place can be anywhere. */
+const AREA_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/
+const areaOk = (a) => AREA_RE.test(a ?? '')
 const KINDS = ['sight', 'food', 'fun']
 const DEPTHS = ['full', 'quick']
 const TAGS = ['iconic', 'groups', 'quiet', 'cultural', 'indoor', 'localFood', 'free', 'history', 'photo', 'lively']
@@ -77,7 +80,7 @@ const places = readCsv('places.csv')
     tags.filter((t) => !TAGS.includes(t)).forEach((t) => fail(F, r, `unknown tag "${t}" (use ${TAGS.join(', ')})`))
     if (!themes.length) fail(F, r, 'themes is empty')
     if (!TONES.includes(r.tone)) fail(F, r, `tone must be one of ${TONES.join(', ')}`)
-    if (!AREAS.includes(r.area)) fail(F, r, `area must be one of ${AREAS.join(', ')}`)
+    if (!areaOk(r.area)) fail(F, r, `area must be a label like hoan-kiem, ba-vi or nam-tu-liem (got "${r.area}")`)
     if (!KINDS.includes(r.kind)) fail(F, r, `kind must be one of ${KINDS.join(', ')}`)
     if (!DEPTHS.includes(r.depth)) fail(F, r, `depth must be one of ${DEPTHS.join(', ')}`)
     const full = r.depth === 'full'
@@ -152,7 +155,6 @@ for (const r of readCsv('quizzes.csv').filter((q) => q.status === 'approved')) {
 // used to suggest the roles that fit the chosen stops, its own missions for some places, and
 // mission templates per kind of stop (sight / food / fun / event) so every stop gets a task in
 // the role's voice. Approved rows → roles.json; drafts → drafts.json (shown only in local dev).
-const ROLE_AREAS = ['any', ...AREAS]
 const TEMPLATE_KINDS = ['sight', 'food', 'fun', 'event']
 const ROLE_TAGS = new Set([...THEMES, ...KINDS, 'event', 'music', 'theatre', 'film', 'exhibition', 'workshop', 'talk', 'market', 'festival'])
 const allMissions = readCsv('missions.csv').filter((m) => ids.has(m.place_id))
@@ -169,7 +171,7 @@ allTemplates.forEach((t) => {
 /** A role built from its row plus the missions / templates whose status is in `statuses`. */
 function buildRole(r, statuses) {
   const F = 'roles.csv'
-  if (!ROLE_AREAS.includes(r.area)) fail(F, r, `area must be one of ${ROLE_AREAS.join(', ')}`)
+  if (r.area !== 'any' && !areaOk(r.area)) fail(F, r, `area must be 'any' or a region label like ba-vi (got "${r.area}")`)
   const tags = list(r.tags)
   tags.filter((t) => !ROLE_TAGS.has(t)).forEach((t) => fail(F, r, `unknown tag "${t}"`))
   if (!tags.length) fail(F, r, 'tags is empty')
@@ -224,7 +226,7 @@ const events = readCsv('events.csv')
     if (eventIds.has(r.id)) fail(F, r, `duplicate id "${r.id}"`)
     eventIds.add(r.id)
     if (!/^[a-z0-9-]+$/.test(r.id)) fail(F, r, 'id: lowercase letters, digits and "-" only')
-    if (![...AREAS, 'hanoi'].includes(r.area)) fail(F, r, `area must be one of ${AREAS.join(', ')}, hanoi`)
+    if (!areaOk(r.area)) fail(F, r, `area must be a label like hoan-kiem, ba-vi or hanoi (got "${r.area}")`)
     if (!EVENT_KINDS.includes(r.kind)) fail(F, r, `kind must be one of ${EVENT_KINDS.join(', ')}`)
     if (!CATEGORIES.includes(r.category)) fail(F, r, `category must be one of ${CATEGORIES.join(', ')}`)
     if (!['ok', 'adult'].includes(r.sensitivity)) fail(F, r, 'sensitivity must be ok or adult')

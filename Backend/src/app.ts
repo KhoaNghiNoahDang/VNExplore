@@ -137,7 +137,8 @@ export async function buildApp() {
     context: z
       .object({
         language: z.enum(['vi', 'en']),
-        area: z.enum(['hoan-kiem', 'ba-vi']),
+        // A region id ('hoan-kiem', 'ba-vi'…) or 'near-start': plans are not limited to fixed areas.
+        area: z.string().trim().min(1).max(40),
         transport: z.enum(['walk', 'motorbike', 'grabbike', 'car']),
         people: z.number().int().min(1).max(30),
         hours: z.number().min(0.5).max(10),

@@ -18,7 +18,7 @@ import { summarize } from '../lib/quest'
 import { getQuest, isLiked, questUrl, setLiked, type SavedQuest } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
-import { AREA_POINT } from '../lib/area'
+import { DEFAULT_POINT, regionAt } from '../lib/area'
 import type { Mode, Place, Theme, Transport } from '../types'
 
 const MODE_ORDER: Mode[] = ['explore', 'listen', 'easy']
@@ -54,8 +54,8 @@ export default function QuestSharePage() {
     [quest, places],
   )
   // From the traveller's real position when we have it, else measured from the quest's first stop.
-  const questArea = stops[0]?.area ?? 'hoan-kiem'
-  const start = planFor(questArea).start ?? stops[0] ?? AREA_POINT[questArea]
+  const first = stops[0] ? { lat: stops[0].lat, lng: stops[0].lng } : null
+  const start = planFor({ near: first }).start ?? first ?? DEFAULT_POINT
   const sum = useMemo(
     () => summarize(start, stops, quest?.people ?? 1, { transport: quest?.transport ?? 'walk', departAt: null }, stops.map((p) => p.id)),
     [start, stops, quest],
@@ -118,7 +118,9 @@ export default function QuestSharePage() {
     setIntent(
       {
         text: quest.title,
-        area: questArea,
+        // Plan around the quest's own stops, wherever they are.
+        area: regionAt(first)?.id ?? null,
+        near: first,
         themes: themes.length ? themes : ['culture'],
         people,
         budget: 'any',

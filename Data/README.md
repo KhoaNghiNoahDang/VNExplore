@@ -28,7 +28,7 @@ Mở bằng Google Sheets (File → Import → Upload) hoặc Excel. Mã hoá UT
 ### Hai loại địa điểm (`places.csv`)
 | Cột | Giá trị |
 |---|---|
-| `area` | `hoan-kiem` hoặc `ba-vi` — một lộ trình không trộn hai khu |
+| `area` | Nhãn khu vực, chữ thường nối bằng `-` (`hoan-kiem`, `ba-vi`, `nam-tu-liem`…). **Chỉ để phân loại** — app gợi ý địa điểm quanh điểm xuất phát (hoặc quanh khu được nêu tên như “Ba Vì”), không giới hạn vùng |
 | `kind` | `sight` (tham quan) · `food` (ăn uống) · `fun` (vui chơi) |
 | `depth` | `full`: có câu chuyện + thử thách, dùng cho cả 3 chế độ · `quick`: chỉ cần giới thiệu, giá, thời gian (quán ăn, chỗ chơi) |
 
@@ -40,7 +40,7 @@ App lấy khung giờ chuyến đi (giờ xuất phát → + số giờ yêu c�
 
 | Cột | Giá trị |
 |---|---|
-| `area` | `hoan-kiem` (≤ 3 km quanh hồ), `ba-vi`, hoặc `hanoi` (mọi nơi khác trong thành phố) — app gợi ý mọi sự kiện mà người dùng **kịp tới từ vị trí thật của họ**, không giới hạn khu vực |
+| `area` | Nhãn khu vực (`hoan-kiem`, `ba-vi`, `hanoi`…) — app gợi ý mọi sự kiện mà người dùng **kịp tới từ vị trí thật của họ**, không giới hạn khu vực |
 | `kind` | `show`: phải có mặt trước giờ bắt đầu, ở lại `visit_min` phút · `open`: ghé lúc nào cũng được từ `start_times` đến `end_time` (triển lãm, phố đi bộ) |
 | `category` | music, theatre, film, exhibition, workshop, talk, market, festival, other |
 | `sensitivity` | `ok` hoặc `adult` (quán bar, 18+) |
@@ -57,7 +57,7 @@ App lấy khung giờ chuyến đi (giờ xuất phát → + số giờ yêu c�
 
 ### Vai và nhiệm vụ (`roles.csv`, `missions.csv`, `role_templates.csv`)
 Luồng Khám phá: **chọn điểm → xem lộ trình → chọn vai**. App chấm điểm mỗi vai theo các điểm trong lộ trình và gợi ý 3 vai hợp nhất.
-- `roles.csv`: `status` (`draft`/`approved`) · `area` (`any`, `hoan-kiem`, `ba-vi`) · `tags` — chủ đề (culture, food, history, photo, rainy, fun), loại điểm (sight, food, fun), thể loại sự kiện (music, theatre, film, exhibition, workshop, talk, market, festival) hoặc `event` · `fav_places` = điểm rất hợp với vai (cộng điểm khi gợi ý).
+- `roles.csv`: `status` (`draft`/`approved`) · `area` (`any`, hoặc nhãn khu vai được viết riêng, vd. `ba-vi`: vai chỉ được gợi ý cho các điểm nằm trong khu đó) · `tags` — chủ đề (culture, food, history, photo, rainy, fun), loại điểm (sight, food, fun), thể loại sự kiện (music, theatre, film, exhibition, workshop, talk, market, festival) hoặc `event` · `fav_places` = điểm rất hợp với vai (cộng điểm khi gợi ý).
 - `missions.csv`: nhiệm vụ viết riêng cho một vai tại một điểm (ưu tiên cao nhất).
 - `role_templates.csv`: nhiệm vụ mẫu theo loại điểm, `{place}` được thay bằng tên điểm. Nhiều dòng cho cùng vai × loại = nhiều phương án; cột `tag` (tuỳ chọn: một chủ đề hoặc tag của điểm, vd. `cultural` cho đền chùa, `photo`, `history`) để phương án đó được ưu tiên ở đúng loại điểm. Mỗi điểm luôn nhận cùng một phương án.
 - **Duyệt bản nháp ngay trong app:** chạy `export_app.mjs` rồi `npm run dev` — khi chạy local, các vai/nhiệm vụ `draft` được hiện kèm nhãn "Nháp" (từ `generated/drafts.json`). Bản build production chỉ có dòng `approved`. Vai nháp cũng không được đưa vào `seed_content.sql`.

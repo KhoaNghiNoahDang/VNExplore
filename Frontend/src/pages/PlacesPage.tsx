@@ -23,7 +23,7 @@ import { estimateLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 
 export default function PlacesPage() {
-  const { t, lang, intent, places, areaPlaces, area, contextFor, loading, selected, toggle, mode, role, travel, geo, eventOptions } = useQuest()
+  const { t, lang, intent, places, areaPlaces, region, center, contextFor, loading, selected, toggle, mode, role, travel, geo, eventOptions } = useQuest()
   const start = useStart()
   const navigate = useNavigate()
   const [view, setView] = useState<'list' | 'map'>('list')
@@ -33,8 +33,8 @@ export default function PlacesPage() {
 
   const favIds = mode === 'explore' && role ? role.favPlaces : undefined
   const ranked = useMemo(
-    () => (intent ? rankPlaces(areaPlaces, intent, start, favIds, contextFor(area)) : []),
-    [areaPlaces, intent, start, favIds, contextFor, area],
+    () => (intent ? rankPlaces(areaPlaces, intent, start, favIds, contextFor(center)) : []),
+    [areaPlaces, intent, start, favIds, contextFor, center],
   )
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
   // One pin per event on the map: the sitting in the plan, else the earliest.
@@ -55,10 +55,10 @@ export default function PlacesPage() {
   // With places picked, the details come from the route itself (and follow every change of stops,
   // transport or departure); before that, the model's reply or a local one.
   const plannerReply = chosen.length
-    ? buildRouteDetails(liveIntent, lang, contextFor(area).weather ?? null, sum,
+    ? buildRouteDetails(liveIntent, lang, contextFor(center).weather ?? null, sum,
         suggestTransport(start, chosen, intent.people, travel))
     : (travel.transport === intent.transport ? intent.reply?.[lang] : '') ||
-      buildPlannerReply(liveIntent, area, lang, contextFor(area).weather ?? null)
+      buildPlannerReply(liveIntent, region, lang, contextFor(center).weather ?? null)
 
   const summaryBlock = (
     <>
@@ -84,7 +84,7 @@ export default function PlacesPage() {
     </PrimaryButton>
   )
   const mapPanel: MapPanel = {
-    title: t.mapTitlePlaces(ranked.length, t.areaShort[area]),
+    title: t.mapTitlePlaces(ranked.length, region?.name[lang] ?? null),
     summary: chosen.length ? (
       <TripSummary count={chosen.length} sum={sum} hours={intent.hours} people={intent.people} />
     ) : (
@@ -113,7 +113,7 @@ export default function PlacesPage() {
       <div className={`thin-scroll min-h-0 flex-1 overflow-y-auto ${chosen.length ? 'pb-28' : 'pb-6'}`}>
         <section className="px-5 pb-3">
           <h1 className="text-[22px] font-extrabold tracking-tight">{t.placesTitle}</h1>
-          <p className="mt-0.5 text-xs font-medium text-bark/65">{t.placesCount(ranked.length, t.areaShort[area])}</p>
+          <p className="mt-0.5 text-xs font-medium text-bark/65">{t.placesCount(ranked.length, region?.name[lang] ?? null)}</p>
 
           <div className="mt-3 overflow-hidden rounded-2xl border border-teal/20 bg-teal/[0.06]">
             <button
@@ -203,7 +203,14 @@ export default function PlacesPage() {
             <>
               <EventsSection people={intent.people} />
               <h2 className="pt-2 text-[15px] font-extrabold">{t.placesTitle}</h2>
-              {ranked.map((p) => <PlaceCard key={p.id} place={p} people={intent.people} />)}
+              {ranked.length ? (
+                ranked.map((p) => <PlaceCard key={p.id} place={p} people={intent.people} />)
+              ) : (
+                // Somewhere the catalogue doesn't cover yet (it grows place by place).
+                <p className="rounded-2xl border-2 border-dashed border-sand p-4 text-[13px] leading-relaxed text-bark/80">
+                  {t.nothingNearby}
+                </p>
+              )}
             </>
           ) : (
             <>

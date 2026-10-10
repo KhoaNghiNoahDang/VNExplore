@@ -1,4 +1,5 @@
 import { RUSH_HOURS, TRANSPORT } from '../data/transport'
+import { regionAt } from './area'
 import type { Challenge, Intent, LatLng, Leg, Place, Transport } from '../types'
 import { hanoiClock } from './hanoiTime'
 import { isOpenAt } from './hours'
@@ -249,8 +250,8 @@ function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ct
   const pricey = intent.budget === 'low' && place.priceMax > 60 ? 1 : 0
   const fav = favIds.indexOf(place.id)
   const roleBoost = fav === -1 ? 0 : 1500 - fav * 100
-  // Ba Vì spots are ~20× further apart than in the Old Quarter: weigh distance accordingly.
-  const perM = place.area === 'ba-vi' ? 0.05 : 1
+  // Countryside spots (Ba Vì) are ~20× further apart than in the city: weigh distance accordingly.
+  const perM = regionAt(place)?.spreadOut ? 0.05 : 1
   // Full places (with a story) first when they fit the request just as well.
   const depth = place.depth === 'full' ? 150 : 0
   const hits = dishHits(place, `${intent.text} ${intent.extra ?? ''}`)

@@ -9,6 +9,7 @@ import TopBar from '../components/TopBar'
 import { DongSonBand, DongSonDrum, Lotus } from '../components/VnArt'
 import { getRole, missionFor, ROLES } from '../data/roles'
 import { MODE_INFO } from '../i18n/strings'
+import { regionAt } from '../lib/area'
 import { distance, duration, moneyRange } from '../lib/format'
 import { collectItems, collectStamps, deleteJourney, type PassportJourney } from '../lib/passport'
 import { usePassport } from '../store/usePassport'
@@ -232,7 +233,9 @@ function TripSheet({ j, byId, date, onClose, onDelete }: { j: PassportJourney; b
     setIntent(
       {
         text: j.questTitle ?? stops.map((p) => p.name[lang]).join(', '),
-        area: stops[0]?.area,
+        // Replay around the journey's own stops, wherever they are.
+        area: stops[0] ? (regionAt(stops[0])?.id ?? null) : null,
+        near: stops[0] ? { lat: stops[0].lat, lng: stops[0].lng } : null,
         themes: themes.length ? themes : ['culture'],
         people: j.people,
         budget: 'any',

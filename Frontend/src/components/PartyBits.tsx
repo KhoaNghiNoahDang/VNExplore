@@ -91,7 +91,7 @@ export function TimerPicker({
 
 /** "Play with friends" from the route: name (if needed), timer, create → lobby. */
 export function PartyCreateSheet({ stops, routeMin, onClose }: { stops: Place[]; routeMin: number; onClose: () => void }) {
-  const { t, lang, intent, area, travel, role } = useQuest()
+  const { t, lang, intent, region, travel, role } = useQuest()
   const auth = useAuth()
   const navigate = useNavigate()
   const hours = intent?.hours ?? 3
@@ -117,7 +117,7 @@ export function PartyCreateSheet({ stops, routeMin, onClose }: { stops: Place[];
     }
     const res = await createParty({
       title: role ? t.questTitle.explore(role.name[lang]) : stops.map((s) => s.name[lang]).slice(0, 3).join(' · '),
-      area,
+      area: region?.id ?? 'near-start',
       stopIds: stops.map((s) => s.id),
       transport: travel.transport,
       hours,

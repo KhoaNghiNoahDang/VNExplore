@@ -1,37 +1,99 @@
-import type { Area, LatLng, Place } from '../types'
+import type { L, LatLng, Place, Transport } from '../types'
 import { distanceM } from './travel'
 
 /**
- * Two areas ~50 km apart. A route always stays inside one of them:
- * the one named in the request ("Ba Vì"), else the one the traveller is in, else Hoan Kiem.
+ * Plans are not tied to fixed areas: the app looks for places around where the trip happens —
+ * the traveller's start point, or a region they name ("Ba Vì"). Regions below are only shortcuts
+ * for names in a request, labels, and a few local habits; places anywhere can be added.
  */
-export const AREAS: Area[] = ['hoan-kiem', 'ba-vi']
-
-/**
- * Middle of each area: where the start-point map opens and where the forecast is read.
- * Never used as the traveller's position — routes start from real location or a point they picked.
- */
-export const AREA_POINT: Record<Area, LatLng> = {
-  'hoan-kiem': { lat: 21.0287, lng: 105.8524 },
-  'ba-vi': { lat: 21.1, lng: 105.42 },
+export interface Region {
+  id: string
+  name: L
+  center: LatLng
+  /** How far the region reaches, in distanceM() metres (padded for streets). */
+  radiusM: number
+  /** Words in a request that mean this region. */
+  words: string[]
+  /** Countryside: sights kilometres apart — ride by default, plan a longer day, weigh distance less. */
+  spreadOut?: boolean
 }
 
-const AREA_CENTER: Record<Area, { at: LatLng; radiusM: number }> = {
-  'hoan-kiem': { at: AREA_POINT['hoan-kiem'], radiusM: 12_000 },
-  'ba-vi': { at: AREA_POINT['ba-vi'], radiusM: 25_000 },
+export const REGIONS: Region[] = [
+  {
+    id: 'hoan-kiem',
+    name: { vi: 'Hoàn Kiếm', en: 'Hoan Kiem' },
+    center: { lat: 21.0287, lng: 105.8524 },
+    // The district around the lake (~3.5 km as the crow flies) — not all of Hanoi.
+    radiusM: 4_500,
+    words: ['hoàn kiếm', 'hoan kiem', 'hồ gươm', 'ho guom', 'phố cổ', 'pho co', 'old quarter', 'sword lake'],
+  },
+  {
+    id: 'ba-vi',
+    name: { vi: 'Ba Vì', en: 'Ba Vi' },
+    center: { lat: 21.1, lng: 105.42 },
+    radiusM: 25_000,
+    words: ['ba vì', 'ba vi', 'bavi', 'sơn tây', 'son tay', 'đường lâm', 'duong lam', 'suối hai', 'đồng mô', 'dong mo', 'núi tản'],
+    spreadOut: true,
+  },
+]
+
+/** Where a map opens when nothing better is known (never used as the traveller's position). */
+export const DEFAULT_POINT: LatLng = REGIONS[0].center
+
+export function regionById(id: string | null | undefined): Region | null {
+  return REGIONS.find((r) => r.id === id) ?? null
 }
 
-/** The area this point is in, if any. distanceM() pads for streets, hence the generous radii. */
-export function areaAt(p: LatLng | null | undefined): Area | null {
+/** The named region this point is in, if any (the nearest when two overlap). */
+export function regionAt(p: LatLng | null | undefined): Region | null {
   if (!p) return null
-  return AREAS.find((a) => distanceM(p, AREA_CENTER[a].at) <= AREA_CENTER[a].radiusM) ?? null
+  let best: Region | null = null
+  let bestM = Infinity
+  for (const r of REGIONS) {
+    const m = distanceM(p, r.center)
+    if (m <= r.radiusM && m < bestM) (best = r), (bestM = m)
+  }
+  return best
+}
+
+/** How far to look around the plan's centre, by how the traveller gets around (distanceM() metres). */
+export const SEARCH_M: Record<Transport, number> = { walk: 4_000, motorbike: 15_000, grabbike: 15_000, car: 20_000 }
+/** Widen the search until there is at least this much to choose from… */
+const MIN_CHOICES = 12
+/** …but never further than this. */
+const MAX_SEARCH_M = 80_000
+
+/** Places around `center`, nearest first, widening the radius when there are too few. */
+export function placesAround(places: Place[], center: LatLng, transport: Transport): Place[] {
+  const withM = places.map((p) => [p, distanceM(center, p)] as const).sort((a, b) => a[1] - b[1])
+  let radius = SEARCH_M[transport]
+  while (radius < MAX_SEARCH_M && withM.filter(([, m]) => m <= radius).length < MIN_CHOICES) radius *= 2
+  radius = Math.min(radius, MAX_SEARCH_M)
+  return withM.filter(([, m]) => m <= radius).map(([p]) => p)
+}
+
+export interface Plan {
+  /** The named region the plan is in (for labels and local habits); null = no named region. */
+  region: Region | null
+  /** Where places are looked for: the point or region asked for, else the start, else a default view. */
+  center: LatLng
+  /** The traveller's real position or picked start point; null until we have one. */
+  start: LatLng | null
+  places: Place[]
 }
 
 /**
- * Area, start point and places for a plan. The start is the traveller's real position (or the point
- * they picked) wherever that is — null until we have one.
+ * Centre, start and places for a plan. A point to plan near (a shared quest's first stop) wins, then
+ * a region named in the request, then where the traveller is.
  */
-export function planArea(asked: Area | null | undefined, origin: LatLng | null, places: Place[]) {
-  const area: Area = asked ?? areaAt(origin) ?? 'hoan-kiem'
-  return { area, start: origin, places: places.filter((p) => p.area === area) }
+export function planAround(
+  asked: { area?: string | null; near?: LatLng | null } | null | undefined,
+  origin: LatLng | null,
+  places: Place[],
+  transport: Transport,
+): Plan {
+  const named = regionById(asked?.area)
+  const center = asked?.near ?? named?.center ?? origin ?? DEFAULT_POINT
+  const region = asked?.near ? regionAt(asked.near) : (named ?? regionAt(origin))
+  return { region, center, start: origin, places: placesAround(places, center, transport) }
 }

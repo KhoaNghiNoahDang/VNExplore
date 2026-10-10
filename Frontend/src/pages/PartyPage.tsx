@@ -8,6 +8,7 @@ import { PartyBoard, TimerPicker } from '../components/PartyBits'
 import PrimaryButton from '../components/PrimaryButton'
 import TopBar from '../components/TopBar'
 import { ROLES } from '../data/roles'
+import { DEFAULT_POINT } from '../lib/area'
 import { joinParty, leaveParty, setMyRole, setTimer, startParty, useParty, type PartyError } from '../lib/party'
 import { summarize } from '../lib/quest'
 import { rankRoles } from '../lib/roles'
@@ -142,10 +143,12 @@ function Lobby({ partyId }: { partyId: string }) {
         transport: p.transport,
         transportIsDefault: false,
         area: p.area,
+        // Plan around the party's own stops, wherever they are.
+        near: stops[0] ? { lat: stops[0].lat, lng: stops[0].lng } : null,
       }
       setIntent(intent, p.stopIds, p.stopIds)
       setRole(me.roleId)
-      startJourney(p.stopIds, start ?? stops[0] ?? { lat: 21.0287, lng: 105.8524 })
+      startJourney(p.stopIds, start ?? stops[0] ?? DEFAULT_POINT)
       setParty({ id: p.id, code: p.code })
     }
     navigate('/go/0', { replace: true })

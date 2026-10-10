@@ -7,8 +7,11 @@ export type Mode = 'explore' | 'listen' | 'easy'
 
 export type Theme = 'culture' | 'food' | 'rainy' | 'history' | 'photo' | 'fun'
 
-/** Hoan Kiem (Old Quarter) or Ba Vi (mountains, ~50 km west). A route stays in one area. */
-export type Area = 'hoan-kiem' | 'ba-vi'
+/**
+ * A place's region label ("hoan-kiem", "ba-vi", "hanoi", …). Only a label for sorting the catalogue:
+ * plans search around the start point, wherever that is (see lib/area.ts).
+ */
+export type Area = string
 
 export type PlaceTag =
   | 'iconic'
@@ -108,8 +111,8 @@ export type EventCategory = 'music' | 'theatre' | 'film' | 'exhibition' | 'works
 /** A dated event from Data/sheets/events.csv. Dates and times are Hanoi local time. */
 export interface QuestEvent extends LatLng {
   id: string
-  /** 'hanoi' = elsewhere in the city (outside the two planning areas). */
-  area: Area | 'hanoi'
+  /** Region label, e.g. 'hanoi' for anywhere in the city outside a named region. */
+  area: Area
   /** show: be there before a start time · open: drop in any time between start and end. */
   kind: 'show' | 'open'
   category: EventCategory
@@ -177,7 +180,7 @@ export interface RoleTemplate extends Mission {
 
 export interface Role {
   id: string
-  /** 'any', or the one area this role is written for (Ba Vì roles). */
+  /** 'any', or the region this role is written for (Ba Vì roles): it is suggested for stops there. */
   area: 'any' | Area
   /** Themes, kinds of stop and event categories the role fits — used to suggest it for a route. */
   tags: string[]
@@ -207,8 +210,10 @@ export interface Intent {
   hoursIsDefault: boolean
   transport: Transport
   transportIsDefault: boolean
-  /** Asked for by name ("Ba Vì"); null = decide from where the traveller is. */
+  /** A region asked for by name ("Ba Vì"): plan around it. null = around where the traveller is. */
   area?: Area | null
+  /** Plan around this point instead (a shared quest's or a party's first stop). */
+  near?: LatLng | null
   /** Extra words for matching places (dishes the language model picked out). */
   extra?: string
   /** One-line restatement from the language model, shown as "Here's what I understood". */

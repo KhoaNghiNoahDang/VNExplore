@@ -18,7 +18,7 @@ import { summarize } from '../lib/quest'
 import { getQuest, upsertQuest, type Audience, type BestTime, type TipKind, type Visibility } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
-import { AREA_POINT } from '../lib/area'
+import { DEFAULT_POINT } from '../lib/area'
 import type { Mode, Place, Theme, Transport } from '../types'
 
 const THEMES: Theme[] = ['food', 'photo', 'history', 'culture', 'rainy', 'fun']
@@ -106,7 +106,7 @@ export default function CreateQuestPage() {
   const stopPlaces = stops.map((s) => byId.get(s.placeId)).filter((p): p is Place => !!p)
   const summary = useMemo(
     // Numbers measured from the quest's first stop (not wherever the author happens to be right now).
-    () => summarize(stopPlaces[0] ?? AREA_POINT['hoan-kiem'], stopPlaces, people, { transport, departAt: null }, stopPlaces.map((p) => p.id)),
+    () => summarize(stopPlaces[0] ?? DEFAULT_POINT, stopPlaces, people, { transport, departAt: null }, stopPlaces.map((p) => p.id)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [planFor, stops, people, transport, byId],
   )

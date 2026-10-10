@@ -2,11 +2,11 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } 
 import { Check, ChevronRight, Clock3, LocateFixed, LocateOff, Loader2, MapPin, Navigation, Search, ShieldCheck, Stamp as StampIcon, X } from 'lucide-react'
 import { TRANSPORTS } from '../data/transport'
 import { TRANSPORT_INFO } from '../i18n/strings'
-import { AREA_POINT } from '../lib/area'
+import { regionAt } from '../lib/area'
 import { geocodeSearch, type GeoResult } from '../lib/backend'
 import { distanceM } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
-import type { Area, LatLng, Place, Transport } from '../types'
+import type { LatLng, Place, Transport } from '../types'
 import PrimaryButton from './PrimaryButton'
 import Sheet from './Sheet'
 import TransportIcon from './TransportIcon'
@@ -252,10 +252,10 @@ function nearLabel(p: LatLng, places: Place[], lang: 'vi' | 'en'): string | null
  * Choose where the trip starts: search a place or address, or move the map under the pin.
  * Also: use my location (asks first).
  */
-export function StartSheet({ area, onClose, onUseLocation }: { area: Area; onClose: () => void; onUseLocation: () => void }) {
+export function StartSheet({ around, onClose, onUseLocation }: { around: LatLng; onClose: () => void; onUseLocation: () => void }) {
   const { t, lang, places, customStart, setCustomStart, geo } = useQuest()
-  // Open the map on the traveller (or their earlier pick); the area's middle is only a map view.
-  const first = customStart ?? (geo.status === 'on' && geo.position ? geo.position : AREA_POINT[area])
+  // Open the map on the traveller (or their earlier pick); the plan's centre is only a map view.
+  const first = customStart ?? (geo.status === 'on' && geo.position ? geo.position : around)
   const [center, setCenter] = useState<LatLng & { zoom?: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
   const [point, setPoint] = useState<LatLng>({ lat: first.lat, lng: first.lng })
   const pointRef = useRef(point)
@@ -273,7 +273,7 @@ export function StartSheet({ area, onClose, onUseLocation }: { area: Area; onClo
     return places
       .filter((p) => foldText(`${p.name.vi} ${p.name.en}`).includes(q))
       .slice(0, 5)
-      .map((p) => ({ key: p.id, name: p.name[lang], label: t.areaShort[p.area], at: { lat: p.lat, lng: p.lng } }))
+      .map((p) => ({ key: p.id, name: p.name[lang], label: regionAt(p)?.name[lang] ?? '', at: { lat: p.lat, lng: p.lng } }))
   }, [query, places, lang, t])
 
   useEffect(() => {
@@ -438,28 +438,28 @@ function Row({ icon, label, value, note, onClick, tone = 'teal' }: {
 
 /**
  * "Your trip" card on the first screen: start point, transport and departure — one big row each.
- * `transport` is what to show (it can come from the text being typed); `area` is the area being planned.
+ * `transport` is what to show (it can come from the text being typed); `center` is where the plan looks for places.
  */
 export default function TripSettings({
-  area,
+  center,
   transport,
   isDefault = false,
   locationSheet,
   onLocationSheet,
 }: {
-  area: Area
+  center: LatLng
   transport: Transport
   isDefault?: boolean
   locationSheet: boolean
   onLocationSheet: (open: boolean) => void
 }) {
-  const { t, lang, geo, geoWanted, customStart, planFor } = useQuest()
+  const { t, lang, geo, geoWanted, customStart, start } = useQuest()
   const [sheet, setSheet] = useState<'transport' | 'depart' | 'start' | null>(null)
   const departLabel = useDepartLabel()
 
   const picked = customStart
   // Real position: live, or the last fix while a new one is on its way.
-  const here = !picked && !!planFor(area).start
+  const here = !picked && !!start
   const startValue = picked ? picked.label : here ? t.startHere : t.startUnknown
   const startNote = picked
     ? t.startPickedNote
@@ -503,7 +503,7 @@ export default function TripSettings({
 
       {sheet === 'transport' && <TransportSheet current={transport} onClose={() => setSheet(null)} />}
       {sheet === 'depart' && <DepartSheet onClose={() => setSheet(null)} />}
-      {sheet === 'start' && <StartSheet area={area} onClose={() => setSheet(null)} onUseLocation={() => onLocationSheet(true)} />}
+      {sheet === 'start' && <StartSheet around={center} onClose={() => setSheet(null)} onUseLocation={() => onLocationSheet(true)} />}
       {locationSheet && <LocationSheet onClose={() => onLocationSheet(false)} onPickStart={() => setSheet('start')} />}
     </>
   )

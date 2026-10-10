@@ -1,17 +1,13 @@
 import { TRANSPORT_INFO } from '../i18n/strings'
-import type { Area, Intent, Lang } from '../types'
+import type { Intent, Lang } from '../types'
+import type { Region } from './area'
 import { distance, duration, money } from './format'
 import { walkingOf, WALK_LIMIT, type QuestSummary, type TransportHint } from './quest'
 import type { Weather } from './weather'
 
-const AREA_NAME: Record<Lang, Record<Area, string>> = {
-  vi: { 'hoan-kiem': 'Hoàn Kiếm', 'ba-vi': 'Ba Vì' },
-  en: { 'hoan-kiem': 'Hoan Kiem', 'ba-vi': 'Ba Vi' },
-}
-
 /** Reliable local response when the language model is unavailable or too slow. */
-export function buildPlannerReply(intent: Intent, area: Area, lang: Lang, weather: Weather | null): string {
-  const place = AREA_NAME[lang][area]
+export function buildPlannerReply(intent: Intent, region: Region | null, lang: Lang, weather: Weather | null): string {
+  const place = region?.name[lang] ?? (lang === 'vi' ? 'khu vực này' : 'this area')
   const theme = intent.themes[0] ?? 'culture'
 
   if (lang === 'vi') {

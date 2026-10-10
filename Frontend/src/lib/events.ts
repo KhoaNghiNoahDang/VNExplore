@@ -1,6 +1,5 @@
 import { CATEGORY_LABEL } from '../i18n/strings'
 import type { EventCategory, Lang, LatLng, Place, QuestEvent, Theme } from '../types'
-import { areaAt } from './area'
 
 /**
  * Dated events → stops with a fixed time.
@@ -70,8 +69,7 @@ function sitting(ev: QuestEvent, day: string, time: string): Place {
   const empty = { vi: '', en: '' }
   return {
     id: `ev:${ev.id}@${day}T${time.replace(':', '')}`,
-    // Elsewhere in the city counts as the nearest planning area (for distance weighting).
-    area: ev.area === 'hanoi' ? (areaAt(ev) ?? 'hoan-kiem') : ev.area,
+    area: ev.area,
     kind: 'fun',
     depth: 'quick',
     openingHours: null,
