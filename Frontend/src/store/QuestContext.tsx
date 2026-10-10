@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { getRole } from '../data/roles'
 import { EVENTS } from '../data/events'
-import { PLACES } from '../data/places'
+import { loadOpenPlaces, PLACES } from '../data/places'
 import { planAround, type Plan, type Region } from '../lib/area'
 import { eventStopById, eventsInWindow, isEventId, type EventOption } from '../lib/events'
 import type { PlanContext } from '../lib/quest'
@@ -124,10 +124,22 @@ function load(): Saved {
 
 export function QuestProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<Saved>(load)
-  // Content ships with the app (Data/sheets → export_app.mjs → data/generated/*.json): nothing to load.
-  const catalog: Place[] = PLACES
+  // Content ships with the app (Data/sheets → export_app.mjs → data/generated/*.json). Curated places
+  // are there at once; open-map-data places arrive as a second chunk a moment later.
+  const [catalog, setCatalog] = useState<Place[]>(PLACES)
+  const [loading, setLoading] = useState(true)
   const events: QuestEvent[] = EVENTS
-  const loading = false
+
+  useEffect(() => {
+    let alive = true
+    loadOpenPlaces()
+      .then((open) => alive && setCatalog([...PLACES, ...open]))
+      .catch((err) => console.warn('Open-data places unavailable:', err))
+      .finally(() => alive && setLoading(false))
+    return () => {
+      alive = false
+    }
+  }, [])
 
   useEffect(() => {
     try {

@@ -8,3 +8,11 @@ import placesJson from './generated/places.json'
  */
 // Shape is checked by export_app.mjs, so the cast is safe.
 export const PLACES = placesJson as unknown as Place[]
+
+/**
+ * Places from open map data (tag `openData`: thousands of pagodas, restaurants, tea shops…) live
+ * in their own chunk, fetched after the app starts so the first download stays small.
+ */
+export function loadOpenPlaces(): Promise<Place[]> {
+  return import('./generated/places-open.json').then((m) => m.default as unknown as Place[])
+}

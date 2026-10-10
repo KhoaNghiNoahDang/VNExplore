@@ -1,5 +1,5 @@
 import { RUSH_HOURS, TRANSPORT } from '../data/transport'
-import { regionAt } from './area'
+import { regionAt, REGIONS } from './area'
 import type { Challenge, Intent, LatLng, Leg, Place, Transport } from '../types'
 import { hanoiClock } from './hanoiTime'
 import { isOpenAt } from './hours'
@@ -190,6 +190,10 @@ const DISHES = [
   'kem', 'ice cream', 'ốc', 'snail', 'chay', 'vegan', 'vegetarian', 'nem', 'bánh xèo', 'trà chanh', 'cháo', 'nộm',
   'bánh gối', 'bánh bao', 'sữa', 'milk', 'trâu', 'buffalo', 'bơi', 'pool', 'swim', 'phim', 'cinema', 'movie',
   'bóng đá', 'football', 'pickleball', 'cắm trại', 'camp', 'thác', 'waterfall', 'hồ', 'lake', 'đỉnh', 'peak',
+  'trà sữa', 'milk tea', 'bubble tea', 'trà', 'tea', 'lẩu', 'hotpot', 'hot pot', 'nướng', 'bbq', 'barbecue', 'hải sản', 'seafood',
+  'bia hơi', 'bia', 'beer', 'bún bò', 'pizza', 'sushi', 'ramen', 'đồ hàn', 'korean', 'đồ nhật', 'japanese', 'bánh ngọt', 'bakery',
+  'chè', 'nước ép', 'sinh tố', 'juice', 'game', 'arcade', 'bowling', 'escape room', 'thoát hiểm', 'photobooth', 'photo booth',
+  'selfbooth', 'thủy cung', 'thuỷ cung', 'aquarium', 'công viên', 'park', 'vườn thú', 'zoo', 'khu vui chơi', 'trẻ em', 'kids',
 ]
 
 /** Whole words only: "ốc" (snails) must not match inside "Quốc". */
@@ -201,8 +205,11 @@ const DISH_RE = [...DISHES].sort((a, b) => b.length - a.length).map((d) => [d, w
 
 /** How many dishes/activities named in the request this place offers (+3 if the place itself is named). */
 /** Dishes/activities named in the request that this place offers ("*" = the place itself is named). */
+/** Region names ("Hồ Gươm", "phố cổ") say where, not what: "hồ" in "Hồ Gươm" isn't a wish to see a lake. */
+const REGION_WORDS = REGIONS.flatMap((r) => r.words).sort((a, b) => b.length - a.length).map(wordRe)
+
 function dishMatches(place: Place, text: string): string[] {
-  const t = text.toLowerCase().normalize('NFC')
+  const t = REGION_WORDS.reduce((s, re) => s.replace(re, ' '), text.toLowerCase().normalize('NFC'))
   const name = place.name.vi.toLowerCase()
   if (name.length >= 6 && t.includes(name)) return ['*', '*', '*']
   const hay = `${place.name.vi} ${place.name.en} ${place.blurb.vi} ${place.blurb.en}`.toLowerCase()
@@ -251,7 +258,8 @@ function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ct
   const fav = favIds.indexOf(place.id)
   const roleBoost = fav === -1 ? 0 : 1500 - fav * 100
   // Countryside spots (Ba Vì) are ~20× further apart than in the city: weigh distance accordingly.
-  const perM = regionAt(place)?.spreadOut ? 0.05 : 1
+  // Riding, an extra kilometre is a couple of minutes, not a quarter-hour walk: weigh distance less.
+  const perM = (regionAt(place)?.spreadOut ? 0.05 : 1) * (intent.transport === 'walk' ? 1 : 0.3)
   // Full places (with a story) first when they fit the request just as well.
   const depth = place.depth === 'full' ? 150 : 0
   // Places straight from open map data (a village pagoda with a one-line intro) come after the
@@ -260,7 +268,7 @@ function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ct
   const hits = dishHits(place, `${intent.text} ${intent.extra ?? ''}`)
   const named = hits * 1500
   // Cinemas and other indoor fun are for rainy days, unless asked for by name.
-  const indoorFun = place.kind === 'fun' && place.tags.includes('indoor') && !intent.themes.includes('rainy') ? 1200 : 0
+  const indoorFun = place.kind === 'fun' && place.tags.includes('indoor') && !intent.themes.includes('rainy') && !hits ? 1200 : 0
   return themeHits * 1000 + named + roleBoost + depth - openData - indoorFun - pricey * 800 - distanceM(start, place) * perM +
     contextBonus(place, intent, ctx, hits > 0)
 }

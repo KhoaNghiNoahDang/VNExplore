@@ -148,6 +148,12 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
     - Cách lọc: theo tên, ranh giới Hà Nội, bỏ trùng; bỏ chung cư hay cửa hàng bị xếp nhầm loại "historic", và bỏ nhà thờ họ.
     - Giới thiệu chỉ nói đúng loại di tích, kèm lưu ý ứng xử; gắn `openData`.
     - Chiến tranh hoặc độ tin cậy < 0,5 → `draft`. Các điểm về lãnh tụ → `to_add_manually.csv`.
+  - 2.889 quán ăn uống (nhà hàng, quán ăn, phở, lẩu, nướng, trà, trà sữa, bánh…) và 82 điểm vui chơi (rạp phim, khu trò chơi, khu vui chơi trẻ em, bowling, escape room, thủy cung, công viên, photobooth). Dữ liệu ở `imports/overture_food_fun_2026-10.json`, nhập bằng `scripts/import_overture_food_fun_2026-10.mjs`.
+    - Ăn uống: chỉ lấy quán Overture tin ≥ 90% là có thật (quán trà ≥ 85%), có số điện thoại hoặc website và có địa chỉ, nằm trong Hà Nội.
+    - Bỏ tên là địa chỉ, công ty, cửa hàng, khách sạn, karaoke, quán thịt chó, tỉnh khác, quảng cáo bằng chữ kiểu cách, và quán cà phê (đã có danh sách riêng).
+    - Vui chơi: chọn tay từng điểm. Chuỗi lớn hoặc điểm có nguồn xác nhận → `approved`; còn lại (photobooth mới, escape room nhỏ) → `draft`.
+    - Giá là ước tính theo loại hình (ghi trong `review_notes`), trừ các điểm có nguồn.
+- Các điểm `openData` được xuất ra file riêng `Frontend/src/data/generated/places-open.json`; app tải file này sau khi khởi động, để lần tải đầu nhẹ.
 - **Wikidata** — CC0.
 - **Wikipedia** — chỉ dùng làm **tư liệu**; nội dung đã viết lại, không sao chép.
 - **Ảnh Wikimedia Commons** (cột `commons_image`) — mỗi ảnh có giấy phép riêng, phải ghi tác giả khi dùng.

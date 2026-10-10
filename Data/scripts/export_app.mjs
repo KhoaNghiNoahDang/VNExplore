@@ -1,7 +1,8 @@
 /**
  * Export APPROVED rows from Data/sheets/*.csv into the app:
  *
- *   Frontend/src/data/generated/places.json   (Place[], each with its extra quiz questions from quizzes.csv)
+ *   Frontend/src/data/generated/places.json   (curated Place[], each with its extra quiz questions from quizzes.csv)
+ *   Frontend/src/data/generated/places-open.json (Place[] tagged openData — loaded after the app starts)
  *   Frontend/src/data/generated/roles.json    (Role[] with their approved missions)
  *   Frontend/src/data/generated/events.json   (QuestEvent[]; events that ended >90 days ago are dropped)
  *   Frontend/src/data/generated/drafts.json   (roles with draft content — the app shows them in local dev only)
@@ -288,7 +289,11 @@ if (errors.length) {
 }
 
 mkdirSync(OUT, { recursive: true })
-writeFileSync(join(OUT, 'places.json'), JSON.stringify(places, null, 1) + '\n')
+// Open-map-data places (thousands of one-line entries) ship in their own file, loaded lazily,
+// so the app's first download stays small.
+const isOpen = (p) => p.tags.includes('openData')
+writeFileSync(join(OUT, 'places.json'), JSON.stringify(places.filter((p) => !isOpen(p)), null, 1) + '\n')
+writeFileSync(join(OUT, 'places-open.json'), JSON.stringify(places.filter(isOpen)) + '\n')
 writeFileSync(join(OUT, 'roles.json'), JSON.stringify(roles, null, 1) + '\n')
 writeFileSync(join(OUT, 'events.json'), JSON.stringify(events, null, 1) + '\n')
 writeFileSync(join(OUT, 'drafts.json'), JSON.stringify({ roles: draftRoles }, null, 1) + '\n')
