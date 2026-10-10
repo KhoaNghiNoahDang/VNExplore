@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, CircleAlert, Lightbulb, Loader2, Mic, Square } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import IntentChips from '../components/IntentChips'
 import ModePicker from '../components/ModePicker'
 import PrimaryButton from '../components/PrimaryButton'
 import TabBar from '../components/TabBar'
@@ -238,11 +237,6 @@ export default function AskPage() {
       </div>
 
       <div className="relative z-10 border-t border-sand/60 bg-paper px-6 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-3">
-        {preview && (
-          <div className="mb-3">
-            <IntentChips intent={preview} />
-          </div>
-        )}
         <PrimaryButton onClick={submit} disabled={!ready || thinking || locatingForSearch}>
           {thinking || locatingForSearch ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           {locatingForSearch ? t.locating : thinking ? t.thinking : cta}
