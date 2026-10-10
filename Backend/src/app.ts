@@ -10,6 +10,7 @@ import { contentBreaker, getContent } from './services/content.js'
 import { geocode } from './services/geocode.js'
 import { llmHealth } from './services/llm.js'
 import { PlaceReportsUnavailableError, submitPlaceReport } from './services/placeReports.js'
+import { PlaceSuggestionsUnavailableError, submitPlaceSuggestion } from './services/placeSuggestions.js'
 import { getLeg, routingHealth } from './services/routing.js'
 import { DailyLimitError, understand } from './services/understand.js'
 
@@ -216,6 +217,41 @@ export async function buildApp() {
       }
       req.log.warn({ err: err instanceof Error ? err.message : err }, 'place report failed')
       return reply.code(500).send({ error: 'internal', message: 'Could not save report' })
+    }
+  })
+
+  /** A place a traveller wants added. Always queued for review; never shown in the app directly. */
+  const PlaceSuggestionBody = z
+    .object({
+      clientSuggestionId: z.uuid(),
+      name: z.string().trim().min(2).max(120),
+      kind: z.enum(['food', 'sight', 'fun']),
+      lat: VN.shape.lat,
+      lng: VN.shape.lng,
+      address: z.string().trim().max(200).nullish(),
+      description: z.string().trim().max(500).nullish(),
+      openingHours: z.string().trim().max(100).nullish(),
+      priceMinK: z.number().int().min(0).max(100000).nullish(),
+      priceMaxK: z.number().int().min(0).max(100000).nullish(),
+      contact: z.string().trim().max(200).nullish(),
+      language: z.enum(['vi', 'en']),
+    })
+    .refine((v) => v.priceMinK == null || v.priceMaxK == null || v.priceMaxK >= v.priceMinK, {
+      path: ['priceMaxK'],
+      message: 'Maximum must be at least minimum',
+    })
+
+  app.post('/v1/place-suggestions', { config: { rateLimit: { max: 5, timeWindow: '10 minutes' } } }, async (req, reply) => {
+    const body = PlaceSuggestionBody.parse(req.body)
+    try {
+      await submitPlaceSuggestion(body)
+      return reply.code(202).send({ accepted: true })
+    } catch (err) {
+      if (err instanceof PlaceSuggestionsUnavailableError) {
+        return reply.code(503).header('Retry-After', '30').send({ error: 'unavailable', message: err.message })
+      }
+      req.log.warn({ err: err instanceof Error ? err.message : err }, 'place suggestion failed')
+      return reply.code(500).send({ error: 'internal', message: 'Could not save suggestion' })
     }
   })
 

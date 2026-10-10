@@ -99,6 +99,14 @@ Bảng `parties`, `party_members`, `party_progress`, `party_puzzles` (`migration
    (script kiểm tra dữ liệu: thiếu chữ, sai chủ đề, sai đáp án… sẽ báo lỗi và không xuất).
 5. Build/deploy lại frontend.
 
+### Địa điểm người dùng gợi ý (nút "Thêm địa điểm")
+Cuối danh sách địa điểm trong app có thẻ **"Biết chỗ hay mà app chưa có?"**. Người dùng điền tên, loại, chọn vị trí trên bản đồ, kèm các thông tin không bắt buộc: địa chỉ, vì sao nên đến, giờ mở cửa, giá, link hoặc số điện thoại. Gợi ý được lưu vào bảng `place_suggestions` trên Supabase, qua backend có giới hạn 5 lần/10 phút. Gợi ý **không** tự hiện lên app.
+1. Kéo gợi ý về: `SUPABASE_URL=… SUPABASE_SERVICE_ROLE_KEY=… node Data/scripts/pull_place_suggestions.mjs`. Thêm `--dry-run` để xem trước. Dùng đúng hai biến này như trong `Backend/.env`.
+   - Mỗi gợi ý thành một dòng `draft` trong `places.csv`; lời người gửi nằm ở `review_notes`.
+   - Gợi ý trùng tên với một điểm có sẵn và cách dưới 60 m được đánh dấu `duplicate`, không thêm vào.
+   - Sau khi kéo về, gợi ý được đổi trạng thái thành `imported`.
+2. Kiểm tra điểm, viết `blurb_vi` và `blurb_en`, điền giá và giờ mở cửa, rồi chuyển sang `approved` và xuất như bình thường.
+
 ## Scripts
 
 ```bash
@@ -108,6 +116,7 @@ python Data/scripts/fetch_wiki.py Q1186043       # tải tư liệu Wikipedia �
 node Data/scripts/fetch_events.mjs               # sự kiện từ Hanoi Maps → sheets/events.csv (giữ phần đã sửa tay)
 node Data/scripts/export_app.mjs                 # places/roles/missions/events đã duyệt → app
 node Data/scripts/export_sql.mjs                 # sheets → supabase/seed_content.sql + seed_candidates/part_*.sql
+node Data/scripts/pull_place_suggestions.mjs     # địa điểm người dùng gợi ý → places.csv (draft); cần SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 node Data/scripts/build_csv.mjs --force          # (chỉ dùng một lần lúc khởi tạo — ghi đè sheets!)
 ```
 
@@ -117,7 +126,7 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
 
 - **Project:** `vnexplore` (ref `ywsqmfxyrnfswxgvhsuv`, Singapore, gói Free) — https://ywsqmfxyrnfswxgvhsuv.supabase.co
 - File seed hiện có **136 places, 4 roles, 33 missions, 5 transport_fares**. Môi trường Supabase đang triển khai có thể cũ hơn; frontend hợp nhất dữ liệu từ Supabase với catalogue đóng gói theo `id` để nội dung đã duyệt không bị ẩn.
-- Migrations đã chạy trên môi trường thật: `0001`–`0007`. Đã chạy thêm `0008`, `0009` và `seed_content.sql`. Đã chạy `0010`, `0011`. **Chưa chạy: `0012_place_notice_event_time.sql`** (chạy trước khi chạy lại `seed_content.sql`).
+- Migrations đã chạy trên môi trường thật: `0001`–`0007`. Đã chạy thêm `0008`, `0009` và `seed_content.sql`. Đã chạy `0010`, `0011`. Sau đó đã chạy `0012`–`0015` (`0015_place_suggestions.sql`: bảng gợi ý địa điểm).
 
 - `supabase/migrations/0001_init.sql` — cấu trúc bảng: nội dung (`places`, `candidates`, `roles`, `missions`, `transport_fares`) và phần người dùng cho sau này (`profiles`, `quests`, `quest_stops`, `quest_likes`), có sẵn phân quyền (RLS): ai cũng đọc được nội dung đã duyệt; người dùng chỉ sửa quest của chính mình; `candidates` không lộ ra ngoài.
 - `node Data/scripts/export_sql.mjs` → `supabase/seed_content.sql + seed_candidates/part_*.sql` (chạy lại nhiều lần được, không tạo trùng).
@@ -125,6 +134,7 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
 
 ## Nguồn dữ liệu và giấy phép
 - **OpenStreetMap** — © OpenStreetMap contributors (ODbL). Ghi công trong app.
+- **Overture Maps Places** — CDLA-Permissive-2.0 (toạ độ, địa chỉ của 63 quán nhập từ danh sách Google Maps “Cà phê Hà Nội”, `scripts/import_gmaps_cafes_2026-10.mjs`). Từ Google Maps chỉ lấy tên quán.
 - **Wikidata** — CC0.
 - **Wikipedia** — chỉ dùng làm **tư liệu**; nội dung đã viết lại, không sao chép.
 - **Ảnh Wikimedia Commons** (cột `commons_image`) — mỗi ảnh có giấy phép riêng, phải ghi tác giả khi dùng.

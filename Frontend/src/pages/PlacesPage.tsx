@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useStart } from '../components/NeedStart'
+import AddPlaceCard from '../components/AddPlace'
 import { ArrowRight, ChevronDown, MapPin, Sparkles, X } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
@@ -212,6 +213,7 @@ export default function PlacesPage() {
                   {t.nothingNearby}
                 </p>
               )}
+              <AddPlaceCard around={center} />
             </>
           ) : (
             <>
