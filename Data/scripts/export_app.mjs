@@ -5,12 +5,13 @@
  *   Frontend/src/data/generated/roles.json    (Role[] with their approved missions)
  *   Frontend/src/data/generated/events.json   (QuestEvent[]; events that ended >90 days ago are dropped)
  *   Frontend/src/data/generated/drafts.json   (roles with draft content — the app shows them in local dev only)
+ *   Backend/content/content.json              ({ places, roles, events } — what the API serves at /v1/content)
  *
  * Only rows with status=approved are exported. Rows are validated; any problem stops the export
  * with a clear message (so a typo in the sheet can't break the app).
  *
  * Run after editing the sheets:  node Data/scripts/export_app.mjs
- * (Later the app will read the same data from Supabase instead of these files.)
+ * These JSON files are the app's content: Supabase only holds user data (accounts, quests, reports).
  */
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { readCsv as readCsvFile } from './lib/csv.mjs'
@@ -19,6 +20,7 @@ import { fileURLToPath } from 'node:url'
 
 const DATA = join(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = join(DATA, '..', 'Frontend', 'src', 'data', 'generated')
+const API_OUT = join(DATA, '..', 'Backend', 'content')
 
 const THEMES = ['culture', 'food', 'rainy', 'history', 'photo', 'fun']
 /** Region label: lowercase words joined by '-' (hoan-kiem, ba-vi, nam-tu-liem, hanoi…). Only a label —
@@ -290,7 +292,10 @@ writeFileSync(join(OUT, 'places.json'), JSON.stringify(places, null, 1) + '\n')
 writeFileSync(join(OUT, 'roles.json'), JSON.stringify(roles, null, 1) + '\n')
 writeFileSync(join(OUT, 'events.json'), JSON.stringify(events, null, 1) + '\n')
 writeFileSync(join(OUT, 'drafts.json'), JSON.stringify({ roles: draftRoles }, null, 1) + '\n')
+// The backend ships on its own (Render, or any server), so it gets its own copy.
+mkdirSync(API_OUT, { recursive: true })
+writeFileSync(join(API_OUT, 'content.json'), JSON.stringify({ places, roles, events }) + '\n')
 console.log(
-  `✓ ${places.length} places, ${quizIds.size} extra quiz questions, ${roles.length} roles, ${missions.length} missions, ${events.length} events → Frontend/src/data/generated/`,
+  `✓ ${places.length} places, ${quizIds.size} extra quiz questions, ${roles.length} roles, ${missions.length} missions, ${events.length} events → Frontend/src/data/generated/ + Backend/content/`,
 )
 console.log(`  drafts.json: ${draftRoles.length} roles with drafts (local preview only)`)

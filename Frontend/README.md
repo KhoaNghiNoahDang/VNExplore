@@ -55,7 +55,7 @@ src/
 ## Kết nối backend (Render)
 
 `src/lib/backend.ts` đọc biến `VITE_API_URL`. Nếu trống, frontend bỏ qua warm-up và gọi OSRM trực tiếp.
-Backend cung cấp `GET /health`, `POST /v1/route` và `GET /v1/content`. Nội dung ứng dụng hiện vẫn đọc trực tiếp từ Supabase và fallback về dữ liệu bundled.
+Backend cung cấp `GET /health`, `POST /v1/route`, `GET /v1/content` (đọc `Backend/content/content.json`), `POST /v1/place-reports` và `POST /v1/place-suggestions`. Nội dung (địa điểm, sự kiện, vai…) đóng gói sẵn trong app từ `src/data/generated/*.json`, không đọc từ Supabase; Supabase chỉ dùng cho tài khoản và dữ liệu người dùng.
 
 ## Tài khoản (Supabase Auth)
 

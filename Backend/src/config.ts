@@ -16,10 +16,9 @@ const Env = z.object({
   HOST: z.string().default('0.0.0.0'),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
 
-  SUPABASE_URL: z.url(),
-  /** Public key: reads what the app can read anyway (approved places, roles…). */
-  SUPABASE_ANON_KEY: z.string().min(20),
-  /** Secret key: only for backend-only tables (route cache). Optional — without it the cache is memory-only. */
+  /** User data only (content comes from content/content.json). Without URL + key: no route cache, reports or suggestions. */
+  SUPABASE_URL: z.preprocess((v) => (typeof v === 'string' && v.trim() === '' ? undefined : v), z.url().optional()),
+  /** Secret key for backend-only tables (route cache, place reports, place suggestions). */
   SUPABASE_SERVICE_ROLE_KEY: optionalSecret,
 
   /** Comma-separated. `*` works inside a host, e.g. https://vnexplore-*.vercel.app */

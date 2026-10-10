@@ -23,7 +23,7 @@ Mở bằng Google Sheets (File → Import → Upload) hoặc Excel. Mã hoá UT
 - `sources`: link nguồn (cách nhau bằng `; `) — app hiện "Nguồn: …" có link ở thẻ địa điểm và trang điểm dừng.
 - `notice_vi` / `notice_en`: lưu ý hiện nổi bật (vd. workshop: "Nên liên hệ trước khi đến"); `phone`: số gọi được (nút "Gọi …").
 - Sự kiện: `time_confirmed=false` khi nguồn không ghi giờ — app gắn nhãn "Giờ dự kiến".
-- Lần nhập `Van_hoa_Giai_tri_Ha_Noi (1).xlsx` (03/10/2026): `scripts/import_vhgt_2026-10.mjs` — trạng thái theo cột "Xác minh" của file; giá không có trong nguồn là ước tính (ghi ở `review_notes`); toạ độ từ OpenStreetMap/Nominatim. Cần migration `0012_place_notice_event_time.sql` trước khi chạy `seed_content.sql`.
+- Lần nhập `Van_hoa_Giai_tri_Ha_Noi (1).xlsx` (03/10/2026): `scripts/import_vhgt_2026-10.mjs` — trạng thái theo cột "Xác minh" của file; giá không có trong nguồn là ước tính (ghi ở `review_notes`); toạ độ từ OpenStreetMap/Nominatim. (Khi đó nội dung còn được đẩy lên Supabase; từ 10/2026 thì không cần nữa.)
 
 ### Hai loại địa điểm (`places.csv`)
 | Cột | Giá trị |
@@ -60,7 +60,7 @@ Luồng Khám phá: **chọn điểm → xem lộ trình → chọn vai**. App c
 - `roles.csv`: `status` (`draft`/`approved`) · `area` (`any`, hoặc nhãn khu vai được viết riêng, vd. `ba-vi`: vai chỉ được gợi ý cho các điểm nằm trong khu đó) · `tags` — chủ đề (culture, food, history, photo, rainy, fun), loại điểm (sight, food, fun), thể loại sự kiện (music, theatre, film, exhibition, workshop, talk, market, festival) hoặc `event` · `fav_places` = điểm rất hợp với vai (cộng điểm khi gợi ý).
 - `missions.csv`: nhiệm vụ viết riêng cho một vai tại một điểm (ưu tiên cao nhất).
 - `role_templates.csv`: nhiệm vụ mẫu theo loại điểm, `{place}` được thay bằng tên điểm. Nhiều dòng cho cùng vai × loại = nhiều phương án; cột `tag` (tuỳ chọn: một chủ đề hoặc tag của điểm, vd. `cultural` cho đền chùa, `photo`, `history`) để phương án đó được ưu tiên ở đúng loại điểm. Mỗi điểm luôn nhận cùng một phương án.
-- **Duyệt bản nháp ngay trong app:** chạy `export_app.mjs` rồi `npm run dev` — khi chạy local, các vai/nhiệm vụ `draft` được hiện kèm nhãn "Nháp" (từ `generated/drafts.json`). Bản build production chỉ có dòng `approved`. Vai nháp cũng không được đưa vào `seed_content.sql`.
+- **Duyệt bản nháp ngay trong app:** chạy `export_app.mjs` rồi `npm run dev` — khi chạy local, các vai/nhiệm vụ `draft` được hiện kèm nhãn "Nháp" (từ `generated/drafts.json`). Bản build production chỉ có dòng `approved`.
 
 ### Chơi nhóm (escape room)
 Bảng `parties`, `party_members`, `party_progress`, `party_puzzles` (`migrations/0010_parties.sql`). Chủ phòng tạo phòng từ lộ trình → mã 6 ký tự → bạn bè vào bằng tên (đăng nhập khách), mỗi người một vai không trùng, tự đóng dấu từng điểm; câu đố ở điểm "full" được chia gợi ý cho từng người; đồng hồ tắt / bấm giờ / đếm ngược (mặc định theo số giờ trong yêu cầu). Cần bật **Authentication → Sign In / Providers → Allow anonymous sign-ins** trong Supabase; muốn khách nâng cấp bằng Google thì bật thêm **Manual linking**.
@@ -95,9 +95,9 @@ Bảng `parties`, `party_members`, `party_progress`, `party_puzzles` (`migration
 1. **Chọn điểm** trong `candidates.csv` (cột `decision`: `keep` / `drop`).
 2. **Viết nội dung** cho điểm được giữ → chuyển sang `places.csv` với `status=draft`.
 3. **Duyệt** (đối chiếu nguồn, đi thực địa, kiểm giá) → `status=approved`.
-4. **Xuất sang app:** `node Data/scripts/export_app.mjs` → tạo `Frontend/src/data/generated/*.json`
-   (script kiểm tra dữ liệu: thiếu chữ, sai chủ đề, sai đáp án… sẽ báo lỗi và không xuất).
-5. Build/deploy lại frontend.
+4. **Xuất sang app:** `node Data/scripts/export_app.mjs` → tạo `Frontend/src/data/generated/*.json` (đóng gói vào app) và `Backend/content/content.json` (API phục vụ ở `GET /v1/content`).
+   Script kiểm tra dữ liệu: thiếu chữ, sai chủ đề, sai đáp án… sẽ báo lỗi và không xuất.
+5. Commit + push → deploy lại frontend và backend (Vercel/Render tự deploy; server riêng thì chạy lại build). **Không cần đẩy gì lên Supabase.**
 
 ### Địa điểm người dùng gợi ý (nút "Thêm địa điểm")
 Cuối danh sách địa điểm trong app có thẻ **"Biết chỗ hay mà app chưa có?"**. Người dùng điền tên, loại, chọn vị trí trên bản đồ, kèm các thông tin không bắt buộc: địa chỉ, vì sao nên đến, giờ mở cửa, giá, link hoặc số điện thoại. Gợi ý được lưu vào bảng `place_suggestions` trên Supabase, qua backend có giới hạn 5 lần/10 phút. Gợi ý **không** tự hiện lên app.
@@ -114,8 +114,8 @@ python Data/scripts/fetch_skeleton.py            # quét OSM + Wikidata cho mọ
 python Data/scripts/fetch_skeleton.py ba-vi      # chỉ một khu vực
 python Data/scripts/fetch_wiki.py Q1186043       # tải tư liệu Wikipedia → out/wiki/ (không đưa lên git)
 node Data/scripts/fetch_events.mjs               # sự kiện từ Hanoi Maps → sheets/events.csv (giữ phần đã sửa tay)
-node Data/scripts/export_app.mjs                 # places/roles/missions/events đã duyệt → app
-node Data/scripts/export_sql.mjs                 # sheets → supabase/seed_content.sql + seed_candidates/part_*.sql
+node Data/scripts/export_app.mjs                 # places/roles/missions/events đã duyệt → app + Backend/content/content.json
+node Data/scripts/export_sql.mjs                 # (cũ, không cần chạy) sheets → supabase/seed_content.sql + seed_candidates/part_*.sql
 node Data/scripts/pull_place_suggestions.mjs     # địa điểm người dùng gợi ý → places.csv (draft); cần SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 node Data/scripts/build_csv.mjs --force          # (chỉ dùng một lần lúc khởi tạo — ghi đè sheets!)
 ```
@@ -124,13 +124,21 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
 
 ## Database (Supabase)
 
+**Từ 10/2026, Supabase chỉ giữ dữ liệu người dùng; nội dung không nằm trên đó nữa.**
+- **Nội dung** gồm địa điểm, câu đố, vai, nhiệm vụ, sự kiện. Nguồn là `sheets/*.csv`, xuất bằng `export_app.mjs` ra JSON, đi kèm app và API khi deploy.
+  - Frontend dùng bản đóng gói, không gọi mạng để lấy nội dung.
+  - Backend đọc `Backend/content/content.json` để phục vụ `/v1/content` và kiểm tra `placeId` khi người dùng báo cáo địa điểm.
+- **Dữ liệu người dùng (Supabase):**
+  - Tài khoản (Auth), `profiles`
+  - `quests`, `quest_stops`, `quest_likes`, `journeys`
+  - Chơi nhóm: `parties`, `party_members`, `party_progress`, `party_puzzles`
+  - `place_reports`, `place_suggestions`, `route_cache`
+  - Các bảng này chỉ lưu **id** của địa điểm và vai, không có khoá ngoại sang bảng nội dung. Migration `0016` đã gỡ các khoá ngoại đó.
+- Các bảng nội dung cũ (`places`, `roles`, `missions`, `events`, `place_quizzes`, `transport_fares`) vẫn còn để bản app cũ không lỗi khi chưa deploy lại, nhưng **không được cập nhật nữa**. Có thể xoá sau khi bản mới đã chạy ổn.
 - **Project:** `vnexplore` (ref `ywsqmfxyrnfswxgvhsuv`, Singapore, gói Free) — https://ywsqmfxyrnfswxgvhsuv.supabase.co
-- File seed hiện có **136 places, 4 roles, 33 missions, 5 transport_fares**. Môi trường Supabase đang triển khai có thể cũ hơn; frontend hợp nhất dữ liệu từ Supabase với catalogue đóng gói theo `id` để nội dung đã duyệt không bị ẩn.
-- Migrations đã chạy trên môi trường thật: `0001`–`0007`. Đã chạy thêm `0008`, `0009` và `seed_content.sql`. Đã chạy `0010`, `0011`. Sau đó đã chạy `0012`–`0015` (`0015_place_suggestions.sql`: bảng gợi ý địa điểm).
-
-- `supabase/migrations/0001_init.sql` — cấu trúc bảng: nội dung (`places`, `candidates`, `roles`, `missions`, `transport_fares`) và phần người dùng cho sau này (`profiles`, `quests`, `quest_stops`, `quest_likes`), có sẵn phân quyền (RLS): ai cũng đọc được nội dung đã duyệt; người dùng chỉ sửa quest của chính mình; `candidates` không lộ ra ngoài.
-- `node Data/scripts/export_sql.mjs` → `supabase/seed_content.sql + seed_candidates/part_*.sql` (chạy lại nhiều lần được, không tạo trùng).
-- Tự làm bằng tay: Supabase Dashboard → SQL Editor → chạy `0001_init.sql`, rồi chạy `seed_content.sql` và lần lượt các file `seed_candidates/part_*.sql`.
+- Migrations đã chạy trên môi trường thật: `0001`–`0016`.
+- **Lưu ý từ 30/10/2026:** bảng **mới** trong schema `public` phải được `GRANT` quyền rõ ràng thì Data API mới thấy, ví dụ `grant select, insert on public.<bảng> to authenticated` hoặc `to service_role`. Migration tạo bảng mới phải kèm lệnh `grant`. Bảng hiện có không bị ảnh hưởng.
+- `candidates` và `seed_candidates/` là kho điểm OSM để chọn lọc nội bộ, không phải dữ liệu app.
 
 ## Nguồn dữ liệu và giấy phép
 - **OpenStreetMap** — © OpenStreetMap contributors (ODbL). Ghi công trong app.

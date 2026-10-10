@@ -6,7 +6,7 @@ import Fastify, { type FastifyError } from 'fastify'
 import { z, ZodError } from 'zod'
 import { config, isProd } from './config.js'
 import { BreakerOpenError, QueueFullError } from './lib/resilience.js'
-import { contentBreaker, getContent } from './services/content.js'
+import { getContent } from './services/content.js'
 import { geocode } from './services/geocode.js'
 import { llmHealth } from './services/llm.js'
 import { PlaceReportsUnavailableError, submitPlaceReport } from './services/placeReports.js'
@@ -30,6 +30,15 @@ const RouteBody = z.object({
   transport: z.enum(['walk', 'motorbike', 'grabbike', 'car']),
   points: z.array(VN).min(2).max(12),
 })
+
+/** The content file's version for /health, or "missing" when it can't be read. */
+function contentVersion(): string {
+  try {
+    return getContent().version
+  } catch {
+    return 'missing'
+  }
+}
 
 export async function buildApp() {
   const app = Fastify({
@@ -102,22 +111,21 @@ export async function buildApp() {
   app.get('/health', async () => ({
     ok: true,
     uptimeS: Math.round(process.uptime()),
-    content: contentBreaker.state,
+    content: contentVersion(),
     ...routingHealth(),
     llm: llmHealth(),
   }))
 
-  /** Approved places, roles + missions, fares. ETag lets the app skip the download when unchanged. */
+  /** Approved places (with quizzes), roles + missions, events. ETag lets a client skip the download when unchanged. */
   app.get('/v1/content', async (req, reply) => {
     try {
-      const { content, stale } = await getContent()
+      const content = getContent()
       const etag = `"${content.version}"`
       reply.header('ETag', etag).header('Cache-Control', 'public, max-age=60, stale-while-revalidate=600')
-      if (stale) reply.header('X-Content-Stale', '1')
       if (req.headers['if-none-match'] === etag) return reply.code(304).send()
       return content
     } catch (err) {
-      req.log.warn({ err }, 'content unavailable')
+      req.log.error({ err }, 'content file unreadable')
       return reply.code(503).header('Retry-After', '30').send({ error: 'unavailable', message: 'Content temporarily unavailable' })
     }
   })

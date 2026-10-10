@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { getRole } from '../data/roles'
-import { fetchEvents, fetchPlaces } from '../lib/api'
+import { EVENTS } from '../data/events'
+import { PLACES } from '../data/places'
 import { planAround, type Plan, type Region } from '../lib/area'
 import { eventStopById, eventsInWindow, isEventId, type EventOption } from '../lib/events'
 import type { PlanContext } from '../lib/quest'
@@ -123,17 +124,10 @@ function load(): Saved {
 
 export function QuestProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<Saved>(load)
-  const [catalog, setCatalog] = useState<Place[]>([])
-  const [events, setEvents] = useState<QuestEvent[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetchPlaces().then((p) => {
-      setCatalog(p)
-      setLoading(false)
-    })
-    fetchEvents().then(setEvents)
-  }, [])
+  // Content ships with the app (Data/sheets → export_app.mjs → data/generated/*.json): nothing to load.
+  const catalog: Place[] = PLACES
+  const events: QuestEvent[] = EVENTS
+  const loading = false
 
   useEffect(() => {
     try {
