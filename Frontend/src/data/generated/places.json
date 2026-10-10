@@ -11683,5 +11683,3281 @@
   ],
   "notice": null,
   "phone": null
+ },
+ {
+  "id": "tron-cham",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "tròn chạm",
+   "en": "tròn chạm"
+  },
+  "nameVi": "tròn chạm",
+  "lat": 21.02191,
+  "lng": 105.80873,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02191/105.80873",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "jidai-by-cerenote-coffee",
+  "area": "cau-giay",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "JIDAI by Cerenote Coffee",
+   "en": "JIDAI by Cerenote Coffee"
+  },
+  "nameVi": "JIDAI by Cerenote Coffee",
+  "lat": 21.03181,
+  "lng": 105.79748,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Cầu Giấy, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Cau Giay, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.03181/105.79748",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "go-and-brew-roastery",
+  "area": "tay-ho",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "go and brew roastery",
+   "en": "go and brew roastery"
+  },
+  "nameVi": "go and brew roastery",
+  "lat": 21.04423,
+  "lng": 105.81684,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Tây Hồ, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Tay Ho, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.04423/105.81684",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "cafe-tictactoe",
+  "area": "long-bien",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Café TICTACTOE",
+   "en": "Café TICTACTOE"
+  },
+  "nameVi": "Café TICTACTOE",
+  "lat": 21.04144,
+  "lng": 105.87766,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Long Biên, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Long Bien, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.04144/105.87766",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "so-coffee-roaster",
+  "area": "thanh-xuan",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "So Coffee Roaster",
+   "en": "So Coffee Roaster"
+  },
+  "nameVi": "So Coffee Roaster",
+  "lat": 21.00276,
+  "lng": 105.80488,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Thanh Xuân, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Thanh Xuan, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00276/105.80488",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "the-butterman-bakery",
+  "area": "tay-ho",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "The Butterman Bakery",
+   "en": "The Butterman Bakery"
+  },
+  "nameVi": "The Butterman Bakery",
+  "lat": 21.06711,
+  "lng": 105.82489,
+  "openingHours": null,
+  "priceMin": 100,
+  "priceMax": 200,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Tiệm bánh ở Tây Hồ, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A bakery in Tay Ho, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.06711/105.82489",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "aimetoi",
+  "area": "long-bien",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Aimētoi",
+   "en": "Aimētoi"
+  },
+  "nameVi": "Aimētoi",
+  "lat": 21.04775,
+  "lng": 105.87048,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Long Biên, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Long Bien, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.04775/105.87048",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "vui-la-ca-phe",
+  "area": "ba-dinh",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Vui là cà phê",
+   "en": "Vui là cà phê"
+  },
+  "nameVi": "Vui là cà phê",
+  "lat": 21.02995,
+  "lng": 105.81631,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Ba Đình, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ba Dinh, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02995/105.81631",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "chini-tea-coffe",
+  "area": "bac-tu-liem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "ChiNi Tea&Coffe",
+   "en": "ChiNi Tea&Coffe"
+  },
+  "nameVi": "ChiNi Tea&Coffe",
+  "lat": 21.06795,
+  "lng": 105.80068,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Bắc Từ Liêm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Bac Tu Liem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.06795/105.80068",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bia-mem-space",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Bìa Mềm Space",
+   "en": "Bìa Mềm Space"
+  },
+  "nameVi": "Bìa Mềm Space",
+  "lat": 21.0048,
+  "lng": 105.82114,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.0048/105.82114",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "tron-xin-chao",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Trốn Xin Chào",
+   "en": "Trốn Xin Chào"
+  },
+  "nameVi": "Trốn Xin Chào",
+  "lat": 21.01583,
+  "lng": 105.82188,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01583/105.82188",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "gac-mien",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Gác Miên",
+   "en": "Gác Miên"
+  },
+  "nameVi": "Gác Miên",
+  "lat": 21.00438,
+  "lng": 105.83086,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00438/105.83086",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "quan-he",
+  "area": "ba-dinh",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Quán Hè",
+   "en": "Quán Hè"
+  },
+  "nameVi": "Quán Hè",
+  "lat": 21.02567,
+  "lng": 105.82124,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Ba Đình, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ba Dinh, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02567/105.82124",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "dofe-cafe",
+  "area": "thanh-xuan",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Dofe Cafe",
+   "en": "Dofe Cafe"
+  },
+  "nameVi": "Dofe Cafe",
+  "lat": 20.99515,
+  "lng": 105.83986,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Thanh Xuân, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Thanh Xuan, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.99515/105.83986",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "mono-coffee-lab-pasteur",
+  "area": "hai-ba-trung",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "MONO Coffee Lab - Pasteur",
+   "en": "MONO Coffee Lab - Pasteur"
+  },
+  "nameVi": "MONO Coffee Lab - Pasteur",
+  "lat": 21.01389,
+  "lng": 105.86255,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hai Bà Trưng, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hai Ba Trung, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01389/105.86255",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "nucafe-ly-thuong-kiet",
+  "area": "hoan-kiem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "NUcafe Lý Thường Kiệt",
+   "en": "NUcafe Lý Thường Kiệt"
+  },
+  "nameVi": "NUcafe Lý Thường Kiệt",
+  "lat": 21.02359,
+  "lng": 105.85165,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hoàn Kiếm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hoan Kiem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02359/105.85165",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "the-next",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "The Next",
+   "en": "The Next"
+  },
+  "nameVi": "The Next",
+  "lat": 21.02217,
+  "lng": 105.8122,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02217/105.8122",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "luc-lam-chay",
+  "area": "hai-ba-trung",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Lục Lam Chay",
+   "en": "Lục Lam Chay"
+  },
+  "nameVi": "Lục Lam Chay",
+  "lat": 21.00381,
+  "lng": 105.82726,
+  "openingHours": null,
+  "priceMin": 100,
+  "priceMax": 200,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán chay ở Hai Bà Trưng, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A vegetarian restaurant in Hai Ba Trung, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00381/105.82726",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "mot-chut-cafe-work-giai-phong",
+  "area": "thanh-xuan",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Một Chút cafe & work - GIẢI PHÓNG",
+   "en": "Một Chút cafe & work - GIẢI PHÓNG"
+  },
+  "nameVi": "Một Chút cafe & work - GIẢI PHÓNG",
+  "lat": 20.99325,
+  "lng": 105.84028,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Thanh Xuân, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Thanh Xuan, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.99325/105.84028",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "cuccu-coffee-ngoai-giao-doan",
+  "area": "bac-tu-liem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Cuccu Coffee - Ngoại giao đoàn",
+   "en": "Cuccu Coffee - Ngoại giao đoàn"
+  },
+  "nameVi": "Cuccu Coffee - Ngoại giao đoàn",
+  "lat": 21.06747,
+  "lng": 105.79645,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Bắc Từ Liêm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Bac Tu Liem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.06747/105.79645",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "khong-cafe-more",
+  "area": "long-bien",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "không. cafe & more",
+   "en": "không. cafe & more"
+  },
+  "nameVi": "không. cafe & more",
+  "lat": 21.04743,
+  "lng": 105.87138,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Long Biên, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Long Bien, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.04743/105.87138",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "somo",
+  "area": "hai-ba-trung",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "SỜMO",
+   "en": "SỜMO"
+  },
+  "nameVi": "SỜMO",
+  "lat": 21.01184,
+  "lng": 105.86493,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hai Bà Trưng, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hai Ba Trung, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01184/105.86493",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "ca-phe-vu",
+  "area": "ha-dong",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Cà Phê Vũ",
+   "en": "Cà Phê Vũ"
+  },
+  "nameVi": "Cà Phê Vũ",
+  "lat": 20.97072,
+  "lng": 105.77463,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hà Đông, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ha Dong, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.97072/105.77463",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "crust-pizzaria",
+  "area": "hoan-kiem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Crust Pizzaria",
+   "en": "Crust Pizzaria"
+  },
+  "nameVi": "Crust Pizzaria",
+  "lat": 21.03601,
+  "lng": 105.85207,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Tiệm pizza ở Hoàn Kiếm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A pizza place in Hoan Kiem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.03601/105.85207",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "the-bookstop-cafe",
+  "area": "nam-tu-liem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "The Bookstop Café",
+   "en": "The Bookstop Café"
+  },
+  "nameVi": "The Bookstop Café",
+  "lat": 21.03428,
+  "lng": 105.76379,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Nam Từ Liêm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Nam Tu Liem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.03428/105.76379",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "tiem-ca-phe-hit-dan",
+  "area": "ha-dong",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "tiệm cà phê hit đần",
+   "en": "tiệm cà phê hit đần"
+  },
+  "nameVi": "tiệm cà phê hit đần",
+  "lat": 20.96612,
+  "lng": 105.77316,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hà Đông, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ha Dong, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.96612/105.77316",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "indoor-coffee-bistro",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Indoor Coffee & Bistro",
+   "en": "Indoor Coffee & Bistro"
+  },
+  "nameVi": "Indoor Coffee & Bistro",
+  "lat": 21.00807,
+  "lng": 105.82243,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00807/105.82243",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "the-studium-cafe-cantine",
+  "area": "hai-ba-trung",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "The Studium Café & Cantine",
+   "en": "The Studium Café & Cantine"
+  },
+  "nameVi": "The Studium Café & Cantine",
+  "lat": 21.01441,
+  "lng": 105.84685,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hai Bà Trưng, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hai Ba Trung, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01441/105.84685",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "lisse-brew",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Lisse Brew",
+   "en": "Lisse Brew"
+  },
+  "nameVi": "Lisse Brew",
+  "lat": 21.01365,
+  "lng": 105.81068,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01365/105.81068",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "la-sol-coffee-and-bakery",
+  "area": "tay-ho",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Là Sol Coffee and Bakery",
+   "en": "Là Sol Coffee and Bakery"
+  },
+  "nameVi": "Là Sol Coffee and Bakery",
+  "lat": 21.0668,
+  "lng": 105.83095,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Tây Hồ, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Tay Ho, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.0668/105.83095",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "lap-ghep-coffee-charm",
+  "area": "hoang-mai",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Lắp Ghép Coffee & Charm",
+   "en": "Lắp Ghép Coffee & Charm"
+  },
+  "nameVi": "Lắp Ghép Coffee & Charm",
+  "lat": 20.99266,
+  "lng": 105.84513,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hoàng Mai, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hoang Mai, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.99266/105.84513",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "moment-of-life",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Moment Of Life",
+   "en": "Moment Of Life"
+  },
+  "nameVi": "Moment Of Life",
+  "lat": 21.00732,
+  "lng": 105.83167,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00732/105.83167",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "ca-phe-hai-bon-van-mieu",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Cà phê Hai Bốn - Văn Miếu",
+   "en": "Cà phê Hai Bốn - Văn Miếu"
+  },
+  "nameVi": "Cà phê Hai Bốn - Văn Miếu",
+  "lat": 21.02998,
+  "lng": 105.837,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02998/105.837",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "chop-coffee",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Chóp Coffee",
+   "en": "Chóp Coffee"
+  },
+  "nameVi": "Chóp Coffee",
+  "lat": 21.01827,
+  "lng": 105.82375,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01827/105.82375",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "9-25ninetofive",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "9.25Ninetofive",
+   "en": "9.25Ninetofive"
+  },
+  "nameVi": "9.25Ninetofive",
+  "lat": 21.01449,
+  "lng": 105.82103,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01449/105.82103",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "we-cacha-coffee-tea",
+  "area": "ba-dinh",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "We'cacha Coffee & Tea",
+   "en": "We'cacha Coffee & Tea"
+  },
+  "nameVi": "We'cacha Coffee & Tea",
+  "lat": 21.02649,
+  "lng": 105.82074,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Ba Đình, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ba Dinh, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02649/105.82074",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "where-coffee",
+  "area": "thanh-xuan",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "WHERE Coffee",
+   "en": "WHERE Coffee"
+  },
+  "nameVi": "WHERE Coffee",
+  "lat": 20.99327,
+  "lng": 105.81457,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Thanh Xuân, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Thanh Xuan, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.99327/105.81457",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "thela-coffee",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "TheLa Coffee",
+   "en": "TheLa Coffee"
+  },
+  "nameVi": "TheLa Coffee",
+  "lat": 21.014,
+  "lng": 105.82541,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.014/105.82541",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "harper-seven-coffee-and-bakery-27-huynh-thuc-kha",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Harper Seven Coffee and Bakery - 27 Huỳnh Thúc Kháng",
+   "en": "Harper Seven Coffee and Bakery - 27 Huỳnh Thúc Kháng"
+  },
+  "nameVi": "Harper Seven Coffee and Bakery - 27 Huỳnh Thúc Kháng",
+  "lat": 21.01786,
+  "lng": 105.81193,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.01786/105.81193",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "one-day-at-a-time-to-ngoc-van",
+  "area": "tay-ho",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "One Day at a time - Tô Ngọc Vân",
+   "en": "One Day at a time - Tô Ngọc Vân"
+  },
+  "nameVi": "One Day at a time - Tô Ngọc Vân",
+  "lat": 21.06564,
+  "lng": 105.82349,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Tây Hồ, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Tay Ho, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.06564/105.82349",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "geisha-cat-cafe",
+  "area": "tay-ho",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Geisha Cat Cafe",
+   "en": "Geisha Cat Cafe"
+  },
+  "nameVi": "Geisha Cat Cafe",
+  "lat": 21.07009,
+  "lng": 105.80971,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Tây Hồ, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Tay Ho, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.07009/105.80971",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "cafe-che-don-vi-69",
+  "area": "cau-giay",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Cafe Che - Đơn vị 69",
+   "en": "Cafe Che - Đơn vị 69"
+  },
+  "nameVi": "Cafe Che - Đơn vị 69",
+  "lat": 21.04459,
+  "lng": 105.79539,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Cầu Giấy, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Cau Giay, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.04459/105.79539",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bohemian-by-chuong-bohem-cafe-bistro",
+  "area": "nam-tu-liem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Bohemian By Chuông - Bohem Café & Bistro",
+   "en": "Bohemian By Chuông - Bohem Café & Bistro"
+  },
+  "nameVi": "Bohemian By Chuông - Bohem Café & Bistro",
+  "lat": 21.00435,
+  "lng": 105.73286,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Nam Từ Liêm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Nam Tu Liem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00435/105.73286",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "hundred-coffee",
+  "area": "tay-ho",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Hundred Coffee",
+   "en": "Hundred Coffee"
+  },
+  "nameVi": "Hundred Coffee",
+  "lat": 21.08666,
+  "lng": 105.80739,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Tây Hồ, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Tay Ho, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.08666/105.80739",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "nghe-art-space-cafe",
+  "area": "hoang-mai",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "nghê. - ART SPACE & CAFE",
+   "en": "nghê. - ART SPACE & CAFE"
+  },
+  "nameVi": "nghê. - ART SPACE & CAFE",
+  "lat": 20.99006,
+  "lng": 105.85451,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hoàng Mai, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hoang Mai, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.99006/105.85451",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "horizon-coffee-relax-working-space-phung-khoang",
+  "area": "nam-tu-liem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Horizon Coffee - Relax & Working Space - Phùng Khoang",
+   "en": "Horizon Coffee - Relax & Working Space - Phùng Khoang"
+  },
+  "nameVi": "Horizon Coffee - Relax & Working Space - Phùng Khoang",
+  "lat": 20.987,
+  "lng": 105.79252,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Nam Từ Liêm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Nam Tu Liem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.987/105.79252",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "tram-tra-cham-vi-nong-truong",
+  "area": "nam-tu-liem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Trạm Trà - Chạm Vị Nông Trường",
+   "en": "Trạm Trà - Chạm Vị Nông Trường"
+  },
+  "nameVi": "Trạm Trà - Chạm Vị Nông Trường",
+  "lat": 20.98678,
+  "lng": 105.79289,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Nam Từ Liêm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Nam Tu Liem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.98678/105.79289",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "mua-shn",
+  "area": "hoan-kiem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Mùa'shn",
+   "en": "Mùa'shn"
+  },
+  "nameVi": "Mùa'shn",
+  "lat": 21.0263,
+  "lng": 105.85877,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hoàn Kiếm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hoan Kiem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.0263/105.85877",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "jardin-de-lanh-coffee-flower",
+  "area": "ba-dinh",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Jardin de Lanh Coffee & Flower",
+   "en": "Jardin de Lanh Coffee & Flower"
+  },
+  "nameVi": "Jardin de Lanh Coffee & Flower",
+  "lat": 21.03641,
+  "lng": 105.81588,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Ba Đình, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ba Dinh, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.03641/105.81588",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "joyous-coffee",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Joyous Coffee",
+   "en": "Joyous Coffee"
+  },
+  "nameVi": "Joyous Coffee",
+  "lat": 21.00432,
+  "lng": 105.82941,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00432/105.82941",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "better-blues",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "BETTER BLUES",
+   "en": "BETTER BLUES"
+  },
+  "nameVi": "BETTER BLUES",
+  "lat": 21.00974,
+  "lng": 105.83163,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.00974/105.83163",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "mi-ami-caffe-bistro",
+  "area": "hoan-kiem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Mi Ami Caffè & Bistro",
+   "en": "Mi Ami Caffè & Bistro"
+  },
+  "nameVi": "Mi Ami Caffè & Bistro",
+  "lat": 21.02962,
+  "lng": 105.84381,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hoàn Kiếm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hoan Kiem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02962/105.84381",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "lan-can-coffee",
+  "area": "hoan-kiem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Lan Can Coffee",
+   "en": "Lan Can Coffee"
+  },
+  "nameVi": "Lan Can Coffee",
+  "lat": 21.03745,
+  "lng": 105.84724,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hoàn Kiếm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hoan Kiem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.03745/105.84724",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "the-collective",
+  "area": "hai-ba-trung",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "The Collective",
+   "en": "The Collective"
+  },
+  "nameVi": "The Collective",
+  "lat": 21.02127,
+  "lng": 105.84754,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hai Bà Trưng, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Hai Ba Trung, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02127/105.84754",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "the-patrik-cafe",
+  "area": "ba-dinh",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "The Patrik Café",
+   "en": "The Patrik Café"
+  },
+  "nameVi": "The Patrik Café",
+  "lat": 21.0454,
+  "lng": 105.84045,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Ba Đình, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ba Dinh, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.0454/105.84045",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "a-long-day-coffee",
+  "area": "ha-dong",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "A Long Day Coffee",
+   "en": "A Long Day Coffee"
+  },
+  "nameVi": "A Long Day Coffee",
+  "lat": 20.984,
+  "lng": 105.7849,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hà Đông, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ha Dong, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.984/105.7849",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "on-time-study-space",
+  "area": "ha-dong",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "On Time Study Space",
+   "en": "On Time Study Space"
+  },
+  "nameVi": "On Time Study Space",
+  "lat": 20.98251,
+  "lng": 105.77968,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Hà Đông, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ha Dong, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/20.98251/105.77968",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "kham-thien-giam-books-coffee",
+  "area": "dong-da",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Khâm Thiên Giám - Books & Coffee",
+   "en": "Khâm Thiên Giám - Books & Coffee"
+  },
+  "nameVi": "Khâm Thiên Giám - Books & Coffee",
+  "lat": 21.02125,
+  "lng": 105.80589,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Đống Đa, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Dong Da, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.02125/105.80589",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "tiem-tra-chieu",
+  "area": "bac-tu-liem",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Tiệm Trà Chiều",
+   "en": "Tiệm Trà Chiều"
+  },
+  "nameVi": "Tiệm Trà Chiều",
+  "lat": 21.09407,
+  "lng": 105.77393,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Bắc Từ Liêm, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Bac Tu Liem, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.09407/105.77393",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "tiny-cafe-sky-garden",
+  "area": "cau-giay",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Tiny Cafe | Sky Garden",
+   "en": "Tiny Cafe | Sky Garden"
+  },
+  "nameVi": "Tiny Cafe | Sky Garden",
+  "lat": 21.0122,
+  "lng": 105.80734,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Cầu Giấy, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Cau Giay, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.0122/105.80734",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "bee-night-coffee-music",
+  "area": "cau-giay",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Bee Night Coffee & Music",
+   "en": "Bee Night Coffee & Music"
+  },
+  "nameVi": "Bee Night Coffee & Music",
+  "lat": 21.0479,
+  "lng": 105.7935,
+  "openingHours": null,
+  "priceMin": 100,
+  "priceMax": 500,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Cầu Giấy, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Cau Giay, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.0479/105.7935",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "g-kim-s-cafe",
+  "area": "tay-ho",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "G-Kim's Cafe",
+   "en": "G-Kim's Cafe"
+  },
+  "nameVi": "G-Kim's Cafe",
+  "lat": 21.06521,
+  "lng": 105.81074,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Tây Hồ, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Tay Ho, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.06521/105.81074",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
+ },
+ {
+  "id": "hanoi-neighbors-big-hug",
+  "area": "ba-dinh",
+  "kind": "food",
+  "depth": "quick",
+  "name": {
+   "vi": "Hanoi Neighbors - Big Hug",
+   "en": "Hanoi Neighbors - Big Hug"
+  },
+  "nameVi": "Hanoi Neighbors - Big Hug",
+  "lat": 21.04106,
+  "lng": 105.84909,
+  "openingHours": null,
+  "priceMin": 30,
+  "priceMax": 100,
+  "visitMin": 60,
+  "themes": [
+   "food",
+   "rainy"
+  ],
+  "tags": [
+   "indoor"
+  ],
+  "blurb": {
+   "vi": "Quán cà phê ở Ba Đình, có trong danh sách “Cà phê Hà Nội” được chia sẻ trên Google Maps.",
+   "en": "A café in Ba Dinh, from the shared Google Maps list “Cà phê Hà Nội”."
+  },
+  "tone": "butter",
+  "story": {
+   "vi": "",
+   "en": ""
+  },
+  "why": {
+   "vi": "",
+   "en": ""
+  },
+  "photoTip": {
+   "vi": "",
+   "en": ""
+  },
+  "etiquette": {
+   "vi": "",
+   "en": ""
+  },
+  "challenge": null,
+  "sources": [
+   "https://explore.overturemaps.org/#16/21.04106/105.84909",
+   "Danh sách Google Maps “Cà phê Hà Nội” (người dùng chia sẻ)"
+  ],
+  "notice": null,
+  "phone": null
  }
 ]
