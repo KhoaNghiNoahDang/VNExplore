@@ -270,6 +270,10 @@ const en = {
   locationUnavailable: 'Couldn’t get your location. Try again somewhere with a clearer view of the sky, or pick a start point.',
   distanceLeft: (d: string) => `You’re ${d} away`,
   autoStamp: 'We’ll stamp it automatically when you arrive.',
+  stampTooFar: (d: string, r: number) => `You’re ${d} away — the stamp unlocks within ${r} m of the place.`,
+  stampNeedsLocation: 'Turn on location so we can see you’re there — the stamp only works on site.',
+  stampLocating: 'Checking where you are…',
+  stampNoLocation: 'Location is off or blocked, so this stop can’t be stamped — you can skip it.',
   turnOnLocation: 'Turn on location to stamp automatically',
 
 
@@ -962,6 +966,10 @@ const vi: Strings = {
   locationUnavailable: 'Không lấy được vị trí. Hãy thử lại ở nơi thoáng hơn, hoặc tự chọn điểm xuất phát.',
   distanceLeft: (d: string) => `Bạn còn cách ${d}`,
   autoStamp: 'Tới nơi là tự đóng dấu.',
+  stampTooFar: (d: string, r: number) => `Bạn còn cách ${d} — tới trong vòng ${r} m mới đóng dấu được.`,
+  stampNeedsLocation: 'Bật định vị để xác nhận bạn đang ở đó — chỉ đóng dấu được tại chỗ.',
+  stampLocating: 'Đang xác định vị trí của bạn…',
+  stampNoLocation: 'Định vị đang tắt hoặc bị chặn nên không đóng dấu được điểm này — bạn có thể bỏ qua.',
   turnOnLocation: 'Bật định vị để tự đóng dấu',
 
 

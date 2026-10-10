@@ -39,7 +39,8 @@ import { missionFor } from '../data/roles'
 import { distance, minutes, moneyRange } from '../lib/format'
 import { formatOpeningHours } from '../lib/hours'
 import { googleMapsUrl, quizOf, shuffledOrder, storyOf } from '../lib/quest'
-import { distanceM, estimateLeg, firstLeg } from '../lib/travel'
+import { arrivalRadiusM, crowMetres, isAtPlace } from '../lib/arrival'
+import { estimateLeg, firstLeg } from '../lib/travel'
 import { useNarration } from '../lib/useNarration'
 import { useQuest } from '../store/QuestContext'
 import type { Lang, Place, Role } from '../types'
@@ -98,7 +99,11 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   )
   const here = geo.status === 'on' && geo.position ? geo.position : null
   // distanceM() pads for street detours; undo that for "how far am I, as the crow flies".
-  const crowM = here ? distanceM(here, place) / 1.3 : null
+  const crowM = here ? crowMetres(here, place) : null
+  // No cheating: "I'm here" only works when the phone puts you at the place. Elsewhere: skip it.
+  const atPlace = isAtPlace(place, here, geo.accuracyM)
+  const radiusM = arrivalRadiusM(place)
+  const [justStamped, setJustStamped] = useState(false)
   // Transport actually used on every leg of the journey (some are forced to walk).
   const journeyStart = journey!.start ?? start
   const legModes = useMemo(
@@ -112,6 +117,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const legPoints = useMemo(() => [prev, place, ...(here ? [here] : [])], [prev, place, here])
 
   const onArrive = () => {
+    if (!atPlace) return
+    setJustStamped(true)
     arrive(place.id)
     if (party) void markArrived(party.id, place.id)
     // Listen mode: the story plays by itself on arrival (inside the tap, so browsers allow audio).
@@ -120,8 +127,22 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
 
   // Auto-stamp when the phone says we're there (reasonably accurate fix, within ~50 m).
   useEffect(() => {
-    if (!arrived && crowM !== null && crowM <= 50 && (geo.accuracyM ?? 999) <= 100) onArrive()
-  }, [arrived, crowM])
+    if (!arrived && atPlace && crowM !== null && crowM <= 50 && (geo.accuracyM ?? 999) <= 100) onArrive()
+  }, [arrived, crowM, atPlace])
+
+  // Why the stamp is locked, and the way out (turn on location, or skip the stop).
+  const lockHint =
+    geo.status === 'on' && crowM !== null ? (
+      t.stampTooFar(distance(crowM), radiusM)
+    ) : geo.status === 'asking' ? (
+      t.stampLocating
+    ) : geo.status === 'denied' || geo.status === 'unavailable' ? (
+      t.stampNoLocation
+    ) : (
+      <button onClick={() => setGeoWanted(true)} className="inline-flex items-center gap-1.5 font-bold text-teal underline underline-offset-2">
+        <LocateFixed className="h-3.5 w-3.5" /> {t.stampNeedsLocation}
+      </button>
+    )
 
   const next = () => {
     narration.stop()
@@ -158,7 +179,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
         >
           <Navigation className="h-4 w-4" /> {t.directions}
         </a>
-        <PrimaryButton onClick={onArrive}>
+        <PrimaryButton onClick={onArrive} disabled={!atPlace}>
           <MapPin className="h-4 w-4" /> {t.imHere}
         </PrimaryButton>
       </div>
@@ -269,7 +290,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
         ) : (
           <>
             <div className="flex items-center gap-4 rounded-2xl border-2 border-sand bg-white p-3">
-              <Stamp place={place} index={index} gold={hasItem} size="sm" />
+              <Stamp place={place} index={index} gold={hasItem} fresh={justStamped} />
               <div className="flex-1">
                 <div className="flex items-center gap-1 text-sm font-bold text-teal">
                   <CircleCheck className="h-4 w-4" /> {t.stamped}
@@ -359,10 +380,14 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
           <PrimaryButton onClick={next}>{isLast ? t.finishJourney : t.nextStop}</PrimaryButton>
         ) : (
           <>
-            <PrimaryButton onClick={onArrive}>
+            {!atPlace && <p className="mb-2 text-center text-[11px] leading-snug text-bark/75" role="status">{lockHint}</p>}
+            <PrimaryButton onClick={onArrive} disabled={!atPlace}>
               <MapPin className="h-4 w-4" /> {t.imHere}
             </PrimaryButton>
-            <button onClick={next} className="mt-2 w-full text-center text-[11px] font-bold opacity-50 hover:opacity-80">
+            <button
+              onClick={next}
+              className={`mt-2 w-full text-center text-[12px] font-bold ${atPlace ? 'opacity-50 hover:opacity-80' : 'rounded-xl border-2 border-sand py-2 text-bark hover:border-bark/40'}`}
+            >
               {t.skipStop}
             </button>
           </>
