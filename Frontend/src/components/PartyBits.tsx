@@ -91,9 +91,11 @@ export function TimerPicker({
 
 /** "Play with friends" from the route: name (if needed), timer, create → lobby. */
 export function PartyCreateSheet({ stops, routeMin, onClose }: { stops: Place[]; routeMin: number; onClose: () => void }) {
-  const { t, lang, intent, region, travel, role } = useQuest()
+  const { t, lang, intent, region, travel, role, mode: questMode } = useQuest()
   const auth = useAuth()
   const navigate = useNavigate()
+  // Explore → roles, puzzles, timer. Any other mode → friends simply follow the same route.
+  const easy = questMode !== 'explore'
   const hours = intent?.hours ?? 3
   const [name, setName] = useState(auth.profile?.display_name ?? '')
   const [mode, setMode] = useState<TimerMode>('countdown')
@@ -116,13 +118,14 @@ export function PartyCreateSheet({ stops, routeMin, onClose }: { stops: Place[];
       }
     }
     const res = await createParty({
-      title: role ? t.questTitle.explore(role.name[lang]) : stops.map((s) => s.name[lang]).slice(0, 3).join(' · '),
+      title: role && !easy ? t.questTitle.explore(role.name[lang]) : stops.map((s) => s.name[lang]).slice(0, 3).join(' · '),
+      mode: easy ? 'easy' : 'explore',
       area: region?.id ?? 'near-start',
       stopIds: stops.map((s) => s.id),
       transport: travel.transport,
       hours,
-      timerMode: mode,
-      timeLimitMin: mode === 'countdown' ? limit : null,
+      timerMode: easy ? 'off' : mode,
+      timeLimitMin: !easy && mode === 'countdown' ? limit : null,
       hostName: name.trim(),
     })
     setBusy(false)
@@ -131,8 +134,8 @@ export function PartyCreateSheet({ stops, routeMin, onClose }: { stops: Place[];
   }
 
   return (
-    <Sheet title={t.partyPlayTogether} onClose={onClose} closeLabel={t.close}>
-      <p className="text-[13px] text-bark/80">{t.partyPlayTogetherSub}</p>
+    <Sheet title={easy ? t.partyEasyTitle : t.partyPlayTogether} onClose={onClose} closeLabel={t.close}>
+      <p className="text-[13px] text-bark/80">{easy ? t.partyEasySub : t.partyPlayTogetherSub}</p>
       <div className="mt-4 space-y-4">
         <Field
           label={t.partyYourName}
@@ -142,16 +145,18 @@ export function PartyCreateSheet({ stops, routeMin, onClose }: { stops: Place[];
           onChange={(e) => setName(e.target.value)}
           icon={<Users className="h-4 w-4" />}
         />
-        <TimerPicker
-          mode={mode}
-          limit={limit}
-          hours={hours}
-          routeMin={routeMin}
-          onChange={(m, l) => {
-            setMode(m)
-            setLimit(l)
-          }}
-        />
+        {!easy && (
+          <TimerPicker
+            mode={mode}
+            limit={limit}
+            hours={hours}
+            routeMin={routeMin}
+            onChange={(m, l) => {
+              setMode(m)
+              setLimit(l)
+            }}
+          />
+        )}
         {error && <p className="rounded-xl bg-brick/10 p-2.5 text-[12px] font-medium text-brick">{error}</p>}
         {needGuest && captcha.widget}
         <PrimaryButton onClick={create} disabled={busy || (needGuest && !captcha.ready)}>
@@ -203,6 +208,7 @@ export function PartyTimer({ party, className = '' }: { party: Party; className?
 export function PartyBoard({ state, placeId, meId }: { state: PartyState; placeId?: string; meId: string | null }) {
   const { t, lang } = useQuest()
   const total = state.party.stopIds.length
+  const easy = state.party.mode === 'easy'
   return (
     <div className="rounded-2xl border-2 border-sand bg-white p-3">
       <div className="mb-2 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-bark/60">
@@ -226,16 +232,20 @@ export function PartyBoard({ state, placeId, meId }: { state: PartyState; placeI
                   {m.userId === meId && <span className="font-medium text-bark/60"> ({t.partyYou})</span>}
                   {m.userId === state.party.hostId && <span className="ml-1 rounded bg-sun/40 px-1 text-[9px] uppercase">{t.partyHost}</span>}
                 </div>
-                <div className="truncate text-[10px] text-bark/65">{role ? role.name[lang] : t.partyChoosing}</div>
+                <div className="truncate text-[10px] text-bark/65">
+                  {easy ? t.partyStopsDone(stamps, total) : role ? role.name[lang] : t.partyChoosing}
+                </div>
               </div>
               {placeId ? (
                 <div className="flex shrink-0 gap-1">
                   <span title={t.partyStamped} className={`rounded-full p-1 ${here?.arrivedAt ? 'bg-teal text-white' : 'bg-sand/50 text-bark/40'}`}>
                     <StampIcon className="h-3 w-3" />
                   </span>
-                  <span title={t.partyMissionOk} className={`rounded-full p-1 ${here?.missionDone ? 'bg-sun-dark text-white' : 'bg-sand/50 text-bark/40'}`}>
-                    <Check className="h-3 w-3" />
-                  </span>
+                  {!easy && (
+                    <span title={t.partyMissionOk} className={`rounded-full p-1 ${here?.missionDone ? 'bg-sun-dark text-white' : 'bg-sand/50 text-bark/40'}`}>
+                      <Check className="h-3 w-3" />
+                    </span>
+                  )}
                 </div>
               ) : (
                 <span className="shrink-0 text-[11px] font-bold text-teal">

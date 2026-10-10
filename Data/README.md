@@ -136,7 +136,7 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
   - Các bảng này chỉ lưu **id** của địa điểm và vai, không có khoá ngoại sang bảng nội dung. Migration `0016` đã gỡ các khoá ngoại đó.
 - Các bảng nội dung cũ (`places`, `roles`, `missions`, `events`, `place_quizzes`, `transport_fares`) vẫn còn để bản app cũ không lỗi khi chưa deploy lại, nhưng **không được cập nhật nữa**. Có thể xoá sau khi bản mới đã chạy ổn.
 - **Project:** `vnexplore` (ref `ywsqmfxyrnfswxgvhsuv`, Singapore, gói Free) — https://ywsqmfxyrnfswxgvhsuv.supabase.co
-- Migrations đã chạy trên môi trường thật: `0001`–`0016`.
+- Migrations đã chạy trên môi trường thật: `0001`–`0017` (`0017_party_mode.sql`: phòng nhóm cho chế độ Thong thả + `party_preview` để xem trước lộ trình từ link).
 - **Lưu ý từ 30/10/2026:** bảng **mới** trong schema `public` phải được `GRANT` quyền rõ ràng thì Data API mới thấy, ví dụ `grant select, insert on public.<bảng> to authenticated` hoặc `to service_role`. Migration tạo bảng mới phải kèm lệnh `grant`. Bảng hiện có không bị ảnh hưởng.
 - `candidates` và `seed_candidates/` là kho điểm OSM để chọn lọc nội bộ, không phải dữ liệu app.
 

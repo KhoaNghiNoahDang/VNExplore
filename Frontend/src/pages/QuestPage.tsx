@@ -210,7 +210,7 @@ export default function QuestPage() {
               })}
             </ol>
 
-            {mode === 'explore' && auth.enabled && (
+            {(mode === 'explore' || mode === 'easy') && auth.enabled && (
               <button
                 onClick={() => setPartyOpen(true)}
                 className="flex w-full items-center gap-3 rounded-2xl border-2 border-teal/30 bg-teal/5 p-3 text-left transition hover:border-teal"
@@ -219,8 +219,8 @@ export default function QuestPage() {
                   <Users className="h-5 w-5" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-sm font-bold">{t.partyPlayTogether}</span>
-                  <span className="block text-[11px] leading-snug text-bark/70">{t.partyPlayTogetherSub}</span>
+                  <span className="block text-sm font-bold">{mode === 'easy' ? t.partyEasyTitle : t.partyPlayTogether}</span>
+                  <span className="block text-[11px] leading-snug text-bark/70">{mode === 'easy' ? t.partyEasySub : t.partyPlayTogetherSub}</span>
                 </span>
               </button>
             )}
