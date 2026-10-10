@@ -177,10 +177,6 @@ const places = [
       'Quán acoustic trên phố Nguyễn Khang — nơi tập trung nhiều quán nhạc sống; nhạc sống buổi tối, đông khách, giá đồ uống khá cao.',
       'An acoustic café on Nguyen Khang, a street full of live-music spots; live music in the evening, busy, drinks on the pricey side.',
       ['https://www.foody.vn/ha-noi/g4u-acoustic-cafe'], [APPROX]],
-    ['trinh-ca-cafe', 'approved', 'Trịnh Ca Café', 21.04219, 105.79559, 'Ngõ 233 Tô Hiệu, Cầu Giấy', 'quiet; indoor', 40, 80,
-      'Quán chuyên nhạc Trịnh, không gian hoài cổ.', 'A café devoted to Trinh Cong Son’s songs, in a nostalgic setting.', [vinpearlCafe], [APPROX]],
-    ['xom-ca-phe', 'approved', 'Xóm Cà Phê', 21.04219, 105.79559, '111C8 Tô Hiệu, Cầu Giấy (và N6E Trung Hoà, Thanh Xuân)', 'quiet; indoor', 40, 80,
-      'Quán cà phê không gian cổ, có đêm nhạc Trịnh và acoustic tối thứ Sáu, thứ Bảy.', 'An old-style café with Trinh and acoustic music nights on Friday and Saturday evenings.', [vinpearlCafe], [APPROX, 'Có 2 chi nhánh; toạ độ theo chi nhánh Tô Hiệu.']],
     ['swing-music-lounge', 'draft', 'Swing Music Lounge', 21.02445, 105.85621, '21 Tràng Tiền, Hoàn Kiếm', 'lively; indoor', 80, 200,
       'Lounge nhạc sống ngay trung tâm, nổi bật về thiết kế; âm thanh, sân khấu và ánh sáng được đầu tư.', 'A live-music lounge right in the centre, notable for its design, sound system and stage lighting.',
       ['https://mytour.vn/vi/blog/bai-viet/10-quan-cafe-acoustic-hang-dau-tai-ha-noi-khong-the-bo-lo.html'], ['Sheet: "Cần kiểm tra: số tầng giữa các nguồn khác nhau".']],
@@ -202,8 +198,6 @@ const places = [
       'Quán nhỏ ấm cúng kết hợp cà phê và nhạc acoustic.', 'A small, cosy café with acoustic music.', [toplistHD], [APPROX]],
     ['kuku-acoustic-coffee', 'approved', 'Kuku Acoustic Coffee', 21.00223, 105.83132, 'Khu A8 Tôn Thất Tùng, Đống Đa', 'quiet; indoor', 30, 60,
       'Quán nhỏ tông đen trắng trong khu tập thể A8 Tôn Thất Tùng.', 'A small black-and-white café in the A8 Ton That Tung housing block.', [znews], [APPROX]],
-    ['ca-phe-cuoi-ngo', 'approved', 'Cà phê Cuối Ngõ', 21.02124, 105.78547, 'Ngõ 68 Cầu Giấy', 'quiet; indoor', 30, 60,
-      'Quán trong ngõ sâu, vừa uống trà vừa nghe nhạc sống.', 'A café deep in an alley — tea with live music.', [znews], [APPROX]],
   ].map(([id, status, name, lat, lng, address, tags, pmin, pmax, bvi, ben, src, notes]) =>
     P(id, status, 'hoan-kiem', 'fun', name, '', lat, lng, address, '', 'fun; culture; rainy', tags, 75, pmin, pmax, 'teal', bvi, ben, src, [EST + ' (đồ uống)', ...notes])),
 
@@ -324,6 +318,7 @@ const eventNotes = {
   'hm-86': 'Cũng có trong sheet VH-GT: giá từ 500.000đ (nguồn ticketgo.vn).',
 }
 const skipped = [
+  'Trịnh Ca Café, Xóm Cà Phê, Cà phê Cuối Ngõ — bỏ (2026-10-10): toạ độ không khớp địa chỉ / trùng toạ độ',
   'Concert "Anh trai vượt ngàn chông gai 2026" — ở TP.HCM',
   'Workshop Tipsy Art — địa chỉ ở TP.HCM',
   'Giải Marathon Quốc tế Hà Nội Techcombank (4/10) — không có điểm cụ thể (chạy qua 37 địa danh)',
