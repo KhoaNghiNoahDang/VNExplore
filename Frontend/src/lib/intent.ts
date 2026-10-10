@@ -8,7 +8,10 @@ const THEME_WORDS: Record<Theme, string[]> = {
     'phở', 'pho', 'bún', 'bánh mì', 'banh mi', 'bánh cuốn', 'xôi', 'kem', 'ốc', 'chả cá', 'nem', 'miến', 'cháo', 'chè', 'trà chanh', 'sữa', 'noodle', 'noodles', 'snack', 'dessert', 'ice cream'],
   rainy: ['rain', 'rainy', 'indoor', 'mưa', 'trong nhà'],
   history: ['history', 'historic', 'museum', 'story', 'stories', 'lịch sử', 'bảo tàng', 'câu chuyện'],
-  fun: ['fun', 'play', 'games', 'sport', 'sports', 'swim', 'swimming', 'pool', 'football', 'kids', 'vui chơi', 'giải trí', 'thể thao', 'bơi', 'bể bơi', 'sân bóng', 'đá bóng', 'trẻ con', 'trẻ em'],
+  fun: ['fun', 'play', 'games', 'game', 'sport', 'sports', 'swim', 'swimming', 'pool', 'football', 'kids', 'entertainment',
+    'cinema', 'movie', 'movies', 'arcade', 'bowling', 'escape room', 'photobooth', 'photo booth', 'aquarium', 'zoo', 'amusement park',
+    'vui chơi', 'giải trí', 'khu vui chơi', 'trò chơi', 'chơi game', 'thể thao', 'bơi', 'bể bơi', 'sân bóng', 'đá bóng', 'trẻ con', 'trẻ em',
+    'xem phim', 'rạp phim', 'rạp chiếu phim', 'thoát hiểm', 'selfbooth', 'thủy cung', 'thuỷ cung', 'vườn thú', 'công viên'],
   photo: ['photo', 'picture', 'instagram', 'sunset', 'chụp', 'ảnh', 'check-in', 'hoàng hôn'],
 }
 

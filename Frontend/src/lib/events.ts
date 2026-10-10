@@ -150,6 +150,9 @@ export interface EventOption {
   sittings: Place[]
 }
 
+/** Whether an event is the kind of thing the request asks for (its category's themes). */
+export const eventFits = (o: EventOption, themes: Theme[]) => o.sittings[0].themes.some((t) => themes.includes(t))
+
 /**
  * Events anywhere in Hanoi that fit a trip from `fromMs` to `toMs`, soonest first.
  * `reachMin` = minutes to get from the trip's start to a point (far events drop out on their own).

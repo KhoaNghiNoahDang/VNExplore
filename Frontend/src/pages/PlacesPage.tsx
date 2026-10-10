@@ -19,7 +19,7 @@ import TripChips from '../components/TripChips'
 import { rankFrom } from '../lib/area'
 import { duration, minutes, moneyRange } from '../lib/format'
 import { rankPlaces, suggestTransport, summarize } from '../lib/quest'
-import { eventWhen } from '../lib/events'
+import { eventFits, eventWhen } from '../lib/events'
 import { buildPlannerReply, buildRouteDetails } from '../lib/plannerReply'
 import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
@@ -52,8 +52,11 @@ export default function PlacesPage() {
   )
   // One pin per event on the map: the sitting in the plan, else the earliest.
   const eventPlaces = useMemo(
-    () => eventOptions.map((o) => o.sittings.find((s) => selected.includes(s.id)) ?? o.sittings[0]),
-    [eventOptions, selected],
+    () =>
+      eventOptions
+        .filter((o) => eventFits(o, intent?.themes ?? []) || o.sittings.some((s) => selected.includes(s.id)))
+        .map((o) => o.sittings.find((s) => selected.includes(s.id)) ?? o.sittings[0]),
+    [eventOptions, selected, intent],
   )
   const sum = useMemo(() => summarize(start, chosen, intent?.people ?? 1, travel), [start, chosen, intent, travel])
 

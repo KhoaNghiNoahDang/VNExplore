@@ -61,6 +61,10 @@ Rules:
 - "ba-vi" for Ba Vì, Sơn Tây, Đường Lâm, Suối Hai, Đồng Mô; "hoan-kiem" for Hoàn Kiếm, Hồ Gươm, phố cổ, Old Quarter; otherwise null.
 - Only fill what the text actually says; use null / [] / false otherwise. Never guess the area or the transport:
   "area" only when a place above is named, "transport" only when a way of travelling is named.
+- Themes: "fun" = entertainment and places to play — vui chơi, giải trí, khu vui chơi, xem phim / rạp, game / arcade,
+  bowling, escape room, photobooth, thủy cung, vườn thú, công viên, bơi, thể thao, things for kids. "food" = eating and
+  drinking. "culture" / "history" = temples, heritage, museums, old streets. Only include a theme the request asks for:
+  "đi chơi giải trí" is ["fun"], not ["fun","culture","food"].
 - "people": count only when stated or obvious ("bố mẹ và tôi" = 3, "cặp đôi" = 2). "cả ngày" = 8 hours, "nửa ngày" = 4.
 - "grab" alone: "grabbike" for 1–2 people, "car" for 3 or more. Taxi = "car".
 - The optional <context> is trusted trip data supplied by the app: selected language, planning area
