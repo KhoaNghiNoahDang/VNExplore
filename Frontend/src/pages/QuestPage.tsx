@@ -192,7 +192,9 @@ export default function QuestPage() {
                           <div className="text-[10px] font-bold text-bark">
                             {s.event
                               ? eventPrice(s, intent.people, lang, t)
-                              : moneyRange(s.priceMin * intent.people, s.priceMax * intent.people, lang)}
+                              : s.priceUnknown
+                                ? t.priceNotGiven
+                                : moneyRange(s.priceMin * intent.people, s.priceMax * intent.people, lang)}
                           </div>
                         )}
                         {s.event?.url && <EventLink url={s.event.url} className="mt-1.5 !min-h-9 w-fit !rounded-lg !border !px-2.5 !text-[11px]" />}

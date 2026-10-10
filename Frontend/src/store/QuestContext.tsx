@@ -39,6 +39,8 @@ interface Saved {
   lastFix: LatLng | null
   /** The group-play party this journey belongs to (null = playing alone). */
   party: { id: string; code: string } | null
+  /** Places the traveller added to their own trips (id "my:…"); kept so old journeys still show them. */
+  myPlaces: Place[]
 }
 
 export interface QuestState extends Saved {
@@ -87,6 +89,8 @@ export interface QuestState extends Saved {
   setGeoWanted: (on: boolean) => void
   setCustomStart: (p: (LatLng & { label: string }) | null) => void
   setParty: (p: { id: string; code: string } | null) => void
+  /** Keep a place the traveller added; `select` also puts it in the current trip. */
+  addMyPlace: (p: Place, select: boolean) => void
   /** A stop by id — catalogue places and event sittings (even ones not in the current trip). */
   stopById: (id: string) => Place | null
 }
@@ -110,6 +114,7 @@ const EMPTY: Saved = {
   customStart: null,
   lastFix: null,
   party: null,
+  myPlaces: [],
 }
 
 function load(): Saved {
@@ -166,6 +171,11 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       setGeoWanted: (geoWanted: boolean) => patch(() => ({ geoWanted })),
       setCustomStart: (customStart: (LatLng & { label: string }) | null) => patch(() => ({ customStart })),
       setParty: (party: { id: string; code: string } | null) => patch(() => ({ party })),
+      addMyPlace: (p: Place, select: boolean) =>
+        patch((s) => ({
+          myPlaces: [...s.myPlaces.filter((x) => x.id !== p.id), p].slice(-100),
+          selected: select && !s.selected.includes(p.id) ? [...s.selected, p.id] : s.selected,
+        })),
       toggle: (id: string) =>
         patch((s) => ({
           selected: s.selected.includes(id) ? s.selected.filter((x) => x !== id) : [...s.selected, id],
@@ -185,7 +195,8 @@ export function QuestProvider({ children }: { children: ReactNode }) {
             ? { journey: { ...s.journey, items: [...s.journey.items, placeId] } }
             : {},
         ),
-      reset: () => patch((s) => ({ ...EMPTY, lang: s.lang, geoWanted: s.geoWanted, customStart: s.customStart, lastFix: s.lastFix })),
+      reset: () =>
+        patch((s) => ({ ...EMPTY, lang: s.lang, geoWanted: s.geoWanted, customStart: s.customStart, lastFix: s.lastFix, myPlaces: s.myPlaces })),
     }),
     [patch],
   )
@@ -263,8 +274,9 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       const stop = eventStopById(id, events)
       if (stop) extra.set(id, stop)
     }
-    return extra.size ? [...catalog, ...extra.values()] : catalog
-  }, [catalog, eventOptions, events, saved.selected, saved.journey])
+    const mine = saved.myPlaces ?? []
+    return extra.size || mine.length ? [...catalog, ...mine, ...extra.values()] : catalog
+  }, [catalog, eventOptions, events, saved.selected, saved.journey, saved.myPlaces])
 
   const value = useMemo<QuestState>(
     () => ({

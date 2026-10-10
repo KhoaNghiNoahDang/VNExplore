@@ -240,7 +240,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
                 </>
               ) : (
                 <>
-                  {minutes(place.visitMin, lang)} · {moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
+                  {minutes(place.visitMin, lang)} · {place.priceUnknown ? t.priceNotGiven : moneyRange(place.priceMin * people, place.priceMax * people, lang)}{' '}
+                  {place.priceMax > 0 && t.forN(people)}
                 </>
               )}
             </p>
@@ -602,8 +603,9 @@ function InfoGrid({ place, people, lang, only }: { place: Place; people: number;
       key: 'price',
       icon: Wallet,
       title: t.priceRef,
-      body:
-        place.priceMax === 0
+      body: place.priceUnknown
+        ? t.priceNotGiven
+        : place.priceMax === 0
           ? perPerson
           : `${perPerson}${t.perPerson} · ${moneyRange(place.priceMin * people, place.priceMax * people, lang)} ${t.forN(people)}` +
             (checked ? ` · ${t.priceChecked(checked)}` : ''),

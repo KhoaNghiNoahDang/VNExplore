@@ -32,7 +32,7 @@ export function MapPlaceCard({
           {t.legLine(distance(leg.distanceM), leg.minutes, TRANSPORT_INFO[lang][leg.transport].short)}
         </div>
         <div className="mt-0.5 text-[10px] font-bold text-teal">
-          {moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
+          {place.priceUnknown ? t.priceNotGiven : moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
         </div>
       </div>
       <button

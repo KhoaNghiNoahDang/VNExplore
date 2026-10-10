@@ -21,8 +21,9 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
   const mission = role ? missionFor(role, place) : null
   const isFav = !!role?.favPlaces.includes(place.id)
   const leg = firstLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
-  const perPerson =
-    place.priceMax === 0
+  const perPerson = place.priceUnknown
+    ? t.priceNotGiven
+    : place.priceMax === 0
       ? moneyRange(0, 0, lang)
       : place.priceMin === place.priceMax
         ? `${money(place.priceMin)}${t.perPerson}`
@@ -53,7 +54,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
       <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] font-bold">
         <div className="rounded-lg bg-butter/55 px-2.5 py-1.5">{perPerson}</div>
         <div className="rounded-lg bg-teal/10 px-2.5 py-1.5 text-teal">
-          {moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
+          {place.priceUnknown ? '—' : moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
         </div>
       </div>
 

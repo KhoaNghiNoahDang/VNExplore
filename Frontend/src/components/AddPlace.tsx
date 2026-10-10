@@ -1,8 +1,8 @@
 import { lazy, Suspense, useState } from 'react'
-import { CircleCheck, Coffee, Landmark, Loader2, MapPinPlus, PartyPopper, Send } from 'lucide-react'
+import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
 import { useQuest } from '../store/QuestContext'
-import type { LatLng } from '../types'
+import type { LatLng, Place } from '../types'
 import Sheet from './Sheet'
 
 const PickMap = lazy(() => import('./PickMap'))
@@ -11,7 +11,13 @@ const fieldClass =
   'mt-1 min-h-11 w-full rounded-xl border-2 border-sand bg-white px-3 text-[14px] text-ink outline-none transition placeholder:text-ink/35 focus:border-teal'
 
 /** "Know a place that's missing?" card with a button that opens the form. */
-export default function AddPlaceCard({ around }: { around: LatLng }) {
+/** Minutes at a place the traveller adds, until they say otherwise. */
+const STAY: Record<SuggestedKind, number> = { food: 45, sight: 45, fun: 60 }
+const THEMES: Record<SuggestedKind, Place['themes']> = { food: ['food'], sight: ['culture', 'photo'], fun: ['fun'] }
+const TONE: Record<SuggestedKind, Place['tone']> = { food: 'butter', sight: 'teal', fun: 'leaf' }
+
+/** "Know a place that's missing?" card with a button that opens the form. `forTrip`: offer to add it to the trip being planned. */
+export default function AddPlaceCard({ around, forTrip = false }: { around: LatLng; forTrip?: boolean }) {
   const { t } = useQuest()
   const [open, setOpen] = useState(false)
   return (
@@ -26,13 +32,13 @@ export default function AddPlaceCard({ around }: { around: LatLng }) {
           <MapPinPlus className="h-4 w-4" /> {t.addPlaceButton}
         </button>
       </div>
-      {open && <AddPlaceSheet around={around} onClose={() => setOpen(false)} />}
+      {open && <AddPlaceSheet around={around} forTrip={forTrip} onClose={() => setOpen(false)} />}
     </>
   )
 }
 
-export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: () => void }) {
-  const { t, lang, geo } = useQuest()
+export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: LatLng; forTrip?: boolean; onClose: () => void }) {
+  const { t, lang, geo, addMyPlace } = useQuest()
   // Open the map where the traveller is (they are often standing at the place), else on the plan.
   const first = geo.status === 'on' && geo.position ? geo.position : around
   const [view] = useState({ lat: first.lat, lng: first.lng, zoom: 16 })
@@ -49,6 +55,11 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
   const [mapFailed, setMapFailed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
+  const [toTrip, setToTrip] = useState(forTrip)
+  const [share, setShare] = useState(true)
+  const [stay, setStay] = useState('')
+  /** After submitting: what happened (added to the trip, sent to the team, or added but not sent). */
+  const [outcome, setOutcome] = useState<'sent' | 'added' | 'addedSent' | 'addedNotSent' | null>(null)
   const [clientSuggestionId, setClientSuggestionId] = useState(() => crypto.randomUUID())
 
   const kinds: { kind: SuggestedKind; icon: typeof Coffee }[] = [
@@ -66,8 +77,10 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
     setPriceMin('')
     setPriceMax('')
     setContact('')
+    setStay('')
     setClientSuggestionId(crypto.randomUUID())
     setSent(false)
+    setOutcome(null)
   }
 
   const submit = async () => {
@@ -77,6 +90,49 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
     const min = priceMin ? Math.round(Number(priceMin) / 1000) : null
     const max = priceMax ? Math.round(Number(priceMax) / 1000) : null
     if (min != null && max != null && max < min) return setError(t.addPlaceRangeError)
+    if (forTrip && !toTrip && !share) return setError(t.addPlaceNeedOne)
+    if (forTrip && toTrip) {
+      // A stop of the trip right away: travel time comes from the distance, cost from the prices given.
+      const lo = min ?? max
+      const hi = max ?? min
+      const minutes = Math.round(Number(stay))
+      addMyPlace(
+        {
+          id: `my:${clientSuggestionId}`,
+          area: 'hanoi',
+          kind,
+          depth: 'quick',
+          openingHours: null,
+          priceCheckedOn: null,
+          name: { vi: name.trim(), en: name.trim() },
+          nameVi: name.trim(),
+          lat: Number(point.lat.toFixed(6)),
+          lng: Number(point.lng.toFixed(6)),
+          priceMin: lo ?? 0,
+          priceMax: hi ?? 0,
+          priceUnknown: lo == null,
+          visitMin: minutes > 0 ? Math.min(minutes, 600) : STAY[kind],
+          themes: THEMES[kind],
+          tags: ['mine'],
+          blurb: (() => {
+            const extra = [description.trim(), address.trim(), hours.trim()].filter(Boolean).join(' · ')
+            return { vi: extra || t.addPlaceKinds[kind], en: extra || t.addPlaceKinds[kind] }
+          })(),
+          tone: TONE[kind],
+          story: { vi: '', en: '' },
+          why: { vi: '', en: '' },
+          photoTip: { vi: '', en: '' },
+          etiquette: { vi: '', en: '' },
+          challenge: null,
+        },
+        true,
+      )
+      if (!share) {
+        setOutcome('added')
+        setSent(true)
+        return
+      }
+    }
     setSubmitting(true)
     try {
       await submitPlaceSuggestion({
@@ -93,9 +149,13 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
         contact: contact.trim() || null,
         language: lang,
       })
+      setOutcome(forTrip && toTrip ? 'addedSent' : 'sent')
       setSent(true)
     } catch {
-      setError(t.addPlaceSubmitError)
+      if (forTrip && toTrip) {
+        setOutcome('addedNotSent')
+        setSent(true)
+      } else setError(t.addPlaceSubmitError)
     } finally {
       setSubmitting(false)
     }
@@ -104,10 +164,31 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
   if (sent) {
     return (
       <Sheet title={t.addPlaceTitle} closeLabel={t.close} onClose={onClose}>
-        <div className="flex items-start gap-2 rounded-2xl bg-leaf/10 px-3 py-3 text-[13px] font-medium text-leaf" role="status">
-          <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" />
-          <span>{t.addPlaceThanks}</span>
+        <div
+          className={`flex items-start gap-2 rounded-2xl px-3 py-3 text-[13px] font-medium ${
+            outcome === 'addedNotSent' ? 'bg-sun/20 text-bark' : 'bg-leaf/10 text-leaf'
+          }`}
+          role="status"
+        >
+          {outcome === 'addedNotSent' ? <CircleAlert className="mt-0.5 h-4 w-4 shrink-0" /> : <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" />}
+          <span>
+            {outcome === 'added'
+              ? t.addPlaceAdded
+              : outcome === 'addedSent'
+                ? t.addPlaceAddedAndSent
+                : outcome === 'addedNotSent'
+                  ? t.addPlaceAddedNotSent
+                  : t.addPlaceThanks}
+          </span>
         </div>
+        {outcome && outcome !== 'sent' && (
+          <button
+            onClick={onClose}
+            className="mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 rounded-2xl border-b-4 border-teal/70 bg-teal px-4 text-[14px] font-bold text-white"
+          >
+            {t.addPlaceDone}
+          </button>
+        )}
         <button
           onClick={reset}
           className="mt-3 flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl border-2 border-teal bg-white px-3 text-[13px] font-bold text-teal"
@@ -213,7 +294,41 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
         <input className={fieldClass} maxLength={200} value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t.addPlaceContactPh} />
       </label>
 
-      <p className="mt-4 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>
+      {forTrip && (
+        <div className="mt-4 space-y-2">
+          <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${toTrip ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
+            <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={toTrip} onChange={(e) => setToTrip(e.target.checked)} />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-bold">{t.addPlaceToTrip}</span>
+              <span className="block text-[11px] leading-snug text-bark/70">{t.addPlaceToTripHint}</span>
+              {toTrip && (
+                <span className="mt-2 block text-[12px] font-bold text-ink/80">
+                  {t.addPlaceStay}
+                  <input
+                    className={fieldClass}
+                    type="number"
+                    min="5"
+                    max="600"
+                    step="5"
+                    inputMode="numeric"
+                    value={stay}
+                    onChange={(e) => setStay(e.target.value)}
+                    placeholder={String(STAY[kind ?? 'sight'])}
+                  />
+                </span>
+              )}
+            </span>
+          </label>
+          <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${share ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
+            <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={share} onChange={(e) => setShare(e.target.checked)} />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-bold">{t.addPlaceShare}</span>
+              <span className="block text-[11px] leading-snug text-bark/70">{t.addPlaceShareHint}</span>
+            </span>
+          </label>
+        </div>
+      )}
+      {(!forTrip || share) && <p className="mt-4 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>}
       {error && (
         <p className="mt-3 rounded-xl bg-brick/10 px-3 py-2 text-[12px] font-medium text-brick" role="alert">
           {error}
@@ -225,7 +340,8 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
         onClick={submit}
         className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border-b-4 border-teal/70 bg-teal px-4 font-bold text-white shadow-md transition active:translate-y-0.5 active:border-b-0 disabled:border-sand disabled:bg-sand disabled:text-bark/50 disabled:shadow-none"
       >
-        <Send className="h-4 w-4" /> {submitting ? t.addPlaceSubmitting : t.addPlaceSubmit}
+        {forTrip && toTrip ? <Plus className="h-4 w-4" /> : <Send className="h-4 w-4" />}{' '}
+        {submitting ? t.addPlaceSubmitting : forTrip && toTrip ? t.addPlaceToTrip : t.addPlaceSubmit}
       </button>
     </Sheet>
   )
