@@ -80,7 +80,7 @@ Bảng `parties`, `party_members`, `party_progress`, `party_puzzles` (`migration
 - Câu đố: câu chính nằm trong `places.csv` (`challenge_*`, kèm `challenge_kind`, `explain_vi/en`), các câu thêm nằm trong `quizzes.csv`. `kind`: look (quan sát tại chỗ), history, legend, culture, architecture, nature. `explain` hiện sau khi trả lời – giải thích vì sao đáp án đúng.
 - **Mỗi câu đố phải có `sources`** (script báo lỗi nếu trống). Chỉ đố những gì nguồn ghi rõ; chi tiết các nguồn ghi khác nhau (năm khánh thành, tên người xây…) thì không đem ra đố.
 - Nhiều giá trị trong một ô cách nhau bằng `; ` (`themes`, `tags`, `sources`, `fav_places`).
-- `themes`: culture, food, rainy, history, photo. `tags`: iconic, groups, quiet, cultural, indoor, localFood, free, history, photo, lively. `tone`: brick, butter, teal, leaf.
+- `themes`: culture, food, rainy, history, photo. `tags`: iconic, groups, quiet, cultural, indoor, localFood, free, history, photo, lively, openData (điểm lấy từ dữ liệu bản đồ mở, chưa có nội dung riêng: app gắn nhãn "Dữ liệu bản đồ mở" và xếp sau điểm tuyển chọn). `tone`: brick, butter, teal, leaf.
 
 ### Mức nhạy cảm (`candidates.csv` → cột `sensitivity`)
 | Mức | Ý nghĩa |
@@ -142,7 +142,12 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
 
 ## Nguồn dữ liệu và giấy phép
 - **OpenStreetMap** — © OpenStreetMap contributors (ODbL). Ghi công trong app.
-- **Overture Maps Places** — CDLA-Permissive-2.0 (toạ độ, địa chỉ của 63 quán nhập từ danh sách Google Maps “Cà phê Hà Nội”, `scripts/import_gmaps_cafes_2026-10.mjs`). Từ Google Maps chỉ lấy tên quán.
+- **Overture Maps Places** — CDLA-Permissive-2.0:
+  - Toạ độ, địa chỉ của 63 quán nhập từ danh sách Google Maps “Cà phê Hà Nội” (`scripts/import_gmaps_cafes_2026-10.mjs`). Từ Google Maps chỉ lấy tên quán.
+  - 1.182 di tích ở Hà Nội (chùa, đền, miếu, đình, phủ, nhà thờ, văn miếu, lăng mộ…), dữ liệu đã lọc ở `imports/overture_heritage_2026-10.json`, nhập bằng `scripts/import_overture_heritage_2026-10.mjs`.
+    - Cách lọc: theo tên, ranh giới Hà Nội, bỏ trùng; bỏ chung cư hay cửa hàng bị xếp nhầm loại "historic", và bỏ nhà thờ họ.
+    - Giới thiệu chỉ nói đúng loại di tích, kèm lưu ý ứng xử; gắn `openData`.
+    - Chiến tranh hoặc độ tin cậy < 0,5 → `draft`. Các điểm về lãnh tụ → `to_add_manually.csv`.
 - **Wikidata** — CC0.
 - **Wikipedia** — chỉ dùng làm **tư liệu**; nội dung đã viết lại, không sao chép.
 - **Ảnh Wikimedia Commons** (cột `commons_image`) — mỗi ảnh có giấy phép riêng, phải ghi tác giả khi dùng.

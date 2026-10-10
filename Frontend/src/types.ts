@@ -24,6 +24,8 @@ export type PlaceTag =
   | 'history'
   | 'photo'
   | 'lively'
+  /** From an open map dataset (Overture), not yet written up or checked by the team: ranks after curated places. */
+  | 'openData'
 
 export type Budget = 'low' | 'any'
 

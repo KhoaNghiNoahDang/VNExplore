@@ -1400,10 +1400,12 @@ export const TAG_LABEL: Record<Lang, Record<PlaceTag, string>> = {
   en: {
     iconic: 'Iconic', groups: 'Great for groups', quiet: 'Quiet', cultural: 'Cultural', indoor: 'Indoor',
     localFood: 'Local food', free: 'Free', history: 'History', photo: 'Photo spot', lively: 'Lively',
+    openData: 'Open map data',
   },
   vi: {
     iconic: 'Biểu tượng', groups: 'Hợp đi nhóm', quiet: 'Yên tĩnh', cultural: 'Văn hoá', indoor: 'Trong nhà',
     localFood: 'Món địa phương', free: 'Miễn phí', history: 'Lịch sử', photo: 'Góc chụp ảnh', lively: 'Sôi động',
+    openData: 'Dữ liệu bản đồ mở',
   },
 }
 

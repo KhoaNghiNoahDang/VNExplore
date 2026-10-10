@@ -29,7 +29,7 @@ const AREA_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/
 const areaOk = (a) => AREA_RE.test(a ?? '')
 const KINDS = ['sight', 'food', 'fun']
 const DEPTHS = ['full', 'quick']
-const TAGS = ['iconic', 'groups', 'quiet', 'cultural', 'indoor', 'localFood', 'free', 'history', 'photo', 'lively']
+const TAGS = ['iconic', 'groups', 'quiet', 'cultural', 'indoor', 'localFood', 'free', 'history', 'photo', 'lively', 'openData']
 const TONES = ['brick', 'butter', 'teal', 'leaf']
 /** What a quiz question is about (shown as a small label). */
 const QUIZ_KINDS = ['look', 'history', 'legend', 'culture', 'architecture', 'nature']

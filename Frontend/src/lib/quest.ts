@@ -254,11 +254,14 @@ function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ct
   const perM = regionAt(place)?.spreadOut ? 0.05 : 1
   // Full places (with a story) first when they fit the request just as well.
   const depth = place.depth === 'full' ? 150 : 0
+  // Places straight from open map data (a village pagoda with a one-line intro) come after the
+  // curated ones nearby: worth about 800 m of extra walking.
+  const openData = place.tags.includes('openData') ? 800 : 0
   const hits = dishHits(place, `${intent.text} ${intent.extra ?? ''}`)
   const named = hits * 1500
   // Cinemas and other indoor fun are for rainy days, unless asked for by name.
   const indoorFun = place.kind === 'fun' && place.tags.includes('indoor') && !intent.themes.includes('rainy') ? 1200 : 0
-  return themeHits * 1000 + named + roleBoost + depth - indoorFun - pricey * 800 - distanceM(start, place) * perM +
+  return themeHits * 1000 + named + roleBoost + depth - openData - indoorFun - pricey * 800 - distanceM(start, place) * perM +
     contextBonus(place, intent, ctx, hits > 0)
 }
 

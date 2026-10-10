@@ -24,6 +24,11 @@ import { buildPlannerReply, buildRouteDetails } from '../lib/plannerReply'
 import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 
+/** Cards shown at first, and added by each "Show more". */
+const LIST_STEP = 30
+/** Pins on the map: the best matches, plus whatever is already picked. */
+const MAP_PINS = 60
+
 export default function PlacesPage() {
   const { t, lang, intent, places, areaPlaces, region, center, contextFor, loading, selected, toggle, mode, role, travel, geo, eventOptions } = useQuest()
   const start = useStart()
@@ -39,6 +44,12 @@ export default function PlacesPage() {
     [areaPlaces, intent, start, favIds, contextFor, center],
   )
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
+  // Hundreds of places can be in reach (every village pagoda): show the best ones, more on request.
+  const [listCount, setListCount] = useState(LIST_STEP)
+  const onMap = useMemo(
+    () => ranked.filter((p, i) => i < MAP_PINS || selected.includes(p.id)),
+    [ranked, selected],
+  )
   // One pin per event on the map: the sitting in the plan, else the earliest.
   const eventPlaces = useMemo(
     () => eventOptions.map((o) => o.sittings.find((s) => selected.includes(s.id)) ?? o.sittings[0]),
@@ -48,7 +59,7 @@ export default function PlacesPage() {
 
   if (!intent || !mode) return <Navigate to="/" replace />
 
-  const focused = [...eventPlaces, ...ranked].find((p) => p.id === focusedId) ?? null
+  const focused = [...eventPlaces, ...onMap].find((p) => p.id === focusedId) ?? null
   const at = new Date(travel.departAt ?? Date.now())
   // A model reply describes the transport chosen when the request was submitted.
   // Once the traveller accepts a route-aware switch, use the local live reply so the advice never
@@ -92,7 +103,7 @@ export default function PlacesPage() {
     ) : (
       summaryBlock
     ),
-    items: ranked.map((p) => ({
+    items: onMap.map((p) => ({
       id: p.id,
       render: () => (
         <MapPlaceCard
@@ -206,7 +217,19 @@ export default function PlacesPage() {
               <EventsSection people={intent.people} />
               <h2 className="pt-2 text-[15px] font-extrabold">{t.placesTitle}</h2>
               {ranked.length ? (
-                ranked.map((p) => <PlaceCard key={p.id} place={p} people={intent.people} />)
+                <>
+                  {ranked.slice(0, listCount).map((p) => (
+                    <PlaceCard key={p.id} place={p} people={intent.people} />
+                  ))}
+                  {ranked.length > listCount && (
+                    <button
+                      onClick={() => setListCount((n) => n + LIST_STEP)}
+                      className="flex min-h-11 w-full items-center justify-center gap-1.5 rounded-2xl border-2 border-sand bg-white px-3 text-[13px] font-bold text-teal hover:border-teal/40"
+                    >
+                      <ChevronDown className="h-4 w-4" /> {t.showMore} · {ranked.length - listCount}
+                    </button>
+                  )}
+                </>
               ) : (
                 // Somewhere the catalogue doesn't cover yet (it grows place by place).
                 <p className="rounded-2xl border-2 border-dashed border-sand p-4 text-[13px] leading-relaxed text-bark/80">
@@ -219,7 +242,7 @@ export default function PlacesPage() {
             <>
               <MapView
                 start={start}
-                places={[...eventPlaces, ...ranked]}
+                places={[...eventPlaces, ...onMap]}
                 selectedIds={selected}
                 focusedId={focusedId}
                 onPinClick={(p) => setFocusedId(p.id)}
