@@ -3,11 +3,13 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import { wakeBackend } from './lib/backend'
+import { captureInstallPrompt } from './lib/pwa'
 import { AuthProvider } from './store/AuthContext'
 import { QuestProvider } from './store/QuestContext'
 import './index.css'
 
 wakeBackend()
+captureInstallPrompt()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

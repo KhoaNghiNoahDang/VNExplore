@@ -64,6 +64,20 @@ function walkLeg(requested: Transport, m: number, peak: boolean, note?: Leg['not
   }
 }
 
+/** Further than this from the start (distanceM() metres, ~3 km as the crow flies), a walking trip
+ * rides to its first stop: nobody walks from Ha Dong to the Old Quarter to start a stroll. */
+export const RIDE_THERE_M = 4_000
+
+/**
+ * The leg from the start point to the first stop. Like estimateLeg, except a walking trip whose first
+ * stop is far away gets there by GrabBike (a car for 3+ people) and walks from then on.
+ */
+export function firstLeg(from: LatLng, to: LatLng, requested: Transport, at: Date, people: number): Leg {
+  if (requested !== 'walk' || distanceM(from, to) <= RIDE_THERE_M) return estimateLeg(from, to, requested, at, people)
+  const leg = estimateLeg(from, to, people >= 3 ? 'car' : 'grabbike', at, people)
+  return leg.transport === 'walk' ? leg : { ...leg, requested, note: 'rideThere' }
+}
+
 /**
  * Time and cost of one leg for the whole group.
  * Heuristic stand-in for a live routing API (e.g. TomTom via the Render backend):

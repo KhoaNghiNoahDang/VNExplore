@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Check, Copy, Loader2, LogOut, Play, Share2, Users } from 'lucide-react'
+import { Check, Copy, Loader2, LogOut, MapPin, Play, Share2, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCaptcha } from '../components/Captcha'
 import { Field } from '../components/Form'
@@ -8,7 +8,8 @@ import { PartyBoard, TimerPicker } from '../components/PartyBits'
 import PrimaryButton from '../components/PrimaryButton'
 import TopBar from '../components/TopBar'
 import { ROLES } from '../data/roles'
-import { joinParty, leaveParty, setMyRole, setTimer, startParty, useParty, type PartyError } from '../lib/party'
+import { DEFAULT_POINT } from '../lib/area'
+import { joinParty, leaveParty, previewParty, setMyRole, setTimer, startParty, useParty, type PartyError, type PartyPreview } from '../lib/party'
 import { summarize } from '../lib/quest'
 import { rankRoles } from '../lib/roles'
 import { useAuth } from '../store/AuthContext'
@@ -28,7 +29,18 @@ export default function PartyPage() {
   const [error, setError] = useState<PartyError | null>(null)
   const [name, setName] = useState('')
   const [busy, setBusy] = useState(false)
+  const [preview, setPreview] = useState<PartyPreview | null>(null)
   const tried = useRef(false)
+
+  // Anyone with the link sees the route first (no member names), before deciding to join.
+  useEffect(() => {
+    if (!auth.enabled) return
+    let alive = true
+    void previewParty(code).then((p) => alive && setPreview(p))
+    return () => {
+      alive = false
+    }
+  }, [code, auth.enabled])
 
   // Signed in with a known name (the host, a returning member, an account) → join straight away.
   useEffect(() => {
@@ -74,10 +86,11 @@ export default function PartyPage() {
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-teal/10 text-teal">
           <Users className="h-7 w-7" />
         </div>
-        <h1 className="mt-3 text-center text-xl font-bold">{t.partyJoinTitle}</h1>
+        <h1 className="mt-3 text-center text-xl font-bold">{preview?.mode === 'easy' ? t.partyEasyJoinTitle : t.partyJoinTitle}</h1>
         <p className="mt-1 text-center text-[13px] text-bark/70">
           {t.partyCode}: <b className="tracking-widest">{code.toUpperCase()}</b>
         </p>
+        {preview && <RoutePreview preview={preview} />}
         {busy && !name ? (
           <Loader2 className="mx-auto mt-6 h-6 w-6 animate-spin text-bark/50" />
         ) : (
@@ -95,6 +108,29 @@ export default function PartyPage() {
   )
 }
 
+/** The route behind a party link, shown before joining. */
+function RoutePreview({ preview }: { preview: PartyPreview }) {
+  const { t, lang, stopById } = useQuest()
+  const stops = preview.stopIds.map((id) => stopById(id)).filter((p): p is Place => !!p)
+  return (
+    <div className="mt-5 rounded-2xl border-2 border-sand bg-white p-3">
+      {preview.title && <div className="truncate text-[13px] font-bold">{preview.title}</div>}
+      <div className="mt-0.5 text-[11px] font-medium text-bark/65">{t.partyMembers(preview.members, preview.maxMembers)}</div>
+      <ol className="mt-2 space-y-1 text-[12px]">
+        {stops.map((s, i) => (
+          <li key={s.id} className="flex items-start gap-2">
+            <span className="font-bold text-teal">{i + 1}.</span>
+            <span className="min-w-0 truncate">{s.name[lang]}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-bark/70">
+        <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brick" /> {t.partyPreviewNote}
+      </p>
+    </div>
+  )
+}
+
 function Centered({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -105,7 +141,7 @@ function Centered({ children }: { children: ReactNode }) {
 }
 
 function Lobby({ partyId }: { partyId: string }) {
-  const { t, lang, stopById, start, setIntent, setRole, startJourney, setParty, party: current, journey } = useQuest()
+  const { t, lang, stopById, start, setIntent, setRole, setMode, startJourney, setParty, party: current, journey } = useQuest()
   const auth = useAuth()
   const navigate = useNavigate()
   const { state, missing, refresh } = useParty(partyId)
@@ -125,10 +161,12 @@ function Lobby({ partyId }: { partyId: string }) {
 
   const me = state?.members.find((m) => m.userId === meId) ?? null
   const isHost = !!state && state.party.hostId === meId
+  // Easy parties: no roles — everyone is ready once they're in.
+  const easy = state?.party.mode === 'easy'
 
   // Host started → set up the shared journey on this phone and go to the first stop (once).
   useEffect(() => {
-    if (!state || state.party.status === 'lobby' || !me?.roleId) return
+    if (!state || state.party.status === 'lobby' || !me || (!easy && !me.roleId)) return
     const p = state.party
     const same = current?.id === p.id && journey && journey.stopIds.join() === p.stopIds.join()
     if (!same) {
@@ -142,14 +180,17 @@ function Lobby({ partyId }: { partyId: string }) {
         transport: p.transport,
         transportIsDefault: false,
         area: p.area,
+        // Plan around the party's own stops, wherever they are.
+        near: stops[0] ? { lat: stops[0].lat, lng: stops[0].lng } : null,
       }
       setIntent(intent, p.stopIds, p.stopIds)
-      setRole(me.roleId)
-      startJourney(p.stopIds, start ?? stops[0] ?? { lat: 21.0287, lng: 105.8524 })
+      if (easy) setMode('easy')
+      else if (me.roleId) setRole(me.roleId)
+      startJourney(p.stopIds, start ?? stops[0] ?? DEFAULT_POINT)
       setParty({ id: p.id, code: p.code })
     }
     navigate('/go/0', { replace: true })
-  }, [state, me, current, journey, setIntent, setRole, startJourney, setParty, start, stops, navigate])
+  }, [state, me, easy, current, journey, setIntent, setRole, setMode, startJourney, setParty, start, stops, navigate])
 
   if (missing) return <Centered>{t.partyErrors.not_found}</Centered>
   if (!state) return <Centered><Loader2 className="h-6 w-6 animate-spin" /></Centered>
@@ -157,10 +198,10 @@ function Lobby({ partyId }: { partyId: string }) {
   const p = state.party
   const link = `${location.origin}/party/${p.code}`
   const takenBy = (roleId: string) => state.members.find((m) => m.roleId === roleId && m.userId !== meId)
-  const allReady = state.members.length > 0 && state.members.every((m) => m.roleId)
+  const allReady = state.members.length > 0 && (easy || state.members.every((m) => m.roleId))
 
   const share = async () => {
-    const text = t.partyShareText(p.code)
+    const text = easy ? t.partyEasyShareText(p.code) : t.partyShareText(p.code)
     if (navigator.share) {
       try {
         await navigator.share({ title: 'VNExplore', text, url: link })
@@ -211,6 +252,7 @@ function Lobby({ partyId }: { partyId: string }) {
           <PartyBoard state={state} meId={meId} />
         </div>
 
+        <div className="-mb-2 text-[11px] font-bold uppercase tracking-widest text-bark/60">{t.partyRoute}</div>
         <ol className="space-y-1 rounded-2xl border-2 border-sand bg-white p-3 text-[12px]">
           {stops.map((s, i) => (
             <li key={s.id} className="flex gap-2">
@@ -219,52 +261,57 @@ function Lobby({ partyId }: { partyId: string }) {
           ))}
         </ol>
 
-        <section>
-          <h2 className="mb-2 text-[15px] font-extrabold">{t.partyPickRole}</h2>
-          {roleError && <p className="mb-2 rounded-xl bg-brick/10 p-2.5 text-[12px] font-medium text-brick">{roleError}</p>}
-          <div className="space-y-2" role="radiogroup">
-            {ranked.map(({ role: r, fits }) => {
-              const other = takenBy(r.id)
-              const mine = me?.roleId === r.id
-              const Icon = ROLE_ICON[r.id]
-              return (
-                <button
-                  key={r.id}
-                  role="radio"
-                  aria-checked={mine}
-                  disabled={!!other}
-                  onClick={() => void pick(r.id)}
-                  className={`flex w-full items-center gap-3 rounded-2xl border-2 bg-white p-3 text-left transition disabled:opacity-50 ${
-                    mine ? 'border-ink shadow-md' : 'border-sand hover:border-bark/40'
-                  }`}
-                >
-                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${TONE_BG[r.tone]}`}>
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center gap-1.5 text-[13px] font-bold">
-                      {r.name[lang]}
-                      {r.draft && <span className="rounded bg-sun/40 px-1 text-[9px] uppercase">{t.roleDraft}</span>}
+        {!easy && (
+          <section>
+            <h2 className="mb-2 text-[15px] font-extrabold">{t.partyPickRole}</h2>
+            {roleError && <p className="mb-2 rounded-xl bg-brick/10 p-2.5 text-[12px] font-medium text-brick">{roleError}</p>}
+            <div className="space-y-2" role="radiogroup">
+              {ranked.map(({ role: r, fits }) => {
+                const other = takenBy(r.id)
+                const mine = me?.roleId === r.id
+                const Icon = ROLE_ICON[r.id]
+                return (
+                  <button
+                    key={r.id}
+                    role="radio"
+                    aria-checked={mine}
+                    disabled={!!other}
+                    onClick={() => void pick(r.id)}
+                    className={`flex w-full items-center gap-3 rounded-2xl border-2 bg-white p-3 text-left transition disabled:opacity-50 ${
+                      mine ? 'border-ink shadow-md' : 'border-sand hover:border-bark/40'
+                    }`}
+                  >
+                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${TONE_BG[r.tone]}`}>
+                      <Icon className="h-5 w-5" />
                     </span>
-                    <span className="block text-[11px] text-bark/70">
-                      {other ? t.partyRoleTakenBy(other.name) : t.roleFits(fits, stops.length)}
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center gap-1.5 text-[13px] font-bold">
+                        {r.name[lang]}
+                        {r.draft && <span className="rounded bg-sun/40 px-1 text-[9px] uppercase">{t.roleDraft}</span>}
+                      </span>
+                      <span className="block text-[11px] text-bark/70">
+                        {other ? t.partyRoleTakenBy(other.name) : t.roleFits(fits, stops.length)}
+                      </span>
                     </span>
-                  </span>
-                  {mine && <Check className="h-5 w-5 shrink-0 text-teal" strokeWidth={3} />}
-                </button>
-              )
-            })}
-          </div>
-        </section>
+                    {mine && <Check className="h-5 w-5 shrink-0 text-teal" strokeWidth={3} />}
+                  </button>
+                )
+              })}
+            </div>
+          </section>
 
-        <TimerPicker
-          mode={p.timerMode}
-          limit={p.timeLimitMin}
-          hours={p.hours}
-          routeMin={routeMin}
-          disabled={!isHost}
-          onChange={(m, l) => void setTimer(p.id, m, l).then(refresh)}
-        />
+        )}
+
+        {!easy && (
+          <TimerPicker
+            mode={p.timerMode}
+            limit={p.timeLimitMin}
+            hours={p.hours}
+            routeMin={routeMin}
+            disabled={!isHost}
+            onChange={(m, l) => void setTimer(p.id, m, l).then(refresh)}
+          />
+        )}
 
         <button
           onClick={async () => {
@@ -281,11 +328,11 @@ function Lobby({ partyId }: { partyId: string }) {
       <div className="border-t border-sand/60 px-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3">
         {isHost ? (
           <PrimaryButton disabled={!allReady} onClick={() => void startParty(p.id).then(refresh)}>
-            <Play className="h-4 w-4 fill-current" /> {allReady ? t.partyStart : t.partyWaitRoles}
+            <Play className="h-4 w-4 fill-current" /> {easy ? t.partyEasyStart : allReady ? t.partyStart : t.partyWaitRoles}
           </PrimaryButton>
         ) : (
           <p className="flex items-center justify-center gap-2 py-3 text-[13px] font-bold text-bark/70">
-            <Loader2 className="h-4 w-4 animate-spin" /> {me?.roleId ? t.partyWaitHost : t.partyPickRole}
+            <Loader2 className="h-4 w-4 animate-spin" /> {easy || me?.roleId ? t.partyWaitHost : t.partyPickRole}
           </p>
         )}
       </div>

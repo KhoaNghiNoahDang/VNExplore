@@ -1,4 +1,5 @@
 import { adminDb } from '../lib/supabase.js'
+import { hasPlace } from './content.js'
 
 export type PlaceReportType = 'price' | 'opening_hours' | 'visit_time' | 'closed' | 'other'
 export type ClosedState = 'today' | 'temporary' | 'permanent' | 'unknown'
@@ -28,14 +29,8 @@ export class PlaceReportsUnavailableError extends Error {
 export async function submitPlaceReport(input: PlaceReportInput): Promise<void> {
   if (!adminDb) throw new PlaceReportsUnavailableError()
 
-  const { data: place, error: placeError } = await adminDb
-    .from('places')
-    .select('id')
-    .eq('id', input.placeId)
-    .eq('status', 'approved')
-    .maybeSingle()
-  if (placeError) throw new Error(placeError.message)
-  if (!place) throw new Error('Unknown place')
+  // Places live in the content file (not the database): check the id there.
+  if (!hasPlace(input.placeId)) throw new Error('Unknown place')
 
   const { error } = await adminDb.from('place_reports').upsert(
     {

@@ -6,7 +6,7 @@ import { TAG_LABEL, TRANSPORT_INFO } from '../i18n/strings'
 import { distance, money, moneyRange } from '../lib/format'
 import { isOpenAt } from '../lib/hours'
 import { storyMinutes, storyOf } from '../lib/quest'
-import { estimateLeg } from '../lib/travel'
+import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
 import { PlaceNotice, SourceLinks } from './PlaceBits'
@@ -20,7 +20,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
   const isAdded = selected.includes(place.id)
   const mission = role ? missionFor(role, place) : null
   const isFav = !!role?.favPlaces.includes(place.id)
-  const leg = estimateLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
+  const leg = firstLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
   const perPerson =
     place.priceMax === 0
       ? moneyRange(0, 0, lang)

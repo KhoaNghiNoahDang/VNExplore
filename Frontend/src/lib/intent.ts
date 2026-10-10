@@ -1,5 +1,6 @@
+import { REGIONS, regionById, type Region } from './area'
 import type { Understood } from './backend'
-import type { Area, Intent, Theme, Transport } from '../types'
+import type { Intent, Theme, Transport } from '../types'
 
 const THEME_WORDS: Record<Theme, string[]> = {
   culture: ['culture', 'cultural', 'temple', 'heritage', 'tradition', 'văn hóa', 'văn hoá', 'đền', 'chùa', 'di sản'],
@@ -17,11 +18,6 @@ const TRANSPORT_WORDS: [Transport, string[]][] = [
   ['car', ['taxi', 'grabcar', 'grab car', 'car', 'ô tô', 'oto', 'xe hơi', 'xe 4 chỗ', 'xe 7 chỗ', 'xanh sm']],
   ['motorbike', ['motorbike', 'motorcycle', 'scooter', 'moped', 'xe máy', 'xe tay ga', 'tự lái']],
   ['walk', ['walk', 'walking', 'on foot', 'đi bộ', 'đi dạo', 'cuốc bộ']],
-]
-
-const AREA_WORDS: [Area, string[]][] = [
-  ['ba-vi', ['ba vì', 'ba vi', 'bavi', 'sơn tây', 'son tay', 'đường lâm', 'duong lam', 'suối hai', 'đồng mô', 'dong mo', 'núi tản']],
-  ['hoan-kiem', ['hoàn kiếm', 'hoan kiem', 'hồ gươm', 'ho guom', 'phố cổ', 'pho co', 'old quarter', 'sword lake']],
 ]
 
 const BUDGET_WORDS = ['budget', 'cheap', 'reasonable', 'affordable', 'low cost', 'save', 'rẻ', 'tiết kiệm', 'hợp lý', 'bình dân']
@@ -94,9 +90,11 @@ export function parseIntent(text: string): Intent {
     transportIsDefault = false
   }
 
-  const area = AREA_WORDS.find(([, words]) => words.some((w) => hasWord(t, w)))?.[0] ?? null
-  // Ba Vì spots are kilometres apart: default to a motorbike and a longer day.
-  if (area === 'ba-vi') {
+  // A region named in the request ("Ba Vì"). Anywhere else, the plan follows the start point.
+  const named = REGIONS.find((r) => r.words.some((w) => hasWord(t, w))) ?? null
+  const area = named?.id ?? null
+  // Countryside spots are kilometres apart: default to a motorbike and a longer day.
+  if (named?.spreadOut) {
     if (transportIsDefault) transport = 'motorbike'
     if (hoursIsDefault) hours = 5
   }
@@ -116,12 +114,12 @@ export function parseIntent(text: string): Intent {
 
 /**
  * Combine the rule-based reading with the language model's. The model wins where it found something;
- * the rules fill the gaps. Same Ba Vì defaults as parseIntent.
+ * the rules fill the gaps. Same countryside defaults as parseIntent.
  */
 export function mergeUnderstood(rule: Intent, u: Understood | null): Intent {
   if (!u) return rule
   const out: Intent = { ...rule }
-  if (u.area) out.area = u.area
+  if (regionById(u.area)) out.area = u.area
   if (u.themes.length) out.themes = u.themes as Theme[]
   if (u.people) out.people = u.people
   if (u.hours) (out.hours = u.hours), (out.hoursIsDefault = false)
@@ -129,18 +127,14 @@ export function mergeUnderstood(rule: Intent, u: Understood | null): Intent {
   if (u.budget === 'low') out.budget = 'low'
   if (u.kids && !out.themes.includes('fun')) out.themes = [...out.themes, 'fun']
   if (u.dishes.length) out.extra = u.dishes.join(', ')
-  if (out.area === 'ba-vi') {
-    if (out.transportIsDefault) out.transport = 'motorbike'
-    if (out.hoursIsDefault) out.hours = 5
-  }
   out.summary = u.summary_vi || u.summary_en ? { vi: u.summary_vi || u.summary_en, en: u.summary_en || u.summary_vi } : null
   out.reply = u.reply_vi || u.reply_en ? { vi: u.reply_vi || u.reply_en, en: u.reply_en || u.reply_vi } : null
-  return out
+  return withAreaDefaults(out, regionById(out.area))
 }
 
-/** Ba Vì spots are kilometres apart: unless the traveller said otherwise, ride and plan a longer day. */
-export function withAreaDefaults(intent: Intent, area: Area): Intent {
-  if (area !== 'ba-vi') return intent
+/** Countryside spots are kilometres apart: unless the traveller said otherwise, ride and plan a longer day. */
+export function withAreaDefaults(intent: Intent, region: Region | null): Intent {
+  if (!region?.spreadOut) return intent
   return {
     ...intent,
     transport: intent.transportIsDefault ? 'motorbike' : intent.transport,

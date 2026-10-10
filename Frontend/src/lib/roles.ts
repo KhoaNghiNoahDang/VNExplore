@@ -1,4 +1,5 @@
 import type { Place, Role } from '../types'
+import { regionAt } from './area'
 
 export interface RoleFit {
   role: Role
@@ -16,8 +17,8 @@ function tagMatches(tag: string, stop: Place): boolean {
 
 /**
  * How well a role suits a route. Per stop: its own written mission counts most, then the role's
- * favourite places, then matching tags (at most two). Roles written for the other area (Ba Vì
- * roles on an Old Quarter route) drop to the bottom.
+ * favourite places, then matching tags (at most two). Roles written for one region (Ba Vì roles)
+ * drop to the bottom for stops outside it.
  */
 export function roleFit(role: Role, stops: Place[]): RoleFit {
   let score = 0
@@ -27,7 +28,7 @@ export function roleFit(role: Role, stops: Place[]): RoleFit {
     if (!s.event && role.missions[s.id]) pts += 4
     else if (role.favPlaces.includes(s.id)) pts += 3
     pts += Math.min(2, role.tags.filter((t) => tagMatches(t, s)).length)
-    if (role.area !== 'any' && role.area !== s.area) pts -= 4
+    if (role.area !== 'any' && regionAt(s)?.id !== role.area) pts -= 4
     if (pts >= 2) fits++
     score += pts
   }

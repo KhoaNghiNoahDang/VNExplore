@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, Cloud, CloudRain, CloudSun, Sun, ThermometerSun, X } from 'lucide-react'
+import { ArrowRight, Clock3, Cloud, CloudRain, CloudSun, Sun, ThermometerSun, X } from 'lucide-react'
 import { TRANSPORT_INFO } from '../i18n/strings'
 import { distance, money } from '../lib/format'
 import { suggestTransport } from '../lib/quest'
@@ -33,7 +33,10 @@ export function WeatherPill({ weather }: { weather: Weather | null }) {
   )
 }
 
-/** "Stops are far apart — GrabBike saves ~25 min" with a one-tap switch. */
+/**
+ * "Stops are far apart — a motorbike saves ~25 min" or "rush hour — leave at 19:00" with a one-tap fix
+ * (switch transport or departure time).
+ */
 export function TransportHintCard({
   start,
   stops,
@@ -45,17 +48,27 @@ export function TransportHintCard({
   people: number
   order?: string[] | null
 }) {
-  const { t, lang, travel, setTransport } = useQuest()
+  const { t, lang, travel, setTransport, setDepartAt } = useQuest()
   const [dismissed, setDismissed] = useState<string | null>(null)
   const hint = suggestTransport(start, stops, people, travel, order)
-  const key = hint ? `${travel.transport}>${hint.to}:${stops.length}` : null
+  const key = hint ? `${travel.transport}>${hint.to}:${hint.reason}:${stops.length}` : null
   if (!hint || dismissed === key) return null
 
   const name = TRANSPORT_INFO[lang][hint.to].name
+  const extra = hint.extraCostK > 0 ? money(hint.extraCostK) : null
+  const leaveTime =
+    hint.departAt != null
+      ? new Date(hint.departAt).toLocaleTimeString(lang === 'vi' ? 'vi-VN' : 'en-GB', { hour: '2-digit', minute: '2-digit' })
+      : ''
+  const rush = hint.reason === 'rushCar' || hint.reason === 'rushShift'
   const body =
     hint.reason === 'allClose'
       ? t.hintAllClose
-      : t.hintFar(distance(hint.walkedM), hint.walkMin, distance(hint.longestM), hint.savedMin, hint.extraCostK > 0 ? money(hint.extraCostK) : null)
+      : hint.reason === 'rushCar'
+        ? t.hintRushCar(hint.savedMin, extra)
+        : hint.reason === 'rushShift'
+          ? t.hintRushShift(leaveTime, hint.savedMin)
+          : t.hintFar(distance(hint.walkedM), hint.walkMin, distance(hint.longestM), hint.savedMin, extra)
 
   return (
     <div className="relative rounded-2xl border-2 border-teal/30 bg-teal/5 p-3 pr-9">
@@ -68,16 +81,24 @@ export function TransportHintCard({
       </button>
       <div className="flex items-start gap-2.5">
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-teal text-white">
-          <TransportIcon transport={hint.to} className="h-5 w-5" strokeWidth={1.9} />
+          {hint.reason === 'rushShift' ? (
+            <Clock3 className="h-5 w-5" strokeWidth={1.9} />
+          ) : (
+            <TransportIcon transport={hint.to} className="h-5 w-5" strokeWidth={1.9} />
+          )}
         </span>
         <div className="min-w-0 flex-1">
           <p className="mb-1 text-[10px] font-extrabold uppercase tracking-wider text-teal">{t.smartTransportTip}</p>
           <p className="text-[12px] font-medium leading-snug text-ink">{body}</p>
+          {hint.grab && hint.grab.costK > 0 && (
+            <p className="mt-1 text-[11px] leading-snug text-bark/80">{t.hintGrab(`≈${money(hint.grab.costK)}`, hint.grab.peak)}</p>
+          )}
+          {rush && <p className="mt-1 text-[11px] leading-snug text-bark/80">{t.hintRushDetour}</p>}
           <button
-            onClick={() => setTransport(hint.to)}
+            onClick={() => (hint.departAt != null ? setDepartAt(hint.departAt) : setTransport(hint.to))}
             className="mt-2 inline-flex items-center gap-1 rounded-full bg-teal px-3 py-1.5 text-[12px] font-bold text-white transition active:scale-95"
           >
-            {t.switchTo(name)} <ArrowRight className="h-3.5 w-3.5" />
+            {hint.departAt != null ? t.leaveAt(leaveTime) : t.switchTo(name)} <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>

@@ -11,7 +11,7 @@ import { LocationSheet, StartSheet } from './TripSettings'
  * made-up position. Until we have one, this screen asks for location or a start point.
  */
 export function NeedStart() {
-  const { t, area, geo, geoWanted } = useQuest()
+  const { t, center, geo, geoWanted } = useQuest()
   const [sheet, setSheet] = useState<'location' | 'start' | null>(null)
   const locating = geoWanted && geo.status === 'asking'
   const blocked = geoWanted && (geo.status === 'denied' || geo.status === 'unavailable')
@@ -43,7 +43,7 @@ export function NeedStart() {
       </div>
       {sheet === 'location' && <LocationSheet onClose={() => setSheet(null)} onPickStart={() => setSheet('start')} />}
       {sheet === 'start' && (
-        <StartSheet area={area} onClose={() => setSheet(null)} onUseLocation={() => setSheet('location')} />
+        <StartSheet around={center} onClose={() => setSheet(null)} onUseLocation={() => setSheet('location')} />
       )}
     </div>
   )

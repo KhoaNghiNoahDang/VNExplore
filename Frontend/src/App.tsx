@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import AppShell from './components/AppShell'
+import StartupPrompts from './components/StartupPrompts'
 import { RequireStart } from './components/NeedStart'
 import TabBar from './components/TabBar'
 import AskPage from './pages/AskPage'
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <TabBar />
+      <StartupPrompts />
     </AppShell>
   )
 }

@@ -9,12 +9,15 @@ import { supabase } from './supabase'
  */
 
 export type TimerMode = 'off' | 'stopwatch' | 'countdown'
+/** explore: roles, missions, shared puzzles. easy: friends following the same route, nothing else. */
+export type PartyMode = 'explore' | 'easy'
 
 export interface Party {
   id: string
   code: string
   hostId: string
   title: string | null
+  mode: PartyMode
   area: Area
   stopIds: string[]
   transport: Transport
@@ -60,6 +63,7 @@ const toParty = (r: Row): Party => ({
   code: String(r.code),
   hostId: String(r.host_id),
   title: (r.title as string | null) ?? null,
+  mode: r.mode === 'easy' ? 'easy' : 'explore',
   area: r.area as Area,
   stopIds: (r.stop_ids as string[]) ?? [],
   transport: r.transport as Transport,
@@ -90,6 +94,7 @@ function newCode(): string {
 
 export interface NewParty {
   title: string
+  mode: PartyMode
   area: Area
   stopIds: string[]
   transport: Transport
@@ -111,6 +116,7 @@ export async function createParty(p: NewParty): Promise<{ id: string; code: stri
       .insert({
         code,
         title: p.title.slice(0, 120),
+        mode: p.mode,
         area: p.area,
         stop_ids: p.stopIds.slice(0, 12),
         transport: p.transport,
@@ -129,6 +135,35 @@ export async function createParty(p: NewParty): Promise<{ id: string; code: stri
     return { id: String(data.id), code: String(data.code) }
   }
   return 'unknown'
+}
+
+/** What the link shows before joining: the route and how full the party is (no member names). */
+export interface PartyPreview {
+  title: string | null
+  mode: PartyMode
+  stopIds: string[]
+  transport: Transport
+  hours: number
+  status: Party['status']
+  members: number
+  maxMembers: number
+}
+
+export async function previewParty(code: string): Promise<PartyPreview | null> {
+  if (!supabase) return null
+  const { data, error } = await supabase.rpc('party_preview', { p_code: code })
+  const r = (Array.isArray(data) ? data[0] : data) as Row | undefined
+  if (error || !r) return null
+  return {
+    title: (r.title as string | null) ?? null,
+    mode: r.mode === 'easy' ? 'easy' : 'explore',
+    stopIds: (r.stop_ids as string[]) ?? [],
+    transport: r.transport as Transport,
+    hours: Number(r.hours),
+    status: r.status as Party['status'],
+    members: Number(r.members),
+    maxMembers: Number(r.max_members),
+  }
 }
 
 export async function joinParty(code: string, name: string): Promise<string | PartyError> {

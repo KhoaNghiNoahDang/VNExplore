@@ -15,6 +15,7 @@ import {
   MapPin,
   Navigation,
   Pause,
+  Star,
   Volume2,
   Wallet,
 } from 'lucide-react'
@@ -37,8 +38,9 @@ import TopBar from '../components/TopBar'
 import { missionFor } from '../data/roles'
 import { distance, minutes, moneyRange } from '../lib/format'
 import { formatOpeningHours } from '../lib/hours'
-import { googleMapsUrl, shuffledOrder, storyOf } from '../lib/quest'
-import { distanceM, estimateLeg } from '../lib/travel'
+import { googleMapsUrl, quizOf, shuffledOrder, storyOf } from '../lib/quest'
+import { arrivalRadiusM, crowMetres, isAtPlace } from '../lib/arrival'
+import { estimateLeg, firstLeg } from '../lib/travel'
 import { useNarration } from '../lib/useNarration'
 import { useQuest } from '../store/QuestContext'
 import type { Lang, Place, Role } from '../types'
@@ -92,18 +94,22 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const prev = index === 0 ? (journey!.start ?? start) : stops[index - 1]
   const people = intent!.people
   const leg = useMemo(
-    () => estimateLeg(prev, place, travel.transport, new Date(), people),
+    () => (index === 0 ? firstLeg : estimateLeg)(prev, place, travel.transport, new Date(), people),
     [prev, place, travel.transport, people],
   )
   const here = geo.status === 'on' && geo.position ? geo.position : null
   // distanceM() pads for street detours; undo that for "how far am I, as the crow flies".
-  const crowM = here ? distanceM(here, place) / 1.3 : null
+  const crowM = here ? crowMetres(here, place) : null
+  // No cheating: "I'm here" only works when the phone puts you at the place. Elsewhere: skip it.
+  const atPlace = isAtPlace(place, here, geo.accuracyM)
+  const radiusM = arrivalRadiusM(place)
+  const [justStamped, setJustStamped] = useState(false)
   // Transport actually used on every leg of the journey (some are forced to walk).
   const journeyStart = journey!.start ?? start
   const legModes = useMemo(
     () =>
       stops.map(
-        (s, k) => estimateLeg(k === 0 ? journeyStart : stops[k - 1], s, travel.transport, new Date(), people).transport,
+        (s, k) => (k === 0 ? firstLeg(journeyStart, s, travel.transport, new Date(), people) : estimateLeg(stops[k - 1], s, travel.transport, new Date(), people)).transport,
       ),
     [stops, journeyStart, travel.transport, people],
   )
@@ -111,6 +117,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const legPoints = useMemo(() => [prev, place, ...(here ? [here] : [])], [prev, place, here])
 
   const onArrive = () => {
+    if (!atPlace) return
+    setJustStamped(true)
     arrive(place.id)
     if (party) void markArrived(party.id, place.id)
     // Listen mode: the story plays by itself on arrival (inside the tap, so browsers allow audio).
@@ -119,8 +127,22 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
 
   // Auto-stamp when the phone says we're there (reasonably accurate fix, within ~50 m).
   useEffect(() => {
-    if (!arrived && crowM !== null && crowM <= 50 && (geo.accuracyM ?? 999) <= 100) onArrive()
-  }, [arrived, crowM])
+    if (!arrived && atPlace && crowM !== null && crowM <= 50 && (geo.accuracyM ?? 999) <= 100) onArrive()
+  }, [arrived, crowM, atPlace])
+
+  // Why the stamp is locked, and the way out (turn on location, or skip the stop).
+  const lockHint =
+    geo.status === 'on' && crowM !== null ? (
+      t.stampTooFar(distance(crowM), radiusM)
+    ) : geo.status === 'asking' ? (
+      t.stampLocating
+    ) : geo.status === 'denied' || geo.status === 'unavailable' ? (
+      t.stampNoLocation
+    ) : (
+      <button onClick={() => setGeoWanted(true)} className="inline-flex items-center gap-1.5 font-bold text-teal underline underline-offset-2">
+        <LocateFixed className="h-3.5 w-3.5" /> {t.stampNeedsLocation}
+      </button>
+    )
 
   const next = () => {
     narration.stop()
@@ -157,7 +179,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
         >
           <Navigation className="h-4 w-4" /> {t.directions}
         </a>
-        <PrimaryButton onClick={onArrive}>
+        <PrimaryButton onClick={onArrive} disabled={!atPlace}>
           <MapPin className="h-4 w-4" /> {t.imHere}
         </PrimaryButton>
       </div>
@@ -268,7 +290,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
         ) : (
           <>
             <div className="flex items-center gap-4 rounded-2xl border-2 border-sand bg-white p-3">
-              <Stamp place={place} index={index} gold={hasItem} size="sm" />
+              <Stamp place={place} index={index} gold={hasItem} fresh={justStamped} />
               <div className="flex-1">
                 <div className="flex items-center gap-1 text-sm font-bold text-teal">
                   <CircleCheck className="h-4 w-4" /> {t.stamped}
@@ -289,8 +311,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
             {coop && <CoopChallenge place={place} state={ps!} meId={meId} />}
 
             {missionActive && !hasItem && !skippedMission && mission &&
-              (place.challenge && !party ? (
-                <Challenge place={place} lang={lang} onSolved={doMission} onSkip={() => setSkippedMission(true)} />
+              (quizOf(place).length && !party ? (
+                <Quiz place={place} lang={lang} onDone={doMission} onSkip={() => setSkippedMission(true)} />
               ) : (
                 // Quick places have no quiz: the traveller confirms they did the mission.
                 <div className="flex gap-2">
@@ -342,6 +364,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
             ) : (
               <>
                 {storyUnlocked && <InfoGrid place={place} people={people} lang={lang} />}
+                {/* Party stops use the team puzzle instead; elsewhere the quiz is optional once the mission is done. */}
+                {!party && !(missionActive && !hasItem && !skippedMission && mission) && <QuizPanel place={place} lang={lang} />}
                 <PlaceReportPrompt place={place} journeyStartedAt={journey!.startedAt} />
               </>
             )}
@@ -356,10 +380,14 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
           <PrimaryButton onClick={next}>{isLast ? t.finishJourney : t.nextStop}</PrimaryButton>
         ) : (
           <>
-            <PrimaryButton onClick={onArrive}>
+            {!atPlace && <p className="mb-2 text-center text-[11px] leading-snug text-bark/75" role="status">{lockHint}</p>}
+            <PrimaryButton onClick={onArrive} disabled={!atPlace}>
               <MapPin className="h-4 w-4" /> {t.imHere}
             </PrimaryButton>
-            <button onClick={next} className="mt-2 w-full text-center text-[11px] font-bold opacity-50 hover:opacity-80">
+            <button
+              onClick={next}
+              className={`mt-2 w-full text-center text-[12px] font-bold ${atPlace ? 'opacity-50 hover:opacity-80' : 'rounded-xl border-2 border-sand py-2 text-bark hover:border-bark/40'}`}
+            >
               {t.skipStop}
             </button>
           </>
@@ -394,55 +422,143 @@ function MissionBubble({ role, task, item, lang }: { role: Role; task: string; i
   )
 }
 
-function Challenge({
+/**
+ * A short quiz at a stop: one question at a time, a hint after a wrong try, then the right answer
+ * with why it is right. Ends with a first-try score. In Explore mode finishing earns the role's item.
+ */
+function Quiz({
   place,
   lang,
-  onSolved,
+  onDone,
   onSkip,
+  doneLabel,
 }: {
   place: Place
   lang: Lang
-  onSolved: () => void
-  onSkip: () => void
+  /** Called from the score screen; omitted = the score screen is the end. */
+  onDone?: () => void
+  onSkip?: () => void
+  doneLabel?: string
 }) {
   const { t } = useQuest()
+  const questions = useMemo(() => quizOf(place), [place])
+  const [step, setStep] = useState(0)
   const [wrong, setWrong] = useState<number[]>([])
-  const c = place.challenge!
-  const order = useMemo(() => shuffledOrder(c.options.length, place.id), [c, place.id])
+  const [solved, setSolved] = useState(false)
+  const [score, setScore] = useState(0)
+  const n = questions.length
+  const finished = step >= n
+  const q = questions[Math.min(step, n - 1)]
+  const order = useMemo(() => shuffledOrder(q.options.length, `${place.id}#${step}`), [q, place.id, step])
+
+  const pick = (k: number) => {
+    if (solved) return
+    if (k !== q.answer) return setWrong((w) => [...w, k])
+    setSolved(true)
+    if (!wrong.length) setScore((s) => s + 1)
+  }
+  const next = () => {
+    setStep((i) => i + 1)
+    setWrong([])
+    setSolved(false)
+  }
+
+  if (finished) {
+    return (
+      <div className="rounded-2xl border-2 border-ink bg-white p-4 text-center">
+        <div className="text-[10px] font-bold uppercase tracking-widest text-brick">{t.openQuiz(n)}</div>
+        <div className="mt-2 flex justify-center gap-1" aria-hidden>
+          {questions.map((_, i) => (
+            <Star key={i} className={`h-5 w-5 ${i < score ? 'fill-sun text-sun-dark' : 'text-sand'}`} />
+          ))}
+        </div>
+        <p className="mt-2 text-sm font-bold">{t.quizScore(score, n)}</p>
+        <p className="mt-0.5 text-[12px] opacity-70">{t.quizCheer(score, n)}</p>
+        {onDone && (
+          <PrimaryButton className="mt-3" onClick={onDone}>
+            <Gift className="h-4 w-4" /> {doneLabel ?? t.claimReward}
+          </PrimaryButton>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="rounded-2xl border-2 border-ink bg-white p-4">
-      <div className="text-[10px] font-bold uppercase tracking-widest text-brick">{t.challengeTitle}</div>
-      <p className="mt-1 text-sm font-bold leading-snug">{c.prompt[lang]}</p>
+      <div className="flex items-center justify-between gap-2 text-[10px] font-bold uppercase tracking-widest">
+        <span className="text-brick">{q.kind ? t.quizKind[q.kind] : t.challengeTitle}</span>
+        {n > 1 && <span className="opacity-50">{t.questionOf(step + 1, n)}</span>}
+      </div>
+      <p className="mt-1 text-sm font-bold leading-snug">{q.prompt[lang]}</p>
       <div className="mt-3 space-y-2">
         {order.map((k) => {
           const isWrong = wrong.includes(k)
+          const isRight = solved && k === q.answer
           return (
             <button
               key={k}
-              disabled={isWrong}
-              onClick={() => (k === c.answer ? onSolved() : setWrong((w) => [...w, k]))}
-              className={`w-full rounded-xl border-2 px-3 py-2.5 text-left text-[13px] font-medium transition ${
-                isWrong ? 'border-brick/30 bg-brick/5 line-through opacity-50' : 'border-sand hover:border-ink'
+              disabled={isWrong || solved}
+              onClick={() => pick(k)}
+              className={`flex w-full items-center gap-2 rounded-xl border-2 px-3 py-2.5 text-left text-[13px] font-medium transition ${
+                isRight
+                  ? 'border-teal bg-teal/10 font-bold text-teal'
+                  : isWrong
+                    ? 'border-brick/30 bg-brick/5 line-through opacity-50'
+                    : solved
+                      ? 'border-sand opacity-50'
+                      : 'border-sand hover:border-ink'
               }`}
             >
-              {c.options[k][lang]}
+              {isRight && <CircleCheck className="h-4 w-4 shrink-0" />}
+              {q.options[k][lang]}
             </button>
           )
         })}
       </div>
-      {wrong.length > 0 && (
+      {!solved && wrong.length > 0 && (
         <p className="mt-3 flex items-start gap-1.5 text-[12px] text-brick">
           <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
-            {t.wrong} <b>{t.hint}:</b> {c.hint[lang]}
+            {t.wrong} <b>{t.hint}:</b> {q.hint[lang]}
           </span>
         </p>
       )}
-      <button onClick={onSkip} className="mt-3 text-[11px] font-bold opacity-50 hover:opacity-80">
-        {t.skipMission}
-      </button>
+      {solved && (
+        <div className="mt-3 rounded-xl bg-teal/10 p-3 text-[12px] leading-snug">
+          <div className="font-bold text-teal">{wrong.length ? t.whyAnswer : t.correct}</div>
+          {q.explain && <p className="mt-1">{q.explain[lang]}</p>}
+          <PrimaryButton className="mt-3" onClick={next}>
+            {step + 1 < n ? t.nextQuestion : t.seeScore}
+          </PrimaryButton>
+        </div>
+      )}
+      {onSkip && !solved && (
+        <button onClick={onSkip} className="mt-3 text-[11px] font-bold opacity-50 hover:opacity-80">
+          {t.skipMission}
+        </button>
+      )}
     </div>
+  )
+}
+
+/** The quiz outside an Explore mission: optional, folded until opened. */
+function QuizPanel({ place, lang }: { place: Place; lang: Lang }) {
+  const { t } = useQuest()
+  const [open, setOpen] = useState(false)
+  const n = quizOf(place).length
+  if (!n) return null
+  return open ? (
+    <Quiz place={place} lang={lang} />
+  ) : (
+    <button
+      onClick={() => setOpen(true)}
+      className="flex w-full items-center justify-between rounded-2xl border-2 border-sand bg-white p-4 text-left text-sm font-bold"
+    >
+      <span className="flex items-center gap-2">
+        <Lightbulb className="h-4 w-4 text-brick" /> {t.openQuiz(n)}
+      </span>
+      <ChevronDown className="h-4 w-4" />
+    </button>
   )
 }
 

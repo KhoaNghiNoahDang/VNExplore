@@ -1,15 +1,16 @@
 import { useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { getRole } from '../data/roles'
-import { fetchEvents, fetchPlaces } from '../lib/api'
-import { AREAS, planArea } from '../lib/area'
+import { EVENTS } from '../data/events'
+import { loadOpenPlaces, PLACES } from '../data/places'
+import { planAround, type Plan, type Region } from '../lib/area'
 import { eventStopById, eventsInWindow, isEventId, type EventOption } from '../lib/events'
 import type { PlanContext } from '../lib/quest'
-import { loadSeries, weatherAt, type Weather } from '../lib/weather'
+import { loadSeries, weatherAt, weatherCell, type Series, type Weather } from '../lib/weather'
 import type { Travel } from '../lib/quest'
-import { distanceM, estimateLeg } from '../lib/travel'
+import { distanceM, firstLeg } from '../lib/travel'
 import { useGeolocation, type Geo } from '../lib/useGeolocation'
 import { STRINGS } from '../i18n/strings'
-import type { Area, Intent, Journey, Lang, LatLng, Mode, Place, QuestEvent, Role, Transport } from '../types'
+import type { Intent, Journey, Lang, LatLng, Mode, Place, QuestEvent, Role, Transport } from '../types'
 import { QuestCtx as Ctx } from './ctx'
 
 interface Saved {
@@ -43,22 +44,25 @@ interface Saved {
 export interface QuestState extends Saved {
   /** Every approved place (look-ups by id: journeys, quests, passport), plus the event sittings in play. */
   places: Place[]
-  /** Events that fit the current trip (departure → departure + requested hours) in the plan's area. */
+  /** Events that fit the current trip (departure → departure + requested hours). */
   eventOptions: EventOption[]
   /** Start and end of the current trip (ms). */
   tripWindow: { from: number; to: number }
-  /** Places in the current plan's area — use these for ranking and suggestions. */
+  /** Places around the current plan's centre — use these for ranking and suggestions. */
   areaPlaces: Place[]
-  area: Area
+  /** The named region the plan is in ("Ba Vì"), or null anywhere else. */
+  region: Region | null
+  /** Where the current plan looks for places (see lib/area.ts). */
+  center: LatLng
   loading: boolean
   /** Where the plan starts: the point the traveller picked, else their real position. null = not known yet. */
   start: LatLng | null
-  /** Weather in the plan's area at departure (null while loading / offline). */
+  /** Weather around the plan's centre at departure (null while loading / offline). */
   weather: Weather | null
-  /** Weather + departure time for ranking places in an area. */
-  contextFor: (area: Area) => PlanContext
-  /** Area + start + places for a request that isn't saved yet (the Ask page preview). */
-  planFor: (asked: Area | null | undefined) => ReturnType<typeof planArea>
+  /** Weather + departure time around a point, for ranking places (loads the forecast if needed). */
+  contextFor: (at: LatLng) => PlanContext
+  /** Centre + start + places for a request that isn't saved yet (the Ask page preview). */
+  planFor: (asked: Pick<Intent, 'area' | 'near'> | null | undefined, transport?: Transport) => Plan
   travel: Travel
   geo: Geo
   role: Role | null
@@ -120,16 +124,21 @@ function load(): Saved {
 
 export function QuestProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<Saved>(load)
-  const [catalog, setCatalog] = useState<Place[]>([])
-  const [events, setEvents] = useState<QuestEvent[]>([])
+  // Content ships with the app (Data/sheets → export_app.mjs → data/generated/*.json). Curated places
+  // are there at once; open-map-data places arrive as a second chunk a moment later.
+  const [catalog, setCatalog] = useState<Place[]>(PLACES)
   const [loading, setLoading] = useState(true)
+  const events: QuestEvent[] = EVENTS
 
   useEffect(() => {
-    fetchPlaces().then((p) => {
-      setCatalog(p)
-      setLoading(false)
-    })
-    fetchEvents().then(setEvents)
+    let alive = true
+    loadOpenPlaces()
+      .then((open) => alive && setCatalog([...PLACES, ...open]))
+      .catch((err) => console.warn('Open-data places unavailable:', err))
+      .finally(() => alive && setLoading(false))
+    return () => {
+      alive = false
+    }
   }, [])
 
   useEffect(() => {
@@ -196,24 +205,36 @@ export function QuestProvider({ children }: { children: ReactNode }) {
     if (next) patch(() => ({ lastFix: next }))
   }, [geo, patch])
 
-  // Forecasts for both areas (cached 30 min); the hour is picked from the departure time.
-  type Series = Awaited<ReturnType<typeof loadSeries>>
-  const [series, setSeries] = useState<Partial<Record<Area, Series>>>({})
-  useEffect(() => {
-    AREAS.forEach((a) => loadSeries(a).then((s) => s && setSeries((cur) => ({ ...cur, [a]: s }))))
+  // Forecasts around the points being planned (cached 30 min per ~11 km cell); the hour is picked
+  // from the departure time.
+  const [series, setSeries] = useState<Record<string, Series>>({})
+  const asked = useRef(new Set<string>())
+  const wantWeather = useCallback((at: LatLng) => {
+    const cell = weatherCell(at)
+    if (asked.current.has(cell)) return
+    asked.current.add(cell)
+    loadSeries(at).then((s) => {
+      if (s) setSeries((cur) => ({ ...cur, [cell]: s }))
+      else asked.current.delete(cell) // offline: try again on the next request
+    })
   }, [])
 
   // A picked start point counts like being there; otherwise the live location (the last fix while
   // the first new one is on its way). Never a made-up position.
   const origin = saved.customStart ?? here ?? (saved.geoWanted && geo.status !== 'denied' ? saved.lastFix : null)
-  const planFor = useCallback((asked: Area | null | undefined) => planArea(asked, origin, catalog), [origin, catalog])
-  const plan = useMemo(() => planFor(saved.intent?.area), [planFor, saved.intent?.area])
-
   const travel = useMemo<Travel>(() => {
     // A planned time that has already passed means "now".
     const departAt = saved.departAt && saved.departAt > Date.now() - 30 * 60_000 ? saved.departAt : null
     return { transport: saved.transport ?? saved.intent?.transport ?? 'walk', departAt }
   }, [saved.transport, saved.intent, saved.departAt])
+
+  const planFor = useCallback(
+    (asked: Pick<Intent, 'area' | 'near'> | null | undefined, transport: Transport = travel.transport) =>
+      planAround(asked, origin, catalog, transport),
+    [origin, catalog, travel.transport],
+  )
+  const plan = useMemo(() => planFor(saved.intent), [planFor, saved.intent])
+  useEffect(() => wantWeather(plan.center), [wantWeather, plan.center])
 
   // Re-evaluated every minute so "now" trips don't keep offering a show that already started.
   const [tick, setTick] = useState(() => Math.floor(Date.now() / 60_000))
@@ -225,11 +246,13 @@ export function QuestProvider({ children }: { children: ReactNode }) {
     const from = travel.departAt ?? tick * 60_000
     return { from, to: from + (saved.intent?.hours ?? 3) * 3_600_000 }
   }, [travel.departAt, tick, saved.intent?.hours])
+  // Events in the same neighbourhood as the plan's places (around Hoan Kiem when the request names it,
+  // even if the traveller starts in Ha Dong), that they can still reach from their start in time.
   const eventOptions = useMemo(
     () =>
-      eventsInWindow(events, tripWindow.from, tripWindow.to, (p) =>
-        plan.start ? estimateLeg(plan.start, p, travel.transport, new Date(tripWindow.from), 1).minutes : 0),
-    [events, plan.start, travel.transport, tripWindow],
+      eventsInWindow(events.filter((e) => distanceM(plan.center, e) <= plan.radiusM), tripWindow.from, tripWindow.to, (p) =>
+        plan.start ? firstLeg(plan.start, p, travel.transport, new Date(tripWindow.from), 1).minutes : 0),
+    [events, plan.center, plan.radiusM, plan.start, travel.transport, tripWindow],
   )
   // Catalogue + every event sitting the traveller can see, picked, or is walking to.
   const places = useMemo(() => {
@@ -251,13 +274,15 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       stopById: (id: string) => places.find((p) => p.id === id) ?? (isEventId(id) ? eventStopById(id, events) : null),
       eventOptions,
       tripWindow,
-      weather: weatherAt(series[plan.area] ?? null, new Date(travel.departAt ?? Date.now())),
-      contextFor: (a: Area) => {
+      weather: weatherAt(series[weatherCell(plan.center)] ?? null, new Date(travel.departAt ?? Date.now())),
+      contextFor: (where: LatLng) => {
+        wantWeather(where)
         const at = new Date(travel.departAt ?? Date.now())
-        return { at, weather: weatherAt(series[a] ?? null, at) }
+        return { at, weather: weatherAt(series[weatherCell(where)] ?? null, at) }
       },
       areaPlaces: plan.places,
-      area: plan.area,
+      region: plan.region,
+      center: plan.center,
       start: plan.start,
       planFor,
       loading,
@@ -266,7 +291,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       role: getRole(saved.roleId),
       t: STRINGS[saved.lang],
     }),
-    [saved, actions, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series],
+    [saved, actions, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series, wantWeather],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

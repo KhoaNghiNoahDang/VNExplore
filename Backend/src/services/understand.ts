@@ -36,7 +36,8 @@ export type Understood = z.infer<typeof Understood>
 
 export interface AdviceContext {
   language: 'vi' | 'en'
-  area: 'hoan-kiem' | 'ba-vi'
+  /** The plan's region id, or 'near-start' when the plan follows the traveller's start point. */
+  area: string
   transport: 'walk' | 'motorbike' | 'grabbike' | 'car'
   people: number
   hours: number
@@ -62,7 +63,8 @@ Rules:
   "area" only when a place above is named, "transport" only when a way of travelling is named.
 - "people": count only when stated or obvious ("bố mẹ và tôi" = 3, "cặp đôi" = 2). "cả ngày" = 8 hours, "nửa ngày" = 4.
 - "grab" alone: "grabbike" for 1–2 people, "car" for 3 or more. Taxi = "car".
-- The optional <context> is trusted trip data supplied by the app: selected language, planning area,
+- The optional <context> is trusted trip data supplied by the app: selected language, planning area
+  ("near-start" = around wherever the traveller starts, not a fixed place),
   departure hour, transport, group size, duration and weather. Use it only to write reply_vi/reply_en.
 - Each reply should acknowledge the traveller naturally, may contain one brief exclamation, and give
   exactly one practical suggestion based on the supplied context (weather first, then transport, time,
