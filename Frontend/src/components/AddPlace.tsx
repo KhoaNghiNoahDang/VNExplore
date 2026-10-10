@@ -1,5 +1,6 @@
-import { lazy, Suspense, useState } from 'react'
-import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, MapPin, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
+import { geocodeSearch, type GeoResult } from '../lib/backend'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
 import { useQuest } from '../store/QuestContext'
 import type { LatLng, Place } from '../types'
@@ -41,8 +42,14 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
   const { t, lang, geo, addMyPlace } = useQuest()
   // Open the map where the traveller is (they are often standing at the place), else on the plan.
   const first = geo.status === 'on' && geo.position ? geo.position : around
-  const [view] = useState({ lat: first.lat, lng: first.lng, zoom: 16 })
+  const [view, setView] = useState<LatLng & { zoom: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
   const [point, setPoint] = useState<LatLng>({ lat: first.lat, lng: first.lng })
+  /** How the pin got where it is: an address result (its label), the map ('map'), or not set yet (null). */
+  const [pinned, setPinned] = useState<string | null>(null)
+  // Typing the address looks it up; picking a result moves the pin there (it can still be dragged).
+  const [found, setFound] = useState<GeoResult[]>([])
+  const [searching, setSearching] = useState(false)
+  const [lookup, setLookup] = useState(false)
   const [name, setName] = useState('')
   const [kind, setKind] = useState<SuggestedKind | null>(null)
   const [address, setAddress] = useState('')
@@ -62,6 +69,37 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
   const [outcome, setOutcome] = useState<'sent' | 'added' | 'addedSent' | 'addedNotSent' | null>(null)
   const [clientSuggestionId, setClientSuggestionId] = useState(() => crypto.randomUUID())
 
+  useEffect(() => {
+    const q = address.trim()
+    if (!lookup || q.length < 3) {
+      setFound([])
+      setSearching(false)
+      return
+    }
+    setSearching(true)
+    let alive = true
+    const timer = setTimeout(() => {
+      geocodeSearch(q, lang).then((r) => {
+        if (!alive) return
+        setFound(r.slice(0, 5))
+        setSearching(false)
+      })
+    }, 450)
+    return () => {
+      alive = false
+      clearTimeout(timer)
+    }
+  }, [address, lookup, lang])
+
+  const pinAt = (r: GeoResult) => {
+    const at = { lat: r.lat, lng: r.lng }
+    setPoint(at)
+    setView({ ...at, zoom: 17, nonce: Date.now() })
+    setPinned(r.label || r.name)
+    setLookup(false)
+    setFound([])
+  }
+
   const kinds: { kind: SuggestedKind; icon: typeof Coffee }[] = [
     { kind: 'food', icon: Coffee },
     { kind: 'sight', icon: Landmark },
@@ -78,6 +116,8 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     setPriceMax('')
     setContact('')
     setStay('')
+    setPinned(null)
+    setFound([])
     setClientSuggestionId(crypto.randomUUID())
     setSent(false)
     setOutcome(null)
@@ -91,6 +131,19 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     const max = priceMax ? Math.round(Number(priceMax) / 1000) : null
     if (min != null && max != null && max < min) return setError(t.addPlaceRangeError)
     if (forTrip && !toTrip && !share) return setError(t.addPlaceNeedOne)
+    // An address typed but no result picked: use the best match for it.
+    let at = point
+    if (!pinned && address.trim().length >= 3) {
+      setSubmitting(true)
+      const best = (await geocodeSearch(address.trim(), lang))[0]
+      setSubmitting(false)
+      if (best) {
+        at = { lat: best.lat, lng: best.lng }
+        pinAt(best)
+      }
+    }
+    // A stop needs a real position: without an address or a tap on the map we only know where the phone is.
+    if (forTrip && toTrip && !pinned && at === point) return setError(t.addPlaceNoPin)
     if (forTrip && toTrip) {
       // A stop of the trip right away: travel time comes from the distance, cost from the prices given.
       const lo = min ?? max
@@ -106,8 +159,8 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
           priceCheckedOn: null,
           name: { vi: name.trim(), en: name.trim() },
           nameVi: name.trim(),
-          lat: Number(point.lat.toFixed(6)),
-          lng: Number(point.lng.toFixed(6)),
+          lat: Number(at.lat.toFixed(6)),
+          lng: Number(at.lng.toFixed(6)),
           priceMin: lo ?? 0,
           priceMax: hi ?? 0,
           priceUnknown: lo == null,
@@ -139,8 +192,8 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         clientSuggestionId,
         name: name.trim(),
         kind,
-        lat: Number(point.lat.toFixed(6)),
-        lng: Number(point.lng.toFixed(6)),
+        lat: Number(at.lat.toFixed(6)),
+        lng: Number(at.lng.toFixed(6)),
         address: address.trim() || null,
         description: description.trim() || null,
         openingHours: hours.trim() || null,
@@ -232,6 +285,45 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         </div>
       </fieldset>
 
+      <label className="mt-4 block text-[12px] font-bold text-ink/80">
+        {t.addPlaceAddress}
+        <input
+          className={fieldClass}
+          maxLength={200}
+          value={address}
+          onChange={(e) => {
+            setAddress(e.target.value)
+            setLookup(true)
+            if (pinned && pinned !== 'map') setPinned(null)
+          }}
+          placeholder={t.addPlaceAddressPh}
+          autoComplete="street-address"
+        />
+      </label>
+      {lookup && address.trim().length >= 3 ? (
+        <ul className="mt-1 space-y-1 rounded-2xl border-2 border-sand bg-white p-1">
+          {found.map((r, i) => (
+            <li key={i}>
+              <button type="button" onClick={() => pinAt(r)} className="flex w-full items-start gap-2.5 rounded-xl p-2 text-left hover:bg-cream">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brick" />
+                <span className="min-w-0">
+                  <span className="block truncate text-[13px] font-bold">{r.name}</span>
+                  <span className="block truncate text-[11px] text-bark/70">{r.label}</span>
+                </span>
+              </button>
+            </li>
+          ))}
+          {searching && (
+            <li className="flex items-center gap-2 p-2 text-[12px] text-bark/60">
+              <Loader2 className="h-4 w-4 animate-spin" /> {t.searching}
+            </li>
+          )}
+          {!searching && !found.length && <li className="p-2 text-[12px] text-bark/70">{t.addPlaceNoAddress}</li>}
+        </ul>
+      ) : (
+        <p className="mt-1 text-[11px] text-bark/60">{t.addPlaceAddressHint}</p>
+      )}
+
       <div className="mt-4 text-[12px] font-bold text-ink/80">{t.addPlaceWhere}</div>
       <div className="relative mt-1 h-52 overflow-hidden rounded-2xl border-2 border-sand bg-cream">
         {mapFailed ? (
@@ -248,18 +340,19 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
               point={point}
               view={view}
               userPos={geo.status === 'on' ? geo.position : null}
-              onPick={setPoint}
+              onPick={(p) => {
+                setPoint(p)
+                setPinned('map')
+              }}
               onFail={() => setMapFailed(true)}
             />
           </Suspense>
         )}
       </div>
-      <p className="mt-1 text-center text-[11px] text-bark/60">{t.addPlaceMapHint}</p>
+      <p className={`mt-1 text-center text-[11px] ${pinned && pinned !== 'map' ? 'font-bold text-teal' : 'text-bark/60'}`}>
+        {pinned && pinned !== 'map' ? t.addPlacePinned(pinned) : t.addPlaceMapHint}
+      </p>
 
-      <label className="mt-3 block text-[12px] font-bold text-ink/80">
-        {t.addPlaceAddress}
-        <input className={fieldClass} maxLength={200} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t.addPlaceAddressPh} />
-      </label>
 
       <label className="mt-3 block text-[12px] font-bold text-ink/80">
         {t.addPlaceDescription}
