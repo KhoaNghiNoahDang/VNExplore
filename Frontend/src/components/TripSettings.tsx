@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { Check, ChevronRight, Clock3, LocateFixed, LocateOff, Loader2, MapPin, Navigation, Search, ShieldCheck, Stamp as StampIcon, X } from 'lucide-react'
 import { TRANSPORTS } from '../data/transport'
 import { TRANSPORT_INFO } from '../i18n/strings'
@@ -256,10 +256,8 @@ export function StartSheet({ around, onClose, onUseLocation }: { around: LatLng;
   const { t, lang, places, customStart, setCustomStart, geo } = useQuest()
   // Open the map on the traveller (or their earlier pick); the plan's centre is only a map view.
   const first = customStart ?? (geo.status === 'on' && geo.position ? geo.position : around)
-  const [center, setCenter] = useState<LatLng & { zoom?: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
+  const [view, setView] = useState<LatLng & { zoom?: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
   const [point, setPoint] = useState<LatLng>({ lat: first.lat, lng: first.lng })
-  const pointRef = useRef(point)
-  pointRef.current = point
   const [chosenName, setChosenName] = useState<string | null>(customStart?.label ?? null)
   const [query, setQuery] = useState('')
   const [remote, setRemote] = useState<GeoResult[]>([])
@@ -308,7 +306,7 @@ export function StartSheet({ around, onClose, onUseLocation }: { around: LatLng;
   const choose = (c: Candidate) => {
     setPoint(c.at)
     setChosenName(c.name)
-    setCenter({ ...c.at, zoom: 17, nonce: Date.now() })
+    setView({ ...c.at, zoom: 17, nonce: Date.now() })
     setQuery('')
   }
   const near = nearLabel(point, places, lang)
@@ -370,10 +368,12 @@ export function StartSheet({ around, onClose, onUseLocation }: { around: LatLng;
                 }
               >
                 <PickMap
-                  center={center}
+                  point={point}
+                  view={view}
+                  userPos={geo.status === 'on' ? geo.position : null}
                   onPick={(p) => {
-                    // A real move (not just the fly-to we started) drops the searched name.
-                    if (distanceM(p, pointRef.current) > 15) setChosenName(null)
+                    // Moved by hand: the searched name no longer applies.
+                    setChosenName(null)
                     setPoint(p)
                   }}
                   onFail={() => setMapFailed(true)}
