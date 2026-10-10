@@ -4,7 +4,7 @@ import { CalendarClock, Check, ChevronDown, ExternalLink, Hourglass, MapPin, Plu
 import { CATEGORY_LABEL, TRANSPORT_INFO } from '../i18n/strings'
 import { distance, moneyRange } from '../lib/format'
 import { eventWhen, hanoiClock, linkHost, type EventOption } from '../lib/events'
-import { estimateLeg } from '../lib/travel'
+import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Lang, Place } from '../types'
 import PlaceThumb from './PlaceThumb'
@@ -61,7 +61,7 @@ function EventCard({ option, people }: { option: EventOption; people: number }) 
   const [chosenId, setChosenId] = useState(picked?.id ?? option.sittings[0].id)
   const place = picked ?? option.sittings.find((s) => s.id === chosenId) ?? option.sittings[0]
   const added = !!picked
-  const leg = estimateLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
+  const leg = firstLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
 
   // Switching to another performance of an event that's already in the plan moves it.
   const choose = (s: Place) => {

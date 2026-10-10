@@ -39,7 +39,7 @@ import { missionFor } from '../data/roles'
 import { distance, minutes, moneyRange } from '../lib/format'
 import { formatOpeningHours } from '../lib/hours'
 import { googleMapsUrl, quizOf, shuffledOrder, storyOf } from '../lib/quest'
-import { distanceM, estimateLeg } from '../lib/travel'
+import { distanceM, estimateLeg, firstLeg } from '../lib/travel'
 import { useNarration } from '../lib/useNarration'
 import { useQuest } from '../store/QuestContext'
 import type { Lang, Place, Role } from '../types'
@@ -93,7 +93,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const prev = index === 0 ? (journey!.start ?? start) : stops[index - 1]
   const people = intent!.people
   const leg = useMemo(
-    () => estimateLeg(prev, place, travel.transport, new Date(), people),
+    () => (index === 0 ? firstLeg : estimateLeg)(prev, place, travel.transport, new Date(), people),
     [prev, place, travel.transport, people],
   )
   const here = geo.status === 'on' && geo.position ? geo.position : null
@@ -104,7 +104,7 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const legModes = useMemo(
     () =>
       stops.map(
-        (s, k) => estimateLeg(k === 0 ? journeyStart : stops[k - 1], s, travel.transport, new Date(), people).transport,
+        (s, k) => (k === 0 ? firstLeg(journeyStart, s, travel.transport, new Date(), people) : estimateLeg(stops[k - 1], s, travel.transport, new Date(), people)).transport,
       ),
     [stops, journeyStart, travel.transport, people],
   )

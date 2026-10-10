@@ -1,5 +1,5 @@
 import type { L, LatLng, Place, Transport } from '../types'
-import { distanceM } from './travel'
+import { distanceM, RIDE_THERE_M } from './travel'
 
 /**
  * Plans are not tied to fixed areas: the app looks for places around where the trip happens —
@@ -64,12 +64,12 @@ const MIN_CHOICES = 12
 const MAX_SEARCH_M = 80_000
 
 /** Places around `center`, nearest first, widening the radius when there are too few. */
-export function placesAround(places: Place[], center: LatLng, transport: Transport): Place[] {
+export function placesAround(places: Place[], center: LatLng, transport: Transport): { places: Place[]; radiusM: number } {
   const withM = places.map((p) => [p, distanceM(center, p)] as const).sort((a, b) => a[1] - b[1])
   let radius = SEARCH_M[transport]
   while (radius < MAX_SEARCH_M && withM.filter(([, m]) => m <= radius).length < MIN_CHOICES) radius *= 2
   radius = Math.min(radius, MAX_SEARCH_M)
-  return withM.filter(([, m]) => m <= radius).map(([p]) => p)
+  return { places: withM.filter(([, m]) => m <= radius).map(([p]) => p), radiusM: radius }
 }
 
 export interface Plan {
@@ -80,6 +80,8 @@ export interface Plan {
   /** The traveller's real position or picked start point; null until we have one. */
   start: LatLng | null
   places: Place[]
+  /** How far from the centre the plan looks (distanceM() metres) — events are offered within it too. */
+  radiusM: number
 }
 
 /**
@@ -95,5 +97,14 @@ export function planAround(
   const named = regionById(asked?.area)
   const center = asked?.near ?? named?.center ?? origin ?? DEFAULT_POINT
   const region = asked?.near ? regionAt(asked.near) : (named ?? regionAt(origin))
-  return { region, center, start: origin, places: placesAround(places, center, transport) }
+  return { region, center, start: origin, ...placesAround(places, center, transport) }
+}
+
+/**
+ * Where "nearby" is measured from when ranking places: the start point — unless the plan is in an
+ * area the traveller first rides to (starting in Ha Dong, exploring Hoan Kiem): then its centre, so
+ * the picks sit around the lake rather than on the edge closest to Ha Dong.
+ */
+export function rankFrom(plan: Pick<Plan, 'center' | 'start'>): LatLng {
+  return plan.start && distanceM(plan.start, plan.center) <= RIDE_THERE_M ? plan.start : plan.center
 }

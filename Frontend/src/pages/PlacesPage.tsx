@@ -15,11 +15,12 @@ import { TransportHintCard } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripSummary from '../components/TripSummary'
 import TripChips from '../components/TripChips'
+import { rankFrom } from '../lib/area'
 import { duration, minutes, moneyRange } from '../lib/format'
 import { rankPlaces, suggestTransport, summarize } from '../lib/quest'
 import { eventWhen } from '../lib/events'
 import { buildPlannerReply, buildRouteDetails } from '../lib/plannerReply'
-import { estimateLeg } from '../lib/travel'
+import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 
 export default function PlacesPage() {
@@ -33,7 +34,7 @@ export default function PlacesPage() {
 
   const favIds = mode === 'explore' && role ? role.favPlaces : undefined
   const ranked = useMemo(
-    () => (intent ? rankPlaces(areaPlaces, intent, start, favIds, contextFor(center)) : []),
+    () => (intent ? rankPlaces(areaPlaces, intent, rankFrom({ start, center }), favIds, contextFor(center)) : []),
     [areaPlaces, intent, start, favIds, contextFor, center],
   )
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
@@ -95,7 +96,7 @@ export default function PlacesPage() {
       render: () => (
         <MapPlaceCard
           place={p}
-          leg={estimateLeg(start, p, travel.transport, at, intent.people)}
+          leg={firstLeg(start, p, travel.transport, at, intent.people)}
           people={intent.people}
           added={selected.includes(p.id)}
           onToggle={() => toggle(p.id)}

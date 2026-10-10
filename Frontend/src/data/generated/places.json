@@ -9660,7 +9660,7 @@
  },
  {
   "id": "bao-tang-ha-noi",
-  "area": "hoan-kiem",
+  "area": "nam-tu-liem",
   "kind": "sight",
   "depth": "quick",
   "name": {
@@ -9714,7 +9714,7 @@
  },
  {
   "id": "bao-tang-dan-toc-hoc",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "sight",
   "depth": "quick",
   "name": {
@@ -9822,7 +9822,7 @@
  },
  {
   "id": "bao-tang-thien-nhien",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "sight",
   "depth": "quick",
   "name": {
@@ -9876,7 +9876,7 @@
  },
  {
   "id": "bat-trang-tinh-hoa-lang-nghe",
-  "area": "hoan-kiem",
+  "area": "gia-lam",
   "kind": "sight",
   "depth": "quick",
   "name": {
@@ -9993,7 +9993,7 @@
  },
  {
   "id": "co-loa",
-  "area": "hoan-kiem",
+  "area": "dong-anh",
   "kind": "sight",
   "depth": "quick",
   "name": {
@@ -10265,7 +10265,7 @@
  },
  {
   "id": "g4u-acoustic-cafe",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10318,7 +10318,7 @@
  },
  {
   "id": "trinh-ca-cafe",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10371,7 +10371,7 @@
  },
  {
   "id": "xom-ca-phe",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10477,7 +10477,7 @@
  },
  {
   "id": "trixie-cafe-lounge",
-  "area": "hoan-kiem",
+  "area": "dong-da",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10636,7 +10636,7 @@
  },
  {
   "id": "giang-coffee-ha-dong",
-  "area": "hoan-kiem",
+  "area": "ha-dong",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10690,7 +10690,7 @@
  },
  {
   "id": "ca-phe-cuc-cu",
-  "area": "hoan-kiem",
+  "area": "ha-dong",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10744,7 +10744,7 @@
  },
  {
   "id": "acoustic-coffee-ha-dong",
-  "area": "hoan-kiem",
+  "area": "ha-dong",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10797,7 +10797,7 @@
  },
  {
   "id": "kuku-acoustic-coffee",
-  "area": "hoan-kiem",
+  "area": "dong-da",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10850,7 +10850,7 @@
  },
  {
   "id": "ca-phe-cuoi-ngo",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -10960,7 +10960,7 @@
  },
  {
   "id": "puppets-studio",
-  "area": "hoan-kiem",
+  "area": "dong-da",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11017,7 +11017,7 @@
  },
  {
   "id": "cheapie-coffee-art",
-  "area": "hoan-kiem",
+  "area": "tay-ho",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11185,7 +11185,7 @@
  },
  {
   "id": "photo-time-chua-lang",
-  "area": "hoan-kiem",
+  "area": "dong-da",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11239,7 +11239,7 @@
  },
  {
   "id": "photo-time-xuan-thuy",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11407,7 +11407,7 @@
  },
  {
   "id": "finhay-photobooth-nhat-chieu",
-  "area": "hoan-kiem",
+  "area": "tay-ho",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11464,7 +11464,7 @@
  },
  {
   "id": "finhay-photobooth-duong-khue",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11575,7 +11575,7 @@
  },
  {
   "id": "photobooth-mot-hai-ba-trich-sai",
-  "area": "hoan-kiem",
+  "area": "tay-ho",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11683,7 +11683,7 @@
  },
  {
   "id": "photoism-xuan-thuy",
-  "area": "hoan-kiem",
+  "area": "cau-giay",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11737,7 +11737,7 @@
  },
  {
   "id": "pose-photo",
-  "area": "hoan-kiem",
+  "area": "dong-da",
   "kind": "fun",
   "depth": "quick",
   "name": {
@@ -11791,7 +11791,7 @@
  },
  {
   "id": "photo-story-chua-lang",
-  "area": "hoan-kiem",
+  "area": "dong-da",
   "kind": "fun",
   "depth": "quick",
   "name": {

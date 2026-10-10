@@ -40,7 +40,7 @@ App lấy khung giờ chuyến đi (giờ xuất phát → + số giờ yêu c�
 
 | Cột | Giá trị |
 |---|---|
-| `area` | Nhãn khu vực (`hoan-kiem`, `ba-vi`, `hanoi`…) — app gợi ý mọi sự kiện mà người dùng **kịp tới từ vị trí thật của họ**, không giới hạn khu vực |
+| `area` | Nhãn khu vực (`hoan-kiem`, `ba-vi`, `hanoi`…) — app gợi ý các sự kiện **trong cùng khu với các địa điểm của kế hoạch** (quanh điểm xuất phát, hoặc quanh khu được nêu tên như “Hoàn Kiếm”) mà người dùng **kịp tới từ chỗ họ xuất phát** |
 | `kind` | `show`: phải có mặt trước giờ bắt đầu, ở lại `visit_min` phút · `open`: ghé lúc nào cũng được từ `start_times` đến `end_time` (triển lãm, phố đi bộ) |
 | `category` | music, theatre, film, exhibition, workshop, talk, market, festival, other |
 | `sensitivity` | `ok` hoặc `adult` (quán bar, 18+) |

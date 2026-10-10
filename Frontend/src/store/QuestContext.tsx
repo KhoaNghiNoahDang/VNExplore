@@ -6,7 +6,7 @@ import { eventStopById, eventsInWindow, isEventId, type EventOption } from '../l
 import type { PlanContext } from '../lib/quest'
 import { loadSeries, weatherAt, weatherCell, type Series, type Weather } from '../lib/weather'
 import type { Travel } from '../lib/quest'
-import { distanceM, estimateLeg } from '../lib/travel'
+import { distanceM, firstLeg } from '../lib/travel'
 import { useGeolocation, type Geo } from '../lib/useGeolocation'
 import { STRINGS } from '../i18n/strings'
 import type { Intent, Journey, Lang, LatLng, Mode, Place, QuestEvent, Role, Transport } from '../types'
@@ -240,11 +240,13 @@ export function QuestProvider({ children }: { children: ReactNode }) {
     const from = travel.departAt ?? tick * 60_000
     return { from, to: from + (saved.intent?.hours ?? 3) * 3_600_000 }
   }, [travel.departAt, tick, saved.intent?.hours])
+  // Events in the same neighbourhood as the plan's places (around Hoan Kiem when the request names it,
+  // even if the traveller starts in Ha Dong), that they can still reach from their start in time.
   const eventOptions = useMemo(
     () =>
-      eventsInWindow(events, tripWindow.from, tripWindow.to, (p) =>
-        plan.start ? estimateLeg(plan.start, p, travel.transport, new Date(tripWindow.from), 1).minutes : 0),
-    [events, plan.start, travel.transport, tripWindow],
+      eventsInWindow(events.filter((e) => distanceM(plan.center, e) <= plan.radiusM), tripWindow.from, tripWindow.to, (p) =>
+        plan.start ? firstLeg(plan.start, p, travel.transport, new Date(tripWindow.from), 1).minutes : 0),
+    [events, plan.center, plan.radiusM, plan.start, travel.transport, tripWindow],
   )
   // Catalogue + every event sitting the traveller can see, picked, or is walking to.
   const places = useMemo(() => {

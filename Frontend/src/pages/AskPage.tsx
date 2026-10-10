@@ -9,7 +9,7 @@ import { WeatherPill } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripSettings from '../components/TripSettings'
 import { understandRequest } from '../lib/backend'
-import { regionById } from '../lib/area'
+import { rankFrom, regionById } from '../lib/area'
 import { mergeUnderstood, parseIntent, withAreaDefaults } from '../lib/intent'
 import { preselect, rankPlaces } from '../lib/quest'
 import { useSpeech } from '../lib/useSpeech'
@@ -96,7 +96,7 @@ export default function AskPage() {
     const transport = picked ?? intent.transport
     const { places: pool, start: planned, center } = planFor({ area: intent.area }, transport)
     const start = planned ?? askPlan.start!
-    const ranked = rankPlaces(pool, intent, start, [], contextFor(center))
+    const ranked = rankPlaces(pool, intent, rankFrom({ start, center }), [], contextFor(center))
     setIntent(intent, preselect(ranked, intent, start, [], { transport, departAt: travel.departAt }))
     // Explore picks its role later, once the route is known (roles are suggested from the stops).
     navigate('/places')

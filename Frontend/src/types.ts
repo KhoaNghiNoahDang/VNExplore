@@ -42,7 +42,7 @@ export interface Leg {
   costK: number
   vehicles: number
   peak: boolean
-  note?: 'short' | 'walkingStreet' | 'parkOutside'
+  note?: 'short' | 'walkingStreet' | 'parkOutside' | 'rideThere'
 }
 
 export interface LatLng {

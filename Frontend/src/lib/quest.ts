@@ -4,7 +4,7 @@ import type { Challenge, Intent, LatLng, Leg, Place, Transport } from '../types'
 import { hanoiClock } from './hanoiTime'
 import { isOpenAt } from './hours'
 import type { Weather } from './weather'
-import { distanceM, estimateLeg } from './travel'
+import { distanceM, estimateLeg, firstLeg } from './travel'
 
 export { distanceM }
 
@@ -72,7 +72,7 @@ function walk(start: LatLng, stops: Place[], people: number, travel: Travel): Ti
   let t = travel.departAt ?? Date.now()
   let cur: LatLng = start
   for (const s of stops) {
-    const leg = estimateLeg(cur, s, travel.transport, new Date(t), people)
+    const leg = (out.legs.length ? estimateLeg : firstLeg)(cur, s, travel.transport, new Date(t), people)
     t += leg.minutes * 60_000
     let wait = 0
     let late = 0
