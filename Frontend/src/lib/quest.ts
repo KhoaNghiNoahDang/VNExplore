@@ -267,9 +267,11 @@ function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ct
   const openData = place.tags.includes('openData') ? 800 : 0
   const hits = dishHits(place, `${intent.text} ${intent.extra ?? ''}`)
   const named = hits * 1500
-  // Cinemas and other indoor fun are for rainy days, unless asked for by name.
-  const indoorFun = place.kind === 'fun' && place.tags.includes('indoor') && !intent.themes.includes('rainy') && !hits ? 1200 : 0
-  return themeHits * 1000 + named + roleBoost + depth - openData - indoorFun - pricey * 800 - distanceM(start, place) * perM +
+  // What the traveller asked for always comes first: a place that fits none of the request
+  // (a photo spot 100 m away when they asked for fun) only follows the ones that do.
+  // (A matching place that is closed at departure drops below them: −5000 in contextBonus.)
+  const fits = themeHits > 0 || hits > 0 || fav !== -1 ? 4000 : 0
+  return fits + themeHits * 1000 + named + roleBoost + depth - openData - pricey * 800 - distanceM(start, place) * perM +
     contextBonus(place, intent, ctx, hits > 0)
 }
 
