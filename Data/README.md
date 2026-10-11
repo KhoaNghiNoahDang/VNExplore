@@ -107,6 +107,8 @@ Bảng `parties`, `party_members`, `party_progress`, `party_puzzles` (`migration
   - Nhóm vẫn có thể ẩn bất kỳ điểm nào trong Supabase: đặt `status = 'hidden'`. Muốn đưa một điểm đã xác nhận vào danh mục chính: thêm vào `places.csv`, rồi đặt `status = 'imported'` và `place_id`.
 - **Quest công khai:** hiện ngay ở tab Quest, kèm nhãn "Chưa xác nhận · N/10 người đã đi". Một người được tính khi lưu xong hành trình của quest đó với ít nhất nửa số điểm đã đến (`quest_runs`, trigger trên `journeys`). Đủ 10 người, hoặc nhóm đặt `review_status = 'approved'` → hết nhãn. `review_status = 'rejected'` → gỡ khỏi tab Quest.
 - Chưa đăng nhập thì "Thêm địa điểm" vẫn gửi cho nhóm duyệt như cũ (phần dưới).
+- **Quest mẫu** (`quests.is_sample`, migration `0019`): 7 quest nhóm soạn sẵn và đã kiểm tra mang nhãn **"Thử nghiệm"** thay cho "Chưa xác nhận". Chỉ đặt được cột này trong dashboard; người dùng sửa quest không đổi được.
+- **Quy tắc cộng đồng:** đăng quest công khai hoặc qua link phải tích ô cam kết (không bịa đặt, xúc phạm, mạo phạm, tuyên truyền sai…). Bảng quy tắc dẫn Luật An ninh mạng 2025, Nghị định 174/2026/NĐ-CP, Bộ luật Hình sự (Điều 155, 156, 288) và Bộ luật Dân sự (Điều 34). Thêm địa điểm có dòng "Khi đăng, bạn đồng ý…". Chữ nằm trong `Frontend/src/i18n/strings.ts` (`rules*`); khi luật thay đổi thì sửa ở đó.
 
 ### Địa điểm người dùng gợi ý (nút "Thêm địa điểm", khi chưa đăng nhập)
 Cuối danh sách địa điểm trong app có thẻ **"Biết chỗ hay mà app chưa có?"**. Người dùng điền tên, loại, chọn vị trí trên bản đồ, kèm các thông tin không bắt buộc: địa chỉ, vì sao nên đến, giờ mở cửa, giá, link hoặc số điện thoại. Gợi ý được lưu vào bảng `place_suggestions` trên Supabase, qua backend có giới hạn 5 lần/10 phút. Gợi ý **không** tự hiện lên app.
@@ -146,7 +148,7 @@ Khu vực quét được khai báo trong `AREAS` ở đầu `fetch_skeleton.py` 
   - Các bảng này chỉ lưu **id** của địa điểm và vai, không có khoá ngoại sang bảng nội dung. Migration `0016` đã gỡ các khoá ngoại đó.
 - Các bảng nội dung cũ (`places`, `roles`, `missions`, `events`, `place_quizzes`, `transport_fares`) vẫn còn để bản app cũ không lỗi khi chưa deploy lại, nhưng **không được cập nhật nữa**. Có thể xoá sau khi bản mới đã chạy ổn.
 - **Project:** `vnexplore` (ref `ywsqmfxyrnfswxgvhsuv`, Singapore, gói Free) — https://ywsqmfxyrnfswxgvhsuv.supabase.co
-- Migrations đã chạy trên môi trường thật: `0001`–`0018` (`0017_party_mode.sql`: phòng nhóm cho chế độ Thong thả + `party_preview`; `0018_community_places_quests.sql`: địa điểm và quest do cộng đồng xác nhận).
+- Migrations đã chạy trên môi trường thật: `0001`–`0019` (`0017_party_mode.sql`: phòng nhóm cho chế độ Thong thả + `party_preview`; `0018_community_places_quests.sql`: địa điểm và quest do cộng đồng xác nhận).
 - **Lưu ý từ 30/10/2026:** bảng **mới** trong schema `public` phải được `GRANT` quyền rõ ràng thì Data API mới thấy, ví dụ `grant select, insert on public.<bảng> to authenticated` hoặc `to service_role`. Migration tạo bảng mới phải kèm lệnh `grant`. Bảng hiện có không bị ảnh hưởng.
 - `candidates` và `seed_candidates/` là kho điểm OSM để chọn lọc nội bộ, không phải dữ liệu app.
 

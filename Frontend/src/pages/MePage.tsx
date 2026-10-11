@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AlertCircle, Check, Clock3, Copy, ExternalLink, Globe, Link2, Loader2, Lock, LogOut, PencilLine, Plus, Trash2 } from 'lucide-react'
+import { AlertCircle, Check, Clock3, Copy, ExternalLink, FlaskConical, Globe, Link2, Loader2, Lock, LogOut, PencilLine, Plus, Trash2 } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import LoginPage from './LoginPage'
 import { SaveAchievementCard } from '../components/PartyBits'
@@ -209,6 +209,8 @@ function StatusBadge({ quest: q }: { quest: SavedQuest }) {
         ? ['bg-teal/10 text-teal', Link2, t.visLink]
         : q.review_status === 'rejected'
           ? ['bg-brick/10 text-brick', AlertCircle, t.status.rejected]
+          : q.is_sample
+            ? ['bg-teal/10 text-teal', FlaskConical, t.questSample]
           : questConfirmed(q)
             ? ['bg-leaf/15 text-leaf', Globe, t.status.approved]
             : ['bg-sun/30 text-bark', Clock3, t.questUnconfirmed(q.run_count ?? 0, CONFIRM_AT)]

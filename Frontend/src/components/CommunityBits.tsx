@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CircleCheck, Flag, Loader2, UsersRound } from 'lucide-react'
+import { CircleCheck, Flag, Loader2, Scale, ShieldAlert, UsersRound } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { CONFIRM_AT, flagCommunityPlace, type FlagReason } from '../lib/community'
 import { useAuth } from '../store/AuthContext'
@@ -138,5 +138,69 @@ function FlagSheet({ place, onClose }: { place: Place; onClose: () => void }) {
         </>
       )}
     </Sheet>
+  )
+}
+
+/** The community rules, with the Vietnamese laws that apply to what people publish. */
+export function RulesSheet({ onClose }: { onClose: () => void }) {
+  const { t } = useQuest()
+  return (
+    <Sheet title={t.rulesTitle} closeLabel={t.close} onClose={onClose}>
+      <p className="text-[13px] font-bold">{t.rulesIntro}</p>
+      <ul className="mt-2 space-y-1.5">
+        {t.rulesList.map((r) => (
+          <li key={r} className="flex gap-2 text-[13px] leading-snug text-bark">
+            <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brick" /> {r}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-[13px] font-bold">{t.rulesConsequence}</p>
+      <ul className="mt-2 space-y-1.5">
+        {t.rulesLaws.map((r) => (
+          <li key={r} className="flex gap-2 text-[12px] leading-snug text-bark/85">
+            <Scale className="mt-0.5 h-3.5 w-3.5 shrink-0 text-teal" /> {r}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 text-[11px] italic text-bark/60">{t.rulesDisclaimer}</p>
+    </Sheet>
+  )
+}
+
+/** "I confirm the content is true…" checkbox with a link to the rules (required before publishing). */
+export function RulesConsent({ accepted, onChange, showError }: { accepted: boolean; onChange: (v: boolean) => void; showError?: boolean }) {
+  const { t } = useQuest()
+  const [open, setOpen] = useState(false)
+  return (
+    <div className={`rounded-2xl border-2 p-3 ${showError && !accepted ? 'border-brick bg-brick/5' : 'border-sand bg-white'}`}>
+      <label className="flex items-start gap-3">
+        <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={accepted} onChange={(e) => onChange(e.target.checked)} />
+        <span className="text-[13px] font-bold leading-snug">{t.rulesAccept}</span>
+      </label>
+      <button type="button" onClick={() => setOpen(true)} className="ml-8 mt-1 flex min-h-9 items-center gap-1 text-[12px] font-bold text-teal underline underline-offset-2">
+        <Scale className="h-3.5 w-3.5" /> {t.rulesRead}
+      </button>
+      {showError && !accepted && (
+        <p className="ml-8 text-[12px] font-medium text-brick" role="alert">
+          {t.rulesRequired}
+        </p>
+      )}
+      {open && <RulesSheet onClose={() => setOpen(false)} />}
+    </div>
+  )
+}
+
+/** One line under a publish button: "By publishing you accept the community rules." */
+export function RulesNote({ className = '' }: { className?: string }) {
+  const { t } = useQuest()
+  const [open, setOpen] = useState(false)
+  return (
+    <p className={`text-[11px] leading-snug text-bark/70 ${className}`}>
+      {t.rulesAgreeOnSend}{' '}
+      <button type="button" onClick={() => setOpen(true)} className="font-bold text-teal underline underline-offset-2">
+        {t.rulesRead}
+      </button>
+      {open && <RulesSheet onClose={() => setOpen(false)} />}
+    </p>
   )
 }

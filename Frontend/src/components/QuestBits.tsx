@@ -1,4 +1,4 @@
-import { Camera, Eye, Heart, Lightbulb, UsersRound, UtensilsCrossed, type LucideIcon } from 'lucide-react'
+import { Camera, Eye, FlaskConical, Heart, Lightbulb, UsersRound, UtensilsCrossed, type LucideIcon } from 'lucide-react'
 import { MODE_INFO, THEME_LABEL } from '../i18n/strings'
 import { duration, moneyRange } from '../lib/format'
 import { CONFIRM_AT } from '../lib/community'
@@ -98,7 +98,11 @@ export function QuestCard({ quest, cover, onOpen }: { quest: SavedQuest; cover?:
               .join(' · ')}
           </div>
           <ModeBadges modes={quest.modes} />
-          {quest.visibility === 'public' && !questConfirmed(quest) && (
+          {quest.is_sample ? (
+            <div className="flex items-center gap-1.5 rounded-xl border border-dashed border-teal/50 bg-teal/5 px-2.5 py-1.5 text-[11px] font-bold text-teal">
+              <FlaskConical className="h-3.5 w-3.5 shrink-0" /> {t.questSample}
+            </div>
+          ) : quest.visibility === 'public' && !questConfirmed(quest) && (
             <div className="flex items-center gap-1.5 rounded-xl border border-dashed border-sun-dark/60 bg-sun/10 px-2.5 py-1.5 text-[11px] font-bold text-bark">
               <UsersRound className="h-3.5 w-3.5 shrink-0 text-sun-dark" /> {t.questUnconfirmed(quest.run_count ?? 0, CONFIRM_AT)}
             </div>

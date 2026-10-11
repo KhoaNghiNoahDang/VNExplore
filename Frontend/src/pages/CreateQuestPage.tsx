@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, Globe, Link2, Loader2, Lock, Plus, Search, Send, X } from 'lucide-react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { RulesConsent } from '../components/CommunityBits'
 import { Field } from '../components/Form'
 import { MODE_ICON, ROLE_ICON } from '../components/icons'
 import PlaceThumb from '../components/PlaceThumb'
@@ -60,6 +61,9 @@ export default function CreateQuestPage() {
   const [transport, setTransport] = useState<Transport>('walk')
   const [people, setPeople] = useState(2)
   const [visibility, setVisibility] = useState<Visibility>('public')
+  // Shared quests (public or by link) need the author to accept the community rules.
+  const [rulesOk, setRulesOk] = useState(false)
+  const [rulesTried, setRulesTried] = useState(false)
   const [picker, setPicker] = useState(false)
   const [state, setState] = useState<'idle' | 'busy' | 'error'>('idle')
   const [tried, setTried] = useState(false)
@@ -151,6 +155,10 @@ export default function CreateQuestPage() {
     if (firstBad >= 0) {
       setStep(firstBad)
       setTried(true)
+      return
+    }
+    if (visibility !== 'private' && !rulesOk) {
+      setRulesTried(true)
       return
     }
     setState('busy')
@@ -492,6 +500,7 @@ export default function CreateQuestPage() {
               </div>
               {visibility === 'public' && <p className="mt-2 text-[12px] leading-relaxed text-bark/70">{t.pendingNote}</p>}
             </div>
+            {visibility !== 'private' && <RulesConsent accepted={rulesOk} onChange={setRulesOk} showError={rulesTried} />}
             {state === 'error' && <p className="text-[12px] font-medium text-brick">{t.authErr.unknown}</p>}
           </div>
         )}

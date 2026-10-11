@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, MapPin, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
 import { geocodeSearch, type GeoResult } from '../lib/backend'
 import { addCommunityPlace, CONFIRM_AT } from '../lib/community'
+import { RulesNote } from './CommunityBits'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../store/AuthContext'
@@ -475,6 +476,7 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         </label>
       </div>
       {share && !canPublish && <p className="mt-3 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>}
+      {share && <RulesNote className="mt-3" />}
       {error && (
         <p className="mt-3 rounded-xl bg-brick/10 px-3 py-2 text-[12px] font-medium text-brick" role="alert">
           {error}

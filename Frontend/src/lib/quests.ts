@@ -43,13 +43,15 @@ export interface SavedQuest {
   like_count: number
   /** People who walked it (at least half the stops reached), counted on the server. */
   run_count: number
+  /** A sample quest written and checked by the team while the app is being tested ("Thử nghiệm"). */
+  is_sample: boolean
   created_at: string
   author?: { display_name: string | null; username: string | null; avatar_url: string | null } | null
   stops?: QuestStop[]
 }
 
 const COLS =
-  'id, author_id, title, description, mode, modes, role_id, transport, visibility, review_status, review_note, people, stop_count, total_min, distance_m, cost_min_k, cost_max_k, travel_cost_k, themes, suitable_for, best_time, cover_place_id, like_count, run_count, created_at'
+  'id, author_id, title, description, mode, modes, role_id, transport, visibility, review_status, review_note, people, stop_count, total_min, distance_m, cost_min_k, cost_max_k, travel_cost_k, themes, suitable_for, best_time, cover_place_id, like_count, run_count, is_sample, created_at'
 const WITH_AUTHOR_STOPS = `${COLS}, author:profiles!quests_author_id_fkey(display_name, username, avatar_url), stops:quest_stops(position, place_id, tip_kind, note, custom_task)`
 
 export const questUrl = (id: string) => `${location.origin}/q/${id}`
