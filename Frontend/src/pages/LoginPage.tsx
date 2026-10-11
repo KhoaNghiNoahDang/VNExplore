@@ -6,7 +6,7 @@ import { Field, GoogleG, PasswordField } from '../components/Form'
 import PrimaryButton from '../components/PrimaryButton'
 import Sheet from '../components/Sheet'
 import { DongSonBand, DongSonDrum, LakeScene, Lantern, Lotus } from '../components/VnArt'
-import { GOOGLE_AUTH } from '../lib/supabase'
+import { GOOGLE_AUTH, offerToSavePassword, rememberMe, setRememberMe } from '../lib/supabase'
 import { LegalLinks } from '../components/Legal'
 import { USERNAME_RE, useAuth, type AuthError } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
@@ -151,13 +151,18 @@ function SignInForm() {
   const [error, setError] = useState<AuthError | null>(null)
   const [touched, setTouched] = useState(false)
   const [resetOpen, setResetOpen] = useState(false)
+  const [remember, setRemember] = useState(rememberMe)
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
     setTouched(true)
     if (!identifier.trim() || !password) return
     setBusy(true)
-    setError(await signIn(identifier, password, captcha.token))
+    setRememberMe(remember)
+    const err = await signIn(identifier, password, captcha.token)
+    // Signed in: let the browser offer to keep the password, so next time it's filled in for them.
+    if (!err && remember) void offerToSavePassword(identifier.trim(), password)
+    setError(err)
     captcha.reset()
     setBusy(false)
   }
@@ -171,6 +176,8 @@ function SignInForm() {
         placeholder={t.identifierPh}
         value={identifier}
         onChange={(e) => setIdentifier(e.target.value)}
+        name="username"
+        id="signin-username"
         autoComplete="username"
         autoCapitalize="none"
         icon={idIcon}
@@ -181,12 +188,18 @@ function SignInForm() {
           label={t.password}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          id="signin-password"
           autoComplete="current-password"
           icon={<KeyRound className="h-4 w-4" />}
           error={touched && !password ? t.errRequired : null}
         />
-        <div className="mt-1.5 text-right">
-          <button type="button" onClick={() => setResetOpen(true)} className="text-[12px] font-bold text-teal hover:underline">
+        <div className="mt-1.5 flex items-center justify-between gap-3">
+          <label className="flex cursor-pointer items-center gap-2 text-[12px] font-medium text-bark">
+            <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="h-4 w-4 accent-teal" />
+            {t.rememberMe}
+          </label>
+          <button type="button" onClick={() => setResetOpen(true)} className="shrink-0 text-[12px] font-bold text-teal hover:underline">
             {t.forgotPassword}
           </button>
         </div>
@@ -277,15 +290,16 @@ function SignUpForm() {
 
   const create = async () => {
     setBusy(true)
-    setError(
-      await signUp({
-        displayName: name,
-        username: uname,
-        password,
-        captchaToken: captcha.token,
-        email,
-      }),
-    )
+    setRememberMe(true)
+    const err = await signUp({
+      displayName: name,
+      username: uname,
+      password,
+      captchaToken: captcha.token,
+      email,
+    })
+    if (!err || err === 'confirm_email_sent') void offerToSavePassword(email.trim(), password, name.trim())
+    setError(err)
     captcha.reset()
     setBusy(false)
   }
@@ -329,13 +343,15 @@ function SignUpForm() {
       />
 
       {/* Email only: sign-up by phone number is off until real SMS verification exists. */}
-      <Field label={t.email} type="email" placeholder="ban@email.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" icon={<Mail className="h-4 w-4" />} error={show('contact')} />
+      <Field label={t.email} type="email" placeholder="ban@email.com" value={email} onChange={(e) => setEmail(e.target.value)} name="email" id="signup-email" autoComplete="username" icon={<Mail className="h-4 w-4" />} error={show('contact')} />
 
       <PasswordField
         label={t.password}
         placeholder={t.passwordPh}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        name="new-password"
+        id="signup-password"
         autoComplete="new-password"
         icon={<KeyRound className="h-4 w-4" />}
         showStrength
