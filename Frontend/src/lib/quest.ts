@@ -231,7 +231,12 @@ const dishHits = (place: Place, text: string) => dishMatches(place, text).length
 export interface PlanContext {
   weather?: Weather | null
   at?: Date
+  /** Listen mode: sights with a narrated story come first. */
+  listen?: boolean
 }
+
+/** A sight with a real narrated story (Listen mode reads `story`; without it only a short intro). */
+export const hasNarration = (place: Place) => !!place.story.vi.trim()
 
 const BREAKFAST = /phở|bánh cuốn|xôi|bánh mì|bún riêu|miến|cháo|pho|breakfast/i
 
@@ -272,7 +277,11 @@ function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ct
   // (a photo spot 100 m away when they asked for fun) only follows the ones that do.
   // (A matching place that is closed at departure drops below them: −5000 in contextBonus.)
   const fits = themeHits > 0 || hits > 0 || fav !== -1 ? 4000 : 0
-  return fits + themeHits * 1000 + named + roleBoost + depth - openData - pricey * 800 - distanceM(start, place) * perM +
+  // Listen mode is about the stories: a sight with only a one-line intro drops below the narrated
+  // ones that fit the request (still above places that don't fit at all). Food and fun stops keep
+  // their short intro by design.
+  const silent = ctx.listen && place.kind === 'sight' && !hasNarration(place) ? 3000 : 0
+  return fits - silent + themeHits * 1000 + named + roleBoost + depth - openData - pricey * 800 - distanceM(start, place) * perM +
     contextBonus(place, intent, ctx, hits > 0)
 }
 

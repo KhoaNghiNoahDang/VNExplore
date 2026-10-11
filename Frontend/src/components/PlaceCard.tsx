@@ -5,7 +5,7 @@ import { missionFor } from '../data/roles'
 import { TAG_LABEL, TRANSPORT_INFO } from '../i18n/strings'
 import { distance, money, moneyRange } from '../lib/format'
 import { isOpenAt } from '../lib/hours'
-import { storyMinutes, storyOf } from '../lib/quest'
+import { hasNarration, storyMinutes, storyOf } from '../lib/quest'
 import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
@@ -100,11 +100,16 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
           </p>
         </div>
       )}
-      {mode === 'listen' && (
-        <p className="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-teal">
-          <Headphones className="h-3.5 w-3.5" /> {t.narrated(storyMinutes(storyOf(place, lang)))}
-        </p>
-      )}
+      {mode === 'listen' &&
+        (place.kind === 'sight' && !hasNarration(place) ? (
+          <p className="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-bark/55">
+            <Headphones className="h-3.5 w-3.5" /> {t.noNarration}
+          </p>
+        ) : (
+          <p className="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-teal">
+            <Headphones className="h-3.5 w-3.5" /> {t.narrated(storyMinutes(storyOf(place, lang)))}
+          </p>
+        ))}
 
       <button
         onClick={() => toggle(place.id)}
