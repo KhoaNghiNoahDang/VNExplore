@@ -264,7 +264,8 @@ function score(place: Place, intent: Intent, start: LatLng, favIds: string[], ct
   const depth = place.depth === 'full' ? 150 : 0
   // Places straight from open map data (a village pagoda with a one-line intro) come after the
   // curated ones nearby: worth about 800 m of extra walking.
-  const openData = place.tags.includes('openData') ? 800 : 0
+  // Same for places a traveller added that fewer than 10 people have been to yet.
+  const openData = place.tags.includes('openData') || (place.community && !place.community.confirmed) ? 800 : 0
   const hits = dishHits(place, `${intent.text} ${intent.extra ?? ''}`)
   const named = hits * 1500
   // What the traveller asked for always comes first: a place that fits none of the request

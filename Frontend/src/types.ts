@@ -26,6 +26,8 @@ export type PlaceTag =
   | 'lively'
   /** From an open map dataset (Overture), not yet written up or checked by the team: ranks after curated places. */
   | 'openData'
+  /** Added by the traveller to their own trip (id "my:…"), only on their device. */
+  | 'mine'
 
 export type Budget = 'low' | 'any'
 
@@ -106,6 +108,10 @@ export interface Place extends LatLng {
   notice?: L | null
   /** Phone number to call (digits, optional leading +). */
   phone?: string | null
+  /** Added by the traveller without a price: don't show it as free. */
+  priceUnknown?: boolean
+  /** Added by a traveller for everyone (id "cp:…"): how many people have been there so far. */
+  community?: { visits: number; confirmed: boolean; authorId: string | null }
 }
 
 export type EventCategory = 'music' | 'theatre' | 'film' | 'exhibition' | 'workshop' | 'talk' | 'market' | 'festival' | 'other'

@@ -22,6 +22,7 @@ import { rankPlaces, suggestTransport, summarize } from '../lib/quest'
 import { eventFits, eventWhen } from '../lib/events'
 import { buildPlannerReply, buildRouteDetails } from '../lib/plannerReply'
 import { firstLeg } from '../lib/travel'
+import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 
 /** Cards shown at first, and added by each "Show more". */
@@ -30,7 +31,7 @@ const LIST_STEP = 30
 const MAP_PINS = 60
 
 export default function PlacesPage() {
-  const { t, lang, intent, places, areaPlaces, region, center, contextFor, loading, selected, toggle, mode, role, travel, geo, eventOptions } = useQuest()
+  const { t, lang, intent, places, areaPlaces, region, center, contextFor, loading, selected, toggle, mode, role, travel, geo, eventOptions, myPlaces } = useQuest()
   const start = useStart()
   const navigate = useNavigate()
   const [view, setView] = useState<'list' | 'map'>('list')
@@ -46,9 +47,19 @@ export default function PlacesPage() {
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
   // Hundreds of places can be in reach (every village pagoda): show the best ones, more on request.
   const [listCount, setListCount] = useState(LIST_STEP)
+  // Places the traveller added themselves: the ones in this trip (just added = already picked).
+  // (Also ones they put on everyone's map from this trip.)
+  const uid = useAuth().session?.user.id
+  const mine = useMemo(
+    () => [
+      ...myPlaces.filter((p) => selected.includes(p.id)),
+      ...places.filter((p) => selected.includes(p.id) && !!uid && p.community?.authorId === uid),
+    ],
+    [myPlaces, places, selected, uid],
+  )
   const onMap = useMemo(
-    () => ranked.filter((p, i) => i < MAP_PINS || selected.includes(p.id)),
-    [ranked, selected],
+    () => [...mine, ...ranked.filter((p, i) => i < MAP_PINS || selected.includes(p.id))],
+    [mine, ranked, selected],
   )
   // One pin per event on the map: the sitting in the plan, else the earliest.
   const eventPlaces = useMemo(
@@ -217,11 +228,19 @@ export default function PlacesPage() {
             <p className="py-10 text-center text-sm opacity-60">{t.loading}</p>
           ) : view === 'list' ? (
             <>
+              {mine.length > 0 && (
+                <>
+                  <h2 className="text-[15px] font-extrabold">{t.myPlacesTitle}</h2>
+                  {mine.map((p) => (
+                    <PlaceCard key={p.id} place={p} people={intent.people} />
+                  ))}
+                </>
+              )}
               <EventsSection people={intent.people} />
               <h2 className="pt-2 text-[15px] font-extrabold">{t.placesTitle}</h2>
               {ranked.length ? (
                 <>
-                  {ranked.slice(0, listCount).map((p) => (
+                  {ranked.filter((p) => !mine.includes(p)).slice(0, listCount).map((p) => (
                     <PlaceCard key={p.id} place={p} people={intent.people} />
                   ))}
                   {ranked.length > listCount && (
@@ -239,7 +258,7 @@ export default function PlacesPage() {
                   {t.nothingNearby}
                 </p>
               )}
-              <AddPlaceCard around={center} />
+              <AddPlaceCard around={center} forTrip />
             </>
           ) : (
             <>

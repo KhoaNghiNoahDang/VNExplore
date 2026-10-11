@@ -1,8 +1,13 @@
-import { lazy, Suspense, useState } from 'react'
-import { CircleCheck, Coffee, Landmark, Loader2, MapPinPlus, PartyPopper, Send } from 'lucide-react'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, MapPin, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
+import { geocodeSearch, type GeoResult } from '../lib/backend'
+import { addCommunityPlace, CONFIRM_AT } from '../lib/community'
+import { RulesNote } from './CommunityBits'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
-import type { LatLng } from '../types'
+import type { LatLng, Place } from '../types'
 import Sheet from './Sheet'
 
 const PickMap = lazy(() => import('./PickMap'))
@@ -11,7 +16,13 @@ const fieldClass =
   'mt-1 min-h-11 w-full rounded-xl border-2 border-sand bg-white px-3 text-[14px] text-ink outline-none transition placeholder:text-ink/35 focus:border-teal'
 
 /** "Know a place that's missing?" card with a button that opens the form. */
-export default function AddPlaceCard({ around }: { around: LatLng }) {
+/** Minutes at a place the traveller adds, until they say otherwise. */
+const STAY: Record<SuggestedKind, number> = { food: 45, sight: 45, fun: 60 }
+const THEMES: Record<SuggestedKind, Place['themes']> = { food: ['food'], sight: ['culture', 'photo'], fun: ['fun'] }
+const TONE: Record<SuggestedKind, Place['tone']> = { food: 'butter', sight: 'teal', fun: 'leaf' }
+
+/** "Know a place that's missing?" card with a button that opens the form. `forTrip`: offer to add it to the trip being planned. */
+export default function AddPlaceCard({ around, forTrip = false }: { around: LatLng; forTrip?: boolean }) {
   const { t } = useQuest()
   const [open, setOpen] = useState(false)
   return (
@@ -26,17 +37,26 @@ export default function AddPlaceCard({ around }: { around: LatLng }) {
           <MapPinPlus className="h-4 w-4" /> {t.addPlaceButton}
         </button>
       </div>
-      {open && <AddPlaceSheet around={around} onClose={() => setOpen(false)} />}
+      {open && <AddPlaceSheet around={around} forTrip={forTrip} onClose={() => setOpen(false)} />}
     </>
   )
 }
 
-export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: () => void }) {
-  const { t, lang, geo } = useQuest()
+export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: LatLng; forTrip?: boolean; onClose: () => void }) {
+  const { t, lang, geo, addMyPlace, putCommunityPlace, selected, toggle } = useQuest()
+  const { session } = useAuth()
+  /** Signed in (a guest is fine): places go straight onto everyone's map. */
+  const canPublish = !!supabase && !!session
   // Open the map where the traveller is (they are often standing at the place), else on the plan.
   const first = geo.status === 'on' && geo.position ? geo.position : around
-  const [view] = useState({ lat: first.lat, lng: first.lng, zoom: 16 })
+  const [view, setView] = useState<LatLng & { zoom: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
   const [point, setPoint] = useState<LatLng>({ lat: first.lat, lng: first.lng })
+  /** How the pin got where it is: an address result (its label), the map ('map'), or not set yet (null). */
+  const [pinned, setPinned] = useState<string | null>(null)
+  // Typing the address looks it up; picking a result moves the pin there (it can still be dragged).
+  const [found, setFound] = useState<GeoResult[]>([])
+  const [searching, setSearching] = useState(false)
+  const [lookup, setLookup] = useState(false)
   const [name, setName] = useState('')
   const [kind, setKind] = useState<SuggestedKind | null>(null)
   const [address, setAddress] = useState('')
@@ -49,7 +69,43 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
   const [mapFailed, setMapFailed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
+  const [toTrip, setToTrip] = useState(forTrip)  // only offered when opened while planning a trip
+  const [share, setShare] = useState(true)
+  const [stay, setStay] = useState('')
+  /** After submitting: what happened (added to the trip, sent to the team, or added but not sent). */
+  const [outcome, setOutcome] = useState<'sent' | 'added' | 'addedSent' | 'addedNotSent' | 'published' | 'publishedTrip' | null>(null)
   const [clientSuggestionId, setClientSuggestionId] = useState(() => crypto.randomUUID())
+
+  useEffect(() => {
+    const q = address.trim()
+    if (!lookup || q.length < 3) {
+      setFound([])
+      setSearching(false)
+      return
+    }
+    setSearching(true)
+    let alive = true
+    const timer = setTimeout(() => {
+      geocodeSearch(q, lang).then((r) => {
+        if (!alive) return
+        setFound(r.slice(0, 5))
+        setSearching(false)
+      })
+    }, 450)
+    return () => {
+      alive = false
+      clearTimeout(timer)
+    }
+  }, [address, lookup, lang])
+
+  const pinAt = (r: GeoResult) => {
+    const at = { lat: r.lat, lng: r.lng }
+    setPoint(at)
+    setView({ ...at, zoom: 17, nonce: Date.now() })
+    setPinned(r.label || r.name)
+    setLookup(false)
+    setFound([])
+  }
 
   const kinds: { kind: SuggestedKind; icon: typeof Coffee }[] = [
     { kind: 'food', icon: Coffee },
@@ -66,8 +122,12 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
     setPriceMin('')
     setPriceMax('')
     setContact('')
+    setStay('')
+    setPinned(null)
+    setFound([])
     setClientSuggestionId(crypto.randomUUID())
     setSent(false)
+    setOutcome(null)
   }
 
   const submit = async () => {
@@ -77,25 +137,127 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
     const min = priceMin ? Math.round(Number(priceMin) / 1000) : null
     const max = priceMax ? Math.round(Number(priceMax) / 1000) : null
     if (min != null && max != null && max < min) return setError(t.addPlaceRangeError)
+    if (!toTrip && !share) return setError(t.addPlaceNeedOne)
+    // An address typed but no result picked: use the best match for it.
+    let at = point
+    if (!pinned && address.trim().length >= 3) {
+      setSubmitting(true)
+      const best = (await geocodeSearch(address.trim(), lang))[0]
+      setSubmitting(false)
+      if (best) {
+        at = { lat: best.lat, lng: best.lng }
+        pinAt(best)
+      }
+    }
+    // A stop, or a place on everyone's map, needs a real position: without an address or a tap on
+    // the map we only know where the phone is.
+    const publish = share && canPublish
+    if ((toTrip || publish) && !pinned && at === point) return setError(t.addPlaceNoPin)
+    const lo = min ?? max
+    const hi = max ?? min
+    const stayMin = Math.round(Number(stay)) > 0 ? Math.min(Math.round(Number(stay)), 600) : STAY[kind]
+    const pos = { lat: Number(at.lat.toFixed(6)), lng: Number(at.lng.toFixed(6)) }
+    const description_ = description.trim() || null
+
+    // Signed in: straight onto everyone's map, marked "not confirmed yet" until 10 people have been.
+    if (publish) {
+      setSubmitting(true)
+      try {
+        const p = await addCommunityPlace({
+          clientId: clientSuggestionId,
+          name: name.trim(),
+          kind,
+          at: pos,
+          address: address.trim() || null,
+          description: description_,
+          openingHours: hours.trim() || null,
+          priceMinK: min,
+          priceMaxK: max,
+          contact: contact.trim() || null,
+          visitMin: stayMin,
+          language: lang,
+          here: geo.status === 'on' ? geo.position : null,
+        })
+        putCommunityPlace(p)
+        if (toTrip && !selected.includes(p.id)) toggle(p.id)
+        setOutcome(toTrip ? 'publishedTrip' : 'published')
+        setSent(true)
+        return
+      } catch (e) {
+        if (e instanceof Error && e.message === 'too_many') return setError(t.addPlaceTooMany)
+        // Offline or Supabase down: keep it in the trip at least.
+        if (!toTrip) return setError(t.addPlaceSubmitError)
+      } finally {
+        setSubmitting(false)
+      }
+    }
+
+    if (toTrip) {
+      // Only on this phone: a stop of the trip right away (travel time from the distance, cost from the prices).
+      addMyPlace(
+        {
+          id: `my:${clientSuggestionId}`,
+          area: 'hanoi',
+          kind,
+          depth: 'quick',
+          openingHours: null,
+          priceCheckedOn: null,
+          name: { vi: name.trim(), en: name.trim() },
+          nameVi: name.trim(),
+          ...pos,
+          priceMin: lo ?? 0,
+          priceMax: hi ?? 0,
+          priceUnknown: lo == null,
+          visitMin: stayMin,
+          themes: THEMES[kind],
+          tags: ['mine'],
+          blurb: (() => {
+            const extra = [description.trim(), address.trim(), hours.trim()].filter(Boolean).join(' · ')
+            return { vi: extra || t.addPlaceKinds[kind], en: extra || t.addPlaceKinds[kind] }
+          })(),
+          tone: TONE[kind],
+          story: { vi: '', en: '' },
+          why: { vi: '', en: '' },
+          photoTip: { vi: '', en: '' },
+          etiquette: { vi: '', en: '' },
+          challenge: null,
+        },
+        true,
+      )
+      if (publish) {
+        setOutcome('addedNotSent')
+        setSent(true)
+        return
+      }
+      if (!share) {
+        setOutcome('added')
+        setSent(true)
+        return
+      }
+    }
+    // Not signed in: to the team for review, as before.
     setSubmitting(true)
     try {
       await submitPlaceSuggestion({
         clientSuggestionId,
         name: name.trim(),
         kind,
-        lat: Number(point.lat.toFixed(6)),
-        lng: Number(point.lng.toFixed(6)),
+        ...pos,
         address: address.trim() || null,
-        description: description.trim() || null,
+        description: description_,
         openingHours: hours.trim() || null,
         priceMinK: min,
         priceMaxK: max,
         contact: contact.trim() || null,
         language: lang,
       })
+      setOutcome(toTrip ? 'addedSent' : 'sent')
       setSent(true)
     } catch {
-      setError(t.addPlaceSubmitError)
+      if (toTrip) {
+        setOutcome('addedNotSent')
+        setSent(true)
+      } else setError(t.addPlaceSubmitError)
     } finally {
       setSubmitting(false)
     }
@@ -104,10 +266,35 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
   if (sent) {
     return (
       <Sheet title={t.addPlaceTitle} closeLabel={t.close} onClose={onClose}>
-        <div className="flex items-start gap-2 rounded-2xl bg-leaf/10 px-3 py-3 text-[13px] font-medium text-leaf" role="status">
-          <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" />
-          <span>{t.addPlaceThanks}</span>
+        <div
+          className={`flex items-start gap-2 rounded-2xl px-3 py-3 text-[13px] font-medium ${
+            outcome === 'addedNotSent' ? 'bg-sun/20 text-bark' : 'bg-leaf/10 text-leaf'
+          }`}
+          role="status"
+        >
+          {outcome === 'addedNotSent' ? <CircleAlert className="mt-0.5 h-4 w-4 shrink-0" /> : <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" />}
+          <span>
+            {outcome === 'published'
+              ? t.addPlacePublished
+              : outcome === 'publishedTrip'
+                ? t.addPlacePublishedTrip
+                : outcome === 'added'
+              ? t.addPlaceAdded
+              : outcome === 'addedSent'
+                ? t.addPlaceAddedAndSent
+                : outcome === 'addedNotSent'
+                  ? t.addPlaceAddedNotSent
+                  : t.addPlaceThanks}
+          </span>
         </div>
+        {outcome && outcome !== 'sent' && (
+          <button
+            onClick={onClose}
+            className="mt-3 flex min-h-12 w-full items-center justify-center gap-1.5 rounded-2xl border-b-4 border-teal/70 bg-teal px-4 text-[14px] font-bold text-white"
+          >
+            {t.addPlaceDone}
+          </button>
+        )}
         <button
           onClick={reset}
           className="mt-3 flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl border-2 border-teal bg-white px-3 text-[13px] font-bold text-teal"
@@ -151,6 +338,45 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
         </div>
       </fieldset>
 
+      <label className="mt-4 block text-[12px] font-bold text-ink/80">
+        {t.addPlaceAddress}
+        <input
+          className={fieldClass}
+          maxLength={200}
+          value={address}
+          onChange={(e) => {
+            setAddress(e.target.value)
+            setLookup(true)
+            if (pinned && pinned !== 'map') setPinned(null)
+          }}
+          placeholder={t.addPlaceAddressPh}
+          autoComplete="street-address"
+        />
+      </label>
+      {lookup && address.trim().length >= 3 ? (
+        <ul className="mt-1 space-y-1 rounded-2xl border-2 border-sand bg-white p-1">
+          {found.map((r, i) => (
+            <li key={i}>
+              <button type="button" onClick={() => pinAt(r)} className="flex w-full items-start gap-2.5 rounded-xl p-2 text-left hover:bg-cream">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brick" />
+                <span className="min-w-0">
+                  <span className="block truncate text-[13px] font-bold">{r.name}</span>
+                  <span className="block truncate text-[11px] text-bark/70">{r.label}</span>
+                </span>
+              </button>
+            </li>
+          ))}
+          {searching && (
+            <li className="flex items-center gap-2 p-2 text-[12px] text-bark/60">
+              <Loader2 className="h-4 w-4 animate-spin" /> {t.searching}
+            </li>
+          )}
+          {!searching && !found.length && <li className="p-2 text-[12px] text-bark/70">{t.addPlaceNoAddress}</li>}
+        </ul>
+      ) : (
+        <p className="mt-1 text-[11px] text-bark/60">{t.addPlaceAddressHint}</p>
+      )}
+
       <div className="mt-4 text-[12px] font-bold text-ink/80">{t.addPlaceWhere}</div>
       <div className="relative mt-1 h-52 overflow-hidden rounded-2xl border-2 border-sand bg-cream">
         {mapFailed ? (
@@ -167,18 +393,19 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
               point={point}
               view={view}
               userPos={geo.status === 'on' ? geo.position : null}
-              onPick={setPoint}
+              onPick={(p) => {
+                setPoint(p)
+                setPinned('map')
+              }}
               onFail={() => setMapFailed(true)}
             />
           </Suspense>
         )}
       </div>
-      <p className="mt-1 text-center text-[11px] text-bark/60">{t.addPlaceMapHint}</p>
+      <p className={`mt-1 text-center text-[11px] ${pinned && pinned !== 'map' ? 'font-bold text-teal' : 'text-bark/60'}`}>
+        {pinned && pinned !== 'map' ? t.addPlacePinned(pinned) : t.addPlaceMapHint}
+      </p>
 
-      <label className="mt-3 block text-[12px] font-bold text-ink/80">
-        {t.addPlaceAddress}
-        <input className={fieldClass} maxLength={200} value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t.addPlaceAddressPh} />
-      </label>
 
       <label className="mt-3 block text-[12px] font-bold text-ink/80">
         {t.addPlaceDescription}
@@ -213,7 +440,43 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
         <input className={fieldClass} maxLength={200} value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t.addPlaceContactPh} />
       </label>
 
-      <p className="mt-4 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>
+      <label className="mt-3 block text-[12px] font-bold text-ink/80">
+        {t.addPlaceStay}
+        <input
+          className={fieldClass}
+          type="number"
+          min="5"
+          max="600"
+          step="5"
+          inputMode="numeric"
+          value={stay}
+          onChange={(e) => setStay(e.target.value)}
+          placeholder={String(STAY[kind ?? 'sight'])}
+        />
+      </label>
+
+      <div className="mt-4 space-y-2">
+        {forTrip && (
+          <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${toTrip ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
+            <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={toTrip} onChange={(e) => setToTrip(e.target.checked)} />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-bold">{t.addPlaceToTrip}</span>
+              <span className="block text-[11px] leading-snug text-bark/70">{t.addPlaceToTripHint}</span>
+            </span>
+          </label>
+        )}
+        <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${share ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
+          <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={share} onChange={(e) => setShare(e.target.checked)} />
+          <span className="min-w-0 flex-1">
+            <span className="block text-[13px] font-bold">{canPublish ? t.addPlacePublic : t.addPlaceShare}</span>
+            <span className="block text-[11px] leading-snug text-bark/70">
+              {canPublish ? t.addPlacePublicHint(CONFIRM_AT) : supabase ? t.addPlacePublicSignIn : t.addPlaceShareHint}
+            </span>
+          </span>
+        </label>
+      </div>
+      {share && !canPublish && <p className="mt-3 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>}
+      {share && <RulesNote className="mt-3" />}
       {error && (
         <p className="mt-3 rounded-xl bg-brick/10 px-3 py-2 text-[12px] font-medium text-brick" role="alert">
           {error}
@@ -225,7 +488,8 @@ export function AddPlaceSheet({ around, onClose }: { around: LatLng; onClose: ()
         onClick={submit}
         className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border-b-4 border-teal/70 bg-teal px-4 font-bold text-white shadow-md transition active:translate-y-0.5 active:border-b-0 disabled:border-sand disabled:bg-sand disabled:text-bark/50 disabled:shadow-none"
       >
-        <Send className="h-4 w-4" /> {submitting ? t.addPlaceSubmitting : t.addPlaceSubmit}
+        {toTrip ? <Plus className="h-4 w-4" /> : <Send className="h-4 w-4" />}{' '}
+        {submitting ? t.addPlaceSubmitting : toTrip ? t.addPlaceToTrip : share && canPublish ? t.addPlacePublic : t.addPlaceSubmit}
       </button>
     </Sheet>
   )

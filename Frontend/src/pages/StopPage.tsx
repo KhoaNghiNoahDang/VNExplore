@@ -30,6 +30,8 @@ import Stamp from '../components/Stamp'
 import { LegLine } from '../components/TravelBits'
 import { EventPanel, eventPrice } from '../components/EventBits'
 import { PlaceNotice, SourceLinks } from '../components/PlaceBits'
+import { CommunityBadge, FlagPlaceButton } from '../components/CommunityBits'
+import { CONFIRM_AT, isCommunityId, recordVisit } from '../lib/community'
 import { CoopChallenge, PartyBoard, PartyTimer } from '../components/PartyBits'
 import { markArrived, markMission, useParty } from '../lib/party'
 import { useAuth } from '../store/AuthContext'
@@ -65,7 +67,7 @@ export default function StopPage() {
 }
 
 function Stop({ stops, index }: { stops: Place[]; index: number }) {
-  const { t, lang, journey, intent, mode, role, start, arrive, completeMission, travel, geo, setGeoWanted, party } = useQuest()
+  const { t, lang, journey, intent, mode, role, start, arrive, completeMission, travel, geo, setGeoWanted, party, putCommunityPlace } = useQuest()
   const auth = useAuth()
   // Group play: everyone's stamps and missions, and the shared puzzles.
   const { state: ps } = useParty(party?.id ?? null)
@@ -104,6 +106,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
   const atPlace = isAtPlace(place, here, geo.accuracyM)
   const radiusM = arrivalRadiusM(place)
   const [justStamped, setJustStamped] = useState(false)
+  /** Community place: this traveller's arrival was counted (they are visitor no. n). */
+  const [counted, setCounted] = useState<number | null>(null)
   // Transport actually used on every leg of the journey (some are forced to walk).
   const journeyStart = journey!.start ?? start
   const legModes = useMemo(
@@ -121,6 +125,13 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
     setJustStamped(true)
     arrive(place.id)
     if (party) void markArrived(party.id, place.id)
+    // A place a traveller added: one more person has been there (checked again on the server).
+    if (isCommunityId(place.id) && auth.session && here)
+      void recordVisit(place.id, here, geo.accuracyM).then((n) => {
+        if (n == null || !place.community) return
+        setCounted(n)
+        putCommunityPlace({ ...place, community: { ...place.community, visits: n, confirmed: n >= CONFIRM_AT } })
+      })
     // Listen mode: the story plays by itself on arrival (inside the tap, so browsers allow audio).
     if (mode === 'listen') narration.play(storyOf(place, lang), lang)
   }
@@ -240,12 +251,20 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
                 </>
               ) : (
                 <>
-                  {minutes(place.visitMin, lang)} · {moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
+                  {minutes(place.visitMin, lang)} · {place.priceUnknown ? t.priceNotGiven : moneyRange(place.priceMin * people, place.priceMax * people, lang)}{' '}
+                  {place.priceMax > 0 && t.forN(people)}
                 </>
               )}
             </p>
           </div>
         </div>
+        {counted != null ? (
+          <p className="rounded-xl bg-leaf/10 px-3 py-2 text-[12px] font-bold text-leaf" role="status">
+            {t.communityCounted(counted)}
+          </p>
+        ) : (
+          <CommunityBadge place={place} />
+        )}
 
         <PlaceNotice place={place} />
 
@@ -366,7 +385,12 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
                 {storyUnlocked && <InfoGrid place={place} people={people} lang={lang} />}
                 {/* Party stops use the team puzzle instead; elsewhere the quiz is optional once the mission is done. */}
                 {!party && !(missionActive && !hasItem && !skippedMission && mission) && <QuizPanel place={place} lang={lang} />}
-                <PlaceReportPrompt place={place} journeyStartedAt={journey!.startedAt} />
+                {/* Catalogue places only: a traveller-added place is corrected with "Something wrong?". */}
+                {isCommunityId(place.id) ? (
+                  <FlagPlaceButton place={place} />
+                ) : (
+                  !place.id.startsWith('my:') && <PlaceReportPrompt place={place} journeyStartedAt={journey!.startedAt} />
+                )}
               </>
             )}
           </>
@@ -602,8 +626,9 @@ function InfoGrid({ place, people, lang, only }: { place: Place; people: number;
       key: 'price',
       icon: Wallet,
       title: t.priceRef,
-      body:
-        place.priceMax === 0
+      body: place.priceUnknown
+        ? t.priceNotGiven
+        : place.priceMax === 0
           ? perPerson
           : `${perPerson}${t.perPerson} · ${moneyRange(place.priceMin * people, place.priceMax * people, lang)} ${t.forN(people)}` +
             (checked ? ` · ${t.priceChecked(checked)}` : ''),

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AlertCircle, Check, Clock3, Copy, ExternalLink, Globe, Link2, Loader2, Lock, LogOut, PencilLine, Plus, Trash2 } from 'lucide-react'
+import { AlertCircle, Check, Clock3, Copy, ExternalLink, FlaskConical, Globe, Link2, Loader2, Lock, LogOut, PencilLine, Plus, Trash2 } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import LoginPage from './LoginPage'
 import { SaveAchievementCard } from '../components/PartyBits'
@@ -12,7 +12,8 @@ import { QuestCard } from '../components/QuestBits'
 import Stamp from '../components/Stamp'
 import { collectStamps } from '../lib/passport'
 import { usePassport } from '../store/usePassport'
-import { deleteQuest, listLikedQuests, listMyQuests, questUrl, type SavedQuest } from '../lib/quests'
+import { CONFIRM_AT } from '../lib/community'
+import { deleteQuest, listLikedQuests, listMyQuests, questConfirmed, questUrl, type SavedQuest } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 
@@ -206,11 +207,13 @@ function StatusBadge({ quest: q }: { quest: SavedQuest }) {
       ? ['bg-bark/10 text-bark', Lock, t.visPrivate]
       : q.visibility === 'unlisted'
         ? ['bg-teal/10 text-teal', Link2, t.visLink]
-        : q.review_status === 'approved'
-          ? ['bg-leaf/15 text-leaf', Globe, t.status.approved]
-          : q.review_status === 'rejected'
-            ? ['bg-brick/10 text-brick', AlertCircle, t.status.rejected]
-            : ['bg-sun/30 text-bark', Clock3, t.status.pending]
+        : q.review_status === 'rejected'
+          ? ['bg-brick/10 text-brick', AlertCircle, t.status.rejected]
+          : q.is_sample
+            ? ['bg-teal/10 text-teal', FlaskConical, t.questSample]
+          : questConfirmed(q)
+            ? ['bg-leaf/15 text-leaf', Globe, t.status.approved]
+            : ['bg-sun/30 text-bark', Clock3, t.questUnconfirmed(q.run_count ?? 0, CONFIRM_AT)]
   return (
     <span className={`flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${cls}`}>
       <Icon className="h-3 w-3" /> {label}

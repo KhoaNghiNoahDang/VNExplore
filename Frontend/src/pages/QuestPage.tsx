@@ -9,6 +9,7 @@ import PrimaryButton from '../components/PrimaryButton'
 import { CostLines, LegLine, TravelBanner } from '../components/TravelBits'
 import { EventLink, EventStopMeta, eventPrice } from '../components/EventBits'
 import { TransportHintCard, WeatherPill } from '../components/ContextBits'
+import { CommunityTag } from '../components/CommunityBits'
 import TopBar from '../components/TopBar'
 import TripChips from '../components/TripChips'
 import SaveQuestButton from '../components/SaveQuest'
@@ -169,7 +170,8 @@ export default function QuestPage() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-sm font-bold">
-                          {s.name[lang]} · <span className="font-normal opacity-60">{minutes(s.visitMin, lang)}</span>
+                          {s.name[lang]} · <span className="font-normal opacity-60">{minutes(s.visitMin, lang)}</span>{' '}
+                          <CommunityTag place={s} />
                         </div>
                         {explore && (
                           <div className="flex items-center gap-1 text-[10px] font-bold text-bark">
@@ -192,7 +194,9 @@ export default function QuestPage() {
                           <div className="text-[10px] font-bold text-bark">
                             {s.event
                               ? eventPrice(s, intent.people, lang, t)
-                              : moneyRange(s.priceMin * intent.people, s.priceMax * intent.people, lang)}
+                              : s.priceUnknown
+                                ? t.priceNotGiven
+                                : moneyRange(s.priceMin * intent.people, s.priceMax * intent.people, lang)}
                           </div>
                         )}
                         {s.event?.url && <EventLink url={s.event.url} className="mt-1.5 !min-h-9 w-fit !rounded-lg !border !px-2.5 !text-[11px]" />}

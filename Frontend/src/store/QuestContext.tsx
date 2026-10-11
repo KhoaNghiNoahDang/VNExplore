@@ -3,6 +3,7 @@ import { getRole } from '../data/roles'
 import { EVENTS } from '../data/events'
 import { loadOpenPlaces, PLACES } from '../data/places'
 import { planAround, type Plan, type Region } from '../lib/area'
+import { loadCommunityPlaces } from '../lib/community'
 import { eventStopById, eventsInWindow, isEventId, type EventOption } from '../lib/events'
 import type { PlanContext } from '../lib/quest'
 import { loadSeries, weatherAt, weatherCell, type Series, type Weather } from '../lib/weather'
@@ -39,6 +40,8 @@ interface Saved {
   lastFix: LatLng | null
   /** The group-play party this journey belongs to (null = playing alone). */
   party: { id: string; code: string } | null
+  /** Places the traveller added to their own trips (id "my:…"); kept so old journeys still show them. */
+  myPlaces: Place[]
 }
 
 export interface QuestState extends Saved {
@@ -87,6 +90,10 @@ export interface QuestState extends Saved {
   setGeoWanted: (on: boolean) => void
   setCustomStart: (p: (LatLng & { label: string }) | null) => void
   setParty: (p: { id: string; code: string } | null) => void
+  /** Keep a place the traveller added; `select` also puts it in the current trip. */
+  addMyPlace: (p: Place, select: boolean) => void
+  /** A community place just added or updated (visit count): show it at once, without reloading. */
+  putCommunityPlace: (p: Place) => void
   /** A stop by id — catalogue places and event sittings (even ones not in the current trip). */
   stopById: (id: string) => Place | null
 }
@@ -110,6 +117,7 @@ const EMPTY: Saved = {
   customStart: null,
   lastFix: null,
   party: null,
+  myPlaces: [],
 }
 
 function load(): Saved {
@@ -126,20 +134,30 @@ export function QuestProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<Saved>(load)
   // Content ships with the app (Data/sheets → export_app.mjs → data/generated/*.json). Curated places
   // are there at once; open-map-data places arrive as a second chunk a moment later.
-  const [catalog, setCatalog] = useState<Place[]>(PLACES)
+  const [base, setBase] = useState<Place[]>(PLACES)
+  // Places travellers added for everyone (Supabase), loaded alongside.
+  const [community, setCommunity] = useState<Place[]>([])
+  const catalog = useMemo(() => (community.length ? [...base, ...community] : base), [base, community])
   const [loading, setLoading] = useState(true)
   const events: QuestEvent[] = EVENTS
 
   useEffect(() => {
     let alive = true
     loadOpenPlaces()
-      .then((open) => alive && setCatalog([...PLACES, ...open]))
+      .then((open) => alive && setBase([...PLACES, ...open]))
       .catch((err) => console.warn('Open-data places unavailable:', err))
       .finally(() => alive && setLoading(false))
+    loadCommunityPlaces()
+      .then((cp) => alive && setCommunity(cp))
+      .catch((err) => console.warn('Community places unavailable:', err))
     return () => {
       alive = false
     }
   }, [])
+  const putCommunityPlace = useCallback(
+    (p: Place) => setCommunity((cur) => [...cur.filter((x) => x.id !== p.id), p]),
+    [],
+  )
 
   useEffect(() => {
     try {
@@ -166,6 +184,11 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       setGeoWanted: (geoWanted: boolean) => patch(() => ({ geoWanted })),
       setCustomStart: (customStart: (LatLng & { label: string }) | null) => patch(() => ({ customStart })),
       setParty: (party: { id: string; code: string } | null) => patch(() => ({ party })),
+      addMyPlace: (p: Place, select: boolean) =>
+        patch((s) => ({
+          myPlaces: [...s.myPlaces.filter((x) => x.id !== p.id), p].slice(-100),
+          selected: select && !s.selected.includes(p.id) ? [...s.selected, p.id] : s.selected,
+        })),
       toggle: (id: string) =>
         patch((s) => ({
           selected: s.selected.includes(id) ? s.selected.filter((x) => x !== id) : [...s.selected, id],
@@ -185,7 +208,8 @@ export function QuestProvider({ children }: { children: ReactNode }) {
             ? { journey: { ...s.journey, items: [...s.journey.items, placeId] } }
             : {},
         ),
-      reset: () => patch((s) => ({ ...EMPTY, lang: s.lang, geoWanted: s.geoWanted, customStart: s.customStart, lastFix: s.lastFix })),
+      reset: () =>
+        patch((s) => ({ ...EMPTY, lang: s.lang, geoWanted: s.geoWanted, customStart: s.customStart, lastFix: s.lastFix, myPlaces: s.myPlaces })),
     }),
     [patch],
   )
@@ -263,13 +287,15 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       const stop = eventStopById(id, events)
       if (stop) extra.set(id, stop)
     }
-    return extra.size ? [...catalog, ...extra.values()] : catalog
-  }, [catalog, eventOptions, events, saved.selected, saved.journey])
+    const mine = saved.myPlaces ?? []
+    return extra.size || mine.length ? [...catalog, ...mine, ...extra.values()] : catalog
+  }, [catalog, eventOptions, events, saved.selected, saved.journey, saved.myPlaces])
 
   const value = useMemo<QuestState>(
     () => ({
       ...saved,
       ...actions,
+      putCommunityPlace,
       places,
       stopById: (id: string) => places.find((p) => p.id === id) ?? (isEventId(id) ? eventStopById(id, events) : null),
       eventOptions,
@@ -291,7 +317,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       role: getRole(saved.roleId),
       t: STRINGS[saved.lang],
     }),
-    [saved, actions, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series, wantWeather],
+    [saved, actions, putCommunityPlace, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series, wantWeather],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
