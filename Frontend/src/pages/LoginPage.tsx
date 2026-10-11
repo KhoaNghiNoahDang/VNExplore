@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { ArrowLeft, AtSign, Check, CircleAlert, KeyRound, Loader2, Mail, Phone, UserRound, X } from 'lucide-react'
+import { useEffect, useState, type FormEvent } from 'react'
+import { ArrowLeft, AtSign, Check, CircleAlert, KeyRound, Loader2, Mail, UserRound, X } from 'lucide-react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useCaptcha } from '../components/Captcha'
 import { Field, GoogleG, PasswordField } from '../components/Form'
@@ -7,7 +7,7 @@ import PrimaryButton from '../components/PrimaryButton'
 import Sheet from '../components/Sheet'
 import { DongSonBand, DongSonDrum, LakeScene, Lantern, Lotus } from '../components/VnArt'
 import { GOOGLE_AUTH } from '../lib/supabase'
-import { normalizePhone, USERNAME_RE, useAuth, type AuthError } from '../store/AuthContext'
+import { USERNAME_RE, useAuth, type AuthError } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 
 type Tab = 'signin' | 'signup'
@@ -161,13 +161,7 @@ function SignInForm() {
     setBusy(false)
   }
 
-  const idIcon = identifier.includes('@') && !identifier.startsWith('@') ? (
-    <Mail className="h-4 w-4" />
-  ) : normalizePhone(identifier) ? (
-    <Phone className="h-4 w-4" />
-  ) : (
-    <AtSign className="h-4 w-4" />
-  )
+  const idIcon = identifier.includes('@') && !identifier.startsWith('@') ? <Mail className="h-4 w-4" /> : <AtSign className="h-4 w-4" />
 
   return (
     <form onSubmit={submit} className="space-y-4" noValidate>
@@ -238,7 +232,6 @@ function ResetSheet({ onClose }: { onClose: () => void }) {
           >
             {t.resetSend}
           </PrimaryButton>
-          <p className="text-[11px] text-bark/60">{t.resetPhoneNote}</p>
         </div>
       )}
     </Sheet>
@@ -252,16 +245,13 @@ function SignUpForm() {
   const captcha = useCaptcha(lang)
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
-  const [by, setBy] = useState<'email' | 'phone'>('email')
   const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [agree, setAgree] = useState(false)
   const [touched, setTouched] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<AuthError | null>(null)
-  const [otpOpen, setOtpOpen] = useState(false)
   const [free, setFree] = useState<boolean | null>(null)
 
   // Live "is this @name free?" check, debounced.
@@ -276,10 +266,7 @@ function SignUpForm() {
   const errors = {
     name: !name.trim() ? t.errRequired : null,
     username: !uname ? t.errRequired : !USERNAME_RE.test(uname) ? t.errUsername : free === false ? t.usernameTaken : null,
-    contact:
-      by === 'email'
-        ? !email.trim() ? t.errRequired : !EMAIL_RE.test(email.trim()) ? t.errEmail : null
-        : !phone.trim() ? t.errRequired : !normalizePhone(phone) ? t.errPhone : null,
+    contact: !email.trim() ? t.errRequired : !EMAIL_RE.test(email.trim()) ? t.errEmail : null,
     password: password.length < 8 ? t.authErr.weak_password : null,
     password2: password2 !== password ? t.errPwMatch : null,
     agree: !agree ? t.errTerms : null,
@@ -295,7 +282,7 @@ function SignUpForm() {
         username: uname,
         password,
         captchaToken: captcha.token,
-        ...(by === 'email' ? { email } : { phone }),
+        email,
       }),
     )
     captcha.reset()
@@ -306,8 +293,7 @@ function SignUpForm() {
     e.preventDefault()
     setTouched(true)
     if (!valid) return
-    if (by === 'phone') setOtpOpen(true) // DEMO: fake SMS step
-    else await create()
+    await create()
   }
 
   return (
@@ -341,30 +327,8 @@ function SignUpForm() {
         error={show('username')}
       />
 
-      <div>
-        <div className="mb-1 text-[12px] font-bold text-ink/80">{t.contactBy}</div>
-        <div className="mb-2 grid grid-cols-2 gap-2">
-          {(['email', 'phone'] as const).map((k) => (
-            <button
-              key={k}
-              type="button"
-              onClick={() => setBy(k)}
-              aria-pressed={by === k}
-              className={`flex items-center justify-center gap-1.5 rounded-xl border-2 py-2 text-[13px] font-bold transition ${
-                by === k ? 'border-teal bg-teal/10 text-teal' : 'border-sand bg-white text-bark/70'
-              }`}
-            >
-              {k === 'email' ? <Mail className="h-4 w-4" /> : <Phone className="h-4 w-4" />}
-              {k === 'email' ? t.email : t.phone}
-            </button>
-          ))}
-        </div>
-        {by === 'email' ? (
-          <Field label={t.email} type="email" placeholder="ban@email.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" icon={<Mail className="h-4 w-4" />} error={show('contact')} />
-        ) : (
-          <Field label={t.phone} type="tel" inputMode="tel" placeholder={t.phonePh} value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" icon={<span className="text-[13px] font-bold">🇻🇳</span>} error={show('contact')} />
-        )}
-      </div>
+      {/* Email only: sign-up by phone number is off until real SMS verification exists. */}
+      <Field label={t.email} type="email" placeholder="ban@email.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" icon={<Mail className="h-4 w-4" />} error={show('contact')} />
 
       <PasswordField
         label={t.password}
@@ -396,92 +360,13 @@ function SignUpForm() {
       <ErrorBox error={error} />
       {captcha.widget}
       <PrimaryButton type="submit" disabled={busy || !captcha.ready}>
-        {busy && <Loader2 className="h-4 w-4 animate-spin" />} {by === 'phone' ? t.sendCode : t.createAccount}
+        {busy && <Loader2 className="h-4 w-4 animate-spin" />} {t.createAccount}
       </PrimaryButton>
 
-      {otpOpen && (
-        <OtpSheet
-          phone={phone}
-          busy={busy}
-          error={error}
-          onClose={() => setOtpOpen(false)}
-          onVerify={create}
-        />
-      )}
     </form>
   )
 }
 
-/**
- * DEMO SMS step: no message is really sent and any 6 digits are accepted.
- * Replace with Supabase phone OTP when an SMS provider is configured (PHONE_VERIFY = 'sms').
- */
-function OtpSheet({
-  phone,
-  busy,
-  error,
-  onClose,
-  onVerify,
-}: {
-  phone: string
-  busy: boolean
-  error: AuthError | null
-  onClose: () => void
-  onVerify: () => void
-}) {
-  const { t } = useQuest()
-  const [code, setCode] = useState(['', '', '', '', '', ''])
-  const boxes = useRef<(HTMLInputElement | null)[]>([])
-  const full = code.every((c) => /^\d$/.test(c))
-
-  const setAt = (i: number, v: string) => {
-    const digits = v.replace(/\D/g, '')
-    if (digits.length > 1) {
-      // pasted a whole code
-      const next = digits.slice(0, 6).split('')
-      setCode((c) => c.map((_, k) => next[k] ?? ''))
-      boxes.current[Math.min(next.length, 5)]?.focus()
-      return
-    }
-    setCode((c) => c.map((x, k) => (k === i ? digits : x)))
-    if (digits && i < 5) boxes.current[i + 1]?.focus()
-  }
-
-  return (
-    <Sheet title={t.otpTitle} onClose={onClose}>
-      <p className="text-[13px] text-bark/80">{t.otpSent(phone)}</p>
-      <div className="my-4 flex justify-between gap-2">
-        {code.map((c, i) => (
-          <input
-            key={i}
-            ref={(el) => {
-              boxes.current[i] = el
-            }}
-            value={c}
-            onChange={(e) => setAt(i, e.target.value)}
-            onKeyDown={(e) => e.key === 'Backspace' && !c && i > 0 && boxes.current[i - 1]?.focus()}
-            inputMode="numeric"
-            autoComplete={i === 0 ? 'one-time-code' : 'off'}
-            maxLength={6}
-            autoFocus={i === 0}
-            aria-label={`${i + 1}`}
-            className="h-12 w-11 rounded-xl border-2 border-sand bg-white text-center text-lg font-bold focus:border-teal focus:outline-none"
-          />
-        ))}
-      </div>
-      <p className="mb-3 rounded-xl bg-sun/20 px-3 py-2 text-[11px] font-medium text-bark">{t.otpDemo}</p>
-      <ErrorBox error={error} />
-      <div className="mt-3">
-        <PrimaryButton disabled={!full || busy} onClick={onVerify}>
-          {busy && <Loader2 className="h-4 w-4 animate-spin" />} {t.verify}
-        </PrimaryButton>
-      </div>
-      <button onClick={onClose} className="mt-3 w-full text-center text-[12px] font-bold text-teal">
-        {t.changeNumber}
-      </button>
-    </Sheet>
-  )
-}
 
 function GoogleButton({ next }: { next: string }) {
   const { t } = useQuest()
