@@ -1,7 +1,8 @@
-import { Camera, Eye, Heart, Lightbulb, UtensilsCrossed, type LucideIcon } from 'lucide-react'
+import { Camera, Eye, Heart, Lightbulb, UsersRound, UtensilsCrossed, type LucideIcon } from 'lucide-react'
 import { MODE_INFO, THEME_LABEL } from '../i18n/strings'
 import { duration, moneyRange } from '../lib/format'
-import type { SavedQuest, TipKind } from '../lib/quests'
+import { CONFIRM_AT } from '../lib/community'
+import { questConfirmed, type SavedQuest, type TipKind } from '../lib/quests'
 import { useQuest } from '../store/QuestContext'
 import type { Mode, Place } from '../types'
 import { initials } from './AccountButton'
@@ -97,6 +98,11 @@ export function QuestCard({ quest, cover, onOpen }: { quest: SavedQuest; cover?:
               .join(' · ')}
           </div>
           <ModeBadges modes={quest.modes} />
+          {quest.visibility === 'public' && !questConfirmed(quest) && (
+            <div className="flex items-center gap-1.5 rounded-xl border border-dashed border-sun-dark/60 bg-sun/10 px-2.5 py-1.5 text-[11px] font-bold text-bark">
+              <UsersRound className="h-3.5 w-3.5 shrink-0 text-sun-dark" /> {t.questUnconfirmed(quest.run_count ?? 0, CONFIRM_AT)}
+            </div>
+          )}
           {tip && <TipBox kind={tip.tip_kind!} text={tip.note!} compact />}
         </div>
       </button>

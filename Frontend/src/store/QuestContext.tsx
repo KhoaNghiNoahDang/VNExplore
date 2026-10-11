@@ -3,6 +3,7 @@ import { getRole } from '../data/roles'
 import { EVENTS } from '../data/events'
 import { loadOpenPlaces, PLACES } from '../data/places'
 import { planAround, type Plan, type Region } from '../lib/area'
+import { loadCommunityPlaces } from '../lib/community'
 import { eventStopById, eventsInWindow, isEventId, type EventOption } from '../lib/events'
 import type { PlanContext } from '../lib/quest'
 import { loadSeries, weatherAt, weatherCell, type Series, type Weather } from '../lib/weather'
@@ -91,6 +92,8 @@ export interface QuestState extends Saved {
   setParty: (p: { id: string; code: string } | null) => void
   /** Keep a place the traveller added; `select` also puts it in the current trip. */
   addMyPlace: (p: Place, select: boolean) => void
+  /** A community place just added or updated (visit count): show it at once, without reloading. */
+  putCommunityPlace: (p: Place) => void
   /** A stop by id — catalogue places and event sittings (even ones not in the current trip). */
   stopById: (id: string) => Place | null
 }
@@ -131,20 +134,30 @@ export function QuestProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<Saved>(load)
   // Content ships with the app (Data/sheets → export_app.mjs → data/generated/*.json). Curated places
   // are there at once; open-map-data places arrive as a second chunk a moment later.
-  const [catalog, setCatalog] = useState<Place[]>(PLACES)
+  const [base, setBase] = useState<Place[]>(PLACES)
+  // Places travellers added for everyone (Supabase), loaded alongside.
+  const [community, setCommunity] = useState<Place[]>([])
+  const catalog = useMemo(() => (community.length ? [...base, ...community] : base), [base, community])
   const [loading, setLoading] = useState(true)
   const events: QuestEvent[] = EVENTS
 
   useEffect(() => {
     let alive = true
     loadOpenPlaces()
-      .then((open) => alive && setCatalog([...PLACES, ...open]))
+      .then((open) => alive && setBase([...PLACES, ...open]))
       .catch((err) => console.warn('Open-data places unavailable:', err))
       .finally(() => alive && setLoading(false))
+    loadCommunityPlaces()
+      .then((cp) => alive && setCommunity(cp))
+      .catch((err) => console.warn('Community places unavailable:', err))
     return () => {
       alive = false
     }
   }, [])
+  const putCommunityPlace = useCallback(
+    (p: Place) => setCommunity((cur) => [...cur.filter((x) => x.id !== p.id), p]),
+    [],
+  )
 
   useEffect(() => {
     try {
@@ -282,6 +295,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
     () => ({
       ...saved,
       ...actions,
+      putCommunityPlace,
       places,
       stopById: (id: string) => places.find((p) => p.id === id) ?? (isEventId(id) ? eventStopById(id, events) : null),
       eventOptions,
@@ -303,7 +317,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       role: getRole(saved.roleId),
       t: STRINGS[saved.lang],
     }),
-    [saved, actions, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series, wantWeather],
+    [saved, actions, putCommunityPlace, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series, wantWeather],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

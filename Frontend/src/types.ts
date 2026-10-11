@@ -110,6 +110,8 @@ export interface Place extends LatLng {
   phone?: string | null
   /** Added by the traveller without a price: don't show it as free. */
   priceUnknown?: boolean
+  /** Added by a traveller for everyone (id "cp:…"): how many people have been there so far. */
+  community?: { visits: number; confirmed: boolean; authorId: string | null }
 }
 
 export type EventCategory = 'music' | 'theatre' | 'film' | 'exhibition' | 'workshop' | 'talk' | 'market' | 'festival' | 'other'

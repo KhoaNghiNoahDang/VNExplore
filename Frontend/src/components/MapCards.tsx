@@ -3,6 +3,7 @@ import { TRANSPORT_INFO } from '../i18n/strings'
 import { distance, minutes, moneyRange } from '../lib/format'
 import { useQuest } from '../store/QuestContext'
 import type { Leg, Place } from '../types'
+import { CommunityTag } from './CommunityBits'
 import PlaceThumb from './PlaceThumb'
 import TransportIcon from './TransportIcon'
 import { LegLine } from './TravelBits'
@@ -27,6 +28,7 @@ export function MapPlaceCard({
       <PlaceThumb place={place} className="h-14 w-14 rounded-xl" />
       <div className="min-w-0 flex-1">
         <div className="line-clamp-2 text-[13px] font-bold leading-tight">{place.name[lang]}</div>
+        <CommunityTag place={place} />
         <div className="mt-1 flex items-center gap-1 text-[10px] font-medium opacity-80">
           <TransportIcon transport={leg.transport} className="h-3 w-3 shrink-0 text-teal" strokeWidth={2.25} />
           {t.legLine(distance(leg.distanceM), leg.minutes, TRANSPORT_INFO[lang][leg.transport].short)}

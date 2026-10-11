@@ -22,6 +22,7 @@ import { rankPlaces, suggestTransport, summarize } from '../lib/quest'
 import { eventFits, eventWhen } from '../lib/events'
 import { buildPlannerReply, buildRouteDetails } from '../lib/plannerReply'
 import { firstLeg } from '../lib/travel'
+import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 
 /** Cards shown at first, and added by each "Show more". */
@@ -47,7 +48,15 @@ export default function PlacesPage() {
   // Hundreds of places can be in reach (every village pagoda): show the best ones, more on request.
   const [listCount, setListCount] = useState(LIST_STEP)
   // Places the traveller added themselves: the ones in this trip (just added = already picked).
-  const mine = useMemo(() => myPlaces.filter((p) => selected.includes(p.id)), [myPlaces, selected])
+  // (Also ones they put on everyone's map from this trip.)
+  const uid = useAuth().session?.user.id
+  const mine = useMemo(
+    () => [
+      ...myPlaces.filter((p) => selected.includes(p.id)),
+      ...places.filter((p) => selected.includes(p.id) && !!uid && p.community?.authorId === uid),
+    ],
+    [myPlaces, places, selected, uid],
+  )
   const onMap = useMemo(
     () => [...mine, ...ranked.filter((p, i) => i < MAP_PINS || selected.includes(p.id))],
     [mine, ranked, selected],
@@ -231,7 +240,7 @@ export default function PlacesPage() {
               <h2 className="pt-2 text-[15px] font-extrabold">{t.placesTitle}</h2>
               {ranked.length ? (
                 <>
-                  {ranked.slice(0, listCount).map((p) => (
+                  {ranked.filter((p) => !mine.includes(p)).slice(0, listCount).map((p) => (
                     <PlaceCard key={p.id} place={p} people={intent.people} />
                   ))}
                   {ranked.length > listCount && (

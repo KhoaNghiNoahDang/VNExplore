@@ -9,6 +9,7 @@ import { storyMinutes, storyOf } from '../lib/quest'
 import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
+import { CommunityBadge, FlagPlaceButton } from './CommunityBits'
 import { PlaceNotice, SourceLinks } from './PlaceBits'
 import PlaceThumb from './PlaceThumb'
 import TransportIcon from './TransportIcon'
@@ -82,6 +83,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
         </button>
       )}
 
+      <CommunityBadge place={place} className="mt-3" />
       <PlaceNotice place={place} className="mt-3" />
 
       {mode === 'explore' && role && (
@@ -115,6 +117,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
         {isAdded ? t.added : t.add}
       </button>
       <SourceLinks sources={place.sources} className="mt-2" />
+      <FlagPlaceButton place={place} className="mt-1 self-end" />
     </article>
   )
 }

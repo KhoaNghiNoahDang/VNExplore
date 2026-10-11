@@ -1,5 +1,6 @@
 import type { Mode, Theme, Transport } from '../types'
 import type { QuestSummary } from './quest'
+import { CONFIRM_AT } from './community'
 import { supabase } from './supabase'
 
 export type Visibility = 'private' | 'unlisted' | 'public'
@@ -40,13 +41,15 @@ export interface SavedQuest {
   best_time: BestTime
   cover_place_id: string | null
   like_count: number
+  /** People who walked it (at least half the stops reached), counted on the server. */
+  run_count: number
   created_at: string
   author?: { display_name: string | null; username: string | null; avatar_url: string | null } | null
   stops?: QuestStop[]
 }
 
 const COLS =
-  'id, author_id, title, description, mode, modes, role_id, transport, visibility, review_status, review_note, people, stop_count, total_min, distance_m, cost_min_k, cost_max_k, travel_cost_k, themes, suitable_for, best_time, cover_place_id, like_count, created_at'
+  'id, author_id, title, description, mode, modes, role_id, transport, visibility, review_status, review_note, people, stop_count, total_min, distance_m, cost_min_k, cost_max_k, travel_cost_k, themes, suitable_for, best_time, cover_place_id, like_count, run_count, created_at'
 const WITH_AUTHOR_STOPS = `${COLS}, author:profiles!quests_author_id_fkey(display_name, username, avatar_url), stops:quest_stops(position, place_id, tip_kind, note, custom_task)`
 
 export const questUrl = (id: string) => `${location.origin}/q/${id}`
@@ -132,7 +135,11 @@ export async function deleteQuest(id: string): Promise<void> {
 }
 
 // ------------------------------------------------------------ read
-/** Approved public quests for the Quest tab. */
+/** A public quest is confirmed once 10 people have walked it (or the team approved it). */
+export const questConfirmed = (q: Pick<SavedQuest, 'review_status' | 'run_count'>) =>
+  q.review_status === 'approved' || (q.run_count ?? 0) >= CONFIRM_AT
+
+/** Public quests for the Quest tab: on at once, marked "not confirmed yet" until people have walked them. */
 export async function listPublicQuests(): Promise<SavedQuest[]> {
   if (!supabase) return []
   const { data, error } = await supabase
@@ -140,7 +147,7 @@ export async function listPublicQuests(): Promise<SavedQuest[]> {
     .select(WITH_AUTHOR_STOPS)
     .eq('status', 'published')
     .eq('visibility', 'public')
-    .eq('review_status', 'approved')
+    .neq('review_status', 'rejected')
     .order('created_at', { ascending: false })
     .limit(60)
   if (error) throw error

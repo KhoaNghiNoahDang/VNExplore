@@ -1,7 +1,10 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, MapPin, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
 import { geocodeSearch, type GeoResult } from '../lib/backend'
+import { addCommunityPlace, CONFIRM_AT } from '../lib/community'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 import type { LatLng, Place } from '../types'
 import Sheet from './Sheet'
@@ -39,7 +42,10 @@ export default function AddPlaceCard({ around, forTrip = false }: { around: LatL
 }
 
 export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: LatLng; forTrip?: boolean; onClose: () => void }) {
-  const { t, lang, geo, addMyPlace } = useQuest()
+  const { t, lang, geo, addMyPlace, putCommunityPlace, selected, toggle } = useQuest()
+  const { session } = useAuth()
+  /** Signed in (a guest is fine): places go straight onto everyone's map. */
+  const canPublish = !!supabase && !!session
   // Open the map where the traveller is (they are often standing at the place), else on the plan.
   const first = geo.status === 'on' && geo.position ? geo.position : around
   const [view, setView] = useState<LatLng & { zoom: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
@@ -62,11 +68,11 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
   const [mapFailed, setMapFailed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
-  const [toTrip, setToTrip] = useState(forTrip)
+  const [toTrip, setToTrip] = useState(forTrip)  // only offered when opened while planning a trip
   const [share, setShare] = useState(true)
   const [stay, setStay] = useState('')
   /** After submitting: what happened (added to the trip, sent to the team, or added but not sent). */
-  const [outcome, setOutcome] = useState<'sent' | 'added' | 'addedSent' | 'addedNotSent' | null>(null)
+  const [outcome, setOutcome] = useState<'sent' | 'added' | 'addedSent' | 'addedNotSent' | 'published' | 'publishedTrip' | null>(null)
   const [clientSuggestionId, setClientSuggestionId] = useState(() => crypto.randomUUID())
 
   useEffect(() => {
@@ -130,7 +136,7 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     const min = priceMin ? Math.round(Number(priceMin) / 1000) : null
     const max = priceMax ? Math.round(Number(priceMax) / 1000) : null
     if (min != null && max != null && max < min) return setError(t.addPlaceRangeError)
-    if (forTrip && !toTrip && !share) return setError(t.addPlaceNeedOne)
+    if (!toTrip && !share) return setError(t.addPlaceNeedOne)
     // An address typed but no result picked: use the best match for it.
     let at = point
     if (!pinned && address.trim().length >= 3) {
@@ -142,13 +148,51 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         pinAt(best)
       }
     }
-    // A stop needs a real position: without an address or a tap on the map we only know where the phone is.
-    if (forTrip && toTrip && !pinned && at === point) return setError(t.addPlaceNoPin)
-    if (forTrip && toTrip) {
-      // A stop of the trip right away: travel time comes from the distance, cost from the prices given.
-      const lo = min ?? max
-      const hi = max ?? min
-      const minutes = Math.round(Number(stay))
+    // A stop, or a place on everyone's map, needs a real position: without an address or a tap on
+    // the map we only know where the phone is.
+    const publish = share && canPublish
+    if ((toTrip || publish) && !pinned && at === point) return setError(t.addPlaceNoPin)
+    const lo = min ?? max
+    const hi = max ?? min
+    const stayMin = Math.round(Number(stay)) > 0 ? Math.min(Math.round(Number(stay)), 600) : STAY[kind]
+    const pos = { lat: Number(at.lat.toFixed(6)), lng: Number(at.lng.toFixed(6)) }
+    const description_ = description.trim() || null
+
+    // Signed in: straight onto everyone's map, marked "not confirmed yet" until 10 people have been.
+    if (publish) {
+      setSubmitting(true)
+      try {
+        const p = await addCommunityPlace({
+          clientId: clientSuggestionId,
+          name: name.trim(),
+          kind,
+          at: pos,
+          address: address.trim() || null,
+          description: description_,
+          openingHours: hours.trim() || null,
+          priceMinK: min,
+          priceMaxK: max,
+          contact: contact.trim() || null,
+          visitMin: stayMin,
+          language: lang,
+          here: geo.status === 'on' ? geo.position : null,
+        })
+        putCommunityPlace(p)
+        if (toTrip && !selected.includes(p.id)) toggle(p.id)
+        setOutcome(toTrip ? 'publishedTrip' : 'published')
+        setSent(true)
+        return
+      } catch (e) {
+        if (e instanceof Error && e.message === 'too_many') return setError(t.addPlaceTooMany)
+        // Offline or Supabase down: keep it in the trip at least.
+        if (!toTrip) return setError(t.addPlaceSubmitError)
+      } finally {
+        setSubmitting(false)
+      }
+    }
+
+    if (toTrip) {
+      // Only on this phone: a stop of the trip right away (travel time from the distance, cost from the prices).
       addMyPlace(
         {
           id: `my:${clientSuggestionId}`,
@@ -159,12 +203,11 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
           priceCheckedOn: null,
           name: { vi: name.trim(), en: name.trim() },
           nameVi: name.trim(),
-          lat: Number(at.lat.toFixed(6)),
-          lng: Number(at.lng.toFixed(6)),
+          ...pos,
           priceMin: lo ?? 0,
           priceMax: hi ?? 0,
           priceUnknown: lo == null,
-          visitMin: minutes > 0 ? Math.min(minutes, 600) : STAY[kind],
+          visitMin: stayMin,
           themes: THEMES[kind],
           tags: ['mine'],
           blurb: (() => {
@@ -180,32 +223,37 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         },
         true,
       )
+      if (publish) {
+        setOutcome('addedNotSent')
+        setSent(true)
+        return
+      }
       if (!share) {
         setOutcome('added')
         setSent(true)
         return
       }
     }
+    // Not signed in: to the team for review, as before.
     setSubmitting(true)
     try {
       await submitPlaceSuggestion({
         clientSuggestionId,
         name: name.trim(),
         kind,
-        lat: Number(at.lat.toFixed(6)),
-        lng: Number(at.lng.toFixed(6)),
+        ...pos,
         address: address.trim() || null,
-        description: description.trim() || null,
+        description: description_,
         openingHours: hours.trim() || null,
         priceMinK: min,
         priceMaxK: max,
         contact: contact.trim() || null,
         language: lang,
       })
-      setOutcome(forTrip && toTrip ? 'addedSent' : 'sent')
+      setOutcome(toTrip ? 'addedSent' : 'sent')
       setSent(true)
     } catch {
-      if (forTrip && toTrip) {
+      if (toTrip) {
         setOutcome('addedNotSent')
         setSent(true)
       } else setError(t.addPlaceSubmitError)
@@ -225,7 +273,11 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         >
           {outcome === 'addedNotSent' ? <CircleAlert className="mt-0.5 h-4 w-4 shrink-0" /> : <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" />}
           <span>
-            {outcome === 'added'
+            {outcome === 'published'
+              ? t.addPlacePublished
+              : outcome === 'publishedTrip'
+                ? t.addPlacePublishedTrip
+                : outcome === 'added'
               ? t.addPlaceAdded
               : outcome === 'addedSent'
                 ? t.addPlaceAddedAndSent
@@ -387,41 +439,42 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         <input className={fieldClass} maxLength={200} value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t.addPlaceContactPh} />
       </label>
 
-      {forTrip && (
-        <div className="mt-4 space-y-2">
+      <label className="mt-3 block text-[12px] font-bold text-ink/80">
+        {t.addPlaceStay}
+        <input
+          className={fieldClass}
+          type="number"
+          min="5"
+          max="600"
+          step="5"
+          inputMode="numeric"
+          value={stay}
+          onChange={(e) => setStay(e.target.value)}
+          placeholder={String(STAY[kind ?? 'sight'])}
+        />
+      </label>
+
+      <div className="mt-4 space-y-2">
+        {forTrip && (
           <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${toTrip ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
             <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={toTrip} onChange={(e) => setToTrip(e.target.checked)} />
             <span className="min-w-0 flex-1">
               <span className="block text-[13px] font-bold">{t.addPlaceToTrip}</span>
               <span className="block text-[11px] leading-snug text-bark/70">{t.addPlaceToTripHint}</span>
-              {toTrip && (
-                <span className="mt-2 block text-[12px] font-bold text-ink/80">
-                  {t.addPlaceStay}
-                  <input
-                    className={fieldClass}
-                    type="number"
-                    min="5"
-                    max="600"
-                    step="5"
-                    inputMode="numeric"
-                    value={stay}
-                    onChange={(e) => setStay(e.target.value)}
-                    placeholder={String(STAY[kind ?? 'sight'])}
-                  />
-                </span>
-              )}
             </span>
           </label>
-          <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${share ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
-            <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={share} onChange={(e) => setShare(e.target.checked)} />
-            <span className="min-w-0 flex-1">
-              <span className="block text-[13px] font-bold">{t.addPlaceShare}</span>
-              <span className="block text-[11px] leading-snug text-bark/70">{t.addPlaceShareHint}</span>
+        )}
+        <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${share ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
+          <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={share} onChange={(e) => setShare(e.target.checked)} />
+          <span className="min-w-0 flex-1">
+            <span className="block text-[13px] font-bold">{canPublish ? t.addPlacePublic : t.addPlaceShare}</span>
+            <span className="block text-[11px] leading-snug text-bark/70">
+              {canPublish ? t.addPlacePublicHint(CONFIRM_AT) : supabase ? t.addPlacePublicSignIn : t.addPlaceShareHint}
             </span>
-          </label>
-        </div>
-      )}
-      {(!forTrip || share) && <p className="mt-4 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>}
+          </span>
+        </label>
+      </div>
+      {share && !canPublish && <p className="mt-3 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>}
       {error && (
         <p className="mt-3 rounded-xl bg-brick/10 px-3 py-2 text-[12px] font-medium text-brick" role="alert">
           {error}
@@ -433,8 +486,8 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         onClick={submit}
         className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border-b-4 border-teal/70 bg-teal px-4 font-bold text-white shadow-md transition active:translate-y-0.5 active:border-b-0 disabled:border-sand disabled:bg-sand disabled:text-bark/50 disabled:shadow-none"
       >
-        {forTrip && toTrip ? <Plus className="h-4 w-4" /> : <Send className="h-4 w-4" />}{' '}
-        {submitting ? t.addPlaceSubmitting : forTrip && toTrip ? t.addPlaceToTrip : t.addPlaceSubmit}
+        {toTrip ? <Plus className="h-4 w-4" /> : <Send className="h-4 w-4" />}{' '}
+        {submitting ? t.addPlaceSubmitting : toTrip ? t.addPlaceToTrip : share && canPublish ? t.addPlacePublic : t.addPlaceSubmit}
       </button>
     </Sheet>
   )
