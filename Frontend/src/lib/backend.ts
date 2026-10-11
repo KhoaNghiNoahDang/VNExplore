@@ -65,7 +65,8 @@ export interface AdviceContext {
  * Ask the backend to read the request. Resolves to null on any problem (no backend, asleep,
  * slow, no model key, daily limit) — the caller then keeps its rule-based reading.
  */
-export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 4000): Promise<Understood | null> {
+// 6.5 s: the backend gives the model at most 5.5 s (see Backend/src/services/llm.ts), plus the trip.
+export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 6500): Promise<Understood | null> {
   if (!API_URL) return null
   try {
     const res = await fetch(`${API_URL}/v1/understand`, {

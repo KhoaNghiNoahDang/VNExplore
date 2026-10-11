@@ -32,6 +32,18 @@ const stateOf = (k: KeyState, model: string) => {
 const isReady = (k: KeyState, model: string, now = Date.now()) => k.deadUntil <= now && stateOf(k, model).restUntil <= now
 let cursor = 0
 
+/**
+ * The app waits ~6.5 s for an answer (then keeps its rule-based reading), so the whole chain of
+ * attempts must finish inside this budget: a slow key must not eat the time of the next one.
+ */
+const BUDGET_MS = 5500
+const CALL_TIMEOUT_MS = 3500
+/** Don't start another attempt with less time than this left. */
+const MIN_ATTEMPT_MS = 1200
+
+/** For /health: how the last real call went (model, status, when) — never the request text. */
+let lastCall: { at: string; model: string; ok: boolean; status?: number; error?: string } | null = null
+
 class HttpError extends Error {
   constructor(
     readonly status: number,
@@ -50,6 +62,7 @@ export const llmHealth = () => ({
   readyFallback: config.GEMINI_FALLBACK_MODEL ? keys.filter((k) => isReady(k, config.GEMINI_FALLBACK_MODEL)).length : 0,
   model: config.GEMINI_MODEL,
   fallbackModel: config.GEMINI_FALLBACK_MODEL || null,
+  lastCall,
 })
 
 /** Keys not resting for this model, starting from the next one in rotation. */
@@ -77,17 +90,19 @@ interface ChatResponse {
   choices?: { message?: { content?: string } }[]
 }
 
-async function call(k: KeyState, model: string, system: string, user: string): Promise<unknown> {
+async function call(k: KeyState, model: string, system: string, user: string, timeoutMs: number): Promise<unknown> {
   let res: Response
   try {
     res = await fetch(`${BASE_URL}/chat/completions`, {
       method: 'POST',
-      signal: AbortSignal.timeout(8000),
+      signal: AbortSignal.timeout(timeoutMs),
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${k.key}` },
       body: JSON.stringify({
         model,
         temperature: 0.1,
-        max_tokens: 500,
+        // Newer Flash models "think" first, and those tokens count here too: 500 could cut the JSON
+        // off (or leave it empty). The answer itself is ~300 tokens; only what is used is billed.
+        max_tokens: 2048,
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: system },
@@ -106,6 +121,7 @@ async function call(k: KeyState, model: string, system: string, user: string): P
   }
   const body = (await res.json()) as ChatResponse
   const text = body.choices?.[0]?.message?.content ?? ''
+  if (!text.trim()) throw new Error('empty answer')
   // Some models wrap JSON in ```json fences — strip them.
   return JSON.parse(text.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, ''))
 }
@@ -116,16 +132,27 @@ export async function chatJson(system: string, user: string): Promise<{ provider
   const models = [config.GEMINI_MODEL, config.GEMINI_FALLBACK_MODEL].filter((m, i, a) => m && a.indexOf(m) === i)
   let last: unknown = new Error('All Gemini keys are resting')
   const start = cursor++ % Math.max(keys.length, 1)
+  const deadline = Date.now() + BUDGET_MS
   for (const model of models) {
     for (const k of readyKeys(model, start)) {
+      const left = deadline - Date.now()
+      if (left < MIN_ATTEMPT_MS) break
       try {
-        const json = await call(k, model, system, user)
+        const json = await call(k, model, system, user, Math.min(CALL_TIMEOUT_MS, left))
         const m = stateOf(k, model)
         m.failures = 0
         m.quotaHits = 0
+        lastCall = { at: new Date().toISOString(), model, ok: true }
         return { provider: `gemini:${model}#${keys.indexOf(k) + 1}`, json }
       } catch (err) {
         last = err
+        lastCall = {
+          at: new Date().toISOString(),
+          model,
+          ok: false,
+          ...(err instanceof HttpError ? { status: err.status } : {}),
+          error: (err instanceof Error ? err.message : String(err)).slice(0, 120),
+        }
         if (err instanceof HttpError) rest(k, model, err.status)
         // A bad JSON answer isn't the key's fault: try the next key/model anyway.
       }
