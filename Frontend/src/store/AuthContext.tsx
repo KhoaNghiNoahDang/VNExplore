@@ -43,6 +43,8 @@ export interface AuthState {
   /** Signed in with a permanent account (not a guest): may publish and like quests. */
   isMember: boolean
   signOut: () => Promise<void>
+  /** Delete the account and everything that is theirs (see 0020_delete_my_account.sql), then sign out. */
+  deleteAccount: () => Promise<AuthError | null>
   isUsernameFree: (username: string) => Promise<boolean>
   /** Signed in only with a name (group play): no email or password yet. */
   isGuest: boolean
@@ -215,6 +217,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase?.auth.signOut()
   }, [])
 
+  const deleteAccount = useCallback(async (): Promise<AuthError | null> => {
+    if (!supabase) return 'unavailable'
+    const { error } = await supabase.rpc('delete_my_account')
+    if (error) return 'unknown'
+    // The user is gone on the server: just forget the session here, and what this device kept for them.
+    await supabase.auth.signOut({ scope: 'local' })
+    try {
+      localStorage.removeItem('vnexplore:passport')
+      localStorage.removeItem(CLAIM_KEY)
+    } catch {
+      /* storage unavailable */
+    }
+    return null
+  }, [])
+
   const signInAsGuest = useCallback(async (displayName: string, captchaToken?: string): Promise<AuthError | null> => {
     if (!supabase) return 'unavailable'
     const { error } = await supabase.auth.signInAnonymously({ options: { data: { display_name: displayName.trim() }, captchaToken } })
@@ -257,6 +274,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signInWithGoogle,
       sendPasswordReset,
       signOut,
+      deleteAccount,
       isUsernameFree,
       isGuest: !!session?.user.is_anonymous,
       isMember: !!session && !session.user.is_anonymous,
@@ -264,7 +282,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       upgradeGuest,
       linkGoogle,
     }),
-    [loading, session, profile, signIn, signUp, signInWithGoogle, sendPasswordReset, signOut, isUsernameFree, signInAsGuest, upgradeGuest, linkGoogle],
+    [loading, session, profile, signIn, signUp, signInWithGoogle, sendPasswordReset, signOut, deleteAccount, isUsernameFree, signInAsGuest, upgradeGuest, linkGoogle],
   )
 
   return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>

@@ -7,6 +7,7 @@ import PrimaryButton from '../components/PrimaryButton'
 import Sheet from '../components/Sheet'
 import { DongSonBand, DongSonDrum, LakeScene, Lantern, Lotus } from '../components/VnArt'
 import { GOOGLE_AUTH } from '../lib/supabase'
+import { LegalLinks } from '../components/Legal'
 import { USERNAME_RE, useAuth, type AuthError } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 
@@ -352,7 +353,7 @@ function SignUpForm() {
       <label className="flex cursor-pointer items-start gap-2.5 text-[13px]">
         <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5 h-4 w-4 accent-teal" />
         <span>
-          {t.agreeTerms}
+          {t.agreeTerms} <LegalLinks />
           {show('agree') && <span className="block text-[11px] font-medium text-brick">{errors.agree}</span>}
         </span>
       </label>
