@@ -8387,8 +8387,8 @@
   },
   "tone": "leaf",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Gần một trăm năm trước, người Pháp chọn núi Ba Vì mát mẻ để làm khu nghỉ dưỡng, dựng biệt thự và nhà thờ ở các độ cao khác nhau, nhắc tới nhiều nhất là các cốt 400, 600 và 1000. Theo tư liệu lưu trữ, đến năm 1944 đã có nhiều công trình được xây. Rồi nơi này bị bỏ hoang: mái sập, rễ cây và rêu phủ kín tường gạch. Ngày nay còn khoảng hai trăm phế tích rải rác trong vườn quốc gia, trong đó có nhà thờ đổ ở độ cao khoảng 800 m, vách tường vẫn còn dấu thập tự.",
+   "en": "Nearly a hundred years ago, the French chose the cool slopes of Ba Vi for a hill resort, building villas and a church at different heights, best known at the 400, 600 and 1,000 metre levels. Archive records show many buildings had gone up by 1944. Then the place was abandoned: roofs fell in, and roots and moss covered the brick walls. Some two hundred ruins are scattered through the national park today, among them a roofless church at about 800 metres whose wall still bears a cross."
   },
   "why": {
    "vi": "Sự kết hợp giữa phế tích và rừng già tạo trải nghiệm khác hẳn các điểm ngắm cảnh thông thường.",
@@ -8404,7 +8404,10 @@
   },
   "challenge": null,
   "sources": [
-   "openstreetmap"
+   "openstreetmap",
+   "https://vnexpress.net/48-gio-o-ba-vi-4787026.html",
+   "https://baophapluat.vn/kham-pha-nhung-can-biet-thu-co-trong-vuon-quoc-gia-ba-vi-post213402.html",
+   "https://baomoi.com/tiem-nang-du-lich-tu-cac-phe-tich-tren-nui-ba-vi-c47779450.epi"
   ],
   "notice": null,
   "phone": null
@@ -9690,24 +9693,26 @@
   },
   "tone": "teal",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Bảo tàng được xây cho Đại lễ 1000 năm Thăng Long – Hà Nội và khánh thành ngày 6 tháng 10 năm 2010. Hai kiến trúc sư người Đức Meinhard von Gerkan và Nikolaus Goetze thiết kế toà nhà như một kim tự tháp lộn ngược, tầng trên rộng hơn tầng dưới; ý tưởng lấy từ chùa Một Cột, như một bông sen nở trên cuống. Bên trong là hành trình của Hà Nội từ thời tiền sử, qua kinh thành Thăng Long, đến thành phố hôm nay, với hàng chục nghìn tài liệu và hiện vật.",
+   "en": "The museum was built for the 1,000th anniversary of Thang Long–Hanoi and opened on 6 October 2010. German architects Meinhard von Gerkan and Nikolaus Goetze designed it as an upside-down pyramid, each floor wider than the one below; the idea comes from the One Pillar Pagoda, a lotus opening on its stem. Inside is Hanoi's journey from prehistory, through the royal city of Thang Long, to the city of today, told through tens of thousands of documents and objects."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Một nơi để hiểu cả nghìn năm Hà Nội trong một buổi, lại hợp ngày mưa nắng.",
+   "en": "A thousand years of Hanoi in one visit, and a good choice whatever the weather."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Lùi ra xa phía trước toà nhà và chụp góc thấp để thấy rõ dáng kim tự tháp ngược.",
+   "en": "Step well back from the front and shoot low to show the inverted pyramid."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Không chạm vào hiện vật, hỏi trước khi chụp ảnh ở khu có biển cấm.",
+   "en": "Don't touch the exhibits, and check before taking photos where signs say not to."
   },
   "challenge": null,
   "sources": [
-   "https://kinhte.congthuong.vn/apicenter@/print_article&i=368066"
+   "https://kinhte.congthuong.vn/apicenter@/print_article&i=368066",
+   "https://tuoitre.vn/tham-bao-tang-ha-noi-425793.htm",
+   "https://vinpearl.com/vi/tham-quan-bao-tang-ha-noi"
   ],
   "notice": null,
   "phone": null
@@ -9744,25 +9749,27 @@
   },
   "tone": "leaf",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Bảo tàng mở cửa năm 1997 để kể về đời sống của 54 dân tộc Việt Nam qua quần áo, nhạc cụ, đồ dùng, nông cụ và các nghi lễ. Toà nhà chính có dáng trống đồng Đông Sơn. Đừng bỏ lỡ vườn kiến trúc ngoài trời rộng khoảng 2 héc-ta, nơi khoảng mười ngôi nhà truyền thống được dựng lại như thật, từ nhà rông Tây Nguyên cao vút đến nhà sàn, nhà ngói miền núi phía Bắc. Ở khu vườn thường có biểu diễn múa rối nước và trò chơi dân gian.",
+   "en": "The museum opened in 1997 to tell the life of Vietnam's 54 ethnic groups through clothing, instruments, tools and rituals. The main building is shaped like a Dong Son bronze drum. Don't miss the outdoor architecture garden of about two hectares, where some ten traditional houses have been rebuilt at full size, from a soaring Central Highlands communal house to stilt and tiled houses of the northern mountains. The garden often has water puppet shows and folk games."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Chỉ trong một buổi, bạn bước vào nhà của nhiều dân tộc mà bình thường phải đi hàng nghìn cây số mới thấy.",
+   "en": "In one visit you step inside homes you would otherwise travel thousands of kilometres to see."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Chụp nhà rông từ dưới lên để thấy mái cao vút; buổi sáng ánh sáng dịu hơn.",
+   "en": "Shoot the communal house from below to show its towering roof; morning light is softer."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Cởi giày khi lên nhà sàn nếu có biển hướng dẫn, không leo lên chỗ có rào chắn.",
+   "en": "Take off your shoes on stilt houses where signs ask, and don't climb where it's fenced off."
   },
   "challenge": null,
   "sources": [
    "https://www.vme.org.vn",
-   "https://en.wikipedia.org/wiki/Vietnam_Museum_of_Ethnology"
+   "https://en.wikipedia.org/wiki/Vietnam_Museum_of_Ethnology",
+   "https://vinpearl.com/vi/bao-tang-dan-toc-hoc-viet-nam",
+   "https://mia.vn/cam-nang-du-lich/goi-y-kinh-nghiem-di-bao-tang-dan-toc-hoc-viet-nam-day-thu-vi-cho-ban-2896"
   ],
   "notice": null,
   "phone": null
@@ -9798,24 +9805,26 @@
   },
   "tone": "brick",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Toà nhà màu vàng ở số 66 Nguyễn Thái Học được xây năm 1937 thời Pháp, ban đầu là nơi ở của nữ sinh. Năm 1963, họa sĩ Nguyễn Đỗ Cung chọn nơi này để làm bảo tàng mỹ thuật quốc gia. Kiến trúc pha trộn dáng nhà Pháp với mái ngói và các chi tiết kiểu Việt. Bên trong, các phòng đưa bạn đi từ cổ vật thời tiền sử, tượng thờ trong đình chùa, tranh dân gian, đến tranh sơn mài và sơn dầu của các danh họa thế kỷ XX.",
+   "en": "The yellow building at 66 Nguyen Thai Hoc was built in 1937 under the French, first as a residence for schoolgirls. In 1963 the painter Nguyen Do Cung chose it for the national museum of fine arts. Its architecture mixes a French building with tiled roofs and Vietnamese details. Inside, the rooms take you from prehistoric objects and statues from village temples and pagodas, through folk prints, to lacquer and oil paintings by the great painters of the 20th century."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Cách nhanh nhất để thấy mỹ thuật Việt Nam thay đổi qua mấy nghìn năm, ngay cạnh Văn Miếu.",
+   "en": "The quickest way to see Vietnamese art change over thousands of years, right next to the Temple of Literature."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Chụp mặt tiền vàng từ vỉa hè đối diện, lúc nắng xiên buổi chiều.",
+   "en": "Shoot the yellow facade from the opposite pavement in the slanting afternoon sun."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Không chạm vào tác phẩm, không dùng đèn flash.",
+   "en": "Don't touch the works and don't use flash."
   },
   "challenge": null,
   "sources": [
-   "https://vietnam.travel/vi/things-to-do/vietnams-must-see-museums"
+   "https://vietnam.travel/vi/things-to-do/vietnams-must-see-museums",
+   "https://baovanhoa.vn/nghe-thuat/bao-tang-my-thuat-viet-nam-hanh-trinh-hon-bon-thap-ky-gin-giu-di-san-185960.html",
+   "https://vinpearl.com/vi/bao-tang-my-thuat-viet-nam"
   ],
   "notice": null,
   "phone": null
@@ -9851,25 +9860,27 @@
   },
   "tone": "leaf",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Bảo tàng được thành lập năm 2004, nằm ngay trong khuôn viên Viện Hàn lâm Khoa học và Công nghệ Việt Nam. Phòng trưng bày không lớn nhưng có gần 1.400 mẫu vật: tiêu bản côn trùng, cá, san hô, ốc biển, cùng hóa thạch và mẫu các loài thú như gấu và hổ Đông Dương. Đây là chỗ hợp để trẻ nhỏ tìm hiểu về rừng, biển và muông thú của Việt Nam, và vào cửa miễn phí.",
+   "en": "The museum was founded in 2004 and sits inside the Vietnam Academy of Science and Technology. Its gallery is small but holds nearly 1,400 specimens: insects, fish, corals and shells, along with fossils and animals such as the Indochinese bear and tiger. It is a good place for children to learn about Vietnam's forests, seas and wildlife, and entry is free."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Miễn phí, trong nhà, vừa sức trẻ nhỏ – hợp cho một buổi mưa.",
+   "en": "Free, indoors and child-sized – good for a rainy morning."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Chụp tiêu bản qua kính ở góc chéo để tránh bóng phản chiếu.",
+   "en": "Shoot specimens through the glass at an angle to avoid reflections."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Không gõ vào tủ kính, không cho trẻ chạm vào mẫu vật.",
+   "en": "Don't tap the display cases or let children touch the specimens."
   },
   "challenge": null,
   "sources": [
    "https://vinwonders.com/vi/wonderpedia/news/bao-tang-binh-chung-thong-tin/",
-   "https://vinwonders.com/vi/wonderpedia/news/bao-tang-o-ha-noi/"
+   "https://vinwonders.com/vi/wonderpedia/news/bao-tang-o-ha-noi/",
+   "https://vietnamnet.vn/bao-tang-thien-nhien-viet-nam-dong-duc-ngay-cuoi-tuan-2046889.html",
+   "https://mia.vn/cam-nang-du-lich/bao-tang-thien-nhien-viet-nam-13314"
   ],
   "notice": null,
   "phone": null
@@ -9907,26 +9918,29 @@
   },
   "tone": "butter",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Làng Bát Tràng đã làm gốm qua nhiều thế kỷ, và toà nhà này như một lời chào dành cho nghề gốm: bảy khối tròn xoáy chồng lên nhau, gợi hình bảy bàn xoay mà người thợ dùng để vuốt gốm. Tường và mái dùng gạch nung, ngói của chính làng. Một mặt nhìn vào làng, mặt kia nhìn ra kênh Bắc Hưng Hải. Bên trong trưng bày đồ gốm qua các thời kỳ, và bạn có thể tự tay nặn một chiếc bát, chiếc cốc trên bàn xoay.",
+   "en": "Bat Trang has made pottery for centuries, and this building is a salute to the craft: seven swirling round blocks stacked together, like the seven potter's wheels a craftsman throws clay on. Its walls and roofs use the village's own fired brick and tiles. One side faces the village, the other the Bac Hung Hai canal. Inside are ceramics from across the ages, and you can throw your own bowl or cup on a wheel."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Vừa xem gốm đẹp, vừa được tự tay làm gốm ngay giữa làng nghề.",
+   "en": "See fine ceramics and make your own, right in the pottery village."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Chụp từ bờ kênh để thấy trọn các khối xoáy của toà nhà.",
+   "en": "Shoot from the canal bank to fit all the swirling blocks in one frame."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Hỏi trước khi chụp nghệ nhân đang làm, cẩn thận với đồ gốm trưng bày.",
+   "en": "Ask before photographing artisans at work, and take care around the pottery on display."
   },
   "challenge": null,
   "sources": [
    "https://vinwonders.com/vi/wonderpedia/news/bao-tang-binh-chung-thong-tin/",
    "https://vinwonders.com/vi/wonderpedia/news/bao-tang-o-ha-noi/",
-   "https://vinwonders.com/vi/wonderpedia/news/workshop-lam-gom-ha-noi/"
+   "https://vinwonders.com/vi/wonderpedia/news/workshop-lam-gom-ha-noi/",
+   "https://vietnamfinance.vn/toan-canh-biet-phu-gom-tram-ty-tai-bat-trang-d74094.html",
+   "https://nhandan.vn/diem-du-lich-moi-o-lang-gom-bat-trang-post744360.html",
+   "https://mia.vn/cam-nang-du-lich/kham-pha-ha-noi-voi-bao-tang-gom-bat-trang-toa-kien-truc-doc-dao-nam-o-ngoai-o-2855"
   ],
   "notice": {
    "vi": "Nên liên hệ trước khi đến — lịch lớp có thể thay đổi.",
@@ -9968,16 +9982,16 @@
   },
   "tone": "brick",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Năm 1070, vua Lý Thánh Tông cho dựng Văn Miếu để thờ Khổng Tử và các bậc hiền triết. Sáu năm sau, năm 1076, Quốc Tử Giám ra đời ngay bên cạnh, lúc đầu dạy con vua quan, về sau nhận cả học trò giỏi ngoài dân gian, nên thường được gọi là trường đại học đầu tiên của Việt Nam. Hãy tìm 82 tấm bia đá đặt trên lưng rùa: mỗi tấm khắc tên những người đỗ tiến sĩ của một khoa thi, từ khoa năm 1442 đến khoa năm 1779. Gác Khuê Văn Các với bốn ô cửa tròn được dựng năm 1805, nay là biểu tượng của Hà Nội.",
+   "en": "In 1070 King Ly Thanh Tong built the Temple of Literature to honour Confucius and the sages. Six years later, in 1076, the Imperial Academy opened next to it. It first taught the sons of the king and mandarins, later gifted commoners too, so it is often called Vietnam's first university. Look for the 82 stone steles standing on the backs of turtles: each carries the names of the doctors who passed one exam, from the exam of 1442 to that of 1779. The Khue Van pavilion with its four round windows was built in 1805 and is now a symbol of Hanoi."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Mỗi tấm bia là một kỳ thi có thật; tên người đỗ được khắc vào đá để đời sau noi theo.",
+   "en": "Each stele is a real exam; the names of those who passed were carved in stone for later generations to follow."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Đứng bên giếng Thiên Quang ở sân thứ ba, chụp gác Khuê Văn Các soi bóng xuống mặt nước.",
+   "en": "Stand by the Well of Heavenly Clarity in the third courtyard and catch the Khue Van pavilion reflected in the water."
   },
   "etiquette": {
    "vi": "Ăn mặc kín đáo, nói khẽ, không chụp ảnh người đang lễ.",
@@ -9986,7 +10000,9 @@
   "challenge": null,
   "sources": [
    "https://baovanhoa.vn/di-san/trien-lam-di-tich-quoc-gia-dac-biet-o-ha-noi-59651.html",
-   "https://en.wikipedia.org/wiki/Temple_of_Literature,_Hanoi"
+   "https://en.wikipedia.org/wiki/Temple_of_Literature,_Hanoi",
+   "https://tuoitre.vn/bia-tien-si-tai-van-mieu---quoc-tu-giam-la-di-san-tu-lieu-the-gioi-367388.htm",
+   "https://www.sggp.org.vn/den-van-mieu-quoc-tu-giam-ngam-nhung-tuyet-tac-hinh-tuong-rong-tren-bia-tien-si-post752540.html"
   ],
   "notice": null,
   "phone": null
@@ -10023,25 +10039,27 @@
   },
   "tone": "leaf",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Hơn hai nghìn năm trước, Thục Phán An Dương Vương chọn vùng đất này làm kinh đô nước Âu Lạc và đắp ba vòng thành đất cuộn vào nhau như vỏ ốc, nên dân gian gọi là thành Ốc; riêng vòng ngoài dài khoảng 8 km. Truyền thuyết kể thần Kim Quy tặng vua chiếc móng làm lẫy nỏ thần, bắn một phát ra hàng vạn mũi tên. Trọng Thủy, con trai Triệu Đà, cưới công chúa Mỵ Châu rồi đánh tráo lẫy nỏ, và thành Cổ Loa thất thủ. Đền Thượng ở giữa thành Nội thờ An Dương Vương, nơi tương truyền nhà vua từng ở.",
+   "en": "More than two thousand years ago, Thuc Phan An Duong Vuong made this the capital of the kingdom of Au Lac and raised three earthen ramparts coiling into one another like a snail shell, which is why people call it the Snail Citadel; the outer ring alone runs about 8 km. Legend says the Golden Turtle god gave the king a claw to make the trigger of a magic crossbow that fired thousands of arrows at once. Trong Thuy, son of Trieu Da, married Princess My Chau and swapped the trigger, and Co Loa fell. The Upper Temple in the inner citadel honours An Duong Vuong, where the king is said to have lived."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Đây là một trong những kinh đô cổ nhất của người Việt, và là nơi diễn ra câu chuyện Mỵ Châu – Trọng Thủy mà ai cũng từng học.",
+   "en": "It is one of the oldest Vietnamese capitals, and the setting of the My Chau and Trong Thuy story every Vietnamese child learns."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Leo lên đoạn lũy đất còn cao, chụp xuôi theo đường thành uốn cong giữa ruộng và hàng tre.",
+   "en": "Climb a surviving stretch of rampart and shoot along its curve between the fields and bamboo."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Ăn mặc kín đáo khi vào đền, nói khẽ, không chụp ảnh người đang lễ; không đào bới hay lấy đất đá ở lũy thành.",
+   "en": "Dress modestly in the temples, speak softly, don't photograph people praying, and don't dig or take soil or stones from the ramparts."
   },
   "challenge": null,
   "sources": [
    "https://baovanhoa.vn/di-san/trien-lam-di-tich-quoc-gia-dac-biet-o-ha-noi-59651.html",
-   "https://en.wikipedia.org/wiki/C%E1%BB%95_Loa_Citadel"
+   "https://en.wikipedia.org/wiki/C%E1%BB%95_Loa_Citadel",
+   "https://vinwonders.com/vi/wonderpedia/news/kinh-nghiem-tham-quan-thanh-co-loa/",
+   "https://mia.vn/cam-nang-du-lich/kham-pha-thanh-co-loa-co-kinh-va-doc-dao-nhat-viet-nam-2803"
   ],
   "notice": null,
   "phone": null
@@ -10077,24 +10095,27 @@
   },
   "tone": "brick",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Thành Hà Nội thời Nguyễn được xây năm 1805, và nay gần như chỉ còn lại cổng thành này. Sáng ngày 25 tháng 4 năm 1882, quân Pháp do Henri Rivière chỉ huy nã pháo đánh thành. Hãy nhìn mặt tường phía ngoài: hai vết đạn pháo vẫn hằn sâu, ngay cạnh tấm biển đá ghi ngày ấy. Tổng đốc Hoàng Diệu quyết giữ thành; khi kho thuốc súng nổ và thành thất thủ, ông tuẫn tiết. Về sau người Pháp dỡ gần hết thành, giữ lại cổng này và dùng lầu bên trên làm chòi canh.",
+   "en": "Hanoi's Nguyen-dynasty citadel was built in 1805, and this gate is almost all that remains of it. On the morning of 25 April 1882, French troops under Henri Riviere shelled the citadel. Look at the outer wall: two shell craters are still deep in the stone, right beside a plaque with that date. Governor Hoang Dieu refused to surrender; when the powder magazine exploded and the citadel fell, he took his own life. The French later pulled down most of the citadel but kept this gate, using the upper pavilion as a watchtower."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Hai vết đạn pháo được giữ nguyên trên tường là chứng tích hiếm hoi của ngày thành Hà Nội thất thủ.",
+   "en": "The two shell craters left on the wall are a rare witness to the day the Hanoi citadel fell."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Đứng chéo bên phố Phan Đình Phùng để lấy cả cổng, lầu và hai vết đạn trong một khung.",
+   "en": "Stand at an angle on Phan Dinh Phung street to frame the gate, the pavilion and both craters."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Không chạm, cào hay viết lên tường thành và các vết đạn.",
+   "en": "Don't touch, scratch or write on the wall and the shell marks."
   },
   "challenge": null,
   "sources": [
-   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/di-tich-lich-su-o-ha-noi"
+   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/di-tich-lich-su-o-ha-noi",
+   "https://special.nhandan.vn/ditichchinhbacmon/index.html",
+   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/di-tich-cua-bac-ha-noi",
+   "https://vinpearl.com/vi/kham-pha-cua-bac-cong-thanh-duy-nhat-con-sot-lai-cua-ha-noi"
   ],
   "notice": null,
   "phone": null
@@ -10132,16 +10153,16 @@
   },
   "tone": "brick",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Chùa có từ thời Lý Nam Đế, ở thế kỷ VI, với tên Khai Quốc, ban đầu nằm ngoài bãi sông Hồng. Năm 1615, vì bờ sông lở, chùa được dời vào gò Kim Ngư trên Hồ Tây, chính hòn đảo nhỏ bạn đang đứng. Thời Lê Thánh Tông chùa mang tên An Quốc, rồi từ năm 1638 là Trấn Quốc, nghĩa là trấn giữ đất nước. Trong vườn có cây bồ đề do Tổng thống Ấn Độ Rajendra Prasad tặng năm 1959, chiết từ cây bồ đề nơi Đức Phật thành đạo.",
+   "en": "The pagoda dates back to Emperor Ly Nam De in the 6th century, when it was called Khai Quoc and stood on the bank of the Red River. In 1615, as the riverbank was washing away, it was moved to Kim Ngu islet on West Lake, the little island you are standing on. Under King Le Thanh Tong it was called An Quoc, and from 1638 Tran Quoc, meaning 'guarding the nation'. In the garden grows a bodhi tree given in 1959 by Indian President Rajendra Prasad, grown from the tree under which the Buddha reached enlightenment."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Đây được xem là ngôi chùa cổ nhất Hà Nội, và cây bồ đề trong vườn có gốc từ chính cây bồ đề ở Ấn Độ.",
+   "en": "It is considered Hanoi's oldest pagoda, and its bodhi tree comes from the very tree in India."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Chụp từ đường Thanh Niên lúc hoàng hôn để bảo tháp in lên nền trời và mặt Hồ Tây.",
+   "en": "Shoot from Thanh Nien road at sunset, with the stupa against the sky and West Lake."
   },
   "etiquette": {
    "vi": "Ăn mặc kín đáo, nói khẽ, không chụp ảnh người đang lễ.",
@@ -10149,7 +10170,10 @@
   },
   "challenge": null,
   "sources": [
-   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/di-tich-lich-su-o-ha-noi"
+   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/di-tich-lich-su-o-ha-noi",
+   "https://en.wikipedia.org/wiki/Tr%E1%BA%A5n_Qu%E1%BB%91c_Pagoda",
+   "https://baophapluat.vn/ngoi-chua-co-nhat-ha-noi-post75783.html",
+   "https://www.vietnamairlines.com/at/vi/plan-book/travel/travel-guide/tran-quoc-pagoda"
   ],
   "notice": null,
   "phone": null
@@ -10186,25 +10210,27 @@
   },
   "tone": "butter",
   "story": {
-   "vi": "",
-   "en": ""
+   "vi": "Đây là Việt Đông hội quán, nơi người Hoa gốc Quảng Đông ở phố cổ gặp gỡ, bàn chuyện buôn bán và thờ cúng. Bên trong thờ Quan Đế và Thiên Hậu, hai vị thần người Hoa tin sẽ che chở người xa quê. Hãy nhìn những cánh cửa gỗ chạm trổ tinh xảo, được đưa từ Quảng Đông sang. Có mấy chục năm toà nhà làm trường mẫu giáo và bị sửa chữa nhiều; từ năm 2018 nơi đây được trả lại để bảo tồn và trở thành Trung tâm Văn hoá Nghệ thuật 22 Hàng Buồm, thường có triển lãm và biểu diễn.",
+   "en": "This is the Cantonese assembly hall, where the Old Quarter's Chinese families from Guangdong met, talked business and worshipped. Inside are altars to Guan Di and Thien Hau, deities believed to protect people far from home. Look at the finely carved wooden doors, brought over from Guangdong. For decades the building was a kindergarten and was heavily altered; since 2018 it has been returned for preservation as the 22 Hang Buom Culture and Arts Centre, with frequent exhibitions and performances."
   },
   "why": {
-   "vi": "",
-   "en": ""
+   "vi": "Một trong hai hội quán người Hoa hiếm hoi còn lại ở Hà Nội, kể chuyện cộng đồng người Hoa ở phố cổ.",
+   "en": "One of only two Chinese assembly halls left in Hanoi, telling the story of the Old Quarter's Chinese community."
   },
   "photoTip": {
-   "vi": "",
-   "en": ""
+   "vi": "Chụp cận các mảng chạm khắc trên cửa gỗ và hiên, ánh sáng tự nhiên buổi sáng đẹp nhất.",
+   "en": "Get close to the carvings on the doors and porch; morning daylight is best."
   },
   "etiquette": {
-   "vi": "",
-   "en": ""
+   "vi": "Nói khẽ ở khu thờ, không chụp ảnh người đang lễ, xem lịch triển lãm trước khi đến.",
+   "en": "Speak softly at the altars, don't photograph people praying, and check the exhibition schedule first."
   },
   "challenge": null,
   "sources": [
    "https://kinhte.congthuong.vn/apicenter@/print_article&i=368066",
-   "https://baoquocte.vn/jazz-ha-noi-giai-dieu-khong-bien-gioi-430625.html"
+   "https://baoquocte.vn/jazz-ha-noi-giai-dieu-khong-bien-gioi-430625.html",
+   "https://www.saigoneer.com/hanoi-heritage/26203-the-rich-history-behind-one-of-hanoi-s-2-remaining-chinese-guild-halls",
+   "https://thesmartlocal.com/vietnam/?p=11144"
   ],
   "notice": null,
   "phone": null

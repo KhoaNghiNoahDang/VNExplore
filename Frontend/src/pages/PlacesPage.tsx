@@ -41,8 +41,11 @@ export default function PlacesPage() {
 
   const favIds = mode === 'explore' && role ? role.favPlaces : undefined
   const ranked = useMemo(
-    () => (intent ? rankPlaces(areaPlaces, intent, rankFrom({ start, center }), favIds, contextFor(center)) : []),
-    [areaPlaces, intent, start, favIds, contextFor, center],
+    () =>
+      intent
+        ? rankPlaces(areaPlaces, intent, rankFrom({ start, center }), favIds, { ...contextFor(center), listen: mode === 'listen' })
+        : [],
+    [areaPlaces, intent, start, favIds, contextFor, center, mode],
   )
   const chosen = useMemo(() => places.filter((p) => selected.includes(p.id)), [places, selected])
   // Hundreds of places can be in reach (every village pagoda): show the best ones, more on request.

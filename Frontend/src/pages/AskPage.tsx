@@ -95,7 +95,7 @@ export default function AskPage() {
     const transport = picked ?? intent.transport
     const { places: pool, start: planned, center } = planFor({ area: intent.area }, transport)
     const start = planned ?? askPlan.start!
-    const ranked = rankPlaces(pool, intent, rankFrom({ start, center }), [], contextFor(center))
+    const ranked = rankPlaces(pool, intent, rankFrom({ start, center }), [], { ...contextFor(center), listen: mode === 'listen' })
     setIntent(intent, preselect(ranked, intent, start, [], { transport, departAt: travel.departAt }))
     // Explore picks its role later, once the route is known (roles are suggested from the stops).
     navigate('/places')
