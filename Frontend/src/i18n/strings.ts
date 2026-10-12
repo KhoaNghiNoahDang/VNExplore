@@ -367,7 +367,7 @@ const en = {
   newJourney: 'Start a new journey',
 
 
-  transportTip: 'Tip: say how you’ll get around — walking, motorbike, Grab or taxi.',
+  transportTip: 'Tip: describe the outing you want in detail — an event or workshop to join, what kind of café… the more detail, the closer the suggestions match what you like.',
   transportTitle: 'How will you get around?',
   departTitle: 'When do you leave?',
   departNow: 'Now',
@@ -1196,7 +1196,7 @@ const vi: Strings = {
   newJourney: 'Bắt đầu hành trình mới',
 
 
-  transportTip: 'Mẹo: nói thêm bạn đi bằng gì — đi bộ, xe máy, Grab hay taxi.',
+  transportTip: 'Mẹo: miêu tả chi tiết bạn muốn đi chơi kiểu gì — tham gia sự kiện hay workshop, ngồi quán cafe kiểu nào… càng chi tiết thì gợi ý càng sát ý bạn.',
   transportTitle: 'Bạn di chuyển bằng gì?',
   departTitle: 'Khi nào bạn xuất phát?',
   departNow: 'Bây giờ',

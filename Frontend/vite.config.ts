@@ -39,7 +39,8 @@ function maplibreWorker(): Plugin {
  */
 const pwa = VitePWA({
   registerType: 'autoUpdate',
-  injectRegister: 'auto',
+  // Registered from src/lib/pwa.ts, which also checks for new versions while the app stays open.
+  injectRegister: false,
   includeAssets: ['favicon-48.png', 'apple-touch-icon.png'],
   manifest: {
     id: '/',
