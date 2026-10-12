@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, CircleAlert, Lightbulb, Loader2, Mic, Square } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import ContributeCard from '../components/ContributeCard'
 import ModePicker from '../components/ModePicker'
 import PrimaryButton from '../components/PrimaryButton'
 import TabBar from '../components/TabBar'
@@ -234,6 +235,8 @@ export default function AskPage() {
           )}
           <ModePicker />
         </div>
+
+        <ContributeCard around={askPlan.center} className="mt-6" />
       </div>
 
       <div className="relative z-10 border-t border-sand/60 bg-paper px-6 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-3">

@@ -41,7 +41,7 @@ export function AddEventButton({ around, className = '' }: { around: LatLng; cla
   )
 }
 
-function AddEventSheet({ around, onClose }: { around: LatLng; onClose: () => void }) {
+export function AddEventSheet({ around, onClose }: { around: LatLng; onClose: () => void }) {
   const { t, lang, putCommunityEvent } = useQuest()
   const { session } = useAuth()
   const navigate = useNavigate()
