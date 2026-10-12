@@ -8,6 +8,7 @@ import { DongSonBand, DongSonDrum, Lotus } from '../components/VnArt'
 import { MODE_INFO, THEME_LABEL } from '../i18n/strings'
 import { listPublicQuests, type SavedQuest } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
+import ContributeCard from '../components/ContributeCard'
 import { useQuest } from '../store/QuestContext'
 import type { Mode, Theme } from '../types'
 
@@ -16,7 +17,7 @@ const THEMES: Theme[] = ['food', 'photo', 'history', 'culture', 'rainy', 'fun']
 const SCROLL_KEY = 'vnexplore:questsScroll'
 
 export default function QuestsPage() {
-  const { t, lang, places } = useQuest()
+  const { t, lang, places , center } = useQuest()
   const { isMember } = useAuth()
   const navigate = useNavigate()
   const tabHidden = useAutoHide()
@@ -93,6 +94,7 @@ export default function QuestsPage() {
             <Plus className="h-4 w-4" strokeWidth={2.5} /> {t.createQuest}
           </button>
         </div>
+        <ContributeCard around={center} className="relative mt-4" />
       </header>
 
       {/* Filters: stick to the top while scrolling */}
