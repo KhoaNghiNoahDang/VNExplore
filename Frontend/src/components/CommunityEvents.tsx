@@ -15,7 +15,7 @@ import { hanoiDay } from '../lib/events'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 import type { EventCategory, LatLng, QuestEvent } from '../types'
-import { RulesNote } from './CommunityBits'
+import { RulesConsent } from './CommunityBits'
 import LocationPicker, { bestPinFor, type Pin } from './LocationPicker'
 import Sheet from './Sheet'
 
@@ -63,6 +63,8 @@ export function AddEventSheet({ around, onClose }: { around: LatLng; onClose: ()
   const [ticket, setTicket] = useState(false)
   const [description, setDescription] = useState('')
   const [error, setError] = useState('')
+  const [rulesOk, setRulesOk] = useState(false)
+  const [rulesTried, setRulesTried] = useState(false)
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState(false)
   const [clientId] = useState(() => crypto.randomUUID())
@@ -102,6 +104,9 @@ export function AddEventSheet({ around, onClose }: { around: LatLng; onClose: ()
     if (toDate < today) return setError(t.addEventPastError)
     if (!startTime) return setError(t.addEventTimeError)
     if (kind === 'open' && !endTime) return setError(t.addEventEndError)
+    if (!rulesOk) {
+      return setRulesTried(true)
+    }
     const min = priceMin ? Math.round(Number(priceMin) / 1000) : null
     const max = priceMax ? Math.round(Number(priceMax) / 1000) : null
     if (min != null && max != null && max < min) return setError(t.addPlaceRangeError)
@@ -246,7 +251,9 @@ export function AddEventSheet({ around, onClose }: { around: LatLng; onClose: ()
         <textarea className={`${fieldClass} min-h-20 py-3 leading-relaxed`} maxLength={500} value={description} onChange={(e) => setDescription(e.target.value)} />
       </label>
 
-      <RulesNote className="mt-3" />
+      <div className="mt-3">
+        <RulesConsent accepted={rulesOk} onChange={setRulesOk} showError={rulesTried} />
+      </div>
       {error && (
         <p className="mt-3 rounded-xl bg-brick/10 px-3 py-2 text-[12px] font-medium text-brick" role="alert">
           {error}
