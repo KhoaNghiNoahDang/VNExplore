@@ -27,6 +27,7 @@ import PlaceThumb from '../components/PlaceThumb'
 import PlaceReportPrompt from '../components/PlaceReportPrompt'
 import PrimaryButton from '../components/PrimaryButton'
 import Stamp from '../components/Stamp'
+import { PhotoStampStrip } from '../components/PhotoStamps'
 import { LegLine } from '../components/TravelBits'
 import { EventPanel, eventPrice } from '../components/EventBits'
 import { PlaceNotice, SourceLinks } from '../components/PlaceBits'
@@ -332,6 +333,8 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
                 )}
               </div>
             </div>
+
+            <PhotoStampStrip place={place} />
 
             {coop && <CoopChallenge place={place} state={ps!} meId={meId} />}
 

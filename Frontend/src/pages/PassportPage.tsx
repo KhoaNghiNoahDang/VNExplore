@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Award, BookOpen, Gift, Loader2, Lock, RotateCcw, ScrollText, Trash2 } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { MODE_ICON, ROLE_ICON, TONE_BG } from '../components/icons'
+import { latestByPlace, PlaceStampsSheet } from '../components/PhotoStamps'
 import PrimaryButton from '../components/PrimaryButton'
 import Sheet from '../components/Sheet'
 import Stamp from '../components/Stamp'
@@ -12,6 +13,7 @@ import { MODE_INFO } from '../i18n/strings'
 import { regionAt } from '../lib/area'
 import { distance, duration, moneyRange } from '../lib/format'
 import { collectItems, collectStamps, deleteJourney, type PassportJourney } from '../lib/passport'
+import { usePhotoStamps } from '../lib/photoStamps'
 import { usePassport } from '../store/usePassport'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
@@ -26,6 +28,9 @@ export default function PassportPage() {
   const { journeys, setJourneys, userId } = usePassport()
   const [tab, setTab] = useState<Tab>('stamps')
   const [open, setOpen] = useState<PassportJourney | null>(null)
+  const [stampOf, setStampOf] = useState<{ place: Place; index: number; gold: boolean } | null>(null)
+  const photos = usePhotoStamps()
+  const photoOf = useMemo(() => latestByPlace(photos), [photos])
 
   const stamps = useMemo(() => collectStamps(journeys ?? []), [journeys])
   const items = useMemo(() => collectItems(journeys ?? []), [journeys])
@@ -108,14 +113,24 @@ export default function PassportPage() {
                   {visited.map((p, i) => {
                     const s = stamps.get(p.id)!
                     return (
-                      <div key={p.id} className="flex flex-col items-center">
-                        <Stamp place={p} index={i} size="sm" gold={s.gold} />
+                      <button key={p.id} type="button" onClick={() => setStampOf({ place: p, index: i, gold: s.gold })} className="flex min-w-0 flex-col items-center">
+                        {photoOf.has(p.id) ? (
+                          // A photo stamp (postmarked with the place's seal) stands in for the round stamp.
+                          <span className="relative flex h-20 items-center">
+                            <img src={photoOf.get(p.id)!.latest.url} alt="" className="h-20 drop-shadow-md" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
+                            {photoOf.get(p.id)!.count > 1 && (
+                              <span className="absolute -right-2 -top-1 rounded-full bg-teal px-1.5 text-[10px] font-bold text-white">×{photoOf.get(p.id)!.count}</span>
+                            )}
+                          </span>
+                        ) : (
+                          <Stamp place={p} index={i} size="sm" gold={s.gold} />
+                        )}
                         <div className="mt-2 max-w-full truncate px-1 text-center text-[11px] font-bold">{p.name[lang]}</div>
                         <div className="text-[10px] text-bark/70">
                           {fmtDate(s.firstAt)}
                           {s.times > 1 && ` · ${t.visitedTimes(s.times)}`}
                         </div>
-                      </div>
+                      </button>
                     )
                   })}
                 </div>
@@ -151,6 +166,7 @@ export default function PassportPage() {
         </div>
       </div>
 
+      {stampOf && <PlaceStampsSheet place={stampOf.place} index={stampOf.index} gold={stampOf.gold} onClose={() => setStampOf(null)} />}
       {open && (
         <TripSheet
           j={open}
