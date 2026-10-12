@@ -32,6 +32,7 @@ import { EventPanel, eventPrice } from '../components/EventBits'
 import { PlaceNotice, SourceLinks } from '../components/PlaceBits'
 import { CommunityBadge, FlagPlaceButton } from '../components/CommunityBits'
 import { CONFIRM_AT, isCommunityId, recordVisit } from '../lib/community'
+import { confirmCommunityEvent, isCommunityEventId, rememberConfirmed } from '../lib/communityEvents'
 import { CoopChallenge, PartyBoard, PartyTimer } from '../components/PartyBits'
 import { markArrived, markMission, useParty } from '../lib/party'
 import { useAuth } from '../store/AuthContext'
@@ -125,6 +126,11 @@ function Stop({ stops, index }: { stops: Place[]; index: number }) {
     setJustStamped(true)
     arrive(place.id)
     if (party) void markArrived(party.id, place.id)
+    // An event a traveller added: being there confirms it (checked again on the server).
+    if (place.event && isCommunityEventId(place.event.eventId) && auth.session && here) {
+      const eventId = place.event.eventId
+      void confirmCommunityEvent(eventId, here, geo.accuracyM).then((n) => n != null && rememberConfirmed(eventId))
+    }
     // A place a traveller added: one more person has been there (checked again on the server).
     if (isCommunityId(place.id) && auth.session && here)
       void recordVisit(place.id, here, geo.accuracyM).then((n) => {

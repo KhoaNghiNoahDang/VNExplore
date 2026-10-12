@@ -7,6 +7,7 @@ import { eventFits, eventWhen, hanoiClock, linkHost, type EventOption } from '..
 import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Lang, Place } from '../types'
+import { AddEventButton, CommunityEventBar } from './CommunityEvents'
 import PlaceThumb from './PlaceThumb'
 import TransportIcon from './TransportIcon'
 
@@ -98,6 +99,7 @@ function EventCard({ option, people }: { option: EventOption; people: number }) 
       <div className="mt-2.5">
         <EventBadges place={place} />
       </div>
+      <CommunityEventBar event={option.event} />
 
       <p className={`mt-2 text-[12px] leading-relaxed text-bark ${expanded ? '' : 'line-clamp-2'}`}>{place.blurb[lang]}</p>
       {place.blurb[lang].length > 90 && (
@@ -154,7 +156,7 @@ function EventCard({ option, people }: { option: EventOption; people: number }) 
 
 /** "Events during your trip" — the dated events a traveller can add as fixed-time stops. */
 export function EventsSection({ people }: { people: number }) {
-  const { t, eventOptions, tripWindow, selected, intent } = useQuest()
+  const { t, eventOptions, tripWindow, selected, intent, center } = useQuest()
   const [all, setAll] = useState(false)
   // Events that fit the request first (a concert for "fun", an exhibition for "culture"); the rest
   // only on request. Events already in the plan stay visible even when the list is folded.
@@ -164,11 +166,12 @@ export function EventsSection({ people }: { people: number }) {
   const ordered = [...fitting, ...eventOptions.filter((o) => !eventFits(o, themes))]
   const shown = all ? ordered : ordered.filter((o) => (eventFits(o, themes) && fitting.indexOf(o) < 3) || inPlan(o))
   const hidden = eventOptions.length - shown.length
-  // Nothing on during the trip: no section at all.
-  if (!eventOptions.length) return null
+  // Nothing on during the trip: just the way to add one.
+  if (!eventOptions.length) return <AddEventButton around={center} />
   // Nothing that fits the request: just a quiet link, not a whole section.
   if (!shown.length)
     return (
+      <div className="space-y-2">
       <button
         type="button"
         onClick={() => setAll(true)}
@@ -177,6 +180,8 @@ export function EventsSection({ people }: { people: number }) {
         <Ticket className="h-4 w-4 shrink-0 text-brick/70" /> <span className="flex-1">{t.eventsOther(hidden)}</span>
         <ChevronDown className="h-3.5 w-3.5 shrink-0" />
       </button>
+      <AddEventButton around={center} />
+      </div>
     )
 
   return (
@@ -204,6 +209,7 @@ export function EventsSection({ people }: { people: number }) {
           {t.eventsMore(hidden)} <ChevronDown className="h-3.5 w-3.5" />
         </button>
       )}
+      <AddEventButton around={center} />
     </section>
   )
 }

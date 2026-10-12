@@ -1,16 +1,14 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
-import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, LocateFixed, MapPin, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
-import { coordsOf, geocodeSearch, isMapsLink, resolveMapsLink, type GeoResult } from '../lib/backend'
+import { useState } from 'react'
+import { CircleAlert, CircleCheck, Coffee, Landmark, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
 import { addCommunityPlace, CONFIRM_AT } from '../lib/community'
 import { RulesNote } from './CommunityBits'
+import LocationPicker, { bestPinFor, type Pin } from './LocationPicker'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 import type { LatLng, Place } from '../types'
 import Sheet from './Sheet'
-
-const PickMap = lazy(() => import('./PickMap'))
 
 const fieldClass =
   'mt-1 min-h-11 w-full rounded-xl border-2 border-sand bg-white px-3 text-[14px] text-ink outline-none transition placeholder:text-ink/35 focus:border-teal'
@@ -42,25 +40,24 @@ export default function AddPlaceCard({ around, forTrip = false }: { around: LatL
   )
 }
 
-export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: LatLng; forTrip?: boolean; onClose: () => void }) {
+export function AddPlaceSheet({
+  around,
+  forTrip = false,
+  onAdded,
+  onClose,
+}: {
+  around: LatLng
+  forTrip?: boolean
+  /** Building a quest: the place must go on everyone's map, then it's handed back to become a stop. */
+  onAdded?: (p: Place) => void
+  onClose: () => void
+}) {
   const { t, lang, geo, addMyPlace, putCommunityPlace, selected, toggle } = useQuest()
   const { session } = useAuth()
   /** Signed in (a guest is fine): places go straight onto everyone's map. */
   const canPublish = !!supabase && !!session
-  // Open the map where the traveller is (they are often standing at the place), else on the plan.
-  const first = geo.status === 'on' && geo.position ? geo.position : around
-  const [view, setView] = useState<LatLng & { zoom: number; nonce?: number }>({ lat: first.lat, lng: first.lng, zoom: 16 })
-  const [point, setPoint] = useState<LatLng>({ lat: first.lat, lng: first.lng })
-  /** How the pin got where it is: an address result (its label), the map ('map'), or not set yet (null). */
-  const [pinned, setPinned] = useState<string | null>(null)
-  // Typing the address looks it up; picking a result moves the pin there (it can still be dragged).
-  const [found, setFound] = useState<GeoResult[]>([])
-  const [searching, setSearching] = useState(false)
-  const [lookup, setLookup] = useState(false)
-  /** The pinned result was only the street (house number unknown). */
-  const [approx, setApprox] = useState(false)
-  /** Reading a pasted Google Maps link: 'busy', or 'failed'. */
-  const [linkState, setLinkState] = useState<'busy' | 'failed' | null>(null)
+  /** Where the place is: set by the address search, a Google Maps link, a tap on the map, or "I'm here". */
+  const [pin, setPin] = useState<Pin | null>(null)
   const [name, setName] = useState('')
   const [kind, setKind] = useState<SuggestedKind | null>(null)
   const [address, setAddress] = useState('')
@@ -70,71 +67,15 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
   const [priceMax, setPriceMax] = useState('')
   const [contact, setContact] = useState('')
   const [error, setError] = useState('')
-  const [mapFailed, setMapFailed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
   const [toTrip, setToTrip] = useState(forTrip)  // only offered when opened while planning a trip
   const [share, setShare] = useState(true)
+  const forQuest = !!onAdded
   const [stay, setStay] = useState('')
   /** After submitting: what happened (added to the trip, sent to the team, or added but not sent). */
   const [outcome, setOutcome] = useState<'sent' | 'added' | 'addedSent' | 'addedNotSent' | 'published' | 'publishedTrip' | null>(null)
   const [clientSuggestionId, setClientSuggestionId] = useState(() => crypto.randomUUID())
-
-  useEffect(() => {
-    const q = address.trim()
-    // A pasted Google Maps link or coordinates: read the point instead of searching the text.
-    if (!lookup || q.length < 3 || isMapsLink(q) || coordsOf(q)) {
-      setFound([])
-      setSearching(false)
-      return
-    }
-    setSearching(true)
-    let alive = true
-    const timer = setTimeout(() => {
-      geocodeSearch(q, lang).then((r) => {
-        if (!alive) return
-        setFound(r.slice(0, 5))
-        setSearching(false)
-      })
-    }, 450)
-    return () => {
-      alive = false
-      clearTimeout(timer)
-    }
-  }, [address, lookup, lang])
-
-  const pinAt = (r: GeoResult) => {
-    const at = { lat: r.lat, lng: r.lng }
-    setPoint(at)
-    setView({ ...at, zoom: 17, nonce: Date.now() })
-    setPinned([r.name, r.label].filter(Boolean).join(', ') || t.addPlaceFromLink)
-    setApprox(!!r.approx)
-    setLookup(false)
-    setFound([])
-  }
-
-  const onAddress = async (value: string) => {
-    setAddress(value)
-    setLinkState(null)
-    const v = value.trim()
-    const c = coordsOf(v)
-    if (c) {
-      setAddress('')
-      return pinAt({ name: `${c.lat.toFixed(5)}, ${c.lng.toFixed(5)}`, label: '', ...c })
-    }
-    if (isMapsLink(v)) {
-      setLinkState('busy')
-      const r = await resolveMapsLink(v)
-      if (!r) return setLinkState('failed')
-      setLinkState(null)
-      // The link isn't an address: keep the field for a real one, and take the place's name if empty.
-      setAddress('')
-      if (r.name && !name.trim()) setName(r.name)
-      return pinAt({ ...r, label: r.label || t.addPlaceFromLink })
-    }
-    setLookup(true)
-    if (pinned && pinned !== 'map' && pinned !== 'here') setPinned(null)
-  }
 
   const kinds: { kind: SuggestedKind; icon: typeof Coffee }[] = [
     { kind: 'food', icon: Coffee },
@@ -152,10 +93,7 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     setPriceMax('')
     setContact('')
     setStay('')
-    setPinned(null)
-    setApprox(false)
-    setLinkState(null)
-    setFound([])
+    setPin(null)
     setClientSuggestionId(crypto.randomUUID())
     setSent(false)
     setOutcome(null)
@@ -170,21 +108,20 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     if (min != null && max != null && max < min) return setError(t.addPlaceRangeError)
     if (!toTrip && !share) return setError(t.addPlaceNeedOne)
     // An address typed but no result picked: use the best match for it.
-    let at = point
-    if (!pinned && address.trim().length >= 3) {
+    let where = pin
+    if (!where && address.trim().length >= 3) {
       setSubmitting(true)
-      const best = (await geocodeSearch(address.trim(), lang))[0]
+      where = await bestPinFor(address, lang)
       setSubmitting(false)
-      if (best) {
-        at = { lat: best.lat, lng: best.lng }
-        pinAt(best)
-      }
+      if (where) setPin(where)
     }
     // A stop, or a place on everyone's map, needs a real position: without an address or a tap on
     // the map we only know where the phone is.
     const publish = share && canPublish
     // Never send the phone's own position by accident: the place must be pinned on purpose.
-    if (!pinned && at === point) return setError(t.addPlaceNoPin)
+    if (!where) return setError(t.addPlaceNoPin)
+    const at = where.at
+    if (forQuest && !canPublish) return setError(t.addPlaceNeedSignIn)
     const lo = min ?? max
     const hi = max ?? min
     const stayMin = Math.round(Number(stay)) > 0 ? Math.min(Math.round(Number(stay)), 600) : STAY[kind]
@@ -211,6 +148,10 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
           here: geo.status === 'on' ? geo.position : null,
         })
         putCommunityPlace(p)
+        if (onAdded) {
+          onAdded(p)
+          return onClose()
+        }
         if (toTrip && !selected.includes(p.id)) toggle(p.id)
         setOutcome(toTrip ? 'publishedTrip' : 'published')
         setSent(true)
@@ -370,107 +311,16 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         </div>
       </fieldset>
 
-      <label className="mt-4 block text-[12px] font-bold text-ink/80">
-        {t.addPlaceAddress}
-        <input
-          className={fieldClass}
-          maxLength={200}
-          value={address}
-          onChange={(e) => void onAddress(e.target.value)}
-          placeholder={t.addPlaceAddressPh}
-          autoComplete="street-address"
-        />
-      </label>
-      {lookup && address.trim().length >= 3 ? (
-        <ul className="mt-1 space-y-1 rounded-2xl border-2 border-sand bg-white p-1">
-          {found.map((r, i) => (
-            <li key={i}>
-              <button type="button" onClick={() => pinAt(r)} className="flex w-full items-start gap-2.5 rounded-xl p-2 text-left hover:bg-cream">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brick" />
-                <span className="min-w-0">
-                  <span className="block truncate text-[13px] font-bold">{r.name}</span>
-                  <span className="block truncate text-[11px] text-bark/70">{r.label}</span>
-                  {r.approx && <span className="block text-[10px] font-bold text-sun-dark">{t.addPlaceApprox}</span>}
-                </span>
-              </button>
-            </li>
-          ))}
-          {searching && (
-            <li className="flex items-center gap-2 p-2 text-[12px] text-bark/60">
-              <Loader2 className="h-4 w-4 animate-spin" /> {t.searching}
-            </li>
-          )}
-          {!searching && !found.length && <li className="p-2 text-[12px] leading-snug text-bark/70">{t.addPlaceNoAddress}</li>}
-        </ul>
-      ) : linkState ? (
-        <p className={`mt-1 flex items-center gap-1.5 text-[11px] ${linkState === 'failed' ? 'text-brick' : 'text-bark/70'}`} role="status">
-          {linkState === 'busy' && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
-          {linkState === 'busy' ? t.addPlaceReadingLink : t.addPlaceLinkFailed}
-        </p>
-      ) : (
-        <p className="mt-1 text-[11px] text-bark/60">{t.addPlaceAddressHint}</p>
-      )}
-      {geo.status === 'on' && geo.position && pinned !== 'here' && (
-        <button
-          type="button"
-          onClick={() => {
-            const at = geo.position!
-            setPoint(at)
-            setView({ ...at, zoom: 17, nonce: Date.now() })
-            setPinned('here')
-            setApprox(false)
-          }}
-          className="mt-1.5 flex min-h-9 items-center gap-1.5 text-[12px] font-bold text-teal"
-        >
-          <LocateFixed className="h-3.5 w-3.5" /> {t.addPlaceImHere}
-        </button>
-      )}
-
-      <div className="mt-4 text-[12px] font-bold text-ink/80">{t.addPlaceWhere}</div>
-      <div className="relative mt-1 h-52 overflow-hidden rounded-2xl border-2 border-sand bg-cream">
-        {mapFailed ? (
-          <p className="flex h-full items-center justify-center px-6 text-center text-[13px] text-bark/70">{t.mapUnavailable}</p>
-        ) : (
-          <Suspense
-            fallback={
-              <div className="flex h-full items-center justify-center">
-                <Loader2 className="h-5 w-5 animate-spin text-bark/50" />
-              </div>
-            }
-          >
-            <PickMap
-              point={point}
-              showPin={!!pinned}
-              view={view}
-              userPos={geo.status === 'on' ? geo.position : null}
-              onPick={(p) => {
-                setPoint(p)
-                setPinned('map')
-                setApprox(false)
-              }}
-              onFail={() => setMapFailed(true)}
-            />
-          </Suspense>
-        )}
-        {!pinned && !mapFailed && (
-          <p className="pointer-events-none absolute inset-x-3 bottom-3 rounded-xl bg-white/90 px-3 py-2 text-center text-[11px] font-bold text-bark shadow">
-            {t.addPlaceNoPinYet}
-          </p>
-        )}
-      </div>
-      <p
-        className={`mt-1 text-center text-[11px] ${
-          approx ? 'font-bold text-sun-dark' : pinned && pinned !== 'map' ? 'font-bold text-teal' : 'text-bark/60'
-        }`}
-      >
-        {pinned === 'here'
-          ? t.addPlacePinnedHere
-          : pinned && pinned !== 'map'
-            ? approx
-              ? t.addPlacePinnedApprox(pinned)
-              : t.addPlacePinned(pinned)
-            : t.addPlaceMapHint}
-      </p>
+      <LocationPicker
+        around={around}
+        address={address}
+        onAddress={setAddress}
+        pin={pin}
+        onPin={setPin}
+        onLinkName={(n) => {
+          if (!name.trim()) setName(n)
+        }}
+      />
 
 
       <label className="mt-3 block text-[12px] font-bold text-ink/80">
@@ -531,15 +381,23 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
             </span>
           </label>
         )}
-        <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${share ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
-          <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={share} onChange={(e) => setShare(e.target.checked)} />
-          <span className="min-w-0 flex-1">
-            <span className="block text-[13px] font-bold">{canPublish ? t.addPlacePublic : t.addPlaceShare}</span>
-            <span className="block text-[11px] leading-snug text-bark/70">
-              {canPublish ? t.addPlacePublicHint(CONFIRM_AT) : supabase ? t.addPlacePublicSignIn : t.addPlaceShareHint}
+        {forQuest ? (
+          // A quest is seen by everyone, so its stops must be on everyone's map.
+          <p className="rounded-2xl border-2 border-teal/40 bg-teal/5 p-3 text-[12px] leading-snug text-bark">
+            <span className="block font-bold text-teal">{t.addPlaceForQuest}</span>
+            {t.addPlacePublicHint(CONFIRM_AT)}
+          </p>
+        ) : (
+          <label className={`flex items-start gap-3 rounded-2xl border-2 p-3 ${share ? 'border-teal bg-teal/5' : 'border-sand bg-white'}`}>
+            <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-teal" checked={share} onChange={(e) => setShare(e.target.checked)} />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-bold">{canPublish ? t.addPlacePublic : t.addPlaceShare}</span>
+              <span className="block text-[11px] leading-snug text-bark/70">
+                {canPublish ? t.addPlacePublicHint(CONFIRM_AT) : supabase ? t.addPlacePublicSignIn : t.addPlaceShareHint}
+              </span>
             </span>
-          </span>
-        </label>
+          </label>
+        )}
       </div>
       {share && !canPublish && <p className="mt-3 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>}
       {share && <RulesNote className="mt-3" />}
@@ -555,7 +413,7 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
         className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border-b-4 border-teal/70 bg-teal px-4 font-bold text-white shadow-md transition active:translate-y-0.5 active:border-b-0 disabled:border-sand disabled:bg-sand disabled:text-bark/50 disabled:shadow-none"
       >
         {toTrip ? <Plus className="h-4 w-4" /> : <Send className="h-4 w-4" />}{' '}
-        {submitting ? t.addPlaceSubmitting : toTrip ? t.addPlaceToTrip : share && canPublish ? t.addPlacePublic : t.addPlaceSubmit}
+        {submitting ? t.addPlaceSubmitting : forQuest ? t.addPlaceForQuest : toTrip ? t.addPlaceToTrip : share && canPublish ? t.addPlacePublic : t.addPlaceSubmit}
       </button>
     </Sheet>
   )
