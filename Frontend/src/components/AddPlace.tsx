@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { CircleAlert, CircleCheck, Coffee, Landmark, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
 import { addCommunityPlace, CONFIRM_AT } from '../lib/community'
-import { RulesNote } from './CommunityBits'
+import { RulesConsent } from './CommunityBits'
 import LocationPicker, { bestPinFor, type Pin } from './LocationPicker'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
 import { supabase } from '../lib/supabase'
@@ -71,6 +71,8 @@ export function AddPlaceSheet({
   const [sent, setSent] = useState(false)
   const [toTrip, setToTrip] = useState(forTrip)  // only offered when opened while planning a trip
   const [share, setShare] = useState(true)
+  const [rulesOk, setRulesOk] = useState(false)
+  const [rulesTried, setRulesTried] = useState(false)
   const forQuest = !!onAdded
   const [stay, setStay] = useState('')
   /** After submitting: what happened (added to the trip, sent to the team, or added but not sent). */
@@ -94,6 +96,8 @@ export function AddPlaceSheet({
     setContact('')
     setStay('')
     setPin(null)
+    setRulesOk(false)
+    setRulesTried(false)
     setClientSuggestionId(crypto.randomUUID())
     setSent(false)
     setOutcome(null)
@@ -107,6 +111,10 @@ export function AddPlaceSheet({
     const max = priceMax ? Math.round(Number(priceMax) / 1000) : null
     if (min != null && max != null && max < min) return setError(t.addPlaceRangeError)
     if (!toTrip && !share) return setError(t.addPlaceNeedOne)
+    // Anything others will see needs the community rules accepted first.
+    if ((share || forQuest) && !rulesOk) {
+      return setRulesTried(true)
+    }
     // An address typed but no result picked: use the best match for it.
     let where = pin
     if (!where && address.trim().length >= 3) {
@@ -400,7 +408,11 @@ export function AddPlaceSheet({
         )}
       </div>
       {share && !canPublish && <p className="mt-3 text-[11px] leading-relaxed text-bark/70">{t.addPlaceReviewNote}</p>}
-      {share && <RulesNote className="mt-3" />}
+      {(share || forQuest) && (
+        <div className="mt-3">
+          <RulesConsent accepted={rulesOk} onChange={setRulesOk} showError={rulesTried} />
+        </div>
+      )}
       {error && (
         <p className="mt-3 rounded-xl bg-brick/10 px-3 py-2 text-[12px] font-medium text-brick" role="alert">
           {error}
