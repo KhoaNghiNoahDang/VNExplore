@@ -4,6 +4,7 @@ import { EVENTS } from '../data/events'
 import { loadOpenPlaces, PLACES } from '../data/places'
 import { planAround, type Plan, type Region } from '../lib/area'
 import { loadCommunityPlaces } from '../lib/community'
+import { loadCommunityEvents } from '../lib/communityEvents'
 import { eventStopById, eventsInWindow, isEventId, type EventOption } from '../lib/events'
 import type { PlanContext } from '../lib/quest'
 import { loadSeries, weatherAt, weatherCell, type Series, type Weather } from '../lib/weather'
@@ -94,6 +95,8 @@ export interface QuestState extends Saved {
   addMyPlace: (p: Place, select: boolean) => void
   /** A community place just added or updated (visit count): show it at once, without reloading. */
   putCommunityPlace: (p: Place) => void
+  /** A community event just added or confirmed: show it at once. */
+  putCommunityEvent: (e: QuestEvent) => void
   /** A stop by id — catalogue places and event sittings (even ones not in the current trip). */
   stopById: (id: string) => Place | null
 }
@@ -139,7 +142,9 @@ export function QuestProvider({ children }: { children: ReactNode }) {
   const [community, setCommunity] = useState<Place[]>([])
   const catalog = useMemo(() => (community.length ? [...base, ...community] : base), [base, community])
   const [loading, setLoading] = useState(true)
-  const events: QuestEvent[] = EVENTS
+  // Events from the sheet, plus the ones travellers added (Supabase).
+  const [communityEvents, setCommunityEvents] = useState<QuestEvent[]>([])
+  const events = useMemo<QuestEvent[]>(() => (communityEvents.length ? [...EVENTS, ...communityEvents] : EVENTS), [communityEvents])
 
   useEffect(() => {
     let alive = true
@@ -150,12 +155,19 @@ export function QuestProvider({ children }: { children: ReactNode }) {
     loadCommunityPlaces()
       .then((cp) => alive && setCommunity(cp))
       .catch((err) => console.warn('Community places unavailable:', err))
+    loadCommunityEvents()
+      .then((ce) => alive && setCommunityEvents(ce))
+      .catch((err) => console.warn('Community events unavailable:', err))
     return () => {
       alive = false
     }
   }, [])
   const putCommunityPlace = useCallback(
     (p: Place) => setCommunity((cur) => [...cur.filter((x) => x.id !== p.id), p]),
+    [],
+  )
+  const putCommunityEvent = useCallback(
+    (e: QuestEvent) => setCommunityEvents((cur) => [...cur.filter((x) => x.id !== e.id), e]),
     [],
   )
 
@@ -296,6 +308,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       ...saved,
       ...actions,
       putCommunityPlace,
+      putCommunityEvent,
       places,
       stopById: (id: string) => places.find((p) => p.id === id) ?? (isEventId(id) ? eventStopById(id, events) : null),
       eventOptions,
@@ -317,7 +330,7 @@ export function QuestProvider({ children }: { children: ReactNode }) {
       role: getRole(saved.roleId),
       t: STRINGS[saved.lang],
     }),
-    [saved, actions, putCommunityPlace, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series, wantWeather],
+    [saved, actions, putCommunityPlace, putCommunityEvent, places, events, eventOptions, tripWindow, loading, plan, planFor, travel, geo, series, wantWeather],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

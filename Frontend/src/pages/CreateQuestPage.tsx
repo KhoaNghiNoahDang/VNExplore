@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, Globe, Link2, Loader2, Lock, Plus, Search, Send, X } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, Globe, Link2, Loader2, Lock, MapPinPlus, Plus, Search, Send, X } from 'lucide-react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { RulesConsent } from '../components/CommunityBits'
+import { AddPlaceSheet } from '../components/AddPlace'
 import { Field } from '../components/Form'
 import { MODE_ICON, ROLE_ICON } from '../components/icons'
 import PlaceThumb from '../components/PlaceThumb'
@@ -547,8 +548,11 @@ export default function CreateQuestPage() {
 
 /** Searchable list of places; tap to add/remove. Accent-insensitive so "ho guom" finds "Hồ Gươm". */
 function PlacePicker({ chosen, onToggle, onClose }: { chosen: string[]; onToggle: (id: string) => void; onClose: () => void }) {
-  const { t, lang, places } = useQuest()
+  const { t, lang, places, center } = useQuest()
   const [query, setQuery] = useState('')
+  // A place the app doesn't have yet: add it to the map, and straight into the quest.
+  const [adding, setAdding] = useState(false)
+  const lastStop = places.find((p) => p.id === chosen[chosen.length - 1])
   const fold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/gi, 'd').toLowerCase()
   const shown = useMemo(() => {
     const f = fold(query.trim())
@@ -593,9 +597,26 @@ function PlacePicker({ chosen, onToggle, onClose }: { chosen: string[]; onToggle
           )
         })}
       </ul>
+      <button
+        type="button"
+        onClick={() => setAdding(true)}
+        disabled={chosen.length >= MAX_STOPS}
+        className="mt-3 flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-teal/60 bg-white px-3 text-[13px] font-bold text-teal transition hover:bg-teal/5 disabled:opacity-40"
+      >
+        <MapPinPlus className="h-4 w-4" /> {t.addNewPlace}
+      </button>
       <PrimaryButton className="mt-3" onClick={onClose}>
         <Check className="h-4 w-4" /> OK
       </PrimaryButton>
+      {adding && (
+        <AddPlaceSheet
+          around={lastStop ?? center}
+          onAdded={(p) => {
+            if (!chosen.includes(p.id)) onToggle(p.id)
+          }}
+          onClose={() => setAdding(false)}
+        />
+      )}
     </Sheet>
   )
 }

@@ -153,6 +153,8 @@ export interface QuestEvent extends LatLng {
   source: string
   /** false = the source gives no time; the shown time is an estimate. */
   timeConfirmed: boolean
+  /** Added by a traveller (id "ce-…"): how many other people confirmed it so far. */
+  community?: { confirms: number; confirmed: boolean; authorId: string | null }
 }
 
 /** One sitting of an event, attached to the synthetic stop that represents it in a quest. */
