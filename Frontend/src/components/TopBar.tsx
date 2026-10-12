@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useQuest } from '../store/QuestContext'
 import type { Lang } from '../types'
 import AccountButton from './AccountButton'
+import Logo from './Logo'
 import ModeSwitcher from './ModeSwitcher'
 
 interface Props {
@@ -28,7 +29,10 @@ export default function TopBar({ backTo, showMode, center }: Props) {
           <ArrowLeft className="h-4 w-4" /> {!showMode && !center && t.back}
         </button>
       ) : (
-        <div className="text-lg font-bold">VNExplore</div>
+        <div className="flex items-center gap-2 text-lg font-bold">
+          <Logo className="h-7 w-7" />
+          VNExplore
+        </div>
       )}
       {center}
       {showMode && <ModeSwitcher />}

@@ -18,9 +18,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
 
       <header className="hidden w-full max-w-6xl items-start justify-between px-10 pt-8 md:flex">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-ink">
-            <Logo className="h-8 w-8" />
-          </div>
+          <Logo className="h-14 w-14" />
           <div>
             <div className="text-3xl font-bold tracking-tight">VNExplore</div>
             <div className="text-sm font-medium tracking-widest text-brick">{t.tagline}</div>
