@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
-import { AlertCircle, Check, Clock3, Copy, ExternalLink, Globe, Link2, Loader2, Lock, LogOut, PencilLine, Plus, Trash2 } from 'lucide-react'
+import { AlertCircle, Check, Clock3, Copy, ExternalLink, FlaskConical, Globe, Link2, Loader2, Lock, LogOut, PencilLine, Plus, Trash2 } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import LoginPage from './LoginPage'
 import { SaveAchievementCard } from '../components/PartyBits'
 import { initials } from '../components/AccountButton'
 import { MODE_ICON } from '../components/icons'
+import { LegalLinks } from '../components/Legal'
 import PrimaryButton from '../components/PrimaryButton'
+import Sheet from '../components/Sheet'
 import { DongSonBand, DongSonDrum, LakeScene, Lotus } from '../components/VnArt'
 import { duration, moneyRange } from '../lib/format'
 import { QuestCard } from '../components/QuestBits'
 import Stamp from '../components/Stamp'
 import { collectStamps } from '../lib/passport'
 import { usePassport } from '../store/usePassport'
-import { deleteQuest, listLikedQuests, listMyQuests, questUrl, type SavedQuest } from '../lib/quests'
+import { CONFIRM_AT } from '../lib/community'
+import { deleteQuest, listLikedQuests, listMyQuests, questConfirmed, questUrl, type SavedQuest } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
 
@@ -24,6 +27,7 @@ export default function MePage() {
   const [copied, setCopied] = useState<string | null>(null)
   const [liked, setLiked] = useState<SavedQuest[]>([])
   const { journeys } = usePassport()
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     if (!session) return
@@ -193,8 +197,61 @@ export default function MePage() {
         >
           <LogOut className="h-4 w-4" /> {t.signOut}
         </button>
+        <div className="relative mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[12px]">
+          <LegalLinks />
+          <span className="text-bark/30">·</span>
+          <button onClick={() => setDeleting(true)} className="font-bold text-brick/80 underline underline-offset-2 hover:text-brick">
+            {t.deleteAccount}
+          </button>
+        </div>
+        {deleting && <DeleteAccountSheet onClose={() => setDeleting(false)} />}
       </div>
     </div>
+  )
+}
+
+/** Delete the account, after typing a word to be sure. */
+function DeleteAccountSheet({ onClose }: { onClose: () => void }) {
+  const { t } = useQuest()
+  const { deleteAccount } = useAuth()
+  const navigate = useNavigate()
+  const [typed, setTyped] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [failed, setFailed] = useState(false)
+  const ok = typed.trim().toUpperCase() === t.deleteWord
+  return (
+    <Sheet title={t.deleteTitle} closeLabel={t.close} onClose={onClose}>
+      <p className="text-[13px] leading-relaxed text-bark">{t.deleteBody}</p>
+      <label className="mt-4 block text-[12px] font-bold text-ink/80">
+        {t.deleteType(t.deleteWord)}
+        <input
+          value={typed}
+          onChange={(e) => setTyped(e.target.value)}
+          autoCapitalize="characters"
+          className="mt-1 min-h-11 w-full rounded-xl border-2 border-sand bg-white px-3 text-[14px] outline-none focus:border-brick"
+        />
+      </label>
+      {failed && (
+        <p className="mt-2 text-[12px] font-medium text-brick" role="alert">
+          {t.authErr.unknown}
+        </p>
+      )}
+      <button
+        type="button"
+        disabled={!ok || busy}
+        onClick={async () => {
+          setBusy(true)
+          setFailed(false)
+          const err = await deleteAccount()
+          setBusy(false)
+          if (err) return setFailed(true)
+          navigate('/', { replace: true })
+        }}
+        className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-brick px-4 font-bold text-white disabled:bg-sand disabled:text-bark/50"
+      >
+        {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />} {t.deleteConfirm}
+      </button>
+    </Sheet>
   )
 }
 
@@ -206,11 +263,13 @@ function StatusBadge({ quest: q }: { quest: SavedQuest }) {
       ? ['bg-bark/10 text-bark', Lock, t.visPrivate]
       : q.visibility === 'unlisted'
         ? ['bg-teal/10 text-teal', Link2, t.visLink]
-        : q.review_status === 'approved'
-          ? ['bg-leaf/15 text-leaf', Globe, t.status.approved]
-          : q.review_status === 'rejected'
-            ? ['bg-brick/10 text-brick', AlertCircle, t.status.rejected]
-            : ['bg-sun/30 text-bark', Clock3, t.status.pending]
+        : q.review_status === 'rejected'
+          ? ['bg-brick/10 text-brick', AlertCircle, t.status.rejected]
+          : q.is_sample
+            ? ['bg-teal/10 text-teal', FlaskConical, t.questSample]
+          : questConfirmed(q)
+            ? ['bg-leaf/15 text-leaf', Globe, t.status.approved]
+            : ['bg-sun/30 text-bark', Clock3, t.questUnconfirmed(q.run_count ?? 0, CONFIRM_AT)]
   return (
     <span className={`flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${cls}`}>
       <Icon className="h-3 w-3" /> {label}

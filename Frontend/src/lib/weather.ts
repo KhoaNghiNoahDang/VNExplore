@@ -1,8 +1,8 @@
-import type { Area, LatLng } from '../types'
-import { AREA_POINT } from './area'
+import type { LatLng } from '../types'
 
 /**
- * Hourly forecast from Open-Meteo (free, no key, CORS-enabled), cached for 30 minutes per area.
+ * Hourly forecast from Open-Meteo (free, no key, CORS-enabled) for any point, cached for 30 minutes
+ * per ~11 km cell (see weatherCell).
  * Used to nudge plans: rain → indoor places, midday heat → shade and air-conditioning.
  */
 export interface Weather {
@@ -15,7 +15,7 @@ export interface Weather {
   hour: number
 }
 
-interface Series {
+export interface Series {
   fetchedAt: number
   times: number[] // ms
   temp: number[]
@@ -25,14 +25,19 @@ interface Series {
 
 const TTL = 30 * 60_000
 const KEY = 'vnexplore:weather:'
-const mem = new Map<Area, Promise<Series | null>>()
+const mem = new Map<string, Promise<Series | null>>()
+
+/** Forecasts are shared within a 0.1° cell (~11 km): close enough for "will it rain on this trip". */
+export function weatherCell(p: LatLng): string {
+  return `${p.lat.toFixed(1)},${p.lng.toFixed(1)}`
+}
 
 // WMO weather codes: drizzle, rain, showers, thunderstorms.
 const RAIN_CODES = new Set([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99])
 
-function readCache(area: Area): Series | null {
+function readCache(cell: string): Series | null {
   try {
-    const s = JSON.parse(localStorage.getItem(KEY + area) ?? 'null') as Series | null
+    const s = JSON.parse(localStorage.getItem(KEY + cell) ?? 'null') as Series | null
     return s && Date.now() - s.fetchedAt < TTL ? s : null
   } catch {
     return null
@@ -61,23 +66,25 @@ async function load(p: LatLng): Promise<Series | null> {
   }
 }
 
-export function loadSeries(area: Area): Promise<Series | null> {
-  const cached = readCache(area)
+export function loadSeries(at: LatLng): Promise<Series | null> {
+  const cell = weatherCell(at)
+  const cached = readCache(cell)
   if (cached) return Promise.resolve(cached)
-  if (!mem.has(area)) {
-    const p = load(AREA_POINT[area]).then((s) => {
+  if (!mem.has(cell)) {
+    const [lat, lng] = cell.split(',').map(Number)
+    const p = load({ lat, lng }).then((s) => {
       if (s) {
         try {
-          localStorage.setItem(KEY + area, JSON.stringify(s))
+          localStorage.setItem(KEY + cell, JSON.stringify(s))
         } catch {
           /* ignore */
         }
-      } else mem.delete(area) // retry next time
+      } else mem.delete(cell) // retry next time
       return s
     })
-    mem.set(area, p)
+    mem.set(cell, p)
   }
-  return mem.get(area)!
+  return mem.get(cell)!
 }
 
 /** The forecast hour closest to `at` (null if outside the forecast). */

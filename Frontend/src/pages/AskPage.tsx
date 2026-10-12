@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, CircleAlert, Lightbulb, Loader2, Mic, Square } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import IntentChips from '../components/IntentChips'
 import ModePicker from '../components/ModePicker'
 import PrimaryButton from '../components/PrimaryButton'
 import TabBar from '../components/TabBar'
@@ -9,6 +8,7 @@ import { WeatherPill } from '../components/ContextBits'
 import TopBar from '../components/TopBar'
 import TripSettings from '../components/TripSettings'
 import { understandRequest } from '../lib/backend'
+import { rankFrom, regionById } from '../lib/area'
 import { mergeUnderstood, parseIntent, withAreaDefaults } from '../lib/intent'
 import { preselect, rankPlaces } from '../lib/quest'
 import { useSpeech } from '../lib/useSpeech'
@@ -24,11 +24,12 @@ export default function AskPage() {
 
   const text = draft.trim()
   const parsed = useMemo(() => (text ? parseIntent(text) : null), [text])
-  // A new request: the area named in the text, else where the traveller is (not the last saved plan).
-  const askPlan = planFor(parsed?.area ?? null)
-  const askArea = askPlan.area
+  // A new request: around the region named in the text, else where the traveller is (not the last
+  // saved plan).
+  const askPlan = planFor({ area: parsed?.area ?? null }, picked ?? parsed?.transport)
+  const askRegion = askPlan.region
   const hasStart = !!askPlan.start
-  const preview = useMemo(() => (parsed ? withAreaDefaults(parsed, askArea) : null), [parsed, askArea])
+  const preview = useMemo(() => (parsed ? withAreaDefaults(parsed, askRegion) : null), [parsed, askRegion])
   const ready = !!preview
 
   useEffect(() => {
@@ -70,15 +71,15 @@ export default function AskPage() {
       if (!(geoWanted && geo.status === 'asking')) setLocSheet(true)
       return
     }
-    // Let the language model read the request (≤ 4 s); on any problem keep the rule-based reading.
+    // Let the language model read the request (≤ ~6 s); on any problem keep the rule-based reading.
     setThinking(true)
-    const requestContext = contextFor(askArea)
+    const requestContext = contextFor(askPlan.center)
     const forecast = requestContext.weather
     const merged = mergeUnderstood(
       preview,
       await understandRequest(preview.text, {
         language: lang,
-        area: askArea,
+        area: askRegion?.id ?? 'near-start',
         transport: shownTransport,
         people: preview.people,
         hours: preview.hours,
@@ -89,12 +90,12 @@ export default function AskPage() {
       }),
     )
     setThinking(false)
-    // Plan inside one area: the one named in the text, else where the traveller is.
-    const { area, places: pool, start: planned } = planFor(merged.area)
-    const start = planned ?? askPlan.start!
-    const intent = withAreaDefaults(merged, area)
+    // Plan around the region named in the text, else around where the traveller is.
+    const intent = withAreaDefaults(merged, regionById(merged.area))
     const transport = picked ?? intent.transport
-    const ranked = rankPlaces(pool, intent, start, [], contextFor(area))
+    const { places: pool, start: planned, center } = planFor({ area: intent.area }, transport)
+    const start = planned ?? askPlan.start!
+    const ranked = rankPlaces(pool, intent, rankFrom({ start, center }), [], { ...contextFor(center), listen: mode === 'listen' })
     setIntent(intent, preselect(ranked, intent, start, [], { transport, departAt: travel.departAt }))
     // Explore picks its role later, once the route is known (roles are suggested from the stops).
     navigate('/places')
@@ -124,11 +125,11 @@ export default function AskPage() {
       <TopBar />
       <div className="thin-scroll relative z-10 min-h-0 flex-1 overflow-y-auto px-6 pb-4">
         <div className="mb-4 mt-2">
-          <div className="mb-1 text-[10px] font-bold tracking-widest text-brick">{t.areaName[askArea]}</div>
+          <div className="mb-1 text-[10px] font-bold uppercase tracking-widest text-brick">{t.areaHeader(askRegion?.name[lang] ?? null)}</div>
           <h1 className="text-[26px] font-bold leading-tight">{t.askTitle}</h1>
           <p className="mt-2 text-[13px] opacity-70">{t.askSub}</p>
           <div className="mt-3">
-            <WeatherPill weather={contextFor(askArea).weather ?? null} />
+            <WeatherPill weather={contextFor(askPlan.center).weather ?? null} />
           </div>
         </div>
 
@@ -214,7 +215,7 @@ export default function AskPage() {
 
         <div className="mt-5">
           <TripSettings
-            area={askArea}
+            center={askPlan.center}
             transport={shownTransport}
             isDefault={!picked && (!preview || preview.transportIsDefault)}
             locationSheet={locSheet}
@@ -236,11 +237,6 @@ export default function AskPage() {
       </div>
 
       <div className="relative z-10 border-t border-sand/60 bg-paper px-6 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-3">
-        {preview && (
-          <div className="mb-3">
-            <IntentChips intent={preview} />
-          </div>
-        )}
         <PrimaryButton onClick={submit} disabled={!ready || thinking || locatingForSearch}>
           {thinking || locatingForSearch ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           {locatingForSearch ? t.locating : thinking ? t.thinking : cta}

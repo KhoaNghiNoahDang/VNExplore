@@ -50,6 +50,13 @@ const placeCols = [
   N('answer'), T('wikidata'), A('sources'), T('review_notes'),
   // 0012_place_notice_event_time.sql
   T('notice_vi'), T('notice_en'), T('phone'),
+  // 0013_quizzes.sql
+  T('challenge_kind'), T('explain_vi'), T('explain_en'),
+]
+const quizCols = [
+  T('id'), T('place_id'), T('status'), T('kind'), T('question_vi'), T('question_en'),
+  ...['option1', 'option2', 'option3'].flatMap((b) => [T(`${b}_vi`), T(`${b}_en`)]),
+  N('answer'), T('hint_vi'), T('hint_en'), T('explain_vi'), T('explain_en'), A('sources'), T('checked_on'), T('review_notes'),
 ]
 const candidateCols = [
   T('id'), T('area'), T('group'), T('status'), T('sensitivity'), T('sensitivity_reason'), T('category'),
@@ -82,6 +89,7 @@ const places = sheet('places.csv').map((p) => ({ ...p, name_en: p.name_en || p.n
 const placeIds = new Set(places.map((p) => p.id))
 const fares = sheet('transport.csv').map((r) => ({ ...r, seats: r.seats || '1' }))
 const missions = sheet('missions.csv').filter((m) => placeIds.has(m.place_id))
+const quizzes = sheet('quizzes.csv').filter((q) => placeIds.has(q.place_id))
 // Links must be https (table check); an event pointing at a place that isn't seeded would break the foreign key.
 const events = sheet('events.csv').map((e) => ({
   ...e,
@@ -92,7 +100,7 @@ const events = sheet('events.csv').map((e) => ({
 const candidates = sheet('candidates.csv').map((c) => ({ ...c, decision: ['keep', 'drop'].includes(c.decision) ? c.decision : '' }))
 
 // Primary keys must be present and unique, or a whole batch fails in the database.
-for (const [name, rows] of [['places.csv', places], ['candidates.csv', candidates], ['events.csv', events]]) {
+for (const [name, rows] of [['places.csv', places], ['candidates.csv', candidates], ['events.csv', events], ['quizzes.csv', quizzes]]) {
   const seen = new Set()
   for (const r of rows) {
     if (!r.id) throw new Error(`${name} line ${r.__line}: empty id (${r.name_vi})`)
@@ -109,6 +117,7 @@ const content = [
   // Draft roles stay out: the roles table is readable by everyone.
   upsert('roles', ['id'], roleCols, sheet('roles.csv').filter((r) => (r.status || 'approved') === 'approved')),
   upsert('missions', ['role_id', 'place_id'], missionCols, missions),
+  upsert('place_quizzes', ['id'], quizCols, quizzes),
   upsert('transport_fares', ['transport', 'seats'], fareCols, fares),
   upsert('events', ['id'], eventCols, events),
   'commit;',
@@ -125,5 +134,5 @@ const partsDir = join(DATA, 'supabase', 'seed_candidates')
 rmSync(partsDir, { recursive: true, force: true })
 mkdirSync(partsDir, { recursive: true })
 parts.forEach((sql, i) => writeFileSync(join(partsDir, `part_${String(i + 1).padStart(2, '0')}.sql`), sql))
-console.log(`✓ seed_content.sql: ${places.length} places, ${missions.length} missions, ${fares.length} fares, ${events.length} events`)
+console.log(`✓ seed_content.sql: ${places.length} places, ${missions.length} missions, ${quizzes.length} quizzes, ${fares.length} fares, ${events.length} events`)
 console.log(`✓ seed_candidates/: ${candidates.length} candidates in ${parts.length} parts`)

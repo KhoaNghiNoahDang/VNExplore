@@ -43,5 +43,10 @@ try {
   process.exit(1)
 }
 
-// Warm the content cache so the first visitor doesn't wait (failure here is fine).
-getContent().catch((err) => app.log.warn({ err }, 'content warm-up failed'))
+// Read the content file now: a broken deploy shows up in the log right away, not on the first request.
+try {
+  const c = getContent()
+  app.log.info({ version: c.version, places: c.places.length, events: c.events.length }, 'content loaded')
+} catch (err) {
+  app.log.error({ err }, 'content file unreadable — /v1/content and place reports will fail')
+}

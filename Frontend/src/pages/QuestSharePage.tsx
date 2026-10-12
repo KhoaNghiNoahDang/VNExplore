@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { AlertCircle, Check, Clock3, Heart, Loader2, Minus, PencilLine, Play, Plus, Share2 } from 'lucide-react'
+import { AlertCircle, Check, Clock3, FlaskConical, Heart, Loader2, Minus, PencilLine, Play, Plus, Share2 } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { MODE_ICON, TONE_BG } from '../components/icons'
 import { MapStopCard } from '../components/MapCards'
@@ -15,10 +15,11 @@ import { TRANSPORTS } from '../data/transport'
 import { MODE_INFO, THEME_LABEL, TRANSPORT_INFO } from '../i18n/strings'
 import { distance, duration, moneyRange } from '../lib/format'
 import { summarize } from '../lib/quest'
-import { getQuest, isLiked, questUrl, setLiked, type SavedQuest } from '../lib/quests'
+import { CONFIRM_AT } from '../lib/community'
+import { getQuest, isLiked, questConfirmed, questUrl, setLiked, type SavedQuest } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
-import { AREA_POINT } from '../lib/area'
+import { DEFAULT_POINT, regionAt } from '../lib/area'
 import type { Mode, Place, Theme, Transport } from '../types'
 
 const MODE_ORDER: Mode[] = ['explore', 'listen', 'easy']
@@ -54,8 +55,8 @@ export default function QuestSharePage() {
     [quest, places],
   )
   // From the traveller's real position when we have it, else measured from the quest's first stop.
-  const questArea = stops[0]?.area ?? 'hoan-kiem'
-  const start = planFor(questArea).start ?? stops[0] ?? AREA_POINT[questArea]
+  const first = stops[0] ? { lat: stops[0].lat, lng: stops[0].lng } : null
+  const start = planFor({ near: first }).start ?? first ?? DEFAULT_POINT
   const sum = useMemo(
     () => summarize(start, stops, quest?.people ?? 1, { transport: quest?.transport ?? 'walk', departAt: null }, stops.map((p) => p.id)),
     [start, stops, quest],
@@ -118,7 +119,9 @@ export default function QuestSharePage() {
     setIntent(
       {
         text: quest.title,
-        area: questArea,
+        // Plan around the quest's own stops, wherever they are.
+        area: regionAt(first)?.id ?? null,
+        near: first,
         themes: themes.length ? themes : ['culture'],
         people,
         budget: 'any',
@@ -185,9 +188,20 @@ export default function QuestSharePage() {
           </div>
 
           {/* Review state, only the author sees these */}
-          {mine && quest.visibility === 'public' && quest.review_status === 'pending' && (
-            <p className="mt-3 flex items-start gap-2 rounded-2xl bg-sun/20 px-3 py-2.5 text-[12px] font-medium text-bark">
-              <Clock3 className="mt-0.5 h-4 w-4 shrink-0" /> {t.pendingNote}
+          {quest.is_sample && (
+            <p className="mt-3 flex items-start gap-2 rounded-2xl border border-dashed border-teal/50 bg-teal/5 px-3 py-2.5 text-[12px] font-medium text-teal">
+              <FlaskConical className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>
+                <span className="font-bold">{t.questSample}.</span> {t.questSampleNote}
+              </span>
+            </p>
+          )}
+          {!quest.is_sample && quest.visibility === 'public' && quest.review_status !== 'rejected' && !questConfirmed(quest) && (
+            <p className="mt-3 flex items-start gap-2 rounded-2xl border border-dashed border-sun-dark/60 bg-sun/10 px-3 py-2.5 text-[12px] font-medium text-bark">
+              <Clock3 className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>
+                <span className="font-bold">{t.questUnconfirmed(quest.run_count ?? 0, CONFIRM_AT)}.</span> {t.pendingNote}
+              </span>
             </p>
           )}
           {mine && quest.review_status === 'rejected' && (

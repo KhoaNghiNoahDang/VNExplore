@@ -7,8 +7,11 @@ export type Mode = 'explore' | 'listen' | 'easy'
 
 export type Theme = 'culture' | 'food' | 'rainy' | 'history' | 'photo' | 'fun'
 
-/** Hoan Kiem (Old Quarter) or Ba Vi (mountains, ~50 km west). A route stays in one area. */
-export type Area = 'hoan-kiem' | 'ba-vi'
+/**
+ * A place's region label ("hoan-kiem", "ba-vi", "hanoi", …). Only a label for sorting the catalogue:
+ * plans search around the start point, wherever that is (see lib/area.ts).
+ */
+export type Area = string
 
 export type PlaceTag =
   | 'iconic'
@@ -21,6 +24,10 @@ export type PlaceTag =
   | 'history'
   | 'photo'
   | 'lively'
+  /** From an open map dataset (Overture), not yet written up or checked by the team: ranks after curated places. */
+  | 'openData'
+  /** Added by the traveller to their own trip (id "my:…"), only on their device. */
+  | 'mine'
 
 export type Budget = 'low' | 'any'
 
@@ -39,7 +46,7 @@ export interface Leg {
   costK: number
   vehicles: number
   peak: boolean
-  note?: 'short' | 'walkingStreet' | 'parkOutside'
+  note?: 'short' | 'walkingStreet' | 'parkOutside' | 'rideThere'
 }
 
 export interface LatLng {
@@ -47,12 +54,19 @@ export interface LatLng {
   lng: number
 }
 
-/** "Find a real detail" challenge used by Explore mode. */
+/** What a quiz question is about (shown as a small label). */
+export type QuizKind = 'look' | 'history' | 'legend' | 'culture' | 'architecture' | 'nature'
+
+/** One multiple-choice question at a place: a hint after a wrong try, an explanation once answered. */
 export interface Challenge {
+  /** Missing on rows read from an older Supabase seed. */
+  kind?: QuizKind
   prompt: L
   options: L[]
   answer: number
   hint: L
+  /** Why the answer is right — shown after answering. */
+  explain?: L
 }
 
 export interface Place extends LatLng {
@@ -82,8 +96,10 @@ export interface Place extends LatLng {
   why: L
   photoTip: L
   etiquette: L
-  /** null for quick places. */
+  /** The "find a real detail" question (Explore mission); null for quick places. */
   challenge: Challenge | null
+  /** Extra questions about the place's history, legends and details. */
+  quiz?: Challenge[]
   /** Set when this stop is one sitting of a dated event (a synthetic place, id "ev:…"). */
   event?: EventStop
   /** Where the information comes from: URLs or names. */
@@ -92,6 +108,10 @@ export interface Place extends LatLng {
   notice?: L | null
   /** Phone number to call (digits, optional leading +). */
   phone?: string | null
+  /** Added by the traveller without a price: don't show it as free. */
+  priceUnknown?: boolean
+  /** Added by a traveller for everyone (id "cp:…"): how many people have been there so far. */
+  community?: { visits: number; confirmed: boolean; authorId: string | null }
 }
 
 export type EventCategory = 'music' | 'theatre' | 'film' | 'exhibition' | 'workshop' | 'talk' | 'market' | 'festival' | 'other'
@@ -99,8 +119,8 @@ export type EventCategory = 'music' | 'theatre' | 'film' | 'exhibition' | 'works
 /** A dated event from Data/sheets/events.csv. Dates and times are Hanoi local time. */
 export interface QuestEvent extends LatLng {
   id: string
-  /** 'hanoi' = elsewhere in the city (outside the two planning areas). */
-  area: Area | 'hanoi'
+  /** Region label, e.g. 'hanoi' for anywhere in the city outside a named region. */
+  area: Area
   /** show: be there before a start time · open: drop in any time between start and end. */
   kind: 'show' | 'open'
   category: EventCategory
@@ -168,7 +188,7 @@ export interface RoleTemplate extends Mission {
 
 export interface Role {
   id: string
-  /** 'any', or the one area this role is written for (Ba Vì roles). */
+  /** 'any', or the region this role is written for (Ba Vì roles): it is suggested for stops there. */
   area: 'any' | Area
   /** Themes, kinds of stop and event categories the role fits — used to suggest it for a route. */
   tags: string[]
@@ -198,8 +218,10 @@ export interface Intent {
   hoursIsDefault: boolean
   transport: Transport
   transportIsDefault: boolean
-  /** Asked for by name ("Ba Vì"); null = decide from where the traveller is. */
+  /** A region asked for by name ("Ba Vì"): plan around it. null = around where the traveller is. */
   area?: Area | null
+  /** Plan around this point instead (a shared quest's or a party's first stop). */
+  near?: LatLng | null
   /** Extra words for matching places (dishes the language model picked out). */
   extra?: string
   /** One-line restatement from the language model, shown as "Here's what I understood". */

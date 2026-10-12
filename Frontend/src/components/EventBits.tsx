@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { CalendarClock, Check, ChevronDown, ExternalLink, Hourglass, MapPin, Plus, Ticket, TriangleAlert, Users, Wallet } from 'lucide-react'
 import { CATEGORY_LABEL, TRANSPORT_INFO } from '../i18n/strings'
 import { distance, moneyRange } from '../lib/format'
-import { eventWhen, hanoiClock, linkHost, type EventOption } from '../lib/events'
-import { estimateLeg } from '../lib/travel'
+import { eventFits, eventWhen, hanoiClock, linkHost, type EventOption } from '../lib/events'
+import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Lang, Place } from '../types'
 import PlaceThumb from './PlaceThumb'
@@ -61,7 +61,7 @@ function EventCard({ option, people }: { option: EventOption; people: number }) 
   const [chosenId, setChosenId] = useState(picked?.id ?? option.sittings[0].id)
   const place = picked ?? option.sittings.find((s) => s.id === chosenId) ?? option.sittings[0]
   const added = !!picked
-  const leg = estimateLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
+  const leg = firstLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
 
   // Switching to another performance of an event that's already in the plan moves it.
   const choose = (s: Place) => {
@@ -154,13 +154,30 @@ function EventCard({ option, people }: { option: EventOption; people: number }) 
 
 /** "Events during your trip" — the dated events a traveller can add as fixed-time stops. */
 export function EventsSection({ people }: { people: number }) {
-  const { t, eventOptions, tripWindow, selected } = useQuest()
+  const { t, eventOptions, tripWindow, selected, intent } = useQuest()
   const [all, setAll] = useState(false)
-  // Events already in the plan stay visible even when the list is folded.
-  const shown = all
-    ? eventOptions
-    : eventOptions.filter((o, i) => i < 3 || o.sittings.some((s) => selected.includes(s.id)))
+  // Events that fit the request first (a concert for "fun", an exhibition for "culture"); the rest
+  // only on request. Events already in the plan stay visible even when the list is folded.
+  const themes = intent?.themes ?? []
+  const inPlan = (o: EventOption) => o.sittings.some((s) => selected.includes(s.id))
+  const fitting = eventOptions.filter((o) => eventFits(o, themes))
+  const ordered = [...fitting, ...eventOptions.filter((o) => !eventFits(o, themes))]
+  const shown = all ? ordered : ordered.filter((o) => (eventFits(o, themes) && fitting.indexOf(o) < 3) || inPlan(o))
   const hidden = eventOptions.length - shown.length
+  // Nothing on during the trip: no section at all.
+  if (!eventOptions.length) return null
+  // Nothing that fits the request: just a quiet link, not a whole section.
+  if (!shown.length)
+    return (
+      <button
+        type="button"
+        onClick={() => setAll(true)}
+        className="flex min-h-11 w-full items-center gap-2 rounded-xl border border-dashed border-sand px-3 text-left text-[12px] font-medium text-bark/75 hover:border-teal hover:text-teal"
+      >
+        <Ticket className="h-4 w-4 shrink-0 text-brick/70" /> <span className="flex-1">{t.eventsOther(hidden)}</span>
+        <ChevronDown className="h-3.5 w-3.5 shrink-0" />
+      </button>
+    )
 
   return (
     <section aria-labelledby="events-title" className="space-y-3">
@@ -175,23 +192,17 @@ export function EventsSection({ people }: { people: number }) {
           {t.eventsSub(hanoiClock(tripWindow.from), hanoiClock(tripWindow.to))}
         </p>
       </div>
-      {eventOptions.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-sand px-3 py-3 text-[12px] text-bark/70">{t.eventsNone}</p>
-      ) : (
-        <>
-          {shown.map((o) => (
-            <EventCard key={o.event.id} option={o} people={people} />
-          ))}
-          {hidden > 0 && (
-            <button
-              type="button"
-              onClick={() => setAll(true)}
-              className="flex min-h-11 w-full items-center justify-center gap-1 rounded-xl border border-sand bg-white text-xs font-bold text-teal hover:border-teal"
-            >
-              {t.eventsMore(hidden)} <ChevronDown className="h-3.5 w-3.5" />
-            </button>
-          )}
-        </>
+      {shown.map((o) => (
+        <EventCard key={o.event.id} option={o} people={people} />
+      ))}
+      {hidden > 0 && (
+        <button
+          type="button"
+          onClick={() => setAll(true)}
+          className="flex min-h-11 w-full items-center justify-center gap-1 rounded-xl border border-sand bg-white text-xs font-bold text-teal hover:border-teal"
+        >
+          {t.eventsMore(hidden)} <ChevronDown className="h-3.5 w-3.5" />
+        </button>
       )}
     </section>
   )

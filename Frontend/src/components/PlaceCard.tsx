@@ -5,10 +5,11 @@ import { missionFor } from '../data/roles'
 import { TAG_LABEL, TRANSPORT_INFO } from '../i18n/strings'
 import { distance, money, moneyRange } from '../lib/format'
 import { isOpenAt } from '../lib/hours'
-import { storyMinutes, storyOf } from '../lib/quest'
-import { estimateLeg } from '../lib/travel'
+import { hasNarration, storyMinutes, storyOf } from '../lib/quest'
+import { firstLeg } from '../lib/travel'
 import { useQuest } from '../store/QuestContext'
 import type { Place } from '../types'
+import { CommunityBadge, FlagPlaceButton } from './CommunityBits'
 import { PlaceNotice, SourceLinks } from './PlaceBits'
 import PlaceThumb from './PlaceThumb'
 import TransportIcon from './TransportIcon'
@@ -20,9 +21,10 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
   const isAdded = selected.includes(place.id)
   const mission = role ? missionFor(role, place) : null
   const isFav = !!role?.favPlaces.includes(place.id)
-  const leg = estimateLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
-  const perPerson =
-    place.priceMax === 0
+  const leg = firstLeg(start, place, travel.transport, new Date(travel.departAt ?? Date.now()), people)
+  const perPerson = place.priceUnknown
+    ? t.priceNotGiven
+    : place.priceMax === 0
       ? moneyRange(0, 0, lang)
       : place.priceMin === place.priceMax
         ? `${money(place.priceMin)}${t.perPerson}`
@@ -53,7 +55,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
       <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] font-bold">
         <div className="rounded-lg bg-butter/55 px-2.5 py-1.5">{perPerson}</div>
         <div className="rounded-lg bg-teal/10 px-2.5 py-1.5 text-teal">
-          {moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
+          {place.priceUnknown ? '—' : moneyRange(place.priceMin * people, place.priceMax * people, lang)} {place.priceMax > 0 && t.forN(people)}
         </div>
       </div>
 
@@ -81,6 +83,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
         </button>
       )}
 
+      <CommunityBadge place={place} className="mt-3" />
       <PlaceNotice place={place} className="mt-3" />
 
       {mode === 'explore' && role && (
@@ -97,11 +100,16 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
           </p>
         </div>
       )}
-      {mode === 'listen' && (
-        <p className="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-teal">
-          <Headphones className="h-3.5 w-3.5" /> {t.narrated(storyMinutes(storyOf(place, lang)))}
-        </p>
-      )}
+      {mode === 'listen' &&
+        (place.kind === 'sight' && !hasNarration(place) ? (
+          <p className="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-bark/55">
+            <Headphones className="h-3.5 w-3.5" /> {t.noNarration}
+          </p>
+        ) : (
+          <p className="mt-3 flex items-center gap-1.5 text-[10px] font-bold text-teal">
+            <Headphones className="h-3.5 w-3.5" /> {t.narrated(storyMinutes(storyOf(place, lang)))}
+          </p>
+        ))}
 
       <button
         onClick={() => toggle(place.id)}
@@ -114,6 +122,7 @@ export default function PlaceCard({ place, people }: { place: Place; people: num
         {isAdded ? t.added : t.add}
       </button>
       <SourceLinks sources={place.sources} className="mt-2" />
+      <FlagPlaceButton place={place} className="mt-1 self-end" />
     </article>
   )
 }

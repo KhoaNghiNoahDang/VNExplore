@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, Globe, Link2, Loader2, Lock, Plus, Search, Send, X } from 'lucide-react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { RulesConsent } from '../components/CommunityBits'
 import { Field } from '../components/Form'
 import { MODE_ICON, ROLE_ICON } from '../components/icons'
 import PlaceThumb from '../components/PlaceThumb'
@@ -18,7 +19,7 @@ import { summarize } from '../lib/quest'
 import { getQuest, upsertQuest, type Audience, type BestTime, type TipKind, type Visibility } from '../lib/quests'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
-import { AREA_POINT } from '../lib/area'
+import { DEFAULT_POINT } from '../lib/area'
 import type { Mode, Place, Theme, Transport } from '../types'
 
 const THEMES: Theme[] = ['food', 'photo', 'history', 'culture', 'rainy', 'fun']
@@ -60,6 +61,9 @@ export default function CreateQuestPage() {
   const [transport, setTransport] = useState<Transport>('walk')
   const [people, setPeople] = useState(2)
   const [visibility, setVisibility] = useState<Visibility>('public')
+  // Shared quests (public or by link) need the author to accept the community rules.
+  const [rulesOk, setRulesOk] = useState(false)
+  const [rulesTried, setRulesTried] = useState(false)
   const [picker, setPicker] = useState(false)
   const [state, setState] = useState<'idle' | 'busy' | 'error'>('idle')
   const [tried, setTried] = useState(false)
@@ -106,7 +110,7 @@ export default function CreateQuestPage() {
   const stopPlaces = stops.map((s) => byId.get(s.placeId)).filter((p): p is Place => !!p)
   const summary = useMemo(
     // Numbers measured from the quest's first stop (not wherever the author happens to be right now).
-    () => summarize(stopPlaces[0] ?? AREA_POINT['hoan-kiem'], stopPlaces, people, { transport, departAt: null }, stopPlaces.map((p) => p.id)),
+    () => summarize(stopPlaces[0] ?? DEFAULT_POINT, stopPlaces, people, { transport, departAt: null }, stopPlaces.map((p) => p.id)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [planFor, stops, people, transport, byId],
   )
@@ -151,6 +155,10 @@ export default function CreateQuestPage() {
     if (firstBad >= 0) {
       setStep(firstBad)
       setTried(true)
+      return
+    }
+    if (visibility !== 'private' && !rulesOk) {
+      setRulesTried(true)
       return
     }
     setState('busy')
@@ -492,6 +500,7 @@ export default function CreateQuestPage() {
               </div>
               {visibility === 'public' && <p className="mt-2 text-[12px] leading-relaxed text-bark/70">{t.pendingNote}</p>}
             </div>
+            {visibility !== 'private' && <RulesConsent accepted={rulesOk} onChange={setRulesOk} showError={rulesTried} />}
             {state === 'error' && <p className="text-[12px] font-medium text-brick">{t.authErr.unknown}</p>}
           </div>
         )}

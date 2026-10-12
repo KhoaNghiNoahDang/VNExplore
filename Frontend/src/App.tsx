@@ -1,10 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import AppShell from './components/AppShell'
+import StartupPrompts from './components/StartupPrompts'
 import { RequireStart } from './components/NeedStart'
 import TabBar from './components/TabBar'
 import AskPage from './pages/AskPage'
 import CreateQuestPage from './pages/CreateQuestPage'
 import FinishPage from './pages/FinishPage'
+import LegalPage from './pages/LegalPage'
 import LoginPage from './pages/LoginPage'
 import MePage from './pages/MePage'
 import PartyPage from './pages/PartyPage'
@@ -35,9 +37,12 @@ export default function App() {
         <Route path="/q/:id" element={<QuestSharePage />} />
         <Route path="/party/:code" element={<PartyPage />} />
         <Route path="/reset" element={<ResetPage />} />
+        <Route path="/terms" element={<LegalPage kind="terms" />} />
+        <Route path="/privacy" element={<LegalPage kind="privacy" />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <TabBar />
+      <StartupPrompts />
     </AppShell>
   )
 }

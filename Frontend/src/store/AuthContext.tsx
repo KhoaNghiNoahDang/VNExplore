@@ -25,9 +25,7 @@ export type AuthError =
 export interface SignUpInput {
   displayName: string
   username: string
-  /** Exactly one of email / phone. */
-  email?: string
-  phone?: string
+  email: string
   password: string
   captchaToken?: string
 }
@@ -45,6 +43,8 @@ export interface AuthState {
   /** Signed in with a permanent account (not a guest): may publish and like quests. */
   isMember: boolean
   signOut: () => Promise<void>
+  /** Delete the account and everything that is theirs (see 0020_delete_my_account.sql), then sign out. */
+  deleteAccount: () => Promise<AuthError | null>
   isUsernameFree: (username: string) => Promise<boolean>
   /** Signed in only with a name (group play): no email or password yet. */
   isGuest: boolean
@@ -61,21 +61,8 @@ export interface AuthState {
 
 // ------------------------------------------------------------ identifiers
 export const USERNAME_RE = /^[a-z0-9_.]{3,20}$/
-/** Vietnamese mobile numbers: 0xxxxxxxxx or +84xxxxxxxxx (03/05/07/08/09). */
-const PHONE_RE = /^(?:\+?84|0)([35789]\d{8})$/
-
-export function normalizePhone(raw: string): string | null {
-  const m = raw.replace(/[\s.-]/g, '').match(PHONE_RE)
-  return m ? `84${m[1]}` : null
-}
-
-/**
- * ⚠ DEMO: phone numbers are not verified (no SMS provider yet). A phone account is stored as an
- * internal email that nobody receives; the number itself goes in user metadata with
- * phone_verified=false. Switch to real SMS OTP before a public launch.
- */
-export const PHONE_VERIFY: 'fake' | 'sms' = 'fake'
-const phoneEmail = (normalized: string) => `${normalized}@phone.vnexplore.invalid`
+// Sign-up by phone number is off: there is no SMS verification, so a number could not be proven to
+// be the user's. Accounts are email only (plus guests).
 
 function mapError(message: string | undefined): AuthError {
   const m = (message ?? '').toLowerCase()
@@ -171,15 +158,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = useCallback(async (identifier: string, password: string, captchaToken?: string): Promise<AuthError | null> => {
     if (!supabase) return 'unavailable'
     const id = identifier.trim()
-    const phone = normalizePhone(id)
     await prepareGuestMerge()
 
     if (id.includes('@') && !id.startsWith('@')) {
       const { error } = await supabase.auth.signInWithPassword({ email: id, password, options: { captchaToken } })
-      return error ? mapError(error.message) : null
-    }
-    if (phone) {
-      const { error } = await supabase.auth.signInWithPassword({ email: phoneEmail(phone), password, options: { captchaToken } })
       return error ? mapError(error.message) : null
     }
     // @username → server-side lookup (the email never reaches the browser).
@@ -194,24 +176,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const username = input.username.trim().toLowerCase().replace(/^@/, '')
     if (!(await isUsernameFree(username))) return 'username_taken'
 
-    const phone = input.phone ? normalizePhone(input.phone) : null
-    const email = phone ? phoneEmail(phone) : input.email!.trim()
+    const email = input.email.trim()
     await prepareGuestMerge()
     const { data, error } = await supabase.auth.signUp({
       email,
       password: input.password,
       options: {
         captchaToken: input.captchaToken,
+        // Back to this site after clicking the confirmation link (must be in Supabase's Redirect URLs).
+        emailRedirectTo: `${location.origin}/`,
         data: {
           display_name: input.displayName.trim(),
           username,
-          ...(phone ? { phone, phone_verified: PHONE_VERIFY === 'sms' } : {}),
         },
       },
     })
     if (error) return mapError(error.message)
     // "Confirm email" still on in Supabase → no session until the link is clicked.
-    if (!data.session) return phone ? 'unknown' : 'confirm_email_sent'
+    if (!data.session) return 'confirm_email_sent'
     return null
   }, [isUsernameFree])
 
@@ -233,6 +215,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     await supabase?.auth.signOut()
+  }, [])
+
+  const deleteAccount = useCallback(async (): Promise<AuthError | null> => {
+    if (!supabase) return 'unavailable'
+    const { error } = await supabase.rpc('delete_my_account')
+    if (error) return 'unknown'
+    // The user is gone on the server: just forget the session here, and what this device kept for them.
+    await supabase.auth.signOut({ scope: 'local' })
+    try {
+      localStorage.removeItem('vnexplore:passport')
+      localStorage.removeItem(CLAIM_KEY)
+    } catch {
+      /* storage unavailable */
+    }
+    return null
   }, [])
 
   const signInAsGuest = useCallback(async (displayName: string, captchaToken?: string): Promise<AuthError | null> => {
@@ -277,6 +274,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signInWithGoogle,
       sendPasswordReset,
       signOut,
+      deleteAccount,
       isUsernameFree,
       isGuest: !!session?.user.is_anonymous,
       isMember: !!session && !session.user.is_anonymous,
@@ -284,7 +282,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       upgradeGuest,
       linkGoogle,
     }),
-    [loading, session, profile, signIn, signUp, signInWithGoogle, sendPasswordReset, signOut, isUsernameFree, signInAsGuest, upgradeGuest, linkGoogle],
+    [loading, session, profile, signIn, signUp, signInWithGoogle, sendPasswordReset, signOut, deleteAccount, isUsernameFree, signInAsGuest, upgradeGuest, linkGoogle],
   )
 
   return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>

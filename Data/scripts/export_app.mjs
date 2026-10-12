@@ -1,16 +1,18 @@
 /**
  * Export APPROVED rows from Data/sheets/*.csv into the app:
  *
- *   Frontend/src/data/generated/places.json   (Place[])
+ *   Frontend/src/data/generated/places.json   (curated Place[], each with its extra quiz questions from quizzes.csv)
+ *   Frontend/src/data/generated/places-open.json (Place[] tagged openData — loaded after the app starts)
  *   Frontend/src/data/generated/roles.json    (Role[] with their approved missions)
  *   Frontend/src/data/generated/events.json   (QuestEvent[]; events that ended >90 days ago are dropped)
  *   Frontend/src/data/generated/drafts.json   (roles with draft content — the app shows them in local dev only)
+ *   Backend/content/content.json              ({ places, roles, events } — what the API serves at /v1/content)
  *
  * Only rows with status=approved are exported. Rows are validated; any problem stops the export
  * with a clear message (so a typo in the sheet can't break the app).
  *
  * Run after editing the sheets:  node Data/scripts/export_app.mjs
- * (Later the app will read the same data from Supabase instead of these files.)
+ * These JSON files are the app's content: Supabase only holds user data (accounts, quests, reports).
  */
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { readCsv as readCsvFile } from './lib/csv.mjs'
@@ -19,13 +21,19 @@ import { fileURLToPath } from 'node:url'
 
 const DATA = join(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = join(DATA, '..', 'Frontend', 'src', 'data', 'generated')
+const API_OUT = join(DATA, '..', 'Backend', 'content')
 
 const THEMES = ['culture', 'food', 'rainy', 'history', 'photo', 'fun']
-const AREAS = ['hoan-kiem', 'ba-vi']
+/** Region label: lowercase words joined by '-' (hoan-kiem, ba-vi, nam-tu-liem, hanoi…). Only a label —
+ * the app plans around the start point, so a place can be anywhere. */
+const AREA_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/
+const areaOk = (a) => AREA_RE.test(a ?? '')
 const KINDS = ['sight', 'food', 'fun']
 const DEPTHS = ['full', 'quick']
-const TAGS = ['iconic', 'groups', 'quiet', 'cultural', 'indoor', 'localFood', 'free', 'history', 'photo', 'lively']
+const TAGS = ['iconic', 'groups', 'quiet', 'cultural', 'indoor', 'localFood', 'free', 'history', 'photo', 'lively', 'openData']
 const TONES = ['brick', 'butter', 'teal', 'leaf']
+/** What a quiz question is about (shown as a small label). */
+const QUIZ_KINDS = ['look', 'history', 'legend', 'culture', 'architecture', 'nature']
 const readCsv = (name) => readCsvFile(join(DATA, 'sheets', name))
 
 const errors = []
@@ -49,6 +57,21 @@ const optL = (file, r, base) => {
   return { vi, en }
 }
 
+/** One multiple-choice question: three options, a hint after a wrong try, an explanation after the answer. */
+function question(file, r, promptKey, kindKey) {
+  const answer = num(file, r, 'answer')
+  if (![1, 2, 3].includes(answer)) fail(file, r, 'answer must be 1, 2 or 3')
+  if (!QUIZ_KINDS.includes(r[kindKey])) fail(file, r, `${kindKey} must be one of ${QUIZ_KINDS.join(', ')}`)
+  return {
+    kind: r[kindKey],
+    prompt: L(file, r, promptKey),
+    options: [L(file, r, 'option1'), L(file, r, 'option2'), L(file, r, 'option3')],
+    answer: answer - 1,
+    hint: L(file, r, 'hint'),
+    explain: L(file, r, 'explain'),
+  }
+}
+
 // ---------------------------------------------------------------- places
 const places = readCsv('places.csv')
   .filter((r) => r.status === 'approved')
@@ -60,7 +83,7 @@ const places = readCsv('places.csv')
     tags.filter((t) => !TAGS.includes(t)).forEach((t) => fail(F, r, `unknown tag "${t}" (use ${TAGS.join(', ')})`))
     if (!themes.length) fail(F, r, 'themes is empty')
     if (!TONES.includes(r.tone)) fail(F, r, `tone must be one of ${TONES.join(', ')}`)
-    if (!AREAS.includes(r.area)) fail(F, r, `area must be one of ${AREAS.join(', ')}`)
+    if (!areaOk(r.area)) fail(F, r, `area must be a label like hoan-kiem, ba-vi or nam-tu-liem (got "${r.area}")`)
     if (!KINDS.includes(r.kind)) fail(F, r, `kind must be one of ${KINDS.join(', ')}`)
     if (!DEPTHS.includes(r.depth)) fail(F, r, `depth must be one of ${DEPTHS.join(', ')}`)
     const full = r.depth === 'full'
@@ -69,17 +92,7 @@ const places = readCsv('places.csv')
     if (priceMax < priceMin) fail(F, r, 'price_max_k is lower than price_min_k')
     // Full places need their story and challenge (Listen + Explore); quick ones only an intro.
     const story = full ? L(F, r, 'story') : optL(F, r, 'story')
-    let challenge = null
-    if (full || r.challenge_vi) {
-      const answer = num(F, r, 'answer')
-      if (![1, 2, 3].includes(answer)) fail(F, r, 'answer must be 1, 2 or 3')
-      challenge = {
-        prompt: L(F, r, 'challenge'),
-        options: [L(F, r, 'option1'), L(F, r, 'option2'), L(F, r, 'option3')],
-        answer: answer - 1,
-        hint: L(F, r, 'hint'),
-      }
-    }
+    const challenge = full || r.challenge_vi ? question(F, r, 'challenge', 'challenge_kind') : null
     return {
       id: text(F, r, 'id'),
       area: r.area,
@@ -124,12 +137,27 @@ for (const p of places) {
   ids.add(p.id)
 }
 
+// ---------------------------------------------------------------- extra quiz questions
+// Every approved question must say where its facts come from (`sources`).
+const quizIds = new Set()
+for (const r of readCsv('quizzes.csv').filter((q) => q.status === 'approved')) {
+  const F = 'quizzes.csv'
+  if (quizIds.has(r.id)) fail(F, r, `duplicate id "${r.id}"`)
+  quizIds.add(r.id)
+  const place = places.find((p) => p.id === r.place_id)
+  if (!place) {
+    fail(F, r, `unknown or unapproved place_id "${r.place_id}"`)
+    continue
+  }
+  if (!r.sources) fail(F, r, 'sources is empty — every question needs a source')
+  ;(place.quiz ??= []).push(question(F, r, 'question', 'kind'))
+}
+
 // ---------------------------------------------------------------- roles + missions
 // Roles are picked AFTER the route: each role has tags (themes, kinds of stop, event categories)
 // used to suggest the roles that fit the chosen stops, its own missions for some places, and
 // mission templates per kind of stop (sight / food / fun / event) so every stop gets a task in
 // the role's voice. Approved rows → roles.json; drafts → drafts.json (shown only in local dev).
-const ROLE_AREAS = ['any', ...AREAS]
 const TEMPLATE_KINDS = ['sight', 'food', 'fun', 'event']
 const ROLE_TAGS = new Set([...THEMES, ...KINDS, 'event', 'music', 'theatre', 'film', 'exhibition', 'workshop', 'talk', 'market', 'festival'])
 const allMissions = readCsv('missions.csv').filter((m) => ids.has(m.place_id))
@@ -146,7 +174,7 @@ allTemplates.forEach((t) => {
 /** A role built from its row plus the missions / templates whose status is in `statuses`. */
 function buildRole(r, statuses) {
   const F = 'roles.csv'
-  if (!ROLE_AREAS.includes(r.area)) fail(F, r, `area must be one of ${ROLE_AREAS.join(', ')}`)
+  if (r.area !== 'any' && !areaOk(r.area)) fail(F, r, `area must be 'any' or a region label like ba-vi (got "${r.area}")`)
   const tags = list(r.tags)
   tags.filter((t) => !ROLE_TAGS.has(t)).forEach((t) => fail(F, r, `unknown tag "${t}"`))
   if (!tags.length) fail(F, r, 'tags is empty')
@@ -201,7 +229,7 @@ const events = readCsv('events.csv')
     if (eventIds.has(r.id)) fail(F, r, `duplicate id "${r.id}"`)
     eventIds.add(r.id)
     if (!/^[a-z0-9-]+$/.test(r.id)) fail(F, r, 'id: lowercase letters, digits and "-" only')
-    if (![...AREAS, 'hanoi'].includes(r.area)) fail(F, r, `area must be one of ${AREAS.join(', ')}, hanoi`)
+    if (!areaOk(r.area)) fail(F, r, `area must be a label like hoan-kiem, ba-vi or hanoi (got "${r.area}")`)
     if (!EVENT_KINDS.includes(r.kind)) fail(F, r, `kind must be one of ${EVENT_KINDS.join(', ')}`)
     if (!CATEGORIES.includes(r.category)) fail(F, r, `category must be one of ${CATEGORIES.join(', ')}`)
     if (!['ok', 'adult'].includes(r.sensitivity)) fail(F, r, 'sensitivity must be ok or adult')
@@ -261,9 +289,18 @@ if (errors.length) {
 }
 
 mkdirSync(OUT, { recursive: true })
-writeFileSync(join(OUT, 'places.json'), JSON.stringify(places, null, 1) + '\n')
+// Open-map-data places (thousands of one-line entries) ship in their own file, loaded lazily,
+// so the app's first download stays small.
+const isOpen = (p) => p.tags.includes('openData')
+writeFileSync(join(OUT, 'places.json'), JSON.stringify(places.filter((p) => !isOpen(p)), null, 1) + '\n')
+writeFileSync(join(OUT, 'places-open.json'), JSON.stringify(places.filter(isOpen)) + '\n')
 writeFileSync(join(OUT, 'roles.json'), JSON.stringify(roles, null, 1) + '\n')
 writeFileSync(join(OUT, 'events.json'), JSON.stringify(events, null, 1) + '\n')
 writeFileSync(join(OUT, 'drafts.json'), JSON.stringify({ roles: draftRoles }, null, 1) + '\n')
-console.log(`✓ ${places.length} places, ${roles.length} roles, ${missions.length} missions, ${events.length} events → Frontend/src/data/generated/`)
+// The backend ships on its own (Render, or any server), so it gets its own copy.
+mkdirSync(API_OUT, { recursive: true })
+writeFileSync(join(API_OUT, 'content.json'), JSON.stringify({ places, roles, events }) + '\n')
+console.log(
+  `✓ ${places.length} places, ${quizIds.size} extra quiz questions, ${roles.length} roles, ${missions.length} missions, ${events.length} events → Frontend/src/data/generated/ + Backend/content/`,
+)
 console.log(`  drafts.json: ${draftRoles.length} roles with drafts (local preview only)`)

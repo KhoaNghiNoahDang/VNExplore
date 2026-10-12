@@ -137,9 +137,21 @@ button:disabled {
   font-size: 9px;
 }
 
+/* ---- Stamp: pressed down onto the page ---- */
+@keyframes vx-stamp-in {
+  0% { transform: scale(1.9) translateY(-14px); opacity: 0; filter: blur(2px); }
+  55% { transform: scale(0.92); opacity: 1; filter: blur(0); }
+  72% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+.vx-stamp-in {
+  animation: vx-stamp-in 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .listening,
-  .vx-user {
+  .vx-user,
+  .vx-stamp-in {
     animation: none;
   }
 }
