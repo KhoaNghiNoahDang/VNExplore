@@ -154,8 +154,15 @@ export interface EventOption {
 export const eventFits = (o: EventOption, themes: Theme[]) => o.sittings[0].themes.some((t) => themes.includes(t))
 
 /**
+ * One programme shown in several places ("FETA 2026 / Video art — Toong Phan Bội Châu",
+ * "… — Complex 01"): the name before " — " (or the whole name) is the programme.
+ */
+const programmeOf = (ev: QuestEvent) => ev.name.vi.split(' — ')[0].trim().toLowerCase()
+
+/**
  * Events anywhere in Hanoi that fit a trip from `fromMs` to `toMs`, soonest first.
  * `reachMin` = minutes to get from the trip's start to a point (far events drop out on their own).
+ * A programme running in several places at once shows once: at the place easiest to reach.
  */
 export function eventsInWindow(
   events: QuestEvent[],
@@ -163,13 +170,17 @@ export function eventsInWindow(
   toMs: number,
   reachMin: (p: LatLng) => number = () => 0,
 ): EventOption[] {
-  return events
-    .map((event) => {
-      const reach = reachMin(event)
-      return { event, sittings: sittingsBetween(event, fromMs, toMs).filter((s) => fits(s, fromMs, toMs, reach)) }
-    })
-    .filter((o) => o.sittings.length)
-    .sort((a, b) => a.sittings[0].event!.startMs - b.sittings[0].event!.startMs)
+  const best = new Map<string, { option: EventOption; reach: number }>()
+  for (const event of events) {
+    const reach = reachMin(event)
+    const sittings = sittingsBetween(event, fromMs, toMs).filter((s) => fits(s, fromMs, toMs, reach))
+    if (!sittings.length) continue
+    const key = programmeOf(event)
+    const cur = best.get(key)
+    if (!cur || reach < cur.reach || (reach === cur.reach && sittings[0].event!.startMs < cur.option.sittings[0].event!.startMs))
+      best.set(key, { option: { event, sittings }, reach })
+  }
+  return [...best.values()].map((b) => b.option).sort((a, b) => a.sittings[0].event!.startMs - b.sittings[0].event!.startMs)
 }
 
 const DAY_NAMES: Record<Lang, string[]> = {
