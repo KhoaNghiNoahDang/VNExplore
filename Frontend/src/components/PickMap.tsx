@@ -16,12 +16,15 @@ const PIN_SVG =
  */
 export default function PickMap({
   point,
+  showPin = true,
   view,
   userPos,
   onPick,
   onFail,
 }: {
   point: LatLng
+  /** false: no pin until the first tap (so nobody mistakes the phone's position for a chosen point). */
+  showPin?: boolean
   view: LatLng & { zoom?: number; nonce?: number }
   userPos?: LatLng | null
   onPick: (p: LatLng) => void
@@ -33,6 +36,7 @@ export default function PickMap({
   const user = useRef<Marker | null>(null)
   const pick = useRef(onPick)
   pick.current = onPick
+  const pinShown = useRef(showPin)
 
   useEffect(() => {
     if (!box.current) return
@@ -59,7 +63,8 @@ export default function PickMap({
     const el = document.createElement('div')
     el.innerHTML = PIN_SVG
     el.style.cursor = 'grab'
-    const marker = new Marker({ element: el, anchor: 'bottom', draggable: true }).setLngLat([point.lng, point.lat]).addTo(m)
+    const marker = new Marker({ element: el, anchor: 'bottom', draggable: true }).setLngLat([point.lng, point.lat])
+    if (pinShown.current) marker.addTo(m)
     marker.on('dragend', () => {
       const p = marker.getLngLat()
       pick.current({ lat: p.lat, lng: p.lng })
@@ -67,6 +72,10 @@ export default function PickMap({
     // Tap the map: the pin jumps there.
     m.on('click', (e) => {
       marker.setLngLat(e.lngLat)
+      if (!pinShown.current) {
+        marker.addTo(m)
+        pinShown.current = true
+      }
       pick.current({ lat: e.lngLat.lat, lng: e.lngLat.lng })
     })
     pin.current = marker
@@ -83,6 +92,16 @@ export default function PickMap({
   useEffect(() => {
     pin.current?.setLngLat([point.lng, point.lat])
   }, [point.lat, point.lng])
+
+  // Show or hide the pin (a point chosen from an address or link; cleared to start again).
+  useEffect(() => {
+    const m = map.current
+    const marker = pin.current
+    if (!m || !marker || showPin === pinShown.current) return
+    if (showPin) marker.addTo(m)
+    else marker.remove()
+    pinShown.current = showPin
+  }, [showPin])
 
   // Move the view when asked (search result, my location).
   useEffect(() => {
@@ -105,7 +124,7 @@ export default function PickMap({
       wrap.appendChild(dot)
       user.current = new Marker({ element: wrap }).setLngLat([userPos.lng, userPos.lat]).addTo(m)
       // Keep the pin above the dot when they overlap.
-      pin.current?.remove().addTo(m)
+      if (pinShown.current) pin.current?.remove().addTo(m)
     } else user.current.setLngLat([userPos.lng, userPos.lat])
   }, [userPos?.lat, userPos?.lng])
 

@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, MapPin, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
-import { geocodeSearch, type GeoResult } from '../lib/backend'
+import { CircleAlert, CircleCheck, Coffee, Landmark, Loader2, LocateFixed, MapPin, MapPinPlus, PartyPopper, Plus, Send } from 'lucide-react'
+import { coordsOf, geocodeSearch, isMapsLink, resolveMapsLink, type GeoResult } from '../lib/backend'
 import { addCommunityPlace, CONFIRM_AT } from '../lib/community'
 import { RulesNote } from './CommunityBits'
 import { submitPlaceSuggestion, type SuggestedKind } from '../lib/placeSuggestions'
@@ -57,6 +57,10 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
   const [found, setFound] = useState<GeoResult[]>([])
   const [searching, setSearching] = useState(false)
   const [lookup, setLookup] = useState(false)
+  /** The pinned result was only the street (house number unknown). */
+  const [approx, setApprox] = useState(false)
+  /** Reading a pasted Google Maps link: 'busy', or 'failed'. */
+  const [linkState, setLinkState] = useState<'busy' | 'failed' | null>(null)
   const [name, setName] = useState('')
   const [kind, setKind] = useState<SuggestedKind | null>(null)
   const [address, setAddress] = useState('')
@@ -78,7 +82,8 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
 
   useEffect(() => {
     const q = address.trim()
-    if (!lookup || q.length < 3) {
+    // A pasted Google Maps link or coordinates: read the point instead of searching the text.
+    if (!lookup || q.length < 3 || isMapsLink(q) || coordsOf(q)) {
       setFound([])
       setSearching(false)
       return
@@ -102,9 +107,33 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     const at = { lat: r.lat, lng: r.lng }
     setPoint(at)
     setView({ ...at, zoom: 17, nonce: Date.now() })
-    setPinned(r.label || r.name)
+    setPinned([r.name, r.label].filter(Boolean).join(', ') || t.addPlaceFromLink)
+    setApprox(!!r.approx)
     setLookup(false)
     setFound([])
+  }
+
+  const onAddress = async (value: string) => {
+    setAddress(value)
+    setLinkState(null)
+    const v = value.trim()
+    const c = coordsOf(v)
+    if (c) {
+      setAddress('')
+      return pinAt({ name: `${c.lat.toFixed(5)}, ${c.lng.toFixed(5)}`, label: '', ...c })
+    }
+    if (isMapsLink(v)) {
+      setLinkState('busy')
+      const r = await resolveMapsLink(v)
+      if (!r) return setLinkState('failed')
+      setLinkState(null)
+      // The link isn't an address: keep the field for a real one, and take the place's name if empty.
+      setAddress('')
+      if (r.name && !name.trim()) setName(r.name)
+      return pinAt({ ...r, label: r.label || t.addPlaceFromLink })
+    }
+    setLookup(true)
+    if (pinned && pinned !== 'map' && pinned !== 'here') setPinned(null)
   }
 
   const kinds: { kind: SuggestedKind; icon: typeof Coffee }[] = [
@@ -124,6 +153,8 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     setContact('')
     setStay('')
     setPinned(null)
+    setApprox(false)
+    setLinkState(null)
     setFound([])
     setClientSuggestionId(crypto.randomUUID())
     setSent(false)
@@ -152,7 +183,8 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
     // A stop, or a place on everyone's map, needs a real position: without an address or a tap on
     // the map we only know where the phone is.
     const publish = share && canPublish
-    if ((toTrip || publish) && !pinned && at === point) return setError(t.addPlaceNoPin)
+    // Never send the phone's own position by accident: the place must be pinned on purpose.
+    if (!pinned && at === point) return setError(t.addPlaceNoPin)
     const lo = min ?? max
     const hi = max ?? min
     const stayMin = Math.round(Number(stay)) > 0 ? Math.min(Math.round(Number(stay)), 600) : STAY[kind]
@@ -344,11 +376,7 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
           className={fieldClass}
           maxLength={200}
           value={address}
-          onChange={(e) => {
-            setAddress(e.target.value)
-            setLookup(true)
-            if (pinned && pinned !== 'map') setPinned(null)
-          }}
+          onChange={(e) => void onAddress(e.target.value)}
           placeholder={t.addPlaceAddressPh}
           autoComplete="street-address"
         />
@@ -362,6 +390,7 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
                 <span className="min-w-0">
                   <span className="block truncate text-[13px] font-bold">{r.name}</span>
                   <span className="block truncate text-[11px] text-bark/70">{r.label}</span>
+                  {r.approx && <span className="block text-[10px] font-bold text-sun-dark">{t.addPlaceApprox}</span>}
                 </span>
               </button>
             </li>
@@ -371,10 +400,30 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
               <Loader2 className="h-4 w-4 animate-spin" /> {t.searching}
             </li>
           )}
-          {!searching && !found.length && <li className="p-2 text-[12px] text-bark/70">{t.addPlaceNoAddress}</li>}
+          {!searching && !found.length && <li className="p-2 text-[12px] leading-snug text-bark/70">{t.addPlaceNoAddress}</li>}
         </ul>
+      ) : linkState ? (
+        <p className={`mt-1 flex items-center gap-1.5 text-[11px] ${linkState === 'failed' ? 'text-brick' : 'text-bark/70'}`} role="status">
+          {linkState === 'busy' && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+          {linkState === 'busy' ? t.addPlaceReadingLink : t.addPlaceLinkFailed}
+        </p>
       ) : (
         <p className="mt-1 text-[11px] text-bark/60">{t.addPlaceAddressHint}</p>
+      )}
+      {geo.status === 'on' && geo.position && pinned !== 'here' && (
+        <button
+          type="button"
+          onClick={() => {
+            const at = geo.position!
+            setPoint(at)
+            setView({ ...at, zoom: 17, nonce: Date.now() })
+            setPinned('here')
+            setApprox(false)
+          }}
+          className="mt-1.5 flex min-h-9 items-center gap-1.5 text-[12px] font-bold text-teal"
+        >
+          <LocateFixed className="h-3.5 w-3.5" /> {t.addPlaceImHere}
+        </button>
       )}
 
       <div className="mt-4 text-[12px] font-bold text-ink/80">{t.addPlaceWhere}</div>
@@ -391,19 +440,36 @@ export function AddPlaceSheet({ around, forTrip = false, onClose }: { around: La
           >
             <PickMap
               point={point}
+              showPin={!!pinned}
               view={view}
               userPos={geo.status === 'on' ? geo.position : null}
               onPick={(p) => {
                 setPoint(p)
                 setPinned('map')
+                setApprox(false)
               }}
               onFail={() => setMapFailed(true)}
             />
           </Suspense>
         )}
+        {!pinned && !mapFailed && (
+          <p className="pointer-events-none absolute inset-x-3 bottom-3 rounded-xl bg-white/90 px-3 py-2 text-center text-[11px] font-bold text-bark shadow">
+            {t.addPlaceNoPinYet}
+          </p>
+        )}
       </div>
-      <p className={`mt-1 text-center text-[11px] ${pinned && pinned !== 'map' ? 'font-bold text-teal' : 'text-bark/60'}`}>
-        {pinned && pinned !== 'map' ? t.addPlacePinned(pinned) : t.addPlaceMapHint}
+      <p
+        className={`mt-1 text-center text-[11px] ${
+          approx ? 'font-bold text-sun-dark' : pinned && pinned !== 'map' ? 'font-bold text-teal' : 'text-bark/60'
+        }`}
+      >
+        {pinned === 'here'
+          ? t.addPlacePinnedHere
+          : pinned && pinned !== 'map'
+            ? approx
+              ? t.addPlacePinnedApprox(pinned)
+              : t.addPlacePinned(pinned)
+            : t.addPlaceMapHint}
       </p>
 
 

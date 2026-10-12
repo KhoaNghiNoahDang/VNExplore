@@ -19,6 +19,32 @@ export interface GeoResult {
   label: string
   lat: number
   lng: number
+  /** Only the street was found, not the house number: the pin needs a nudge. */
+  approx?: boolean
+}
+
+/** A Google Maps link ("Share → Copy link")? Short maps.app.goo.gl links included. */
+export const isMapsLink = (s: string) => /^https?:\/\/(maps\.app\.goo\.gl|goo\.gl\/maps|(www\.)?google\.[a-z.]+\/maps|maps\.google\.[a-z.]+)/i.test(s.trim())
+
+/** "21.0352, 105.8521" typed or pasted → a point (only around Hanoi). */
+export function coordsOf(s: string): { lat: number; lng: number } | null {
+  const m = /^\s*(-?\d{1,2}\.\d+)\s*[,;\s]\s*(-?\d{2,3}\.\d+)\s*$/.exec(s)
+  if (!m) return null
+  const lat = Number(m[1])
+  const lng = Number(m[2])
+  return lat > 20.5 && lat < 21.6 && lng > 105 && lng < 106.3 ? { lat, lng } : null
+}
+
+/** The point (and place name) of a shared Google Maps link, read by the backend. null if it can't. */
+export async function resolveMapsLink(url: string): Promise<GeoResult | null> {
+  if (!API_URL) return null
+  try {
+    const res = await fetch(`${API_URL}/v1/maps-link?url=${encodeURIComponent(url.trim())}`, { signal: AbortSignal.timeout(10000) })
+    if (!res.ok) return null
+    return ((await res.json()) as { result?: GeoResult | null }).result ?? null
+  } catch {
+    return null
+  }
 }
 
 /** Address / place search in greater Hanoi (for the start point). [] on any problem. */
