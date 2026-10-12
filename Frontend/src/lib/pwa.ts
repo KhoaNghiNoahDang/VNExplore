@@ -1,4 +1,6 @@
+/// <reference types="vite-plugin-pwa/client" />
 import { useEffect, useState } from 'react'
+import { registerSW } from 'virtual:pwa-register'
 
 /**
  * Installing VNExplore as an app (PWA), on every platform:
@@ -18,6 +20,40 @@ const INSTALLED_KEY = 'vx:pwa-installed'
 let deferred: InstallEvent | null = null
 const listeners = new Set<() => void>()
 const notify = () => listeners.forEach((f) => f())
+
+/**
+ * New deploys reach installed apps by themselves. The browser only looks for a new service worker
+ * when a page is opened, and an app left in the background is rarely reopened from scratch, so we
+ * also look on start, whenever it comes back to the screen (at most every 15 min) and every hour.
+ * A new version takes over at once (autoUpdate) and the page reloads into it; that is mostly right
+ * after the app is brought back, before anything has been typed.
+ */
+export function keepAppUpdated() {
+  if (!('serviceWorker' in navigator)) return
+  let lastCheck = Date.now()
+  registerSW({
+    immediate: true,
+    onRegisteredSW(_swUrl, reg) {
+      if (!reg) return
+      const check = async () => {
+        if (!navigator.onLine || reg.installing) return
+        lastCheck = Date.now()
+        try {
+          // Fetches sw.js past the HTTP cache; a changed one installs and takes over.
+          await reg.update()
+        } catch {
+          /* offline or server down: try again later */
+        }
+      }
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && Date.now() - lastCheck > 15 * 60_000) void check()
+      })
+      setInterval(() => {
+        if (document.visibilityState === 'visible') void check()
+      }, 60 * 60_000)
+    },
+  })
+}
 
 /** Call once at startup, before React renders: the browser fires the event only once, early. */
 export function captureInstallPrompt() {
