@@ -7,7 +7,7 @@ import { z, ZodError } from 'zod'
 import { config, isProd } from './config.js'
 import { BreakerOpenError, QueueFullError } from './lib/resilience.js'
 import { getContent } from './services/content.js'
-import { geocode } from './services/geocode.js'
+import { geocode, resolveMapsLink } from './services/geocode.js'
 import { llmHealth } from './services/llm.js'
 import { PlaceReportsUnavailableError, submitPlaceReport } from './services/placeReports.js'
 import { PlaceSuggestionsUnavailableError, submitPlaceSuggestion } from './services/placeSuggestions.js'
@@ -185,6 +185,20 @@ export async function buildApp() {
     } catch (err) {
       req.log.warn({ err: err instanceof Error ? err.message : err }, 'geocode failed')
       return reply.code(503).send({ error: 'unavailable', results: [] })
+    }
+  })
+
+  /** A link shared from Google Maps → its point (and place name). Only Google Maps hosts are followed. */
+  const MapsLinkQuery = z.object({ url: z.string().trim().min(10).max(2000) })
+  app.get('/v1/maps-link', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
+    const { url } = MapsLinkQuery.parse(req.query)
+    try {
+      const result = await resolveMapsLink(url)
+      if (!result) return reply.code(404).send({ error: 'not_found', result: null })
+      return { result }
+    } catch (err) {
+      req.log.warn({ err: err instanceof Error ? err.message : err }, 'maps link failed')
+      return reply.code(503).send({ error: 'unavailable', result: null })
     }
   })
 
