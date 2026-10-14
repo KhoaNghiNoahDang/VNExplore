@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useStart } from '../components/NeedStart'
 import AddPlaceCard from '../components/AddPlace'
-import { ArrowRight, ChevronDown, MapPin, Sparkles, X } from 'lucide-react'
+import { ArrowRight, ChevronDown, Cog, MapPin, Sparkles, X } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ROLE_ICON, TONE_BG } from '../components/icons'
 import IntentChips from '../components/IntentChips'
@@ -24,6 +24,7 @@ import { buildPlannerReply, buildRouteDetails } from '../lib/plannerReply'
 import { firstLeg } from '../lib/travel'
 import { useAuth } from '../store/AuthContext'
 import { useQuest } from '../store/QuestContext'
+import type { Intent } from '../types'
 
 /** Cards shown at first, and added by each "Show more". */
 const LIST_STEP = 30
@@ -193,6 +194,8 @@ export default function PlacesPage() {
             )}
           </div>
 
+          {intent.readBy && <ReadByNote readBy={intent.readBy} onRetry={() => navigate('/?ai=retry')} />}
+
           {chosen.length > 0 && (
             <div className="mt-3">
               <TransportHintCard start={start} stops={chosen} people={intent.people} />
@@ -359,6 +362,32 @@ export default function PlacesPage() {
             </PrimaryButton>
           </div>
         </Sheet>
+      )}
+    </div>
+  )
+}
+
+/** Was the request read by the AI, or did the app fall back to its keyword rules (and why)? */
+function ReadByNote({ readBy, onRetry }: { readBy: NonNullable<Intent['readBy']>; onRetry: () => void }) {
+  const { t } = useQuest()
+  if (readBy.by === 'ai') {
+    const model = /^gemini/i.test(readBy.model) ? `Gemini · ${readBy.model.replace(/^gemini-?/i, '')}` : readBy.model || 'Gemini'
+    return (
+      <p className="mt-2 flex items-start gap-1.5 text-[11px] font-medium leading-snug text-teal" role="status">
+        <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {t.readByAi(model)}
+      </p>
+    )
+  }
+  return (
+    <div className="mt-2 rounded-xl border border-sun/60 bg-butter/50 px-3 py-2 text-[11px] leading-snug text-bark" role="status">
+      <p className="flex items-start gap-1.5 font-bold">
+        <Cog className="mt-0.5 h-3.5 w-3.5 shrink-0" /> {t.readByRules}
+      </p>
+      <p className="ml-5 mt-0.5">{t.readByReason[readBy.reason]}</p>
+      {readBy.reason !== 'off' && readBy.reason !== 'limit' && (
+        <button type="button" onClick={onRetry} className="ml-5 mt-1 min-h-8 font-bold text-teal underline underline-offset-2">
+          {t.readByRetry}
+        </button>
       )}
     </div>
   )
