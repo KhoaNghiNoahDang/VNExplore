@@ -92,8 +92,13 @@ export interface AdviceContext {
  * slow, no model key, daily limit) — the caller then keeps its rule-based reading.
  */
 // 6.5 s: the backend gives the model at most 5.5 s (see Backend/src/services/llm.ts), plus the trip.
-export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 6500): Promise<Understood | null> {
-  if (!API_URL) return null
+/** Who read the request: the language model, or (when it couldn't) the app's own keyword rules. */
+export type UnderstandOutcome =
+  | { by: 'ai'; result: Understood; model: string }
+  | { by: 'rules'; reason: 'off' | 'slow' | 'busy' | 'limit' | 'offline' | 'error' }
+
+export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 6500): Promise<UnderstandOutcome> {
+  if (!API_URL) return { by: 'rules', reason: 'off' }
   try {
     const res = await fetch(`${API_URL}/v1/understand`, {
       method: 'POST',
@@ -101,10 +106,17 @@ export async function understandRequest(text: string, context?: AdviceContext, t
       body: JSON.stringify({ text, context }),
       signal: AbortSignal.timeout(timeoutMs),
     })
-    if (!res.ok) return null
-    const body = (await res.json()) as { result?: Understood }
-    return body.result ?? null
-  } catch {
-    return null
+    if (res.status === 429) return { by: 'rules', reason: 'limit' }
+    if (res.status === 503) return { by: 'rules', reason: 'busy' }
+    if (!res.ok) return { by: 'rules', reason: 'error' }
+    const body = (await res.json()) as { result?: Understood; provider?: string }
+    if (!body.result) return { by: 'rules', reason: 'error' }
+    // "gemini:gemini-flash-lite-latest#1" → "gemini-flash-lite-latest"
+    const model = (body.provider ?? '').replace(/^[^:]*:/, '').replace(/#\d+$/, '')
+    return { by: 'ai', result: body.result, model }
+  } catch (e) {
+    if (!navigator.onLine) return { by: 'rules', reason: 'offline' }
+    if (e instanceof DOMException && (e.name === 'TimeoutError' || e.name === 'AbortError')) return { by: 'rules', reason: 'slow' }
+    return { by: 'rules', reason: 'error' }
   }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, CircleAlert, Lightbulb, Loader2, Mic, Square } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import ContributeCard from '../components/ContributeCard'
 import ModePicker from '../components/ModePicker'
 import PrimaryButton from '../components/PrimaryButton'
@@ -14,6 +14,7 @@ import { mergeUnderstood, parseIntent, withAreaDefaults } from '../lib/intent'
 import { preselect, rankPlaces } from '../lib/quest'
 import { useSpeech } from '../lib/useSpeech'
 import { useQuest } from '../store/QuestContext'
+import type { Intent } from '../types'
 
 export default function AskPage() {
   const { t, lang, draft, setDraft, setIntent, planFor, contextFor, geo, geoWanted, mode, transport: picked, setTransport, travel } = useQuest()
@@ -76,9 +77,7 @@ export default function AskPage() {
     setThinking(true)
     const requestContext = contextFor(askPlan.center)
     const forecast = requestContext.weather
-    const merged = mergeUnderstood(
-      preview,
-      await understandRequest(preview.text, {
+    const outcome = await understandRequest(preview.text, {
         language: lang,
         area: askRegion?.id ?? 'near-start',
         transport: shownTransport,
@@ -88,8 +87,11 @@ export default function AskPage() {
         weather: forecast
           ? { tempC: forecast.tempC, rainProb: forecast.rainProb, rainy: forecast.rainy, hot: forecast.hot }
           : null,
-      }),
-    )
+      })
+    const merged: Intent = {
+      ...mergeUnderstood(preview, outcome.by === 'ai' ? outcome.result : null),
+      readBy: outcome.by === 'ai' ? { by: 'ai', model: outcome.model } : { by: 'rules', reason: outcome.reason },
+    }
     setThinking(false)
     // Plan around the region named in the text, else around where the traveller is.
     const intent = withAreaDefaults(merged, regionById(merged.area))
@@ -104,6 +106,14 @@ export default function AskPage() {
 
   const submitRef = useRef(submit)
   submitRef.current = submit
+  // "Ask the AI again" on the places page: run the same request once more.
+  const [params, setParams] = useSearchParams()
+  const retry = params.get('ai') === 'retry'
+  useEffect(() => {
+    if (!retry) return
+    setParams({}, { replace: true })
+    if (preview && mode) void submitRef.current()
+  }, [retry]) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (pending && hasStart) {
       setPending(false)
