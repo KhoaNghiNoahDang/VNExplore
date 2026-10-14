@@ -82,11 +82,46 @@ const SEA_AREA = {
   type: 'Polygon' as const,
   coordinates: [[[110.3, 6.5], [116.3, 6.5], [116.3, 9], [117, 11], [117, 18], [110.3, 18], [110.3, 6.5]]],
 }
-const ISLANDS: [number, number][] = [
-  // Hoàng Sa: Phú Lâm, Hoàng Sa, Tri Tôn, Linh Côn, Cây
-  [112.339, 16.834], [111.608, 16.533], [111.2, 15.783], [112.733, 16.667], [112.267, 16.95],
-  // Trường Sa: Trường Sa Lớn, Song Tử Tây, Sinh Tồn, Nam Yết, Ba Bình, Sơn Ca, An Bang, Thuyền Chài
-  [111.918, 8.645], [114.33, 11.43], [114.329, 9.886], [114.361, 10.181], [114.365, 10.377], [114.478, 10.376], [112.917, 7.885], [113.3, 8.17],
+/**
+ * Islands named on the map. "hs"/"ts": the two archipelagos (the base map's labels there are
+ * hidden, so these are the only names). "coast": Viet Nam's other outlying islands, which the base
+ * map drops when zoomed out — ours show until the base map's own labels take over.
+ */
+const ISLES: { name: string; at: [number, number]; group: 'hs' | 'ts' | 'coast' }[] = [
+  { name: 'Đảo Phú Lâm', at: [112.339, 16.834], group: 'hs' },
+  { name: 'Đảo Cây', at: [112.267, 16.983], group: 'hs' },
+  { name: 'Đảo Linh Côn', at: [112.733, 16.667], group: 'hs' },
+  { name: 'Đảo Hoàng Sa', at: [111.608, 16.533], group: 'hs' },
+  { name: 'Đảo Hữu Nhật', at: [111.583, 16.5], group: 'hs' },
+  { name: 'Đảo Quang Ảnh', at: [111.51, 16.45], group: 'hs' },
+  { name: 'Đảo Duy Mộng', at: [111.733, 16.467], group: 'hs' },
+  { name: 'Đảo Quang Hòa', at: [111.7, 16.433], group: 'hs' },
+  { name: 'Đảo Bạch Quy', at: [111.77, 16.05], group: 'hs' },
+  { name: 'Đảo Tri Tôn', at: [111.2, 15.783], group: 'hs' },
+  { name: 'Đảo Song Tử Đông', at: [114.356, 11.454], group: 'ts' },
+  { name: 'Đảo Song Tử Tây', at: [114.33, 11.43], group: 'ts' },
+  { name: 'Đảo Thị Tứ', at: [114.284, 11.055], group: 'ts' },
+  { name: 'Đảo Loại Ta', at: [114.42, 10.67], group: 'ts' },
+  { name: 'Đảo Ba Bình', at: [114.365, 10.377], group: 'ts' },
+  { name: 'Đảo Sơn Ca', at: [114.478, 10.376], group: 'ts' },
+  { name: 'Đảo Nam Yết', at: [114.361, 10.181], group: 'ts' },
+  { name: 'Đảo Sinh Tồn', at: [114.329, 9.886], group: 'ts' },
+  { name: 'Đảo Sinh Tồn Đông', at: [114.56, 9.91], group: 'ts' },
+  { name: 'Đảo Bình Nguyên', at: [115.82, 10.81], group: 'ts' },
+  { name: 'Đảo Vĩnh Viễn', at: [115.8, 10.73], group: 'ts' },
+  { name: 'Đảo Phan Vinh', at: [113.68, 8.97], group: 'ts' },
+  { name: 'Đảo Trường Sa Đông', at: [112.35, 8.93], group: 'ts' },
+  { name: 'Đảo Trường Sa', at: [111.918, 8.645], group: 'ts' },
+  { name: 'Đảo Thuyền Chài', at: [113.3, 8.17], group: 'ts' },
+  { name: 'Đảo An Bang', at: [112.917, 7.885], group: 'ts' },
+  { name: 'Đảo Cô Tô', at: [107.77, 20.99], group: 'coast' },
+  { name: 'Đảo Bạch Long Vĩ', at: [107.73, 20.13], group: 'coast' },
+  { name: 'Đảo Cồn Cỏ', at: [107.34, 17.16], group: 'coast' },
+  { name: 'Đảo Lý Sơn', at: [109.12, 15.38], group: 'coast' },
+  { name: 'Đảo Phú Quý', at: [108.94, 10.52], group: 'coast' },
+  { name: 'Côn Đảo', at: [106.61, 8.69], group: 'coast' },
+  { name: 'Đảo Phú Quốc', at: [103.96, 10.23], group: 'coast' },
+  { name: 'Đảo Thổ Chu', at: [103.48, 9.3], group: 'coast' },
 ]
 const ISLAND_NAMES: Record<Lang, { hoangSa: string; truongSa: string; sea: string }> = {
   vi: { hoangSa: 'Quần đảo Hoàng Sa\n(Việt Nam)', truongSa: 'Quần đảo Trường Sa\n(Việt Nam)', sea: 'Biển Đông' },
@@ -114,7 +149,7 @@ function showVietnamIslands(map: MLMap, lang: Lang) {
     data: {
       type: 'FeatureCollection',
       features: [
-        ...ISLANDS.map(([lng, lat]) => point(lng, lat, { kind: 'island' })),
+        ...ISLES.map((i) => point(i.at[0], i.at[1], { kind: 'island', group: i.group, name: i.name })),
         point(112.0, 16.15, { kind: 'name', name: names.hoangSa }),
         point(113.9, 9.55, { kind: 'name', name: names.truongSa }),
         point(112.6, 13.2, { kind: 'sea', name: names.sea }),
@@ -125,9 +160,27 @@ function showVietnamIslands(map: MLMap, lang: Lang) {
     id: 'vn-islands-dot',
     type: 'circle',
     source: 'vn-islands',
-    maxzoom: 9,
+    maxzoom: 10,
     filter: ['==', ['get', 'kind'], 'island'],
     paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 1.6, 8, 3.5], 'circle-color': '#6E5539', 'circle-opacity': 0.8 },
+  })
+  // Each island's name: in the archipelagos from zoom 6; the coastal ones until the base map's
+  // own labels appear (around zoom 9).
+  map.addLayer({
+    id: 'vn-isles-name',
+    type: 'symbol',
+    source: 'vn-islands',
+    minzoom: 4.5,
+    filter: ['all', ['==', ['get', 'kind'], 'island'], ['case', ['==', ['get', 'group'], 'coast'], ['<', ['zoom'], 9], ['>=', ['zoom'], 6]]],
+    layout: {
+      'text-field': ['get', 'name'],
+      'text-font': ['literal', ['Noto Sans Regular']],
+      'text-size': ['interpolate', ['linear'], ['zoom'], 5, 10, 10, 13],
+      'text-anchor': 'top',
+      'text-offset': [0, 0.5],
+      'text-optional': true,
+    },
+    paint: { 'text-color': '#6E5539', 'text-halo-color': '#FFF6DC', 'text-halo-width': 1.2 },
   })
   map.addLayer({
     id: 'vn-islands-name',
