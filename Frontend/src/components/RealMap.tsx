@@ -21,7 +21,7 @@ setWorkerUrl(new URL('/maplibre/maplibre-gl-worker.mjs', location.origin).href)
 export const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
 
 /** Re-colour the neutral Positron style with the app palette (cream land, teal water). */
-export function applyPalette(map: MLMap) {
+export function applyPalette(map: MLMap, lang: Lang = 'vi') {
   const paint: [RegExp, string, string][] = [
     [/^background$/, 'background-color', '#FFF6DC'],
     [/water/, 'fill-color', '#BFE0DA'],
@@ -69,6 +69,85 @@ export function applyPalette(map: MLMap) {
       }
     }
   }
+  showVietnamIslands(map, lang)
+}
+
+/**
+ * Viet Nam's Hoàng Sa and Trường Sa archipelagos, always shown and named as Vietnamese.
+ * The open map data names them (and the sea) in other languages, and at the zoom levels where the
+ * whole country is in view the small islands are not drawn at all. So: the base map's own labels
+ * in that part of Biển Đông are hidden, and ours are drawn with a dot for each main island.
+ */
+const SEA_AREA = {
+  type: 'Polygon' as const,
+  coordinates: [[[110.3, 6.5], [116.3, 6.5], [116.3, 9], [117, 11], [117, 18], [110.3, 18], [110.3, 6.5]]],
+}
+const ISLANDS: [number, number][] = [
+  // Hoàng Sa: Phú Lâm, Hoàng Sa, Tri Tôn, Linh Côn, Cây
+  [112.339, 16.834], [111.608, 16.533], [111.2, 15.783], [112.733, 16.667], [112.267, 16.95],
+  // Trường Sa: Trường Sa Lớn, Song Tử Tây, Sinh Tồn, Nam Yết, Ba Bình, Sơn Ca, An Bang, Thuyền Chài
+  [111.918, 8.645], [114.33, 11.43], [114.329, 9.886], [114.361, 10.181], [114.365, 10.377], [114.478, 10.376], [112.917, 7.885], [113.3, 8.17],
+]
+const ISLAND_NAMES: Record<Lang, { hoangSa: string; truongSa: string; sea: string }> = {
+  vi: { hoangSa: 'Quần đảo Hoàng Sa\n(Việt Nam)', truongSa: 'Quần đảo Trường Sa\n(Việt Nam)', sea: 'Biển Đông' },
+  en: { hoangSa: 'Hoang Sa Archipelago\n(Viet Nam)', truongSa: 'Truong Sa Archipelago\n(Viet Nam)', sea: 'East Sea' },
+}
+
+function showVietnamIslands(map: MLMap, lang: Lang) {
+  for (const layer of map.getStyle().layers ?? []) {
+    if (layer.type !== 'symbol') continue
+    const f = map.getFilter(layer.id)
+    try {
+      map.setFilter(layer.id, ['all', f ?? true, ['!', ['within', SEA_AREA]]] as never)
+    } catch {
+      /* filter in the old syntax: leave that layer alone */
+    }
+  }
+  const names = ISLAND_NAMES[lang]
+  const point = (lng: number, lat: number, props: Record<string, string>) => ({
+    type: 'Feature' as const,
+    properties: props,
+    geometry: { type: 'Point' as const, coordinates: [lng, lat] },
+  })
+  map.addSource('vn-islands', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: [
+        ...ISLANDS.map(([lng, lat]) => point(lng, lat, { kind: 'island' })),
+        point(112.0, 16.15, { kind: 'name', name: names.hoangSa }),
+        point(113.9, 9.55, { kind: 'name', name: names.truongSa }),
+        point(112.6, 13.2, { kind: 'sea', name: names.sea }),
+      ],
+    },
+  })
+  map.addLayer({
+    id: 'vn-islands-dot',
+    type: 'circle',
+    source: 'vn-islands',
+    maxzoom: 9,
+    filter: ['==', ['get', 'kind'], 'island'],
+    paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 1.6, 8, 3.5], 'circle-color': '#6E5539', 'circle-opacity': 0.8 },
+  })
+  map.addLayer({
+    id: 'vn-islands-name',
+    type: 'symbol',
+    source: 'vn-islands',
+    filter: ['!=', ['get', 'kind'], 'island'],
+    layout: {
+      'text-field': ['get', 'name'],
+      'text-font': ['case', ['==', ['get', 'kind'], 'sea'], ['literal', ['Noto Sans Italic']], ['literal', ['Noto Sans Bold']]],
+      'text-size': ['interpolate', ['linear'], ['zoom'], 3, ['case', ['==', ['get', 'kind'], 'sea'], 12, 10], 8, ['case', ['==', ['get', 'kind'], 'sea'], 18, 15]],
+      'text-letter-spacing': ['case', ['==', ['get', 'kind'], 'sea'], 0.2, 0.02],
+      'text-allow-overlap': true,
+      'text-ignore-placement': true,
+    },
+    paint: {
+      'text-color': ['case', ['==', ['get', 'kind'], 'sea'], '#2F8A84', '#6E5539'],
+      'text-halo-color': '#FFF6DC',
+      'text-halo-width': 1.4,
+    },
+  })
 }
 
 const MAP_TEXT: Record<Lang, Record<string, string>> = {
@@ -158,7 +237,7 @@ export default function RealMap({
     map.addControl(new AttributionControl({ compact: true }), full ? 'top-right' : 'bottom-right')
     if (!full) map.addControl(new NavigationControl({ showCompass: false }), 'top-right')
     map.on('load', () => {
-      applyPalette(map)
+      applyPalette(map, lang)
       // Compact attribution opens itself after the first render; fold it to the small ⓘ button.
       map.once('idle', () =>
         box.current?.querySelector('.maplibregl-compact-show')?.classList.remove('maplibregl-compact-show'),

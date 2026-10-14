@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { AttributionControl, Map as MLMap, Marker, NavigationControl } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import { useQuest } from '../store/QuestContext'
 import type { LatLng } from '../types'
 import { applyPalette, STYLE_URL } from './RealMap'
 
@@ -34,6 +35,7 @@ export default function PickMap({
   const map = useRef<MLMap | null>(null)
   const pin = useRef<Marker | null>(null)
   const user = useRef<Marker | null>(null)
+  const { lang } = useQuest()
   const pick = useRef(onPick)
   pick.current = onPick
   const pinShown = useRef(showPin)
@@ -58,7 +60,7 @@ export default function PickMap({
     m.touchZoomRotate.disableRotation()
     m.addControl(new AttributionControl({ compact: true }), 'bottom-right')
     m.addControl(new NavigationControl({ showCompass: false }), 'top-right')
-    m.on('load', () => applyPalette(m))
+    m.on('load', () => applyPalette(m, lang))
 
     const el = document.createElement('div')
     el.innerHTML = PIN_SVG
