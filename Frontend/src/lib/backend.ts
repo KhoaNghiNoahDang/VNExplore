@@ -97,7 +97,7 @@ export type UnderstandOutcome =
   | { by: 'ai'; result: Understood; model: string }
   | { by: 'rules'; reason: 'off' | 'slow' | 'busy' | 'limit' | 'offline' | 'error' }
 
-export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 6500): Promise<UnderstandOutcome> {
+export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 11000): Promise<UnderstandOutcome> {
   if (!API_URL) return { by: 'rules', reason: 'off' }
   try {
     const res = await fetch(`${API_URL}/v1/understand`, {
