@@ -95,7 +95,7 @@ export interface AdviceContext {
 /** Who read the request: the language model, or (when it couldn't) the app's own keyword rules. */
 export type UnderstandOutcome =
   | { by: 'ai'; result: Understood; model: string }
-  | { by: 'rules'; reason: 'off' | 'slow' | 'busy' | 'limit' | 'offline' | 'error' }
+  | { by: 'rules'; reason: 'off' | 'slow' | 'busy' | 'limit' | 'offline' | 'blocked' | 'error' }
 
 export async function understandRequest(text: string, context?: AdviceContext, timeoutMs = 11000): Promise<UnderstandOutcome> {
   if (!API_URL) return { by: 'rules', reason: 'off' }
@@ -117,6 +117,8 @@ export async function understandRequest(text: string, context?: AdviceContext, t
   } catch (e) {
     if (!navigator.onLine) return { by: 'rules', reason: 'offline' }
     if (e instanceof DOMException && (e.name === 'TimeoutError' || e.name === 'AbortError')) return { by: 'rules', reason: 'slow' }
+    // fetch() failing outright: the server refused this site (CORS) or couldn't be reached.
+    if (e instanceof TypeError) return { by: 'rules', reason: 'blocked' }
     return { by: 'rules', reason: 'error' }
   }
 }

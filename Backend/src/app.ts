@@ -18,7 +18,8 @@ import { DailyLimitError, understand } from './services/understand.js'
 function originMatcher(list: string): (origin: string) => boolean {
   const patterns = list
     .split(',')
-    .map((s) => s.trim())
+    // "https://x.vercel.app/" (copied with its slash) must still match the Origin "https://x.vercel.app".
+    .map((s) => s.trim().replace(/\/+$/, ''))
     .filter(Boolean)
     .map((p) => new RegExp('^' + p.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[a-z0-9-]+') + '$', 'i'))
   return (origin) => patterns.some((re) => re.test(origin))
@@ -55,12 +56,24 @@ export async function buildApp() {
     return503OnClosing: true,
   })
 
+  /** For /health: a site the browser was refused for (not in ALLOWED_ORIGINS), and the last /v1/understand. */
+  let lastRejectedOrigin: string | null = null
+  let lastUnderstand: { at: string; status: number; why?: string } | null = null
+
   // ---------------------------------------------------------------- protection
   await app.register(helmet, { contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } })
 
   const allowed = originMatcher(config.ALLOWED_ORIGINS)
   await app.register(cors, {
-    origin: (origin, cb) => cb(null, !origin || allowed(origin)), // no Origin = curl / server-to-server
+    // no Origin = curl / server-to-server
+    origin: (origin, cb) => {
+      const ok = !origin || allowed(origin)
+      if (!ok && origin !== lastRejectedOrigin) {
+        lastRejectedOrigin = origin ?? null
+        app.log.warn({ origin }, 'CORS: origin not in ALLOWED_ORIGINS')
+      }
+      cb(null, ok)
+    },
     methods: ['GET', 'POST', 'OPTIONS'],
     maxAge: 600,
   })
@@ -114,6 +127,8 @@ export async function buildApp() {
     content: contentVersion(),
     ...routingHealth(),
     llm: llmHealth(),
+    understand: lastUnderstand,
+    corsRejected: lastRejectedOrigin,
   }))
 
   /** Approved places (with quizzes), roles + missions, events. ETag lets a client skip the download when unchanged. */
@@ -142,7 +157,10 @@ export async function buildApp() {
    * 503 when no model answers: the app then uses its rule-based parser, so this is never blocking.
    */
   const UnderstandBody = z.object({
-    text: z.string().trim().min(2).max(500),
+    // Long, detailed requests are welcome: the model reads the first 500 characters.
+    text: z.string().trim().min(2).max(4000),
+  })
+  const UnderstandContext = z.object({
     context: z
       .object({
         language: z.enum(['vi', 'en']),
@@ -164,12 +182,26 @@ export async function buildApp() {
       .optional(),
   })
   app.post('/v1/understand', { config: { rateLimit: { max: 15, timeWindow: '1 minute' } } }, async (req, reply) => {
-    const { text, context } = UnderstandBody.parse(req.body)
+    const note = (status: number, why?: string) => (lastUnderstand = { at: new Date().toISOString(), status, ...(why ? { why } : {}) })
+    const body = UnderstandBody.safeParse(req.body)
+    if (!body.success) {
+      note(400, body.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ').slice(0, 160))
+      return reply.code(400).send({ error: 'bad_request', message: 'Invalid input' })
+    }
+    // Context only sharpens the answer: an odd value in it must not cost the traveller the AI.
+    const context = UnderstandContext.safeParse(req.body).data?.context
     try {
-      return await understand(text, req.ip, context)
+      const out = await understand(body.data.text, req.ip, context)
+      note(200, out.cached ? 'cached' : undefined)
+      return out
     } catch (err) {
-      if (err instanceof DailyLimitError) return reply.code(429).send({ error: 'daily_limit', message: err.message })
-      req.log.warn({ err: err instanceof Error ? err.message : err }, 'understand failed')
+      if (err instanceof DailyLimitError) {
+        note(429, 'daily limit')
+        return reply.code(429).send({ error: 'daily_limit', message: err.message })
+      }
+      const why = err instanceof Error ? err.message : String(err)
+      note(503, why.slice(0, 160))
+      req.log.warn({ err: why }, 'understand failed')
       return reply.code(503).send({ error: 'unavailable', message: 'Language model unavailable' })
     }
   })
