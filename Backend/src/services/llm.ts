@@ -33,16 +33,26 @@ const isReady = (k: KeyState, model: string, now = Date.now()) => k.deadUntil <=
 let cursor = 0
 
 /**
- * The app waits ~6.5 s for an answer (then keeps its rule-based reading), so the whole chain of
- * attempts must finish inside this budget: a slow key must not eat the time of the next one.
+ * The app waits ~11 s for an answer (then keeps its rule-based reading), so the whole chain of
+ * attempts must finish inside this budget: a slow key must not eat all the time of the next one.
+ * (A Flash answer usually takes 1–3 s, but 5–6 s happens.)
  */
-const BUDGET_MS = 5500
-const CALL_TIMEOUT_MS = 3500
+const BUDGET_MS = 9500
+const CALL_TIMEOUT_MS = 7000
 /** Don't start another attempt with less time than this left. */
-const MIN_ATTEMPT_MS = 1200
+const MIN_ATTEMPT_MS = 1500
+
+/**
+ * How long the model may "think" first. Without it, Gemini 3 models (where the "-latest" aliases
+ * now point) think at their default level — many seconds, far past our time budget. Gemini 2.x
+ * can skip thinking ("none"); Gemini 3 can't, "low" is its quickest level accepted everywhere.
+ * A model that rejects the parameter is called without it from then on.
+ */
+const effortFor = (model: string) => (/gemini-2\./.test(model) ? 'none' : 'low')
+const noEffort = new Set<string>()
 
 /** For /health: how the last real call went (model, status, when) — never the request text. */
-let lastCall: { at: string; model: string; ok: boolean; status?: number; error?: string } | null = null
+let lastCall: { at: string; model: string; ok: boolean; ms: number; status?: number; error?: string } | null = null
 
 class HttpError extends Error {
   constructor(
@@ -92,6 +102,7 @@ interface ChatResponse {
 
 async function call(k: KeyState, model: string, system: string, user: string, timeoutMs: number): Promise<unknown> {
   let res: Response
+  const effort = noEffort.has(model) ? {} : { reasoning_effort: effortFor(model) }
   try {
     res = await fetch(`${BASE_URL}/chat/completions`, {
       method: 'POST',
@@ -99,6 +110,7 @@ async function call(k: KeyState, model: string, system: string, user: string, ti
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${k.key}` },
       body: JSON.stringify({
         model,
+        ...effort,
         temperature: 0.1,
         // Newer Flash models "think" first, and those tokens count here too: 500 could cut the JSON
         // off (or leave it empty). The answer itself is ~300 tokens; only what is used is billed.
@@ -117,7 +129,14 @@ async function call(k: KeyState, model: string, system: string, user: string, ti
     const detail = await res.text().catch(() => '')
     // Google answers an invalid key with 400 "API key not valid": treat it like 401 (park the key).
     const status = res.status === 400 && /api[ _]?key/i.test(detail) ? 401 : res.status
-    throw new HttpError(status, `Gemini ${res.status}`)
+    // This model doesn't take reasoning_effort: drop it and ask again right away.
+    if (res.status === 400 && 'reasoning_effort' in effort && /reasoning|thinking/i.test(detail)) {
+      noEffort.add(model)
+      return call(k, model, system, user, timeoutMs)
+    }
+    // Google's own message (never contains the key), for /health.
+    const why = (/"message":\s*"([^"]{0,140})/.exec(detail)?.[1] ?? '').replace(/AIza[\w-]+/g, '…')
+    throw new HttpError(status, `Gemini ${res.status}${why ? `: ${why}` : ''}`)
   }
   const body = (await res.json()) as ChatResponse
   const text = body.choices?.[0]?.message?.content ?? ''
@@ -137,12 +156,13 @@ export async function chatJson(system: string, user: string): Promise<{ provider
     for (const k of readyKeys(model, start)) {
       const left = deadline - Date.now()
       if (left < MIN_ATTEMPT_MS) break
+      const t0 = Date.now()
       try {
         const json = await call(k, model, system, user, Math.min(CALL_TIMEOUT_MS, left))
         const m = stateOf(k, model)
         m.failures = 0
         m.quotaHits = 0
-        lastCall = { at: new Date().toISOString(), model, ok: true }
+        lastCall = { at: new Date().toISOString(), model, ok: true, ms: Date.now() - t0 }
         return { provider: `gemini:${model}#${keys.indexOf(k) + 1}`, json }
       } catch (err) {
         last = err
@@ -150,8 +170,9 @@ export async function chatJson(system: string, user: string): Promise<{ provider
           at: new Date().toISOString(),
           model,
           ok: false,
+          ms: Date.now() - t0,
           ...(err instanceof HttpError ? { status: err.status } : {}),
-          error: (err instanceof Error ? err.message : String(err)).slice(0, 120),
+          error: (err instanceof Error ? err.message : String(err)).slice(0, 180),
         }
         if (err instanceof HttpError) rest(k, model, err.status)
         // A bad JSON answer isn't the key's fault: try the next key/model anyway.

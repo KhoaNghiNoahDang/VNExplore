@@ -73,7 +73,7 @@ export default function AskPage() {
       if (!(geoWanted && geo.status === 'asking')) setLocSheet(true)
       return
     }
-    // Let the language model read the request (≤ ~6 s); on any problem keep the rule-based reading.
+    // Let the language model read the request (≤ ~11 s); on any problem keep the rule-based reading.
     setThinking(true)
     const requestContext = contextFor(askPlan.center)
     const forecast = requestContext.weather
