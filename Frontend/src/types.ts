@@ -231,7 +231,7 @@ export interface Intent {
   /** Short acknowledgement and one useful trip-specific suggestion. */
   reply?: L | null
   /** Who read the request: the language model, or the keyword rules (and why the model didn't). */
-  readBy?: { by: 'ai'; model: string } | { by: 'rules'; reason: 'off' | 'slow' | 'busy' | 'limit' | 'offline' | 'error' }
+  readBy?: { by: 'ai'; model: string } | { by: 'rules'; reason: 'off' | 'slow' | 'busy' | 'limit' | 'offline' | 'blocked' | 'error' }
 }
 
 export interface Journey {
